@@ -10,11 +10,117 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_zBAcQISuEeKvnayLHGWWrQ" name="negocio">
     <eAnnotations xmi:id="_zBAcQYSuEeKvnayLHGWWrQ" source="uml2.diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_MMyvQISvEeKvnayLHGWWrQ" name="clientes">
-      <eAnnotations xmi:id="_MMzWUISvEeKvnayLHGWWrQ" source="uml2.diagrams" references="_MMz9YISvEeKvnayLHGWWrQ">
-        <contents xmi:type="umlnotation:UMLDiagram" xmi:id="_MMz9YISvEeKvnayLHGWWrQ" type="Freeform" name="Principal">
-          <element xsi:nil="true"/>
-        </contents>
-      </eAnnotations>
+      <eAnnotations xmi:id="_MMzWUISvEeKvnayLHGWWrQ" source="uml2.diagrams"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_6IangKz1EeKN1cc1Uu-D-A" name="exception">
+        <packagedElement xmi:type="uml:Class" xmi:id="_6Iangaz1EeKN1cc1Uu-D-A" name="BusinessException">
+          <generalization xmi:id="_6Iangqz1EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=java.lang.Exception%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedOperation xmi:id="_6Iang6z1EeKN1cc1Uu-D-A" name="BusinessException" visibility="public">
+            <ownedParameter xmi:id="_6IanhKz1EeKN1cc1Uu-D-A" name="err">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_6Ianhaz1EeKN1cc1Uu-D-A" name="ClientAppServiceException">
+          <generalization xmi:id="_6Ianhqz1EeKN1cc1Uu-D-A" general="_6Iangaz1EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_6Ianh6z1EeKN1cc1Uu-D-A" name="ClientAppServiceException" visibility="public">
+            <ownedParameter xmi:id="_6IaniKz1EeKN1cc1Uu-D-A" name="err">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_6Ianiaz1EeKN1cc1Uu-D-A" name="FacadeImp" clientDependency="_6Ianiqz1EeKN1cc1Uu-D-A">
+        <interfaceRealization xmi:id="_6Ianiqz1EeKN1cc1Uu-D-A" supplier="_6Ianjaz1EeKN1cc1Uu-D-A" client="_6Ianiaz1EeKN1cc1Uu-D-A" contract="_6Ianjaz1EeKN1cc1Uu-D-A"/>
+        <ownedOperation xmi:id="_6Iani6z1EeKN1cc1Uu-D-A" name="addClient" visibility="public" raisedException="_6Ianhaz1EeKN1cc1Uu-D-A">
+          <ownedParameter xmi:id="_6IanjKz1EeKN1cc1Uu-D-A" name="t" type="_6IanpKz1EeKN1cc1Uu-D-A"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_6Ianjaz1EeKN1cc1Uu-D-A" name="Facade">
+        <ownedOperation xmi:id="_6Ianjqz1EeKN1cc1Uu-D-A" name="addClient" visibility="public" raisedException="_6Ianhaz1EeKN1cc1Uu-D-A">
+          <ownedParameter xmi:id="_6Ianj6z1EeKN1cc1Uu-D-A" name="t" type="_6IanpKz1EeKN1cc1Uu-D-A"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_6IankKz1EeKN1cc1Uu-D-A" name="AppServices">
+        <packagedElement xmi:type="uml:Class" xmi:id="_6Iankaz1EeKN1cc1Uu-D-A" name="ClientAppServicesImp" clientDependency="_6Iankqz1EeKN1cc1Uu-D-A">
+          <interfaceRealization xmi:id="_6Iankqz1EeKN1cc1Uu-D-A" supplier="_6Ianl6z1EeKN1cc1Uu-D-A" client="_6Iankaz1EeKN1cc1Uu-D-A" contract="_6Ianl6z1EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_6Iank6z1EeKN1cc1Uu-D-A" name="addClient" visibility="public" raisedException="_6Ianhaz1EeKN1cc1Uu-D-A">
+            <ownedParameter xmi:id="_6IanlKz1EeKN1cc1Uu-D-A" name="t" type="_6IanpKz1EeKN1cc1Uu-D-A"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_6Ianlaz1EeKN1cc1Uu-D-A" name="checkData" visibility="private" raisedException="_6Ianhaz1EeKN1cc1Uu-D-A">
+            <ownedParameter xmi:id="_6Ianlqz1EeKN1cc1Uu-D-A" name="t" type="_6IanpKz1EeKN1cc1Uu-D-A"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_6Ianl6z1EeKN1cc1Uu-D-A" name="ClientAppServices">
+          <ownedOperation xmi:id="_6IanmKz1EeKN1cc1Uu-D-A" name="addClient" visibility="public" raisedException="_6Ianhaz1EeKN1cc1Uu-D-A">
+            <ownedParameter xmi:id="_6Ianmaz1EeKN1cc1Uu-D-A" name="t" type="_6IanpKz1EeKN1cc1Uu-D-A"/>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_6Ianmqz1EeKN1cc1Uu-D-A" name="BusinessFactory" isAbstract="true">
+        <ownedAttribute xmi:id="_6Ianm6z1EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_6Ianmqz1EeKN1cc1Uu-D-A">
+          <defaultValue xmi:type="uml:LiteralNull" xmi:id="_6IannKz1EeKN1cc1Uu-D-A"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_6Iannaz1EeKN1cc1Uu-D-A" name="facade" visibility="public" type="_6Ianjaz1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+        <ownedAttribute xmi:id="_6Iannqz1EeKN1cc1Uu-D-A" name="clientAS" visibility="public" type="_6Ianl6z1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_6Iann6z1EeKN1cc1Uu-D-A" name="BusinessFactoryImp">
+        <generalization xmi:id="_6IanoKz1EeKN1cc1Uu-D-A" general="_6Ianmqz1EeKN1cc1Uu-D-A"/>
+        <ownedAttribute xmi:id="_6Ianoaz1EeKN1cc1Uu-D-A" name="clientAS" visibility="public" type="_6Ianl6z1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+        <ownedAttribute xmi:id="_6Ianoqz1EeKN1cc1Uu-D-A" name="facade" visibility="public" type="_6Ianjaz1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_6Iano6z1EeKN1cc1Uu-D-A" name="transfer">
+        <packagedElement xmi:type="uml:Class" xmi:id="_6IanpKz1EeKN1cc1Uu-D-A" name="ClientTransfer">
+          <ownedAttribute xmi:id="_6Ianpaz1EeKN1cc1Uu-D-A" name="name" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6Ianpqz1EeKN1cc1Uu-D-A" name="surname" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6Ianp6z1EeKN1cc1Uu-D-A" name="dni" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6IanqKz1EeKN1cc1Uu-D-A" name="phone" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6Ianqaz1EeKN1cc1Uu-D-A" name="creditCard" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6Ianqqz1EeKN1cc1Uu-D-A" name="company" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_6Ianq6z1EeKN1cc1Uu-D-A" name="address" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_6IanrKz1EeKN1cc1Uu-D-A" name="ClientTransfer" visibility="public">
+            <ownedParameter xmi:id="_6Ianraz1EeKN1cc1Uu-D-A" name="name">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6Ianrqz1EeKN1cc1Uu-D-A" name="surname">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6Ianr6z1EeKN1cc1Uu-D-A" name="dni">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6IansKz1EeKN1cc1Uu-D-A" name="phone">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6Iansaz1EeKN1cc1Uu-D-A" name="creditCard">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6Iansqz1EeKN1cc1Uu-D-A" name="company">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_6Ians6z1EeKN1cc1Uu-D-A" name="address">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_6IantKz1EeKN1cc1Uu-D-A" name="ShiftTransfer">
+          <ownedOperation xmi:id="_6Iantaz1EeKN1cc1Uu-D-A" name="ShiftTransfer" visibility="public"/>
+        </packagedElement>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_NCeaEISvEeKvnayLHGWWrQ" name="empleados">
       <eAnnotations xmi:id="_NCfBIISvEeKvnayLHGWWrQ" source="uml2.diagrams" references="_NCfBIYSvEeKvnayLHGWWrQ">
@@ -63,20 +169,521 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_IK6OMISvEeKvnayLHGWWrQ" name="clientes">
       <eAnnotations xmi:id="_IK7cUISvEeKvnayLHGWWrQ" source="uml2.diagrams"/>
-      <packagedElement xmi:type="uml:Package" xmi:id="_1RHoQISvEeKvnayLHGWWrQ" name="imp">
-        <eAnnotations xmi:id="_1RIPUISvEeKvnayLHGWWrQ" source="uml2.diagrams"/>
-        <packagedElement xmi:type="uml:Interface" xmi:id="_adnUEISwEeKvnayLHGWWrQ" name="SAClienteImp"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_kd2YgKz1EeKN1cc1Uu-D-A" name="DAOFactoryImp">
+        <generalization xmi:id="_kd2Ygaz1EeKN1cc1Uu-D-A" general="_kd2YhKz1EeKN1cc1Uu-D-A"/>
+        <ownedAttribute xmi:id="_kd2Ygqz1EeKN1cc1Uu-D-A" name="clientDAO" visibility="public" type="_kd2Yiaz1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+        <ownedOperation xmi:id="_kd2Yg6z1EeKN1cc1Uu-D-A" name="DAOFactoryImp" visibility="public"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_kd2YhKz1EeKN1cc1Uu-D-A" name="DAOFactory" isAbstract="true">
+        <ownedAttribute xmi:id="_kd2Yhaz1EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_kd2YhKz1EeKN1cc1Uu-D-A">
+          <defaultValue xmi:type="uml:LiteralNull" xmi:id="_kd2Yhqz1EeKN1cc1Uu-D-A"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_kd2Yh6z1EeKN1cc1Uu-D-A" name="clientDAO" visibility="public" type="_kd2Yiaz1EeKN1cc1Uu-D-A" isReadOnly="true" isDerived="true"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_kd2YiKz1EeKN1cc1Uu-D-A" name="dao">
+        <packagedElement xmi:type="uml:Interface" xmi:id="_kd2Yiaz1EeKN1cc1Uu-D-A" name="ClientDAO">
+          <ownedOperation xmi:id="_kd2Yiqz1EeKN1cc1Uu-D-A" name="createClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Yi6z1EeKN1cc1Uu-D-A" name="t">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2YjKz1EeKN1cc1Uu-D-A" name="deleteClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Yjaz1EeKN1cc1Uu-D-A" name="id">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2Yjqz1EeKN1cc1Uu-D-A" name="updateClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Yj6z1EeKN1cc1Uu-D-A" name="t">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2YkKz1EeKN1cc1Uu-D-A" name="getClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Ykaz1EeKN1cc1Uu-D-A" name="ParámetroDeRetorno" direction="return">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_kd2Ykqz1EeKN1cc1Uu-D-A" name="id">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_kd2Yk6z1EeKN1cc1Uu-D-A" name="ClientDAOImp" clientDependency="_kd2YlKz1EeKN1cc1Uu-D-A">
+          <interfaceRealization xmi:id="_kd2YlKz1EeKN1cc1Uu-D-A" supplier="_kd2Yiaz1EeKN1cc1Uu-D-A" client="_kd2Yk6z1EeKN1cc1Uu-D-A" contract="_kd2Yiaz1EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_kd2Ylaz1EeKN1cc1Uu-D-A" name="createClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Ylqz1EeKN1cc1Uu-D-A" name="t">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2Yl6z1EeKN1cc1Uu-D-A" name="deleteClient" visibility="public">
+            <ownedParameter xmi:id="_kd2YmKz1EeKN1cc1Uu-D-A" name="id">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2Ymaz1EeKN1cc1Uu-D-A" name="updateClient" visibility="public">
+            <ownedParameter xmi:id="_kd2Ymqz1EeKN1cc1Uu-D-A" name="t">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_kd2Ym6z1EeKN1cc1Uu-D-A" name="getClient" visibility="public">
+            <ownedParameter xmi:id="_kd2YnKz1EeKN1cc1Uu-D-A" name="ParámetroDeRetorno" direction="return">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_kd2Ynaz1EeKN1cc1Uu-D-A" name="id">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
       </packagedElement>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_43-PoISuEeKvnayLHGWWrQ" name="presentacion">
     <eAnnotations xmi:id="_43-2sISuEeKvnayLHGWWrQ" source="uml2.diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_Rw20wISvEeKvnayLHGWWrQ" name="clientes">
-      <eAnnotations xmi:id="_Rw3b0ISvEeKvnayLHGWWrQ" source="uml2.diagrams" references="_Rw3b0YSvEeKvnayLHGWWrQ">
-        <contents xmi:type="umlnotation:UMLDiagram" xmi:id="_Rw3b0YSvEeKvnayLHGWWrQ" type="Freeform" name="Principal">
-          <element xsi:nil="true"/>
-        </contents>
-      </eAnnotations>
+      <eAnnotations xmi:id="_Rw3b0ISvEeKvnayLHGWWrQ" source="uml2.diagrams"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Glw5AKz2EeKN1cc1Uu-D-A" name="comand">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Aaz2EeKN1cc1Uu-D-A" name="CommandActionAddShift" clientDependency="_Glw5A6z2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5Aqz2EeKN1cc1Uu-D-A" name="shiftTransfer" visibility="private">
+            <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-0doqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ShiftTransfer?"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5A6z2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5Aaz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5BKz2EeKN1cc1Uu-D-A" name="CommandActionAddShift" visibility="public">
+            <ownedParameter xmi:id="_Glw5Baz2EeKN1cc1Uu-D-A" name="data">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-0doqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ShiftTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5Bqz2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5B6z2EeKN1cc1Uu-D-A" name="CommandActionShowBookFrame" clientDependency="_Glw5Caz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5CKz2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5Caz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5B6z2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5Cqz2EeKN1cc1Uu-D-A" name="CommandActionShowBookFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5C6z2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5DKz2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Daz2EeKN1cc1Uu-D-A" name="CommandFactory" isAbstract="true">
+          <ownedAttribute xmi:id="_Glw5Dqz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5Daz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5D6z2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5EKz2EeKN1cc1Uu-D-A" name="createCommand" visibility="public" isAbstract="true">
+            <ownedParameter xmi:id="_Glw5Eaz2EeKN1cc1Uu-D-A" name="ParámetroDeRetorno" type="_Glw5Pqz2EeKN1cc1Uu-D-A" direction="return"/>
+            <ownedParameter xmi:id="_Glw5Eqz2EeKN1cc1Uu-D-A" name="event" type="_Glw506z2EeKN1cc1Uu-D-A"/>
+            <ownedParameter xmi:id="_Glw5E6z2EeKN1cc1Uu-D-A" name="data"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5FKz2EeKN1cc1Uu-D-A" name="CommandFactoryImp">
+          <generalization xmi:id="_Glw5Faz2EeKN1cc1Uu-D-A" general="_Glw5Daz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5Fqz2EeKN1cc1Uu-D-A" name="createCommand" visibility="public">
+            <ownedParameter xmi:id="_Glw5F6z2EeKN1cc1Uu-D-A" name="ParámetroDeRetorno" type="_Glw5Pqz2EeKN1cc1Uu-D-A" direction="return"/>
+            <ownedParameter xmi:id="_Glw5GKz2EeKN1cc1Uu-D-A" name="event" type="_Glw506z2EeKN1cc1Uu-D-A"/>
+            <ownedParameter xmi:id="_Glw5Gaz2EeKN1cc1Uu-D-A" name="data"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Gqz2EeKN1cc1Uu-D-A" name="CommandActionShowServicesFrame" clientDependency="_Glw5HKz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5G6z2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5HKz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5Gqz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5Haz2EeKN1cc1Uu-D-A" name="CommandActionShowServicesFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5Hqz2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5H6z2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5IKz2EeKN1cc1Uu-D-A" name="CommandActionShowShiftFrame" clientDependency="_Glw5Iqz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5Iaz2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5Iqz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5IKz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5I6z2EeKN1cc1Uu-D-A" name="CommandActionShowShiftFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5JKz2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5Jaz2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Jqz2EeKN1cc1Uu-D-A" name="CommandActionAddClient" clientDependency="_Glw5KKz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5J6z2EeKN1cc1Uu-D-A" name="clientTransfer" visibility="package">
+            <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5KKz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5Jqz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5Kaz2EeKN1cc1Uu-D-A" name="CommandActionAddClient" visibility="public">
+            <ownedParameter xmi:id="_Glw5Kqz2EeKN1cc1Uu-D-A" name="t">
+              <type xmi:type="uml:Class" href="platform:/resource/HotelZargo/JavaAUML.emx#_A-zPgqWuEeKXFK9CzCjwLQ?JavaAUML/is/hotelzargo/negocio/transfer/ClientTransfer?"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5K6z2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5LKz2EeKN1cc1Uu-D-A" name="CommandActionShowRoomFrame" clientDependency="_Glw5Lqz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5Laz2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5Lqz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5LKz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5L6z2EeKN1cc1Uu-D-A" name="CommandActionShowRoomFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5MKz2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5Maz2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Mqz2EeKN1cc1Uu-D-A" name="CommandActionShowEmployeeFrame" clientDependency="_Glw5NKz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5M6z2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5NKz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5Mqz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5Naz2EeKN1cc1Uu-D-A" name="CommandActionShowEmployeeFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5Nqz2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5N6z2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5OKz2EeKN1cc1Uu-D-A" name="CommandActionShowClientFrame" clientDependency="_Glw5Oqz2EeKN1cc1Uu-D-A">
+          <ownedAttribute xmi:id="_Glw5Oaz2EeKN1cc1Uu-D-A" name="visible" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <interfaceRealization xmi:id="_Glw5Oqz2EeKN1cc1Uu-D-A" supplier="_Glw5Pqz2EeKN1cc1Uu-D-A" client="_Glw5OKz2EeKN1cc1Uu-D-A" contract="_Glw5Pqz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5O6z2EeKN1cc1Uu-D-A" name="CommandActionShowClientFrame" visibility="public">
+            <ownedParameter xmi:id="_Glw5PKz2EeKN1cc1Uu-D-A" name="bool">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5Paz2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_Glw5Pqz2EeKN1cc1Uu-D-A" name="Command">
+          <ownedOperation xmi:id="_Glw5P6z2EeKN1cc1Uu-D-A" name="execute" visibility="public"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Glw5QKz2EeKN1cc1Uu-D-A" name="gui">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Qaz2EeKN1cc1Uu-D-A" name="RoomFrameImp">
+          <generalization xmi:id="_Glw5Qqz2EeKN1cc1Uu-D-A" general="_Glw5iKz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5Q6z2EeKN1cc1Uu-D-A" name="addRoomButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5RKz2EeKN1cc1Uu-D-A" name="delRoomButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Raz2EeKN1cc1Uu-D-A" name="modRoomButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Rqz2EeKN1cc1Uu-D-A" name="listRoomButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5R6z2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5SKz2EeKN1cc1Uu-D-A" name="RoomFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5Saz2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5Sqz2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5S6z2EeKN1cc1Uu-D-A" name="ServicesFrameImp">
+          <generalization xmi:id="_Glw5TKz2EeKN1cc1Uu-D-A" general="_Glw5Zqz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5Taz2EeKN1cc1Uu-D-A" name="addServicesButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Tqz2EeKN1cc1Uu-D-A" name="delServicesButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5T6z2EeKN1cc1Uu-D-A" name="modServicesButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5UKz2EeKN1cc1Uu-D-A" name="listServicesButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Uaz2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5Uqz2EeKN1cc1Uu-D-A" name="ServicesFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5U6z2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5VKz2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Vaz2EeKN1cc1Uu-D-A" name="BookFrameImp">
+          <generalization xmi:id="_Glw5Vqz2EeKN1cc1Uu-D-A" general="_Glw5yaz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5V6z2EeKN1cc1Uu-D-A" name="addBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5WKz2EeKN1cc1Uu-D-A" name="delBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Waz2EeKN1cc1Uu-D-A" name="modBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Wqz2EeKN1cc1Uu-D-A" name="listBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5W6z2EeKN1cc1Uu-D-A" name="findBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5XKz2EeKN1cc1Uu-D-A" name="confirmBookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5Xaz2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5Xqz2EeKN1cc1Uu-D-A" name="BookFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5X6z2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5YKz2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Yaz2EeKN1cc1Uu-D-A" name="ClientFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5Yqz2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5Y6z2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5Yaz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5ZKz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Zaz2EeKN1cc1Uu-D-A" name="ClientFormList"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5Zqz2EeKN1cc1Uu-D-A" name="ServicesFrame">
+          <generalization xmi:id="_Glw5Z6z2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5aKz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5Zqz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5aaz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5aqz2EeKN1cc1Uu-D-A" name="MainFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5a6z2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5bKz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5aqz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5baz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5bqz2EeKN1cc1Uu-D-A" name="ClientFrameImp">
+          <generalization xmi:id="_Glw5b6z2EeKN1cc1Uu-D-A" general="_Glw5Yaz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5cKz2EeKN1cc1Uu-D-A" name="addClientButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5caz2EeKN1cc1Uu-D-A" name="delClientButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5cqz2EeKN1cc1Uu-D-A" name="modClientButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5c6z2EeKN1cc1Uu-D-A" name="listClientButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5dKz2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5daz2EeKN1cc1Uu-D-A" name="addForm" visibility="private" type="_Glw5sKz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw5dqz2EeKN1cc1Uu-D-A" name="ClientFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5d6z2EeKN1cc1Uu-D-A" name="addClient" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5eKz2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5eaz2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5eqz2EeKN1cc1Uu-D-A" name="ShiftFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5e6z2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5fKz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5eqz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5faz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5fqz2EeKN1cc1Uu-D-A" name="ShiftFrameImp">
+          <generalization xmi:id="_Glw5f6z2EeKN1cc1Uu-D-A" general="_Glw5eqz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5gKz2EeKN1cc1Uu-D-A" name="addShiftButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5gaz2EeKN1cc1Uu-D-A" name="delShiftButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5gqz2EeKN1cc1Uu-D-A" name="modShiftButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5g6z2EeKN1cc1Uu-D-A" name="listShiftButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5hKz2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5haz2EeKN1cc1Uu-D-A" name="ShiftFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5hqz2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5h6z2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5iKz2EeKN1cc1Uu-D-A" name="RoomFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5iaz2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5iqz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5iKz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5i6z2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5jKz2EeKN1cc1Uu-D-A" name="ClientFormMod"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5jaz2EeKN1cc1Uu-D-A" name="ClientFormDel"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5jqz2EeKN1cc1Uu-D-A" name="EmployeeFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5j6z2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5kKz2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5jqz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5kaz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5kqz2EeKN1cc1Uu-D-A" name="EmployeeFrameImp">
+          <generalization xmi:id="_Glw5k6z2EeKN1cc1Uu-D-A" general="_Glw5jqz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5lKz2EeKN1cc1Uu-D-A" name="addEmployeeButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5laz2EeKN1cc1Uu-D-A" name="delEmployeeButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5lqz2EeKN1cc1Uu-D-A" name="modEmployeeButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5l6z2EeKN1cc1Uu-D-A" name="listEmployeeButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5mKz2EeKN1cc1Uu-D-A" name="exit" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5maz2EeKN1cc1Uu-D-A" name="EmployeeFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5mqz2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5m6z2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5nKz2EeKN1cc1Uu-D-A" name="MainFrameImp">
+          <generalization xmi:id="_Glw5naz2EeKN1cc1Uu-D-A" general="_Glw5aqz2EeKN1cc1Uu-D-A"/>
+          <ownedAttribute xmi:id="_Glw5nqz2EeKN1cc1Uu-D-A" name="shiftButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5n6z2EeKN1cc1Uu-D-A" name="clientButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5oKz2EeKN1cc1Uu-D-A" name="employeeButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5oaz2EeKN1cc1Uu-D-A" name="bookButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5oqz2EeKN1cc1Uu-D-A" name="roomButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5o6z2EeKN1cc1Uu-D-A" name="servicesButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5pKz2EeKN1cc1Uu-D-A" name="showShiftFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5paz2EeKN1cc1Uu-D-A" name="showClientFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5pqz2EeKN1cc1Uu-D-A" name="showRoomFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5p6z2EeKN1cc1Uu-D-A" name="showEmployeeFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5qKz2EeKN1cc1Uu-D-A" name="showBookFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5qaz2EeKN1cc1Uu-D-A" name="showServicesFrame" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5qqz2EeKN1cc1Uu-D-A" name="MainFrameImp" visibility="public"/>
+          <ownedOperation xmi:id="_Glw5q6z2EeKN1cc1Uu-D-A" name="setListener" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5rKz2EeKN1cc1Uu-D-A" name="main" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_Glw5raz2EeKN1cc1Uu-D-A" name="args">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Glw5rqz2EeKN1cc1Uu-D-A" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Glw5r6z2EeKN1cc1Uu-D-A"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5sKz2EeKN1cc1Uu-D-A" name="ClientFormAdd">
+          <generalization xmi:id="_Glw5saz2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JDialog%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5sqz2EeKN1cc1Uu-D-A" name="nameLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5s6z2EeKN1cc1Uu-D-A" name="surnameLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5tKz2EeKN1cc1Uu-D-A" name="dniLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5taz2EeKN1cc1Uu-D-A" name="phoneLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5tqz2EeKN1cc1Uu-D-A" name="creditCardLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5t6z2EeKN1cc1Uu-D-A" name="companyLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5uKz2EeKN1cc1Uu-D-A" name="addressLabel" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JLabel%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5uaz2EeKN1cc1Uu-D-A" name="nameText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5uqz2EeKN1cc1Uu-D-A" name="surnameText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5u6z2EeKN1cc1Uu-D-A" name="dniText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5vKz2EeKN1cc1Uu-D-A" name="phoneText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5vaz2EeKN1cc1Uu-D-A" name="creditCardText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5vqz2EeKN1cc1Uu-D-A" name="companyText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5v6z2EeKN1cc1Uu-D-A" name="addressText" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JTextField%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5wKz2EeKN1cc1Uu-D-A" name="companyButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JRadioButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5waz2EeKN1cc1Uu-D-A" name="acceptButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_Glw5wqz2EeKN1cc1Uu-D-A" name="cancelButton" visibility="private">
+            <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JButton%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw5w6z2EeKN1cc1Uu-D-A" name="ClientFormAdd" visibility="public">
+            <ownedParameter xmi:id="_Glw5xKz2EeKN1cc1Uu-D-A" name="owner">
+              <type xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_Glw5xaz2EeKN1cc1Uu-D-A" name="mod">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_Glw5xqz2EeKN1cc1Uu-D-A" name="accept" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5x6z2EeKN1cc1Uu-D-A" name="exit" visibility="private"/>
+          <ownedOperation xmi:id="_Glw5yKz2EeKN1cc1Uu-D-A" name="addListener" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5yaz2EeKN1cc1Uu-D-A" name="BookFrame" isAbstract="true">
+          <generalization xmi:id="_Glw5yqz2EeKN1cc1Uu-D-A">
+            <general xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=javax.swing.JFrame%5Bproject%5Eid=HotelZargo%5D$uml.Class"/>
+          </generalization>
+          <ownedAttribute xmi:id="_Glw5y6z2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw5yaz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw5zKz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Glw5zaz2EeKN1cc1Uu-D-A" name="controller">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw5zqz2EeKN1cc1Uu-D-A" name="ControllerImp">
+          <generalization xmi:id="_Glw5z6z2EeKN1cc1Uu-D-A" general="_Glw53Kz2EeKN1cc1Uu-D-A"/>
+          <ownedOperation xmi:id="_Glw50Kz2EeKN1cc1Uu-D-A" name="event" visibility="public">
+            <ownedParameter xmi:id="_Glw50az2EeKN1cc1Uu-D-A" name="event" type="_Glw506z2EeKN1cc1Uu-D-A"/>
+            <ownedParameter xmi:id="_Glw50qz2EeKN1cc1Uu-D-A" name="data"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_Glw506z2EeKN1cc1Uu-D-A" name="Event">
+          <ownedLiteral xmi:id="_Glw51Kz2EeKN1cc1Uu-D-A" name="SHOW_CLIENT_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw51az2EeKN1cc1Uu-D-A" name="SHOW_ROOM_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw51qz2EeKN1cc1Uu-D-A" name="SHOW_EMPLOYEE_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw516z2EeKN1cc1Uu-D-A" name="SHOW_BOOK_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw52Kz2EeKN1cc1Uu-D-A" name="SHOW_SHIFT_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw52az2EeKN1cc1Uu-D-A" name="SHOW_SERVICES_FRAME" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw52qz2EeKN1cc1Uu-D-A" name="ADD_CLIENT" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+          <ownedLiteral xmi:id="_Glw526z2EeKN1cc1Uu-D-A" name="ADD_SHIFT" classifier="_Glw506z2EeKN1cc1Uu-D-A"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Glw53Kz2EeKN1cc1Uu-D-A" name="Controller" isAbstract="true">
+          <ownedAttribute xmi:id="_Glw53az2EeKN1cc1Uu-D-A" name="instance" visibility="private" isStatic="true" type="_Glw53Kz2EeKN1cc1Uu-D-A">
+            <defaultValue xmi:type="uml:LiteralNull" xmi:id="_Glw53qz2EeKN1cc1Uu-D-A"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_Glw536z2EeKN1cc1Uu-D-A" name="event" visibility="public" isAbstract="true">
+            <ownedParameter xmi:id="_Glw54Kz2EeKN1cc1Uu-D-A" name="event" type="_Glw506z2EeKN1cc1Uu-D-A"/>
+            <ownedParameter xmi:id="_Glw54az2EeKN1cc1Uu-D-A" name="data"/>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_SvbV0ISvEeKvnayLHGWWrQ" name="empleados">
       <eAnnotations xmi:id="_Svb84ISvEeKvnayLHGWWrQ" source="uml2.diagrams" references="_Svcj8ISvEeKvnayLHGWWrQ">
