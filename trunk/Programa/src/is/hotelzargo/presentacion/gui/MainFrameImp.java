@@ -1,5 +1,8 @@
 package is.hotelzargo.presentacion.gui;
 
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -8,9 +11,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import is.hotelzargo.presentacion.controller.Controller;
-import is.hotelzargo.presentacion.controller.Event;
 
 @SuppressWarnings("serial")
 public class MainFrameImp extends MainFrame{

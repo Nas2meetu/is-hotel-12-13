@@ -1,9 +1,9 @@
-package is.hotelzargo.negocio.AppServices;
+package is.hotelzargo.negocio.appservices;
 
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
-import is.hotelzargo.negocio.exception.ClientAppServiceException;
+import is.hotelzargo.negocio.exception.ClientAppServicesException;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
@@ -11,7 +11,7 @@ import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 public class ClientAppServicesImp implements ClientAppServices {
 
 	@Override
-	public void addClient(ClientTransfer t) throws ClientAppServiceException {
+	public void addClient(ClientTransfer t) throws ClientAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
@@ -24,7 +24,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 				if(!dao.searchIndividual(((ClientTransferIndividual) t).getDNI())){
 					dao.createClient(t);
 				}else{
-					throw new ClientAppServiceException("El usuario ya exite");
+					throw new ClientAppServicesException("El usuario ya exite");
 				}
 			} catch (ClientIntegrationException e) {
 				//e.printStackTrace();
@@ -33,29 +33,29 @@ public class ClientAppServicesImp implements ClientAppServices {
 		}else {
 			checkDataCompany(t);
 		}
-		//TODO Comprobar que no exista en la BBDD
+		//TODO Comprobar que no exista en la BBDD 
 	}
 	
-	private void checkDataIndividual(ClientTransfer t) throws ClientAppServiceException {
+	private void checkDataIndividual(ClientTransfer t) throws ClientAppServicesException {
 		
 		String DNI = ((ClientTransferIndividual)t).getDNI();
 		String TLF = ((ClientTransferIndividual)t).getPhone();
 		String TJC = ((ClientTransferIndividual)t).getCreditCard();
 		
 		if(((ClientTransferIndividual)t).getName().length() < 3)
-			throw new ClientAppServiceException("Nombre no valido");
+			throw new ClientAppServicesException("Nombre no valido");
 		if(((ClientTransferIndividual)t).getSurname().length() == 0)
-			throw new ClientAppServiceException("Apellido no valido");
+			throw new ClientAppServicesException("Apellido no valido");
 		if(DNI.length() != 9)
-			throw new ClientAppServiceException("DNI no valido");
+			throw new ClientAppServicesException("DNI no valido");
 		if(!checkDni(DNI))
-			throw new ClientAppServiceException("DNI no valido");
+			throw new ClientAppServicesException("DNI no valido");
 		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
-			throw new ClientAppServiceException("Telefono no valido");
+			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
-			throw new ClientAppServiceException("Tarjeta de credito no valida");
+			throw new ClientAppServicesException("Tarjeta de credito no valida");
 		if(((ClientTransferIndividual)t).getAddress().length() == 0)
-			throw new ClientAppServiceException("Domicilio no valido");
+			throw new ClientAppServicesException("Domicilio no valido");
 	}
 	
 	private boolean checkDni(String DNI) {
@@ -73,21 +73,21 @@ public class ClientAppServicesImp implements ClientAppServices {
 	    else return true;
 	}
 
-	private void checkDataCompany(ClientTransfer t) throws ClientAppServiceException {
+	private void checkDataCompany(ClientTransfer t) throws ClientAppServicesException {
 		
 		String TLF = ((ClientTransferCompany)t).getPhone();
 		String TJC = ((ClientTransferCompany)t).getCreditCard();
 		
 		if(((ClientTransferCompany)t).getCompany().length() == 0)
-			throw new ClientAppServiceException("Nombre no valido");
+			throw new ClientAppServicesException("Nombre no valido");
 		if(((ClientTransferCompany)t).getAddress().length() == 0)
-			throw new ClientAppServiceException("Domicilio no valido");
+			throw new ClientAppServicesException("Domicilio no valido");
 		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
-			throw new ClientAppServiceException("Telefono no valido");
+			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
-			throw new ClientAppServiceException("Tarjeta de credito no valida");
+			throw new ClientAppServicesException("Tarjeta de credito no valida");
 		if(((ClientTransferCompany)t).getCIF().length() != 9)
-			throw new ClientAppServiceException("Domicilio no valido");
+			throw new ClientAppServicesException("Domicilio no valido");
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 	}
 
 	@Override
-	public void listClient() throws ClientAppServiceException {
+	public void listClient() throws ClientAppServicesException {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
 		try {

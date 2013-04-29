@@ -1,9 +1,9 @@
 package is.hotelzargo.integracion.dao;
 
-import java.util.Vector;
-
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
+
+import java.util.Vector;
 
 public interface ClientDAO {
 
