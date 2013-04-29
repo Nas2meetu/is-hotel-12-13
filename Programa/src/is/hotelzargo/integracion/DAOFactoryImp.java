@@ -2,7 +2,6 @@ package is.hotelzargo.integracion;
 
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.dao.ClientDAOImp;
-import is.hotelzargo.presentacion.gui.MainFrame;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +11,7 @@ import java.sql.Statement;
 
 public class DAOFactoryImp extends DAOFactory {
 	
-	
+	//TODO todas las funciones que hagas aqui menos los get de los DAO son privadas
     Connection conexion = null;
     Statement s = null;
     ResultSet rs = null;
@@ -27,7 +26,6 @@ public class DAOFactoryImp extends DAOFactory {
 		try {
 			createDataBase();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -45,7 +43,7 @@ public class DAOFactoryImp extends DAOFactory {
 	
 	
 	
-	public void createDataBase() throws SQLException{
+	private void createDataBase() throws SQLException{
 		s.executeUpdate("CREATE TABLE Clients (" +
 				"		  id INT AUTO_INCREMENT, " +
 						 "PRIMARY KEY(id), " +
@@ -55,13 +53,13 @@ public class DAOFactoryImp extends DAOFactory {
 	}
 	
 	
-	public void deleteDataBase() throws SQLException{
+	private void deleteDataBase() throws SQLException{
 		s.executeUpdate("DROP TABLE Clients");
 	}
 	
 	
 	
-	public void initDataBase(){
+	private void initDataBase(){
  //PROBANDO BASE DE DATOS
         
         try
@@ -78,7 +76,6 @@ public class DAOFactoryImp extends DAOFactory {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         
@@ -87,7 +84,6 @@ public class DAOFactoryImp extends DAOFactory {
         try {
 			conexion = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -96,13 +92,11 @@ public class DAOFactoryImp extends DAOFactory {
 		try {
 			s = conexion.createStatement();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         try {
 			rs = s.executeQuery ("select * from Clientes");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -113,7 +107,6 @@ public class DAOFactoryImp extends DAOFactory {
 			    System.out.println (rs.getInt (1) + " " + rs.getString (2)+ " " + rs.getString(3));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -133,7 +126,6 @@ public class DAOFactoryImp extends DAOFactory {
         try {
 			conexion.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

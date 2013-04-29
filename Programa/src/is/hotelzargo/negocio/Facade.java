@@ -1,13 +1,13 @@
 package is.hotelzargo.negocio;
 
-import is.hotelzargo.negocio.exception.ClientAppServiceException;
+import is.hotelzargo.negocio.exception.ClientAppServicesException;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 
 public interface Facade {
 
-	public void addClient(ClientTransfer t)throws ClientAppServiceException;
+	public void addClient(ClientTransfer t)throws ClientAppServicesException;
 
-	public void delClient(String id)throws ClientAppServiceException;
+	public void delClient(String id)throws ClientAppServicesException;
 
-	public void listClient()throws ClientAppServiceException;
+	public void listClient()throws ClientAppServicesException;
 }
