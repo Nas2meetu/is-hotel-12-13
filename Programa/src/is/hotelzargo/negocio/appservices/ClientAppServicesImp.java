@@ -39,7 +39,6 @@ public class ClientAppServicesImp implements ClientAppServices {
 	private void checkDataIndividual(ClientTransfer t) throws ClientAppServicesException {
 		
 		String DNI = ((ClientTransferIndividual)t).getDNI();
-		String TLF = ((ClientTransferIndividual)t).getPhone();
 		String TJC = ((ClientTransferIndividual)t).getCreditCard();
 		
 		if(((ClientTransferIndividual)t).getName().length() < 3)
@@ -50,7 +49,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("DNI no valido");
 		if(!checkDni(DNI))
 			throw new ClientAppServicesException("DNI no valido");
-		if ((TLF.length() != 9)||((TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1)))
+		if (((ClientTransferIndividual)t).getPhone().length() != 9)
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");
