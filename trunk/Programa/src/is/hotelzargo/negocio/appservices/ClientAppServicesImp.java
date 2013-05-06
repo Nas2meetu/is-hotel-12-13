@@ -69,14 +69,13 @@ public class ClientAppServicesImp implements ClientAppServices {
 
 	private void checkDataCompany(ClientTransfer t) throws ClientAppServicesException {
 		
-		String TLF = ((ClientTransferCompany)t).getPhone();
 		String TJC = ((ClientTransferCompany)t).getCreditCard();
 		
 		if(((ClientTransferCompany)t).getCompany().length() == 0)
 			throw new ClientAppServicesException("Nombre no valido");
 		if(((ClientTransferCompany)t).getAddress().length() == 0)
 			throw new ClientAppServicesException("Domicilio no valido");
-		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+		if (((ClientTransferCompany)t).getPhone().length() != 9)
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");
