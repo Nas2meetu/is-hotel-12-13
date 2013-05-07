@@ -1,8 +1,12 @@
 package is.hotelzargo.integracion;
 
+import is.hotelzargo.integracion.dao.BookDAO;
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.dao.ClientDAOImp;
-import is.hotelzargo.presentacion.gui.MainFrame;
+import is.hotelzargo.integracion.dao.EmployeeDAO;
+import is.hotelzargo.integracion.dao.RoomDAO;
+import is.hotelzargo.integracion.dao.ServicesDAO;
+import is.hotelzargo.integracion.dao.ShiftDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -180,6 +184,46 @@ public class DAOFactoryImp extends DAOFactory {
 		//MainFrame.getInstance().setVisible(true);
 		
 		DAOFactoryImp d = new DAOFactoryImp();
+	}
+
+
+
+	@Override
+	public BookDAO getBookDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public EmployeeDAO getEmployeeDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public RoomDAO getRoomDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public ServicesDAO getServicesDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public ShiftDAO getShiftDAO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
