@@ -36,7 +36,6 @@ public class MainFrameImp extends MainFrame {
 	private JButton servicesButton;// boton de servicios
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
 
 	/*
 	 * Metodos privados

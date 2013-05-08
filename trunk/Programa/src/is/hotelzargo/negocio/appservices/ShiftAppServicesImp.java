@@ -8,6 +8,10 @@ import is.hotelzargo.negocio.transfer.ShiftTransfer;
 
 public class ShiftAppServicesImp implements ShiftAppServices {
 
+	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
+	
+	}
+	
 	@Override
 	public void addShift(ShiftTransfer t) throws ShiftAppServicesException {
 		// TODO crear turno
@@ -15,8 +19,14 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
 		
+		checkData(t);
+		
 		try {
-			dao.createShift(t);
+			if(!dao.searchShift(t)){
+				dao.createShift(t);
+			}else{
+				throw new ShiftAppServicesException("El usuario ya existe");
+			}
 		} catch (ShiftIntegrationException e) {
 			e.printStackTrace();
 		}
