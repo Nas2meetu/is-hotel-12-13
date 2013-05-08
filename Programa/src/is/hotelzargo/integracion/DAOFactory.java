@@ -19,14 +19,9 @@ public abstract class DAOFactory {
 	}
 	
 	public abstract ClientDAO getClientDAO();
-	
 	public abstract BookDAO getBookDAO();
-	
 	public abstract EmployeeDAO getEmployeeDAO();
-	
 	public abstract RoomDAO getRoomDAO();
-	
 	public abstract ServicesDAO getServicesDAO();
-	
 	public abstract ShiftDAO getShiftDAO();
 }

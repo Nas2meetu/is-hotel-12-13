@@ -1,6 +1,10 @@
 package is.hotelzargo.presentacion.comand;
 
+import is.hotelzargo.negocio.transfer.BookTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
+import is.hotelzargo.negocio.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.transfer.RoomTransfer;
+import is.hotelzargo.negocio.transfer.ServiceTransfer;
 import is.hotelzargo.negocio.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.comand.appservices.CommandActionAddBook;
 import is.hotelzargo.presentacion.comand.appservices.CommandActionAddClient;
@@ -63,40 +67,40 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionShowShiftFrame((Boolean) data);
 			
 		case ADD_BOOK:
-			return new CommandActionAddBook();
+			return new CommandActionAddBook((BookTransfer) data);
 			
 		case ADD_CLIENT:
 			return new CommandActionAddClient((ClientTransfer) data);
 			
 		case ADD_EMPLOYEE:
-			return new CommandActionAddEmployee();
+			return new CommandActionAddEmployee((EmployeeTransfer)data);
 			
 		case ADD_ROOM:
-			return new CommandActionAddRoom();
+			return new CommandActionAddRoom((RoomTransfer) data);
 			
 		case ADD_SERVICE:
-			return new CommandActionAddService();
+			return new CommandActionAddService((ServiceTransfer) data);
 		
 		case ADD_SHIFT:
 			return new CommandActionAddShift((ShiftTransfer) data);
 			
 		case DELETE_BOOK:
-			return new CommandActionDelBook();
+			return new CommandActionDelBook((String) data);
 			
 		case DELETE_CLIENT:
 			return new CommandActionDelClient((String) data);
 			
 		case DELETE_EMPLOYEE:
-			return new CommandActionDelEmployee();
+			return new CommandActionDelEmployee((String) data);
 			
 		case DELETE_ROOM:
-			return new CommandActionDelRoom();
+			return new CommandActionDelRoom((String) data);
 			
 		case DELETE_SERVICE:
-			return new CommandActionDelService();
+			return new CommandActionDelService((String) data);
 			
 		case DELETE_SHIFT:
-			return new CommandActionDelShift();
+			return new CommandActionDelShift((String) data);
 			
 		case LIST_BOOK:
 			return new CommandActionListBook();
@@ -117,28 +121,28 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionListShift();
 			
 		case MOD_BOOK:
-			return new CommandActionModBook();
+			return new CommandActionModBook((BookTransfer) data);
 			
 		case MOD_CLIENT:
-			return new CommandActionModClient();
+			return new CommandActionModClient((ClientTransfer) data);
 			
 		case MOD_EMPLOYEE:
-			return new CommandActionModEmployee();
+			return new CommandActionModEmployee((EmployeeTransfer) data);
 			
 		case MOD_ROOM:
-			return new CommandActionModRoom();
+			return new CommandActionModRoom((RoomTransfer) data);
 			
 		case MOD_SERVICE:
-			return new CommandActionModService();
+			return new CommandActionModService((ServiceTransfer) data);
 			
 		case MOD_SHIFT:
-			return new CommandActionModShift();
+			return new CommandActionModShift((ShiftTransfer) data);
 			
 		case FIND_BOOK:
-			return new CommandActionFindBook();
+			return new CommandActionFindBook((String) data);
 			
 		case CONFIRM_BOOK:
-			return new CommandActionConfirmBook();
+			return new CommandActionConfirmBook((String) data);
 			
 		case ERROR:
 			return new CommandActionError();

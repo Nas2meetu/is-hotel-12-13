@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MainFrameImp extends MainFrame{
@@ -73,13 +74,17 @@ public class MainFrameImp extends MainFrame{
 		
 		setListener();
 		
-		this.setLayout(new GridLayout(3, 2, 5, 5));
-		this.add(this.shiftButton);
-		this.add(this.clientButton);
-		this.add(this.employeeButton);
-		this.add(this.bookButton);
-		this.add(this.roomButton);
-		this.add(this.servicesButton);
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(3,2,5,5));
+		
+		panel.add(this.bookButton);
+		panel.add(this.clientButton);
+		panel.add(this.employeeButton);
+		panel.add(this.roomButton);
+		panel.add(this.servicesButton);
+		panel.add(this.shiftButton);
+		
+		this.add(panel);
 		
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(d.width/2 - this.getWidth()/2, d.height/2 - this.getHeight()/2);
