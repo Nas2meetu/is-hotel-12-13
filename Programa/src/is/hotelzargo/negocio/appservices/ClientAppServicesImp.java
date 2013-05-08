@@ -1,5 +1,9 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.awt.Frame;
+
+import javax.swing.JOptionPane;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
@@ -22,7 +26,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			
 			try {
 				if(!dao.searchIndividual(((ClientTransferIndividual) t).getDNI())){
-					dao.createClient(t);
+					dao.createClientIndividual(t);
 				}else{
 					throw new ClientAppServicesException("El usuario ya exite");
 				}
@@ -32,8 +36,21 @@ public class ClientAppServicesImp implements ClientAppServices {
 			}
 		}else {
 			checkDataCompany(t);
+			
+			try {
+				if(!dao.searchCompany(((ClientTransferCompany) t).getCIF())){
+					dao.createClientCompany(t);
+				}else{
+					throw new ClientAppServicesException("La compañía ya existe");
+				}
+			} catch (ClientIntegrationException e) {
+				//e.printStackTrace();
+				e.getMessage();
+			}
+			
+			
 		}
-		//TODO Comprobar que no exista en la BBDD 
+ 
 	}
 	
 	private void checkDataIndividual(ClientTransfer t) throws ClientAppServicesException {
@@ -91,16 +108,25 @@ public class ClientAppServicesImp implements ClientAppServices {
 	}
 
 	@Override
-	public void deleteClient(String id) {
+	public void deleteClient(String id) throws ClientAppServicesException {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
-		//checkInt(id);
-		try {
-			dao.deleteClient(Integer.parseInt(id));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ClientIntegrationException e) {
-			e.printStackTrace();
+		//tipo usuario individual(dni acaba en letra), o company(cif no lleva letra).
+		if (checkTypeDNI(id)){
+			try {
+				dao.deleteClientIndividual(id);
+			} catch (ClientIntegrationException e) {
+				e.printStackTrace();
+				throw new ClientAppServicesException("Problema al eliminar cliente individual");
+			}
+		}
+		else{
+			try {
+				dao.deleteClientCompany(id);
+			} catch (ClientIntegrationException e) {
+				e.printStackTrace();
+				throw new ClientAppServicesException("Problema al eliminar cliente compañía");				
+			}
 		}
 	}
 
@@ -108,17 +134,44 @@ public class ClientAppServicesImp implements ClientAppServices {
 	public void listClient() throws ClientAppServicesException {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
-		try {
-			dao.listClient();
+		//TODO llamada a listClient
+		/*try {
+			//dao.listClient();
 		} catch (ClientIntegrationException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
 	public void modClient(ClientTransfer t) throws ClientAppServicesException {
 		// TODO modificar reserva
 		
+	}
+	/**
+	 * Devuelve true si acaba en letra, en caso contrario el id es un cif(empresa)
+	 * @param id
+	 * @return
+	 */
+	private boolean checkTypeDNI(String id){
+		
+		int n =id.length();
+		char car = id.charAt(n-1); 
+		
+		try{
+			int i = Character.getNumericValue(car);
+		}
+		catch(NumberFormatException e){
+			//es una letra, suelta exception
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	private void showMessage(String message){
+		Frame f = new Frame();
+		JOptionPane.showMessageDialog(f, message);
 	}
 
 }

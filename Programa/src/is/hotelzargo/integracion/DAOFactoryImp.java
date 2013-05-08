@@ -4,6 +4,7 @@ import is.hotelzargo.integracion.dao.BookDAO;
 import is.hotelzargo.integracion.dao.BookDAOImp;
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.dao.ClientDAOImp;
+
 import is.hotelzargo.integracion.dao.EmployeeDAO;
 import is.hotelzargo.integracion.dao.EmployeeDAOImp;
 import is.hotelzargo.integracion.dao.RoomDAO;
@@ -22,45 +23,87 @@ import java.sql.Statement;
 public class DAOFactoryImp extends DAOFactory {
 	
 	//TODO todas las funciones que hagas aqui menos los get de los DAO son privadas
-    Connection conexion = null;
-    Statement s = null;
-    ResultSet rs = null;
-	
+    private static Connection connection = null;
+    private Statement s = null;
+    private ResultSet rs = null;	
 	
 
-	public DAOFactoryImp() {
-		
-	/*	
+	public DAOFactoryImp() {		
 		
 		initDataBase();
+		
 		try {
-			createDataBase();
+			//se crean si no existen
+			createTableClientsIndividual();
+			createTableClientsCompany();
 		} catch (SQLException e) {
+			// Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
 	
-	*/
+	}		
 	
+	
+	//Crear Bases de datos si no existen
+
+	
+	private void createTableClientsIndividual() throws SQLException{
+
+		s.executeUpdate("CREATE TABLE IF NOT EXISTS ClientIndividual (" +
+				  "id int(11) NOT NULL AUTO_INCREMENT, " +
+				  "name varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "surname varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "dni varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "phone varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "creditCard varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "address varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "PRIMARY KEY (id), " +
+				  "UNIQUE KEY dni (dni) " +
+				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ; ");
+		
 	}
 	
-	private void createDataBase() throws SQLException{
-		s.executeUpdate("CREATE TABLE Clients (" +
-				"		  id INT AUTO_INCREMENT, " +
-						 "PRIMARY KEY(id), " +
-						 "nombre VARCHAR(20), " +
-						 "apellidos VARCHAR(20), " +
-						 "telefono VARCHAR(20))");
+	
+	private void createTableClientsCompany() throws SQLException{
+		s.executeUpdate("CREATE TABLE IF NOT EXISTS ClientCompany (" +
+				  "id int(11) NOT NULL AUTO_INCREMENT, " +
+				  "company varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "cif varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "phone varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "creditCard varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "address varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
+				  "PRIMARY KEY (id), " +
+				  "UNIQUE KEY cif (cif) " +
+				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ; ");
 	}
 	
+	//Insertar tipos de Usuario
 	
-	private void deleteDataBase() throws SQLException{
-		s.executeUpdate("DROP TABLE Clients");
+	public void insertClientIndividual(String name, String surname, String dni, String phone, String creditCard,String address) throws SQLException{
+		s.executeUpdate("INSERT INTO ClientIndividual (name, surname, dni, phone, creditCard, address) VALUES " +
+		"("+name+", "+surname+", "+dni+", "+phone+", "+creditCard+", "+address+");" );
 	}
 	
+	public void insertClientCompany(String company, String cif, String phone, String creditCard,String address) throws SQLException{
+		s.executeUpdate("INSERT INTO ClientCompany (company, cif, phone, creditCard, address) VALUES " +
+		"("+company+", "+cif+", "+phone+", "+creditCard+", "+address+");" );
+	}
 	
+
+	//Eliminar tablas si existen
+
+	public void deleteTableClientIndividual() throws SQLException{
+		s.executeUpdate("DROP TABLE IF EXISTS ClientIndividual");
+
+	}
+	
+	public void deleteTableClientsCompany() throws SQLException{
+		s.executeUpdate("DROP TABLE IF EXISTS ClientCompany");
+	}
+	
+	//Inicializa base de datos
 	
 	private void initDataBase(){
- //PROBANDO BASE DE DATOS
         
         try
         {
@@ -69,8 +112,6 @@ public class DAOFactoryImp extends DAOFactory {
         {
            e.printStackTrace();
         } 
-        
-
         
         // Se registra el Driver de MySQL
         try {
@@ -82,20 +123,21 @@ public class DAOFactoryImp extends DAOFactory {
         
      // Establecemos la conexión con la base de datos.
         try {
-			conexion = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
         
-     // Preparamos la consulta
+     // Ejemplo de consulta        
+		
         
-		try {
-			s = conexion.createStatement();
+        try {
+			s = connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
         try {
-			rs = s.executeQuery ("select * from Clientes");
+			rs = s.executeQuery ("select * from Clients");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,36 +146,42 @@ public class DAOFactoryImp extends DAOFactory {
         try {
 			while (rs.next())
 			{
-			    System.out.println (rs.getInt (1) + " " + rs.getString (2)+ " " + rs.getString(3));
+			    System.out.println (rs.getString (1) + " " + rs.getString (2)+ " " + rs.getString(3));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
         
-        /*
+        
         
         //insertando prueba
-        s.executeQuery( "INSERT INTO test.Clientes (id, nombre, apellidos, DNI, tlf, tarjetaCredito) 
-        VALUES ('2', 'probando', 'gracia', '58422', '6258845', '555555') ");
+        /*
+        try {
+			s.executeQuery( "INSERT INTO test.Clients (id, nombre, apellidos, tlf) " +
+			     "VALUES ('5','nombreeba', 'gracia', '6258845') ");
+		} catch (SQLException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
         st.executeUpdate("INSERT INTO contacto (id, nombre, apellidos, DNI ,tlf) " +
         		"VALUES ('"+nombres[i]+"','"+apellidos[i]+"','"+telefonos[i]+"' )");
-        
         */
         
+        
      // Cerramos la conexion a la base de datos.
-        try {
+        /*try {
 			conexion.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
 	@Override
 	public ClientDAO getClientDAO() {
-		return new ClientDAOImp();
+		return new ClientDAOImp(connection);
 	}
 
 	@Override
