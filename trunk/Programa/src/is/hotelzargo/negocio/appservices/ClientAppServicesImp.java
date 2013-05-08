@@ -39,6 +39,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 	private void checkDataIndividual(ClientTransfer t) throws ClientAppServicesException {
 		
 		String DNI = ((ClientTransferIndividual)t).getDNI();
+		String TLF = ((ClientTransferIndividual)t).getPhone();
 		String TJC = ((ClientTransferIndividual)t).getCreditCard();
 		
 		if(((ClientTransferIndividual)t).getName().length() < 3)
@@ -49,7 +50,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("DNI no valido");
 		if(!checkDni(DNI))
 			throw new ClientAppServicesException("DNI no valido");
-		if (((ClientTransferIndividual)t).getPhone().length() != 9)
+		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");
@@ -59,23 +60,29 @@ public class ClientAppServicesImp implements ClientAppServices {
 	
 	private boolean checkDni(String DNI) {
 		
+		int num_t = 0;
+		char num = ' ';
+		char letters [] = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
+		
 		for (int i=0 ; i<=7 ; i++){
-			if ((DNI.charAt(i) < 48)||(DNI.charAt(i) > 57)) return false;
+			num = DNI.charAt(i);
+			num_t += num-48; 
 		}
 		
-	    if ((DNI.charAt(8) < 65)||(DNI.charAt(8) > 90)) return false;
-	    return true;
+	    if (letters[num_t%23]!=DNI.charAt(8)) return false;
+	    else return true;
 	}
 
 	private void checkDataCompany(ClientTransfer t) throws ClientAppServicesException {
 		
+		String TLF = ((ClientTransferCompany)t).getPhone();
 		String TJC = ((ClientTransferCompany)t).getCreditCard();
 		
 		if(((ClientTransferCompany)t).getCompany().length() == 0)
 			throw new ClientAppServicesException("Nombre no valido");
 		if(((ClientTransferCompany)t).getAddress().length() == 0)
 			throw new ClientAppServicesException("Domicilio no valido");
-		if (((ClientTransferCompany)t).getPhone().length() != 9)
+		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");
@@ -106,6 +113,12 @@ public class ClientAppServicesImp implements ClientAppServices {
 		} catch (ClientIntegrationException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void modClient(ClientTransfer t) throws ClientAppServicesException {
+		// TODO modificar reserva
+		
 	}
 
 }

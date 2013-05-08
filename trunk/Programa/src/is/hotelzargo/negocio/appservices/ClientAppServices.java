@@ -10,4 +10,6 @@ public interface ClientAppServices {
 	public void deleteClient(String id) throws ClientAppServicesException;
 
 	public void listClient() throws ClientAppServicesException;
+
+	public void modClient(ClientTransfer t)throws ClientAppServicesException;
 }
