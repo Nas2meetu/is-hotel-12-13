@@ -2,7 +2,9 @@ package is.hotelzargo.presentacion.gui.book;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.gui.MainFrameImp;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -10,9 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class BookFrameImp extends BookFrame {
@@ -24,6 +33,9 @@ public class BookFrameImp extends BookFrame {
 	private JButton findBookButton;
 	private JButton confirmBookButton;
 	private JButton exit;
+	private ImageIcon hotelImage; // imagen hotel
+	private JLabel lbHotelIcon; // etiqueta con imagen hotel
+	private JPanel mainPanel;
 	
 	private BookFormAdd addForm;
 	private BookFormDel delForm;
@@ -57,14 +69,34 @@ public class BookFrameImp extends BookFrame {
 		
 		setListener();
 		
-		this.setLayout(new GridLayout(7, 1, 5, 5));
-		this.add(addBookButton);
-		this.add(delBookButton);
-		this.add(modBookButton);
-		this.add(listBookButton);
-		this.add(findBookButton);
-		this.add(confirmBookButton);
-		this.add(exit);
+		JPanel buttonsPanel = new JPanel();
+		JPanel imagePanel = new JPanel();
+		JPanel mainPanel = new JPanel();
+		
+		buttonsPanel.setLayout(new GridLayout(3, 2, 5, 5));
+		
+		URL urlImage = MainFrameImp.class.getResource("C:/hlocal/workspace-4.2-64bits/HotelZargo/res/IconoZargoMini.png");
+		if (urlImage == null)
+			JOptionPane.showMessageDialog(this, "Error cargando la imagen");
+
+		hotelImage = new ImageIcon(urlImage);
+		lbHotelIcon = new JLabel(hotelImage);
+		imagePanel.add(Box.createVerticalGlue());
+		imagePanel.add(this.lbHotelIcon,BorderLayout.CENTER);
+		imagePanel.add(Box.createVerticalGlue());
+		
+		buttonsPanel.add(addBookButton);
+		buttonsPanel.add(delBookButton);
+		buttonsPanel.add(modBookButton);
+		buttonsPanel.add(listBookButton);
+		buttonsPanel.add(findBookButton);
+		buttonsPanel.add(confirmBookButton);
+		buttonsPanel.add(exit);
+		
+		mainPanel.setBorder(new TitledBorder("Reserva"));
+		mainPanel.add(imagePanel);
+		mainPanel.add(buttonsPanel);
+		this.add(mainPanel);
 		
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(d.width/2 - this.getWidth()/2, d.height/2 - this.getHeight()/2);

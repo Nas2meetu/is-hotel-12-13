@@ -37,4 +37,10 @@ public class ShiftDAOImp implements ShiftDAO {
 		
 	}
 
+	@Override
+	public boolean searchShift(ShiftTransfer t) throws ShiftIntegrationException {
+		// TODO llamadas a BBDD
+		return false;
+	}
+
 }
