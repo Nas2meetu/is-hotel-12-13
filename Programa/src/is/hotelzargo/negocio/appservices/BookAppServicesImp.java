@@ -17,7 +17,7 @@ public class BookAppServicesImp implements BookAppServices {
 		try {
 			dao.createBook(t);
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
+			throw new BookAppServicesException(e.getMessage());
 		}
 		
 	}

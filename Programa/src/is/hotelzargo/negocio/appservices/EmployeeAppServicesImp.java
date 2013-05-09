@@ -14,15 +14,28 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		// TODO crear empleado ojo con los tipos
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
-		
-		try {
-			dao.createEmployee(t);
-		} catch (EmployeeIntegrationException e) {
-			e.printStackTrace();
+		//Tienen los mismo atributos
+		/*if(t instanceof EmployeeTransferAdmin) {
+			try {
+				dao.createEmployee(t);
+			} catch (EmployeeIntegrationException e) {
+				throw new EmployeeAppServicesException(e.getMessage());
 		}
+		
+		else(t instanceof EmployeeTransferServices){
+		
+		}
+		
+		
+		}*/
 		
 	}
 
+	private void checkDataEmployee(EmployeeTransfer t) throws EmployeeAppServicesException {
+		// Falta hacerlo Comprobar datos empleado
+	}
+	
+	
 	@Override
 	public void delEmployee(String id) throws EmployeeAppServicesException {
 		// TODO borrar empleado
@@ -37,6 +50,8 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		
 	}
 
+	
+	
 	@Override
 	public void listEmployee() throws EmployeeAppServicesException {
 		// TODO listar empleados
