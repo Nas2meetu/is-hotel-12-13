@@ -9,7 +9,15 @@ import is.hotelzargo.negocio.transfer.ShiftTransfer;
 public class ShiftAppServicesImp implements ShiftAppServices {
 
 	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
+	string turno = t.getTurno ();
+	date horaEntrada = t.getHoraEntrada ();
+	date horaSalida = t.getHoraSalida ();
+	int id = t.getId ();
 	
+	if (turno.length () < 0) 
+		throw new ShiftAppServicesException("Nombre de turno no valido");
+	if (horaEntrada.equals (horaSalida)) 
+		throw new ShiftAppServicesException("Hora entrada es la misma que a la hora de salida");
 	}
 	
 	@Override
@@ -25,10 +33,10 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 			if(!dao.searchShift(t)){
 				dao.createShift(t);
 			}else{
-				throw new ShiftAppServicesException("El usuario ya existe");
+				throw new ShiftAppServicesException("El turno ya existe");
 			}
 		} catch (ShiftIntegrationException e) {
-			e.printStackTrace();
+			throw new ShiftAppServicesException(e.getMessage());
 		}
 		
 	}
@@ -44,6 +52,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 			dao.deleteShift(id);
 		} catch (ShiftIntegrationException e) {
 			e.printStackTrace();
+			throw new ShiftAppServicesException(e.getMessage);
 		}
 		
 	}
@@ -58,7 +67,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		try {
 			dao.listShift();
 		} catch (ShiftIntegrationException e) {
-			e.printStackTrace();
+			throw new ShiftAppServicesException(e.getMessage());
 		}
 		
 	}
