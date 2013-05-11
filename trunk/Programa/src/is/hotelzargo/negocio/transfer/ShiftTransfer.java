@@ -1,33 +1,37 @@
 package is.hotelzargo.negocio.transfer;
 
+import java.sql.Date;
+
+
+
 public class ShiftTransfer {
 	//turno, horaentrada, horasalida, id
-	private string turno;
-	private date horaEntrada;
-	private date horaSalida;
+	private String turno;
+	private Date horaEntrada;
+	private Date horaSalida;
 	private int id;
 	
 	
-	public ShiftTransfer(string turno,
-						date horaEntrada,
-						date horaSalida,
+	public ShiftTransfer(String turno,
+						Date horaEntrada,
+						Date horaSalida,
 						int id){
 		//TODO transfer turnos
 		this.turno = turno;
 		this.horaEntrada = horaEntrada;
 		this.horaSalida = horaSalida;
-		this.id;
+		this.id = id;
 	}
 	
 	public String getTurno () {
 		return turno;
 	}
 	
-	public date getHoraEntrada () {
+	public Date getHoraEntrada () {
 		return horaEntrada;
 	}
 	
-	public date getHoraSalida () {
+	public Date getHoraSalida () {
 		return horaSalida;
 	}
 	
@@ -36,19 +40,19 @@ public class ShiftTransfer {
 	}
 	
 	
-	public void setTurno (string turno) {
+	public void setTurno (String turno) {
 		this.turno = turno;
 	}
 	
-	public void setHoraEntrada (date horaEntrada) {
+	public void setHoraEntrada (Date horaEntrada) {
 		this.horaEntrada = horaEntrada;
 	}
 	
-	public void setHoraSalida (date horaSalida) {
+	public void setHoraSalida (Date horaSalida) {
 		this.horaSalida = horaSalida;
 	}
 	
 	public void setId (int id) {
-		this-id = id;
+		this.id = id;
 	}
 }
