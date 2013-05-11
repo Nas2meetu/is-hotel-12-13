@@ -1,5 +1,13 @@
 package is.hotelzargo.negocio.appservices;
 
+
+
+
+
+
+
+import java.sql.Date;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ShiftDAO;
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
@@ -9,9 +17,9 @@ import is.hotelzargo.negocio.transfer.ShiftTransfer;
 public class ShiftAppServicesImp implements ShiftAppServices {
 
 	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
-	string turno = t.getTurno ();
-	date horaEntrada = t.getHoraEntrada ();
-	date horaSalida = t.getHoraSalida ();
+	String turno = t.getTurno ();
+	Date horaEntrada = t.getHoraEntrada ();
+	Date horaSalida = t.getHoraSalida ();
 	int id = t.getId ();
 	
 	if (turno.length () < 0) 
@@ -52,7 +60,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 			dao.deleteShift(id);
 		} catch (ShiftIntegrationException e) {
 			e.printStackTrace();
-			throw new ShiftAppServicesException(e.getMessage);
+			throw new ShiftAppServicesException(e.getMessage());
 		}
 		
 	}
