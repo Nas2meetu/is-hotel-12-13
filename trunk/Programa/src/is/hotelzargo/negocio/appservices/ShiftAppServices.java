@@ -7,7 +7,7 @@ public interface ShiftAppServices {
 
 	void addShift(ShiftTransfer t)throws ShiftAppServicesException;
 
-	void delShift(String id)throws ShiftAppServicesException;;
+	void deleteShift(int id)throws ShiftAppServicesException;;
 
 	void listShift()throws ShiftAppServicesException;;
 

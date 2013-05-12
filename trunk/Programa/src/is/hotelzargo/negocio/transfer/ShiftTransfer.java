@@ -5,22 +5,24 @@ import java.sql.Date;
 
 
 public class ShiftTransfer {
-	//turno, horaentrada, horasalida, id
+	
+	//TODO transfer turnos traducir
+	
+	//turno, horaentrada, horasalida
+	private int id;
 	private String turno;
 	private Date horaEntrada;
 	private Date horaSalida;
-	private int id;
 	
 	
-	public ShiftTransfer(String turno,
+	public ShiftTransfer(int id,
+						String turno,
 						Date horaEntrada,
-						Date horaSalida,
-						int id){
-		//TODO transfer turnos
+						Date horaSalida){ 
+		this.setId(id);
 		this.turno = turno;
 		this.horaEntrada = horaEntrada;
 		this.horaSalida = horaSalida;
-		this.id = id;
 	}
 	
 	public String getTurno () {
@@ -34,12 +36,7 @@ public class ShiftTransfer {
 	public Date getHoraSalida () {
 		return horaSalida;
 	}
-	
-	public int getId () {
-		return id;
-	}
-	
-	
+		
 	public void setTurno (String turno) {
 		this.turno = turno;
 	}
@@ -51,8 +48,13 @@ public class ShiftTransfer {
 	public void setHoraSalida (Date horaSalida) {
 		this.horaSalida = horaSalida;
 	}
-	
-	public void setId (int id) {
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
 	}
+	
 }

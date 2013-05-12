@@ -21,7 +21,11 @@ public interface ClientDAO {
 	
 	public ClientTransfer getClientIndividual(int id) throws ClientIntegrationException;
 	
+	public ClientTransfer getClientIndividualByDni(String dni) throws ClientIntegrationException;
+	
 	public ClientTransfer getClientCompany(int id) throws ClientIntegrationException;
+	
+	public ClientTransfer getClientCompanyByCif(String cif) throws ClientIntegrationException;
 	
 	public boolean searchIndividual(String dni) throws ClientIntegrationException;
 	
@@ -30,5 +34,7 @@ public interface ClientDAO {
 	public Vector<ClientTransfer> listClientIndividual() throws ClientIntegrationException;
 	
 	public Vector<ClientTransfer> listClientCompany() throws ClientIntegrationException;
+
+
 	
 }
