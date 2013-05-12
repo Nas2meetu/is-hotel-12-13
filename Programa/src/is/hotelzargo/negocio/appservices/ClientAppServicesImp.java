@@ -28,7 +28,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 				if(!dao.searchIndividual(((ClientTransferIndividual) t).getDNI())){
 					dao.createClientIndividual(t);
 				}else{
-					throw new ClientAppServicesException("El usuario ya exite");
+					throw new ClientAppServicesException("El usuario ya existe");
 				}
 			} catch (ClientIntegrationException e) {
 				//e.printStackTrace();

@@ -9,12 +9,14 @@ public class ClientTransferIndividual extends ClientTransfer {
 	private String creditCard;
 	private String address;
 	
-	public ClientTransferIndividual(String name, 
+	public ClientTransferIndividual(int id,
+								   String name, 
 								   String surname, 
 								   String dni,
 								   String phone, 
 								   String creditCard, 
 								   String address) {
+		super(id);
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;

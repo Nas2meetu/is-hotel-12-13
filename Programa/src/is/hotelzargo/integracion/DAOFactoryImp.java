@@ -36,6 +36,8 @@ public class DAOFactoryImp extends DAOFactory {
 			//se crean si no existen
 			createTableClientsIndividual();
 			createTableClientsCompany();
+			createTableRooms();
+			createTableShifts();
 		} catch (SQLException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
@@ -59,12 +61,13 @@ public class DAOFactoryImp extends DAOFactory {
 				  "address varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
 				  "PRIMARY KEY (id), " +
 				  "UNIQUE KEY dni (dni) " +
-				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ; ");
+				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ");
 		
 	}
 	
 	
 	private void createTableClientsCompany() throws SQLException{
+		
 		s.executeUpdate("CREATE TABLE IF NOT EXISTS ClientCompany (" +
 				  "id int(11) NOT NULL AUTO_INCREMENT, " +
 				  "company varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
@@ -74,31 +77,52 @@ public class DAOFactoryImp extends DAOFactory {
 				  "address varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, " +
 				  "PRIMARY KEY (id), " +
 				  "UNIQUE KEY cif (cif) " +
-				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ; ");
+				") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ");
+		
 	}
 	
-	//Insertar tipos de Usuario
-	
-	public void insertClientIndividual(String name, String surname, String dni, String phone, String creditCard,String address) throws SQLException{
-		s.executeUpdate("INSERT INTO ClientIndividual (name, surname, dni, phone, creditCard, address) VALUES " +
-		"("+name+", "+surname+", "+dni+", "+phone+", "+creditCard+", "+address+");" );
+	private void createTableRooms() throws SQLException{
+		
+		s.executeUpdate("CREATE TABLE IF NOT EXISTS Rooms (" +
+			  "id int(11) NOT NULL AUTO_INCREMENT, " +
+			  "room_number int(5) NOT NULL, " +
+			  "price float NOT NULL, " +
+			  "bed_number int(2) NOT NULL, " +
+			  "PRIMARY KEY (id) " +
+			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ");
 	}
 	
-	public void insertClientCompany(String company, String cif, String phone, String creditCard,String address) throws SQLException{
-		s.executeUpdate("INSERT INTO ClientCompany (company, cif, phone, creditCard, address) VALUES " +
-		"("+company+", "+cif+", "+phone+", "+creditCard+", "+address+");" );
+	private void createTableShifts() throws SQLException{
+		
+		s.executeUpdate("CREATE TABLE IF NOT EXISTS Shifts (" +
+			  "id int(11) NOT NULL AUTO_INCREMENT, " +
+			  "nameShift int(11) NOT NULL, " +
+			  "entryTime date NOT NULL, " +
+			  "checkOut date NOT NULL, " +
+			  "PRIMARY KEY (id), " +
+			  "UNIQUE KEY nameShift (nameShift) " +
+			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ");
+		
 	}
-	
+		
 
 	//Eliminar tablas si existen
 
-	public void deleteTableClientIndividual() throws SQLException{
+	private void deleteTableClientIndividual() throws SQLException{
 		s.executeUpdate("DROP TABLE IF EXISTS ClientIndividual");
 
 	}
 	
-	public void deleteTableClientsCompany() throws SQLException{
+	private void deleteTableClientsCompany() throws SQLException{
 		s.executeUpdate("DROP TABLE IF EXISTS ClientCompany");
+	}
+	
+	private void deleteTableRooms() throws SQLException{
+		s.executeUpdate("DROP TABLE IF EXISTS Rooms");
+	}
+	
+	private void deleteTableShifts() throws SQLException{
+		s.executeUpdate("DROP TABLE IF EXISTS Shifts");
 	}
 	
 	//Inicializa base de datos
@@ -179,6 +203,14 @@ public class DAOFactoryImp extends DAOFactory {
 		
 	}
 	
+	public void closeConnectionDataBase(Connection connection){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public ClientDAO getClientDAO() {
 		return new ClientDAOImp(connection);
@@ -186,27 +218,27 @@ public class DAOFactoryImp extends DAOFactory {
 
 	@Override
 	public BookDAO getBookDAO() {
-		return new BookDAOImp();
+		return new BookDAOImp(connection);
 	}
 
 	@Override
 	public EmployeeDAO getEmployeeDAO() {
-		return new EmployeeDAOImp();
+		return new EmployeeDAOImp(connection);
 	}
 
 	@Override
 	public RoomDAO getRoomDAO() {
-		return new RoomDAOImp();
+		return new RoomDAOImp(connection);
 	}
 
 	@Override
 	public ServicesDAO getServicesDAO() {
-		return new ServicesDAOImp();
+		return new ServicesDAOImp(connection);
 	}
 
 	@Override
 	public ShiftDAO getShiftDAO() {
-		return new ShiftDAOImp();
+		return new ShiftDAOImp(connection);
 	}
 	
 }

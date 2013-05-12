@@ -8,11 +8,13 @@ public class ClientTransferCompany extends ClientTransfer {
 	private String creditCard;
 	private String address;
 	
-	public ClientTransferCompany(String company,
+	public ClientTransferCompany(int id,
+								 String company,
 								 String cif,
 								 String phone,
 								 String creditCard,
 								 String address) {
+		super(id);
 		this.company = company;
 		this.cif = cif;
 		this.phone = phone;

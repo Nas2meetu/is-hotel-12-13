@@ -30,7 +30,6 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 	
 	@Override
 	public void addShift(ShiftTransfer t) throws ShiftAppServicesException {
-		// TODO crear turno
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
@@ -50,14 +49,25 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 	}
 
 	@Override
-	public void delShift(String id) throws ShiftAppServicesException {
-		// TODO borrar turno
+	public void deleteShift(int id) throws ShiftAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
 		
 		try {
-			dao.deleteShift(id);
+			//Comprobar que existe el turno a eliminar, y no tenga empledos asignados
+			if (dao.searchShiftByID(id)){
+				//TODO mirar que no haya empleados con el turno a eliminar
+				if (!dao.employeesWithShift(id)){
+					dao.deleteShift(id);
+				}
+				else{
+					throw new ShiftAppServicesException("El turno a eliminar está asignado a algún empleado");
+				}
+			}
+			else{
+				throw new ShiftAppServicesException("El turno a eliminar no existe");
+			}
 		} catch (ShiftIntegrationException e) {
 			e.printStackTrace();
 			throw new ShiftAppServicesException(e.getMessage());

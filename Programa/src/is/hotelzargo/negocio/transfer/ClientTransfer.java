@@ -1,15 +1,19 @@
 package is.hotelzargo.negocio.transfer;
 
 public class ClientTransfer {
-	String id;
+	int id;
+	
+	public ClientTransfer(int id){
+		this.id = id;
+	}
 	
 	/* Get */
-	public String getID(){
+	public int getID(){
 		return id;
 	}
 	
 	/* Set */
-	public void setID(String id){
+	public void setID(int id){
 		this.id = id;
 	}
 	
