@@ -12,7 +12,7 @@ public class EmployeeTransfer {
 	private String DNI;
 	private int tlf;
 	
-	public void EmployeeTransfers (int id, 
+	public EmployeeTransfer (int id, 
 							  ShiftAppServices shift, 
 							  float pay,
 							  String name,
@@ -56,6 +56,10 @@ public class EmployeeTransfer {
 	
 	public int getTlf(){
 		return this.tlf;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	public void setShift(ShiftAppServices shift){
