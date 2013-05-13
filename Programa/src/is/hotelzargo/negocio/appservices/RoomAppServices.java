@@ -7,7 +7,7 @@ public interface RoomAppServices {
 
 	void addRoom(RoomTransfer t)throws RoomAppServicesException;
 
-	void delRoom(String id)throws RoomAppServicesException;
+	void delRoom(int id)throws RoomAppServicesException;
 
 	void listRoom()throws RoomAppServicesException;
 

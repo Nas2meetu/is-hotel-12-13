@@ -30,9 +30,9 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public void createShift(ShiftTransfer t) throws ShiftIntegrationException {
 		
-		String nameShift =((ShiftTransfer) t).getTurno();
-		Date entryTime = ((ShiftTransfer) t).getHoraEntrada();
-		Date checkOut = ((ShiftTransfer) t).getHoraSalida();
+		String nameShift =((ShiftTransfer) t).getShift();
+		Date entryTime = ((ShiftTransfer) t).getCheckin();
+		Date checkOut = ((ShiftTransfer) t).getCheckout();
 		
 		try {
 			
@@ -151,9 +151,9 @@ public class ShiftDAOImp implements ShiftDAO {
 	public void updateShift(ShiftTransfer t) throws ShiftIntegrationException {
 		
 		int id = ((ShiftTransfer) t).getId();
-		String nameShift = ((ShiftTransfer) t).getTurno();
-		Date entryTime = ((ShiftTransfer) t).getHoraEntrada();
-		Date checkOut = ((ShiftTransfer) t).getHoraSalida();
+		String nameShift = ((ShiftTransfer) t).getShift();
+		Date entryTime = ((ShiftTransfer) t).getCheckin();
+		Date checkOut = ((ShiftTransfer) t).getCheckout();
 		
 
 		//UPDATE

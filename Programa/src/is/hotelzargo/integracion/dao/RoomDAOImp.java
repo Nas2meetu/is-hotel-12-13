@@ -48,7 +48,7 @@ public class RoomDAOImp implements RoomDAO {
 	}
 
 	@Override
-	public void deleteRoom(String id) throws RoomIntegrationException {
+	public void deleteRoom(int id) throws RoomIntegrationException {
 		// TODO llamadas a la BBDD
 		
 	}
@@ -69,6 +69,18 @@ public class RoomDAOImp implements RoomDAO {
 	public void updateRoom(RoomTransfer t) throws RoomIntegrationException {
 		// TODO llamadas a la BBDD
 		
+	}
+	
+	@Override
+	public boolean searchRoom(int numBeds, int numRoom, float price) throws RoomIntegrationException{
+		// TODO llamadas a la BBDD
+		return false;
+	}
+	
+	@Override
+	public boolean searchRoomByID(int id) throws RoomIntegrationException{
+		// TODO llamadas a la BBDD
+		return false;
 	}
 
 }

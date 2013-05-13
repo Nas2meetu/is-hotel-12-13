@@ -17,14 +17,14 @@ import is.hotelzargo.negocio.transfer.ShiftTransfer;
 public class ShiftAppServicesImp implements ShiftAppServices {
 
 	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
-	String turno = t.getTurno ();
-	Date horaEntrada = t.getHoraEntrada ();
-	Date horaSalida = t.getHoraSalida ();
+	String shift = t.getShift ();
+	Date checkin = t.getCheckin ();
+	Date checkout = t.getCheckout ();
 	int id = t.getId ();
 	
-	if (turno.length () < 0) 
+	if (shift.length () < 0) 
 		throw new ShiftAppServicesException("Nombre de turno no valido");
-	if (horaEntrada.equals (horaSalida)) 
+	if (checkin.equals (checkout)) 
 		throw new ShiftAppServicesException("Hora entrada es la misma que a la hora de salida");
 	}
 	

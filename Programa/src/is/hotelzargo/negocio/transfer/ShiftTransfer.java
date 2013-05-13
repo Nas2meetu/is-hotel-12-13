@@ -10,43 +10,43 @@ public class ShiftTransfer {
 	
 	//turno, horaentrada, horasalida
 	private int id;
-	private String turno;
-	private Date horaEntrada;
-	private Date horaSalida;
+	private String shift;
+	private Date checkin;
+	private Date chekout;
 	
 	
 	public ShiftTransfer(int id,
-						String turno,
-						Date horaEntrada,
-						Date horaSalida){ 
-		this.setId(id);
-		this.turno = turno;
-		this.horaEntrada = horaEntrada;
-		this.horaSalida = horaSalida;
+						String shift,
+						Date checkin,
+						Date chekout){ 
+		this.id = id;
+		this.shift = shift;
+		this.checkin = checkin;
+		this.chekout = chekout;
 	}
 	
-	public String getTurno () {
-		return turno;
+	public String getShift () {
+		return shift;
 	}
 	
-	public Date getHoraEntrada () {
-		return horaEntrada;
+	public Date getCheckin () {
+		return checkin;
 	}
 	
-	public Date getHoraSalida () {
-		return horaSalida;
+	public Date getCheckout () {
+		return chekout;
 	}
 		
-	public void setTurno (String turno) {
-		this.turno = turno;
+	public void setShift (String shift) {
+		this.shift = shift;
 	}
 	
-	public void setHoraEntrada (Date horaEntrada) {
-		this.horaEntrada = horaEntrada;
+	public void setCheckin (Date checkin) {
+		this.checkin = checkin;
 	}
 	
-	public void setHoraSalida (Date horaSalida) {
-		this.horaSalida = horaSalida;
+	public void setCheckout (Date chekout) {
+		this.chekout = chekout;
 	}
 
 	public int getId() {

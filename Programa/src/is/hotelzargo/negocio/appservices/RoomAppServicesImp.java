@@ -15,25 +15,48 @@ public class RoomAppServicesImp implements RoomAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
-		try {
-			dao.createRoom(t);
-		} catch (RoomIntegrationException e) {
-			e.printStackTrace();
-		}
 		
-	}
+		checkData (t);
+		
+		try {
+			if (!dao.searchRoom (t.getnumRoom(), t.getnumBeds(), t.getPrice())) {
+				dao.createRoom(t);
+			}
+			else  
+				throw new RoomAppServicesException("La habitacion ya existe");
+		}	
+		catch (RoomIntegrationException e) {
+			e.getMessage();
+		}
+}
+		
 
+	private void checkData (RoomTransfer t) throws RoomAppServicesException {
+		int numRoom = t.getnumRoom();
+		int numBeds = t.getnumBeds();
+		float price = t.getPrice();
+		
+		if (price<0)
+			throw new RoomAppServicesException("Precio invalido");
+		if (numBeds<=0)
+			throw new RoomAppServicesException("Numero camas invalido");
+		if (numRoom<=0)
+			throw new RoomAppServicesException("Numero habitacion invalido");
+	}
+	
+	
 	@Override
-	public void delRoom(String id) throws RoomAppServicesException {
+	public void delRoom(int id) throws RoomAppServicesException {
 		// TODO borrar habitacion
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
 		try {
-			dao.deleteRoom(id);
+				dao.deleteRoom(id);
+				
 		} catch (RoomIntegrationException e) {
-			e.printStackTrace();
+			throw new RoomAppServicesException (e.getMessage());
 		}
 		
 	}
