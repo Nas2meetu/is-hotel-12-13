@@ -4,7 +4,9 @@ import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.EmployeeDAO;
 import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
+import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.transfer.EmployeeTransferAdmin;
 
 public class EmployeeAppServicesImp implements EmployeeAppServices {
 
@@ -15,37 +17,58 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
-		if ((!t.getDNI().isEmpty())&&
-				(!t.getName().isEmpty())&&
-				(!t.getSurname().isEmpty())){
-		
-			try {
-				if (!dao.searchEmployee(t.getDNI())){}
-			} catch (EmployeeIntegrationException e) {
-				e.printStackTrace();
-			}
+		if(t instanceof EmployeeTransferAdmin ) {
 			
-		}
-		
-		//Tienen los mismo atributos
-		/*if(t instanceof EmployeeTransferAdmin) {
-			try {
-				dao.createEmployee(t);
+			checkDataEmployeeAdmin(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("DNI repetido");
+				else dao.createEmployee(t);
 			} catch (EmployeeIntegrationException e) {
-				throw new EmployeeAppServicesException(e.getMessage());
+				e.getMessage();
+			}
+					
+		} else {
+			
+			checkDataEmployeeServices(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("DNI repetido");
+				else dao.createEmployee(t);
+			} catch (EmployeeIntegrationException e) {
+				e.getMessage();
+			}
 		}
-		
-		else(t instanceof EmployeeTransferServices){
-		
-		}
-		
-		
-		}*/
+	
 		
 	}
 
-	private void checkDataEmployee(EmployeeTransfer t) throws EmployeeAppServicesException {
-		// Falta hacerlo Comprobar datos empleado
+	private void checkDataEmployeeServices(EmployeeTransfer t) throws EmployeeAppServicesException {
+		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
+			throw new EmployeeAppServicesException("Sin DNI");
+		if(!((EmployeeTransferAdmin)t).getName().isEmpty())
+			throw new EmployeeAppServicesException("Sin nombre");
+		if	(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
+			throw new EmployeeAppServicesException("Sin apellido");
+		
+	}
+
+	private void checkDataEmployeeAdmin(EmployeeTransfer t) throws EmployeeAppServicesException {
+		
+		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
+			throw new EmployeeAppServicesException("Sin DNI");
+		if(!((EmployeeTransferAdmin)t).getName().isEmpty())
+			throw new EmployeeAppServicesException("Sin nombre");
+		if(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
+			throw new EmployeeAppServicesException("Sin apellido");
+		if(!((EmployeeTransferAdmin)t).getPassword().isEmpty())
+			throw new EmployeeAppServicesException("Sin contraseña");
+		if(((EmployeeTransferAdmin)t).getTlf() == 0)
+			throw new EmployeeAppServicesException("Sin tlf");
+		
+		
 	}
 	
 	
