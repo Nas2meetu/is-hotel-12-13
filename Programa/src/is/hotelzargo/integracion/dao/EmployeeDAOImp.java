@@ -59,4 +59,11 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		
 	}
 
+	@Override
+	public boolean searchEmployee(String dni)
+			throws EmployeeIntegrationException {
+		// TODO llamadas a la BBDD
+		return false;
+	}
+
 }

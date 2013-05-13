@@ -17,4 +17,6 @@ public interface EmployeeDAO {
 	
 	public void updateEmployee(EmployeeTransfer t) throws EmployeeIntegrationException;
 
+	public boolean searchEmployee(String dni) throws EmployeeIntegrationException;
+
 }

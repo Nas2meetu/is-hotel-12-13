@@ -11,9 +11,22 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	@Override
 	public void addEmployee(EmployeeTransfer t)
 			throws EmployeeAppServicesException {
-		// TODO crear empleado ojo con los tipos
+		
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
+		
+		if ((!t.getDNI().isEmpty())&&
+				(!t.getName().isEmpty())&&
+				(!t.getSurname().isEmpty())){
+		
+			try {
+				if (!dao.searchEmployee(t.getDNI())){}
+			} catch (EmployeeIntegrationException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		//Tienen los mismo atributos
 		/*if(t instanceof EmployeeTransferAdmin) {
 			try {
