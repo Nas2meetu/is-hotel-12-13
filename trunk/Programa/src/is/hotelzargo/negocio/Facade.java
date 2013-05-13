@@ -45,7 +45,7 @@ public interface Facade {
 	
 	public void addRoom(RoomTransfer t)throws RoomAppServicesException;
 	
-	public void delRoom(String id)throws RoomAppServicesException;
+	public void delRoom(int id)throws RoomAppServicesException;
 	
 	public void listRoom()throws RoomAppServicesException;
 	
@@ -61,7 +61,7 @@ public interface Facade {
 	
 	public void addShift(ShiftTransfer t)throws ShiftAppServicesException;
 	
-	public void delShift(String id)throws ShiftAppServicesException;
+	public void delShift(int id)throws ShiftAppServicesException;
 	
 	public void listShift()throws ShiftAppServicesException;
 	

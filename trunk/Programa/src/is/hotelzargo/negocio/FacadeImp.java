@@ -128,7 +128,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delRoom(String id) throws RoomAppServicesException {
+	public void delRoom(int id) throws RoomAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		RoomAppServices roomAS = fac.getRoomAS();
 		roomAS.delRoom(id);
@@ -184,10 +184,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delShift(String id) throws ShiftAppServicesException {
+	public void delShift(int id) throws ShiftAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ShiftAppServices shiftAS = fac.getShiftAS();
-		shiftAS.delShift(id);
+		shiftAS.deleteShift(id);
 	}
 
 	@Override
