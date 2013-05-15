@@ -22,9 +22,9 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeAdmin(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI()))
+				if (dao.searchEmployee(t.getDNI()))
 						throw new EmployeeAppServicesException("DNI repetido");
-				else dao.createEmployee(t);
+				else dao.createEmployeeAdmin(t);
 			} catch (EmployeeIntegrationException e) {
 				e.getMessage();
 			}
@@ -34,9 +34,9 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeServices(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI()))
+				if (dao.searchEmployee(t.getDNI()))
 						throw new EmployeeAppServicesException("DNI repetido");
-				else dao.createEmployee(t);
+				else dao.createEmployeeServices(t);
 			} catch (EmployeeIntegrationException e) {
 				e.getMessage();
 			}
@@ -64,8 +64,8 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		if(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
 			throw new EmployeeAppServicesException("Sin apellido");
 		if(!((EmployeeTransferAdmin)t).getPassword().isEmpty())
-			throw new EmployeeAppServicesException("Sin contraseña");
-		if(((EmployeeTransferAdmin)t).getTlf() == 0)
+			throw new EmployeeAppServicesException("Sin contraseï¿½a");
+		if(((EmployeeTransferAdmin)t).getTlf().isEmpty())
 			throw new EmployeeAppServicesException("Sin tlf");
 		
 		
@@ -73,15 +73,20 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	
 	
 	@Override
-	public void delEmployee(String id) throws EmployeeAppServicesException {
-		// TODO borrar empleado
+	public void delEmployee(int id) throws EmployeeAppServicesException {
+		// Borrar empleado
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
 		try {
-			dao.deleteEmployee(id);
+			if (dao.searchEmployeeByID(id)){
+				dao.deleteEmployee(id);
+			}
+			else{
+				throw new EmployeeAppServicesException("Empleado inexistente con ese ID");
+			}
 		} catch (EmployeeIntegrationException e) {
-			e.printStackTrace();
+			throw new EmployeeAppServicesException("Problema al eliminar empleado en BD");
 		}
 		
 	}
@@ -90,14 +95,14 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	
 	@Override
 	public void listEmployee() throws EmployeeAppServicesException {
-		// TODO listar empleados
+		// Listar empleados
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
 		try {
 			dao.listEmployee();
 		} catch (EmployeeIntegrationException e) {
-			e.printStackTrace();
+			throw new EmployeeAppServicesException("Problema al lista empleados en BD");
 		}
 		
 	}
@@ -105,14 +110,24 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	@Override
 	public void modEmployee(EmployeeTransfer t)
 			throws EmployeeAppServicesException {
-		// TODO modificar empleado
+		// Modificar empleado
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
 		try {
-			dao.updateEmployee(t);
+			if (dao.searchEmployeeByID(t.getId())){
+				if(t instanceof EmployeeTransferAdmin ) {
+					dao.updateEmployeeAdmin(t);
+				}
+				else{
+					dao.updateEmployeeServices(t);
+				}
+			}
+			else{
+				throw new EmployeeAppServicesException("Empleado a actualizar no encontrado");
+			}
 		} catch (EmployeeIntegrationException e) {
-			e.printStackTrace();
+			throw new EmployeeAppServicesException("Problema al actualizar empleados en BD");
 		}
 		
 	}

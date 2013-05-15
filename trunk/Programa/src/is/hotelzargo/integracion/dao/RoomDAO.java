@@ -13,7 +13,7 @@ public interface RoomDAO {
 	
 	public void deleteRoom(int id) throws RoomIntegrationException;
 	
-	public RoomTransfer getRoom(String id) throws RoomIntegrationException;
+	public RoomTransfer getRoom(int id) throws RoomIntegrationException;
 	
 	public Vector<RoomTransfer> listRoom() throws RoomIntegrationException;
 	

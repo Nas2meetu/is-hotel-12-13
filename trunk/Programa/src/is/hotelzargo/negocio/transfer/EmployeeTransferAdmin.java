@@ -1,18 +1,17 @@
 package is.hotelzargo.negocio.transfer;
 
-import is.hotelzargo.negocio.appservices.ShiftAppServices;
 
 public class EmployeeTransferAdmin extends EmployeeTransfer {
 	
 	private String password;
 	
 	public EmployeeTransferAdmin(int id, 
-								 ShiftAppServices shift, 
+								 ShiftTransfer shift, 
 								 float pay,
 								 String name,
 								 String surname,
 								 String DNI,
-								 int tlf,
+								 String tlf,
 								 String password){
 	
 	super(id,shift,pay,name,surname,DNI,tlf);
@@ -24,7 +23,7 @@ public class EmployeeTransferAdmin extends EmployeeTransfer {
 		return this.password;
 	}
 	
-	public void getPassword(String password){
+	public void setPassword(String password){
 		this.password = password;
 	}
 	

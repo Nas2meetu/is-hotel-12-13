@@ -34,7 +34,7 @@ public class ServicesDAOImp implements ServicesDAO {
 	}
 
 	@Override
-	public void deleteService(String id) throws ServicesIntegrationException {
+	public void deleteService(int id) throws ServicesIntegrationException {
 		// TODO llamadas a BBDD
 		
 	}

@@ -17,7 +17,7 @@ public interface Facade {
 
 	public void addClient(ClientTransfer t)throws ClientAppServicesException;
 
-	public void delClient(String id)throws ClientAppServicesException;
+	public void delClient(int id)throws ClientAppServicesException;
 
 	public void listClient()throws ClientAppServicesException;
 	
@@ -25,19 +25,19 @@ public interface Facade {
 	
 	public void addBook(BookTransfer t)throws BookAppServicesException;
 	
-	public void delBook(String id)throws BookAppServicesException;
+	public void delBook(int id)throws BookAppServicesException;
 	
 	public void listBook()throws BookAppServicesException;
 	
 	public void modBook(BookTransfer t)throws BookAppServicesException;
 	
-	public void findBook(String id)throws BookAppServicesException;
+	public void findBook(int id)throws BookAppServicesException;
 	
-	public void confirmBook(String id)throws BookAppServicesException;
+	public void confirmBook(int id)throws BookAppServicesException;
 	
 	public void addEmployee(EmployeeTransfer t)throws EmployeeAppServicesException;
 	
-	public void delEmployee(String id)throws EmployeeAppServicesException;
+	public void delEmployee(int id)throws EmployeeAppServicesException;
 	
 	public void listEmployee()throws EmployeeAppServicesException;
 	
@@ -53,7 +53,7 @@ public interface Facade {
 	
 	public void addService(ServiceTransfer t)throws ServicesAppServicesException;
 	
-	public void delService(String id)throws ServicesAppServicesException;
+	public void delService(int id)throws ServicesAppServicesException;
 	
 	public void listService()throws ServicesAppServicesException;
 	

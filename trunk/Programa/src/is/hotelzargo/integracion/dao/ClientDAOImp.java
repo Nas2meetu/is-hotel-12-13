@@ -74,42 +74,39 @@ public class ClientDAOImp implements ClientDAO {
 
 
 	@Override
-	public void deleteClientIndividual(String id) throws ClientIntegrationException {
+	public void deleteClient(int id) throws ClientIntegrationException {
 			
-		String QueryString = "SELECT * FROM ClientIndividual WHERE dni="+id+";";
+		//se busca en ambas tablas el id
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
 		  try {
-			rs = statement.executeQuery(QueryString);
-			
+			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  //TODO eliminar TODAS las dependencias de este cliente, reservas pendientes
+				  return;
 			  }
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ClientIntegrationException("Problema al eliminar cliente individual");				
 		  }	
-			
-	}
-	
-	@Override
-	public void deleteClientCompany(String id) throws ClientIntegrationException {
-			
-			  String QueryString = "SELECT * FROM ClientCompany WHERE cif="+id+";";
+		  
+			String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id="+id+";";
 			  try {
-				rs = statement.executeQuery(QueryString);
-				
+				rs = statement.executeQuery(QueryString);			
 				//solo me devolvera 1 fila
 				  while (rs.next()) {
 					  //TODO eliminar TODAS las dependencias de este cliente, reservas pendientes
+					  return;
 				  }
 				
 			  } catch (SQLException e) {
 				e.printStackTrace();
-				throw new ClientIntegrationException("Problema al eliminar cliente company");				
-			  }			  
+				throw new ClientIntegrationException("Problema al eliminar cliente individual");				
+			  }
 			
 	}
+	
 
 	@Override
 	public void updateClientIndividual(ClientTransfer t) throws ClientIntegrationException {
@@ -155,11 +152,26 @@ public class ClientDAOImp implements ClientDAO {
 			throw new ClientIntegrationException("Problema al actualizar cliente compañía "+cif);				
 		  }
 	}
-
-	//este ID tendrá que ser relativo a esta tabla, ya que la tabla de clientes company
-	//podrá tener la misma ID. Otra opcion sería buscarlo por DNI...para mi más lógico.
+	
 	@Override
-	public ClientTransfer getClientIndividual(int id) throws ClientIntegrationException {
+	public ClientTransfer getClient(int id) throws ClientIntegrationException {
+		//puede estar en cualquiera de las dos tablas, o individual o company
+		ClientTransfer individual = getClientIndividual(id);
+		ClientTransfer company = getClientCompany(id);
+		if (individual != null){
+			return individual;
+		}
+		else if (company != null){
+			return company;
+		}
+		else{
+			return null;
+		}
+		
+	}
+
+
+	private ClientTransfer getClientIndividual(int id) throws ClientIntegrationException {		
 		
 		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
 		  try {
@@ -189,39 +201,8 @@ public class ClientDAOImp implements ClientDAO {
 		return null;
 	}
 	
-	@Override
-	public ClientTransfer getClientIndividualByDni(String dni) throws ClientIntegrationException {
-		
-		String QueryString = "SELECT * FROM ClientIndividual WHERE dni="+dni+";";
-		  try {
-			rs = statement.executeQuery(QueryString);			
-			//solo me devolvera 1 fila
-			  while (rs.next()) {
-				  	int id = rs.getInt(0);
-					String name = rs.getString(1);
-					String surname = rs.getString(2);
-
-					String phone = rs.getString(4);
-					String creditCard = rs.getString(5);
-					String address = rs.getString(6);
-					
-					ClientTransfer c = new ClientTransferIndividual(id,name, surname, dni, phone, creditCard, address);
-					
-					return c;
-				  
-			  }
-			
-		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new ClientIntegrationException("Problema al referenciar cliente individual con DNI "+dni);				
-		  }	
-		
-		
-		return null;
-	}
 	
-	@Override
-	public ClientTransfer getClientCompany(int id) throws ClientIntegrationException {
+	private ClientTransfer getClientCompany(int id) throws ClientIntegrationException {
 		
 		String QueryString = "SELECT * FROM ClientCompany WHERE id="+id+";";
 		  try {
@@ -248,40 +229,46 @@ public class ClientDAOImp implements ClientDAO {
 		
 		return null;
 	}
+
+
+	@Override
+	public boolean searchClient(int id) throws ClientIntegrationException {
+		
+		//Se ha decidido usar ID unico para las dos tablas, así que este ID
+		//puede estar en clientes individuales o en company, se busca en una tabla
+		//y luego en otra
+		if (searchIndividual(id)){
+			return true;
+		}
+		else if (searchCompany(id)){
+			return true;
+		}
+		else{
+			return false;
+		}
+				
+	}
 	
-	@Override
-	public ClientTransfer getClientCompanyByCif(String cif) throws ClientIntegrationException {
-		
-		String QueryString = "SELECT * FROM ClientCompany WHERE cif="+cif+";";
+	private boolean searchIndividual(int id) throws ClientIntegrationException{
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
 		  try {
-			rs = statement.executeQuery(QueryString);			
-			//solo me devolvera 1 fila
+			rs = statement.executeQuery(QueryString);
+			//si existe, solo me devolvera 1 fila
 			  while (rs.next()) {
-				  	int id = rs.getInt(0);
-					String company = rs.getString(1);
-
-					String phone = rs.getString(3);
-					String creditCard = rs.getString(4);
-					String address = rs.getString(5);
-					
-					ClientTransfer c = new ClientTransferCompany(id,company, cif, phone, creditCard, address);
-					
-					return c;
-				  
+				  return true;
 			  }
+			  
+			  return false;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new ClientIntegrationException("Problema al referenciar cliente company con CIF "+cif);				
+			e.getMessage();
+			throw new ClientIntegrationException("Problema al buscar en tabla ClientIndividual");				
 		  }
-		
-		return null;
 	}
 
-	@Override
-	public boolean searchIndividual(String dni) throws ClientIntegrationException {
+	private boolean searchCompany(int id) throws ClientIntegrationException {
 		
-		String QueryString = "SELECT * FROM ClientIndividual WHERE dni="+dni+";";
+		String QueryString = "SELECT * FROM ClientCompany WHERE id="+id+";";
 		  try {
 			rs = statement.executeQuery(QueryString);
 			//si existe, solo me devolvera 1 fila
@@ -292,34 +279,14 @@ public class ClientDAOImp implements ClientDAO {
 			 return false;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new ClientIntegrationException("Problema al buscar cliente individual con DNI "+dni);				
-		  }
-		
-	}
-
-	@Override
-	public boolean searchCompany(String cif) throws ClientIntegrationException {
-		
-		String QueryString = "SELECT * FROM ClientCompany WHERE cif="+cif+";";
-		  try {
-			rs = statement.executeQuery(QueryString);
-			//si existe, solo me devolvera 1 fila
-			  while (rs.next()) {
-				  return true;
-			  }
-			  
-			 return false;
-			
-		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new ClientIntegrationException("Problema al buscar cliente company con CIF "+cif);				
+			e.getMessage();
+			throw new ClientIntegrationException("Problema al buscar en tabla ClientCompany");				
 		  }	
 		
 	}
 
 	@Override
-	public Vector<ClientTransfer> listClientIndividual() throws ClientIntegrationException {
+	public Vector<ClientTransfer> listClient() throws ClientIntegrationException {
 		Vector<ClientTransfer> list = new Vector<ClientTransfer>();
 		
 		String QueryString = "SELECT * FROM ClientIndividual;";
@@ -349,7 +316,7 @@ public class ClientDAOImp implements ClientDAO {
 		
 		return list;
 	}
-	
+	/*
 	@Override
 	public Vector<ClientTransfer> listClientCompany() throws ClientIntegrationException {
 		Vector<ClientTransfer> list = new Vector<ClientTransfer>();
@@ -379,7 +346,7 @@ public class ClientDAOImp implements ClientDAO {
 		
 		return list;
 	}
-	
+	*/
 	private void closeAllConnections() throws SQLException{
 		rs.close();
 		statement.close();

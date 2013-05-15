@@ -85,22 +85,22 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionAddShift((ShiftTransfer) data);
 			
 		case DELETE_BOOK:
-			return new CommandActionDelBook((String) data);
+			return new CommandActionDelBook((Integer) data);
 			
 		case DELETE_CLIENT:
-			return new CommandActionDelClient((String) data);
+			return new CommandActionDelClient((Integer) data);
 			
 		case DELETE_EMPLOYEE:
-			return new CommandActionDelEmployee((String) data);
+			return new CommandActionDelEmployee((Integer) data);
 			
 		case DELETE_ROOM:
-			return new CommandActionDelRoom((String) data);
+			return new CommandActionDelRoom((Integer) data);
 			
 		case DELETE_SERVICE:
-			return new CommandActionDelService((String) data);
+			return new CommandActionDelService((Integer) data);
 			
 		case DELETE_SHIFT:
-			return new CommandActionDelShift((String) data);
+			return new CommandActionDelShift((Integer) data);
 			
 		case LIST_BOOK:
 			return new CommandActionListBook();
@@ -139,10 +139,10 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionModShift((ShiftTransfer) data);
 			
 		case FIND_BOOK:
-			return new CommandActionFindBook((String) data);
+			return new CommandActionFindBook((Integer) data);
 			
 		case CONFIRM_BOOK:
-			return new CommandActionConfirmBook((String) data);
+			return new CommandActionConfirmBook((Integer) data);
 			
 		case ERROR:
 			return new CommandActionError();

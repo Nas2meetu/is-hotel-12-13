@@ -20,6 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class DAOFactoryImp extends DAOFactory {
 	
 	//TODO todas las funciones que hagas aqui menos los get de los DAO son privadas
@@ -134,14 +136,14 @@ public class DAOFactoryImp extends DAOFactory {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-           e.printStackTrace();
+        	JOptionPane.showMessageDialog(null, "Connection refused!");
         } 
         
         // Se registra el Driver de MySQL
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Connection refused!");
 		}
         
         
@@ -149,7 +151,7 @@ public class DAOFactoryImp extends DAOFactory {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Connection refused!");
 		}
         
      // Ejemplo de consulta        

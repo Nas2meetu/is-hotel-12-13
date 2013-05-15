@@ -25,26 +25,28 @@ public class ClientAppServicesImp implements ClientAppServices {
 			checkDataIndividual(t);
 			
 			try {
-				if(!dao.searchIndividual(((ClientTransferIndividual) t).getDNI())){
+				//Se busca antes de insertar en base de datos porque mysql
+				if(!dao.searchClient(((ClientTransfer) t).getID())){
 					dao.createClientIndividual(t);
 				}else{
 					throw new ClientAppServicesException("El usuario ya existe");
 				}
 			} catch (ClientIntegrationException e) {
-				//e.printStackTrace();
 				e.getMessage();
 			}
 		}else {
 			checkDataCompany(t);
 			
 			try {
-				if(!dao.searchCompany(((ClientTransferCompany) t).getCIF())){
+				if(!dao.searchClient(((ClientTransfer) t).getID())){
 					dao.createClientCompany(t);
 				}else{
-					throw new ClientAppServicesException("La compañía ya existe");
+					throw new ClientAppServicesException("El usuario company ya existe");
 				}
+
 			} catch (ClientIntegrationException e) {
 				//e.printStackTrace();
+				//throw new ClientAppServicesException("La compañía ya existe");
 				e.getMessage();
 			}
 			
@@ -108,11 +110,24 @@ public class ClientAppServicesImp implements ClientAppServices {
 	}
 
 	@Override
-	public void deleteClient(String id) throws ClientAppServicesException {
+	public void delClient(int id) throws ClientAppServicesException {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
-		//tipo usuario individual(dni acaba en letra), o company(cif no lleva letra).
-		if (checkTypeDNI(id)){
+		
+		//deleteClient(id);
+		try {
+			if (dao.searchClient(id)){
+				dao.deleteClient(id);
+			}
+			else{
+				throw new ClientAppServicesException("El usuario a eliminar no existe");
+			}
+		} catch (ClientIntegrationException e) {
+			e.getMessage();
+			throw new ClientAppServicesException("Problema al eliminar cliente");
+		}
+		
+		/*
 			try {
 				dao.deleteClientIndividual(id);
 			} catch (ClientIntegrationException e) {
@@ -128,6 +143,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 				throw new ClientAppServicesException("Problema al eliminar cliente compañía");				
 			}
 		}
+		*/
 	}
 
 	@Override
@@ -145,27 +161,6 @@ public class ClientAppServicesImp implements ClientAppServices {
 	@Override
 	public void modClient(ClientTransfer t) throws ClientAppServicesException {
 		// TODO modificar reserva
-		
-	}
-	/**
-	 * Devuelve true si acaba en letra, en caso contrario el id es un cif(empresa)
-	 * @param id
-	 * @return
-	 */
-	private boolean checkTypeDNI(String id){
-		
-		int n =id.length();
-		char car = id.charAt(n-1); 
-		
-		try{
-			int i = Character.getNumericValue(car);
-		}
-		catch(NumberFormatException e){
-			//es una letra, suelta exception
-			return true;
-		}
-		
-		return false;
 		
 	}
 	

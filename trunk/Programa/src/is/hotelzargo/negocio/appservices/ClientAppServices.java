@@ -7,7 +7,7 @@ public interface ClientAppServices {
 
 	public void addClient(ClientTransfer t) throws ClientAppServicesException;
 	
-	public void deleteClient(String id) throws ClientAppServicesException;
+	public void delClient(int id) throws ClientAppServicesException;
 
 	public void listClient() throws ClientAppServicesException;
 

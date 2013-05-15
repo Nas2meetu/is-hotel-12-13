@@ -7,9 +7,9 @@ import is.hotelzargo.presentacion.comand.Command;
 
 public class CommandActionFindBook implements Command {
 
-	private String id;
+	private int id;
 	
-	public CommandActionFindBook(String id){
+	public CommandActionFindBook(int id){
 		this.id = id;
 	}
 	

@@ -23,7 +23,7 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public void delBook(String id) throws BookAppServicesException {
+	public void delBook(int id) throws BookAppServicesException {
 		// TODO borrar reserva
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
@@ -66,13 +66,13 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public void findBook(String id) throws BookAppServicesException {
+	public void findBook(int id) throws BookAppServicesException {
 		// TODO buscar reservas
 		
 	}
 
 	@Override
-	public void confirmBook(String id) throws BookAppServicesException {
+	public void confirmBook(int id) throws BookAppServicesException {
 		// TODO confirmar reserva
 		
 		DAOFactory fac = DAOFactory.getInstance();
