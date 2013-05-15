@@ -29,10 +29,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delClient(String id) throws ClientAppServicesException {
+	public void delClient(int id) throws ClientAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ClientAppServices clientAS = fac.getClientAS();
-		clientAS.deleteClient(id);
+		clientAS.delClient(id);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delBook(String id) throws BookAppServicesException {
+	public void delBook(int id) throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
 		bookAS.delBook(id);
@@ -79,14 +79,14 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void findBook(String id) throws BookAppServicesException {
+	public void findBook(int id) throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
 		bookAS.findBook(id);
 	}
 
 	@Override
-	public void confirmBook(String id) throws BookAppServicesException {
+	public void confirmBook(int id) throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
 		bookAS.confirmBook(id);
@@ -100,7 +100,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delEmployee(String id) throws EmployeeAppServicesException {
+	public void delEmployee(int id) throws EmployeeAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		EmployeeAppServices employeeAS = fac.getEmployeeAS();
 		employeeAS.delEmployee(id);
@@ -156,7 +156,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void delService(String id) throws ServicesAppServicesException {
+	public void delService(int id) throws ServicesAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ServicesAppServices servicesAS = fac.getServicesAS();
 		servicesAS.delService(id);

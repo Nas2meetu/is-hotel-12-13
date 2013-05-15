@@ -144,13 +144,13 @@ public class ClientFormAdd extends JDialog {
 		//TODO la movida está en que para el listado se necesita la ID, para
 		// usarla por ejemplo a la hora de eliminar
 		if(companyButton.isSelected()){
-			t = new ClientTransferCompany(companyText.getText(),
+			t = new ClientTransferCompany(-1,companyText.getText(),
 										  dniText.getText(),
 										  phoneText.getText(),
 										  creditCardText.getText(),
 										  addressText.getText());
 		}else {
-			t = new ClientTransferIndividual(nameText.getText(),
+			t = new ClientTransferIndividual(-1,nameText.getText(),
 											 surnameText.getText(),
 											 dniText.getText(),
 											 phoneText.getText(),

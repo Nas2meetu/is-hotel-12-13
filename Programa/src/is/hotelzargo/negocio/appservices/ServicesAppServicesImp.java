@@ -25,7 +25,7 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 	}
 
 	@Override
-	public void delService(String id) throws ServicesAppServicesException {
+	public void delService(int id) throws ServicesAppServicesException {
 		// TODO borrar servicio
 		
 		DAOFactory fac = DAOFactory.getInstance();

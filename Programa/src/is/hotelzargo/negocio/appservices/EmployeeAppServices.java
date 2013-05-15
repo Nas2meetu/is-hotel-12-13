@@ -7,7 +7,7 @@ public interface EmployeeAppServices {
 
 	void addEmployee(EmployeeTransfer t)throws EmployeeAppServicesException;
 
-	void delEmployee(String id)throws EmployeeAppServicesException;
+	void delEmployee(int id)throws EmployeeAppServicesException;
 
 	void listEmployee()throws EmployeeAppServicesException;
 

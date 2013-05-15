@@ -2,10 +2,13 @@ package is.hotelzargo.integracion.dao;
 
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
+import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.transfer.RoomTransfer;
+import is.hotelzargo.negocio.transfer.ShiftTransfer;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,9 +34,9 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public void createRoom(RoomTransfer t) throws RoomIntegrationException {
 		
-		/*int room_number = ((RoomTransfer) t).getRoomNumber();
-		float price = ((RoomTransfer) t).getRoomPrice();
-		int bed_number = ((RoomTransfer) t).getBedNumber();
+		int room_number = ((RoomTransfer) t).getnumRoom();
+		float price = ((RoomTransfer) t).getPrice();
+		int bed_number = ((RoomTransfer) t).getnumBeds();
 		
 		try {
 			
@@ -42,45 +45,137 @@ public class RoomDAOImp implements RoomDAO {
 			
 		} catch (SQLException e) {
 			e.getMessage();
-			throw new ClientIntegrationException("Problema al crear cliente individual");			
-		}*/
+			throw new RoomIntegrationException("Problema al crear habitación");			
+		}
 		
 	}
 
 	@Override
 	public void deleteRoom(int id) throws RoomIntegrationException {
-		// TODO llamadas a la BBDD
-		
+		// Se busca habitacion y se elimina
+		String QueryString = "DELETE FROM Rooms WHERE id="+id+";";
+				  try {
+					  
+					rs = statement.executeQuery(QueryString);			
+					
+				  } catch (SQLException e) {
+					e.getMessage();
+					throw new RoomIntegrationException("Problema al eliminar  habitación ");				
+				  }			
+						
 	}
 
 	@Override
-	public RoomTransfer getRoom(String id) throws RoomIntegrationException {
-		// TODO llamadas a la BBDD
+	public RoomTransfer getRoom(int id) throws RoomIntegrationException {
+		// Se devuelve habitacion
+		String QueryString = "SELECT * FROM Rooms WHERE id="+id+";";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {
+				  
+				  	int room_number = rs.getInt(1);
+				  	float price = rs.getFloat(2);
+				  	int bed_number = rs.getInt(3);
+					
+				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);					
+					return r;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al buscar habitación ");				
+		  }			
+		
 		return null;
 	}
 
 	@Override
 	public Vector<RoomTransfer> listRoom() throws RoomIntegrationException {
-		// TODO llamadas a la BBDD
-		return null;
+		String QueryString = "SELECT * FROM Rooms;";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//recorro habitaciones, metiendolas en el vector
+			Vector<RoomTransfer> rooms = new Vector<RoomTransfer>();
+			
+			  while (rs.next()) {
+				  
+				  	int id = rs.getInt(0);
+				  	int room_number = rs.getInt(1);
+					float price = rs.getFloat(2);
+					int bed_number = rs.getInt(3);
+					
+					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);						
+					rooms.add(r);
+				  
+			  }
+			  
+			  return rooms;
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al referenciar listado habitaciones");				
+		  }	
 	}
 
 	@Override
 	public void updateRoom(RoomTransfer t) throws RoomIntegrationException {
-		// TODO llamadas a la BBDD
+		int id = ((RoomTransfer) t).getId();
+		int room_number = ((RoomTransfer) t).getnumRoom();
+		float price = ((RoomTransfer) t).getPrice();
+		int bed_number = ((RoomTransfer) t).getnumBeds();
+		
+
+		//UPDATE
+		String QueryString = "UPDATE Rooms SET room_number="+room_number+"," +
+				"price="+price+",bed_number="+bed_number+"  WHERE id="+id+";";
+		  try {
+			  
+			rs = statement.executeQuery(QueryString);
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new RoomIntegrationException("Problema al actualizar habitacion");				
+		  }
 		
 	}
 	
 	@Override
 	public boolean searchRoom(int numBeds, int numRoom, float price) throws RoomIntegrationException{
-		// TODO llamadas a la BBDD
+		// Se busca habitacion llamadas a la BBDD
+		String QueryString = "SELECT * FROM Rooms WHERE room_number="+numRoom+" AND bed_number="+numBeds+"AND price="+price+";";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {				  					
+					return true;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al buscar habitación ");				
+		  }			
+		
 		return false;
 	}
 	
 	@Override
 	public boolean searchRoomByID(int id) throws RoomIntegrationException{
-		// TODO llamadas a la BBDD
-		return false;
+		// Se busca habitacion llamadas a la BBDD
+				String QueryString = "SELECT * FROM Rooms WHERE id="+id+";";
+				  try {
+					rs = statement.executeQuery(QueryString);			
+					//solo me devolvera 1 fila
+					  while (rs.next()) {				  					
+							return true;				  
+					  }
+					
+				  } catch (SQLException e) {
+					e.getMessage();
+					throw new RoomIntegrationException("Problema al buscar habitación ");				
+				  }			
+				
+				return false;
 	}
 
 }

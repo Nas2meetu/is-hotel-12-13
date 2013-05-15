@@ -33,7 +33,7 @@ public class BookDAOImp implements BookDAO {
 	}
 
 	@Override
-	public void deleteBook(String id) throws BookIntegrationException {
+	public void deleteBook(int id) throws BookIntegrationException {
 		// TODO llamadas a BBDD
 		
 	}
@@ -57,7 +57,7 @@ public class BookDAOImp implements BookDAO {
 	}
 
 	@Override
-	public void confirmBook(String id) throws BookIntegrationException {
+	public void confirmBook(int id) throws BookIntegrationException {
 		// TODO llamadas a BBDD
 		
 	}

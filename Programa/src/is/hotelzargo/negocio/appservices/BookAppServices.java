@@ -7,14 +7,14 @@ public interface BookAppServices {
 
 	void addBook(BookTransfer t)throws BookAppServicesException;
 
-	void delBook(String id)throws BookAppServicesException;
+	void delBook(int id)throws BookAppServicesException;
 
 	void listBook()throws BookAppServicesException;
 
 	void modBook(BookTransfer t)throws BookAppServicesException;
 
-	void findBook(String id)throws BookAppServicesException;
+	void findBook(int id)throws BookAppServicesException;
 
-	void confirmBook(String id)throws BookAppServicesException;
+	void confirmBook(int id)throws BookAppServicesException;
 
 }

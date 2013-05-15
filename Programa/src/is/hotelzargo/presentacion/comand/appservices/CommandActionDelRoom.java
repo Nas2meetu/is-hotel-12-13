@@ -7,9 +7,9 @@ import is.hotelzargo.presentacion.comand.Command;
 
 public class CommandActionDelRoom implements Command {
 	
-	private String id;
+	private int id;
 
-	public CommandActionDelRoom(String id){
+	public CommandActionDelRoom(int id){
 		this.id = id;
 	}
 	

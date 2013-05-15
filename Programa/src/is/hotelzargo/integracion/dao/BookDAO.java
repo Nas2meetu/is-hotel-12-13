@@ -9,7 +9,7 @@ public interface BookDAO {
 
 	public void createBook(BookTransfer t) throws BookIntegrationException;
 	
-	public void deleteBook(String id) throws BookIntegrationException;
+	public void deleteBook(int id) throws BookIntegrationException;
 	
 	public void updateBook(BookTransfer t) throws BookIntegrationException;
 	
@@ -20,5 +20,5 @@ public interface BookDAO {
 	
 	public Vector<BookTransfer> listBook() throws BookIntegrationException;
 	
-	public void confirmBook(String id) throws BookIntegrationException;
+	public void confirmBook(int id) throws BookIntegrationException;
 }

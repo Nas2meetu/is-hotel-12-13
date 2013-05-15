@@ -1,11 +1,6 @@
 package is.hotelzargo.negocio.appservices;
 
 
-
-
-
-
-
 import java.sql.Date;
 
 import is.hotelzargo.integracion.DAOFactory;
@@ -37,7 +32,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		checkData(t);
 		
 		try {
-			if(!dao.searchShift(t)){
+			if(!dao.searchShift(t.getShift(),t.getCheckin(),t.getCheckout())){
 				dao.createShift(t);
 			}else{
 				throw new ShiftAppServicesException("El turno ya existe");
@@ -56,8 +51,8 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		
 		try {
 			//Comprobar que existe el turno a eliminar, y no tenga empledos asignados
-			if (dao.searchShiftByID(id)){
-				//TODO mirar que no haya empleados con el turno a eliminar
+			if (dao.searchShift(id)){
+				//Se mira que no haya empleados con el turno a eliminar
 				if (!dao.employeesWithShift(id)){
 					dao.deleteShift(id);
 				}
@@ -77,7 +72,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 
 	@Override
 	public void listShift() throws ShiftAppServicesException {
-		// TODO listar turno
+		// listar turnos
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
@@ -92,7 +87,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 
 	@Override
 	public void modShift(ShiftTransfer t) throws ShiftAppServicesException {
-		// TODO modificar turno
+		// modificar turno
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
@@ -100,7 +95,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		try {
 			dao.updateShift(t);
 		} catch (ShiftIntegrationException e) {
-			e.printStackTrace();
+			throw new ShiftAppServicesException(e.getMessage());
 		}
 		
 	}

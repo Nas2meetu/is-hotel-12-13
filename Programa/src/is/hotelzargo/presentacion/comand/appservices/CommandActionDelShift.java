@@ -7,9 +7,9 @@ import is.hotelzargo.presentacion.comand.Command;
 
 public class CommandActionDelShift implements Command {
 	
-	private String id;
+	private int id;
 	
-	public CommandActionDelShift(String id){
+	public CommandActionDelShift(int id){
 		this.id = id;
 	}
 

@@ -7,16 +7,22 @@ import is.hotelzargo.negocio.transfer.EmployeeTransfer;
 
 public interface EmployeeDAO {
 	
-	public void createEmployee(EmployeeTransfer t) throws EmployeeIntegrationException;
+	public void createEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException;
 	
-	public void deleteEmployee(String id) throws EmployeeIntegrationException;
+	public void createEmployeeServices(EmployeeTransfer t) throws EmployeeIntegrationException;
 	
-	public EmployeeTransfer getEmployee(String id) throws EmployeeIntegrationException;
+	public void deleteEmployee(int id) throws EmployeeIntegrationException;
+	
+	public EmployeeTransfer getEmployee(int id) throws EmployeeIntegrationException;
 	
 	public Vector<EmployeeTransfer> listEmployee() throws EmployeeIntegrationException;
 	
-	public void updateEmployee(EmployeeTransfer t) throws EmployeeIntegrationException;
+	public void updateEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException;
+	
+	public void updateEmployeeServices(EmployeeTransfer t) throws EmployeeIntegrationException;
 
 	public boolean searchEmployee(String dni) throws EmployeeIntegrationException;
+	
+	public boolean searchEmployeeByID(int id) throws EmployeeIntegrationException;
 
 }

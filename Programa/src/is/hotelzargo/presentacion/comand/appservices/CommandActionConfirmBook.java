@@ -7,9 +7,9 @@ import is.hotelzargo.presentacion.comand.Command;
 
 public class CommandActionConfirmBook implements Command {
 
-	private String id;
+	private int id;
 	
-	public CommandActionConfirmBook(String id){
+	public CommandActionConfirmBook(int id){
 		this.id = id;
 	}
 	

@@ -7,7 +7,7 @@ public interface ServicesAppServices {
 
 	void addService(ServiceTransfer t)throws ServicesAppServicesException;
 
-	void delService(String id)throws ServicesAppServicesException;;
+	void delService(int id)throws ServicesAppServicesException;;
 
 	void listService()throws ServicesAppServicesException;;
 

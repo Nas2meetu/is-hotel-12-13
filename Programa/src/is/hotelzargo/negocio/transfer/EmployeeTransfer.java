@@ -1,24 +1,22 @@
 package is.hotelzargo.negocio.transfer;
 
-import is.hotelzargo.negocio.appservices.ShiftAppServices;
-
 public class EmployeeTransfer {
 
 	private int id;
-	private ShiftAppServices shift;
+	private ShiftTransfer shift;
 	private float pay;
 	private String name;
 	private String surname;
 	private String DNI;
-	private int tlf;
+	private String tlf;
 	
 	public EmployeeTransfer (int id, 
-							  ShiftAppServices shift, 
+							  ShiftTransfer shift, 
 							  float pay,
 							  String name,
 							  String surname,
 							  String DNI,
-							  int tlf){
+							  String tlf){
 		
 		this.id = id;
 		this.shift = shift;
@@ -34,7 +32,7 @@ public class EmployeeTransfer {
 		return this.id;
 	}
 	
-	public ShiftAppServices getShift(){
+	public ShiftTransfer getShift(){
 		return this.shift;
 	}
 	
@@ -54,7 +52,7 @@ public class EmployeeTransfer {
 		return this.DNI;
 	}
 	
-	public int getTlf(){
+	public String getTlf(){
 		return this.tlf;
 	}
 	
@@ -62,7 +60,7 @@ public class EmployeeTransfer {
 		this.id = id;
 	}
 	
-	public void setShift(ShiftAppServices shift){
+	public void setShift(ShiftTransfer shift){
 		this.shift = shift;
 	}
 	
@@ -82,7 +80,7 @@ public class EmployeeTransfer {
 		this.DNI = DNI;
 	}
 	
-	public void setTlf(int tlf){
+	public void setTlf(String tlf){
 		this.tlf = tlf;
 	}
 }
