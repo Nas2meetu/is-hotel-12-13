@@ -1,6 +1,7 @@
 package is.hotelzargo.integracion.dao;
 
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
+import is.hotelzargo.negocio.transfer.RoomTransfer;
 import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 import java.sql.Connection;
@@ -27,8 +28,19 @@ public class ServicesDAOImp implements ServicesDAO {
     }
 
 	@Override
-	public void createService(ServiceTransfer t)
-			throws ServicesIntegrationException {
+	public void createService(ServiceTransfer t){
+		
+		int id = ((ServiceTransfer) t).getId();
+		String service = ((ServiceTransfer) t).getServices();
+		
+		try{
+			statement.executeUpdate();
+		}catch(SQLException e){
+			e.getMessage();
+			throw new ServicesIntegrationException("Problema al crear un servicio");
+		}
+	
+			
 		// TODO llamadas a BBDD
 		
 	}
