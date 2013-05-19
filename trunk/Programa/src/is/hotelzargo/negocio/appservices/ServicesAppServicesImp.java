@@ -4,6 +4,7 @@ import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ServicesDAO;
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.negocio.exception.ServicesAppServicesException;
+import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 public class ServicesAppServicesImp implements ServicesAppServices {
@@ -11,37 +12,48 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 	@Override
 	public void addService(ServiceTransfer t)
 			throws ServicesAppServicesException {
-		// TODO crear servicio
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
+		int id = t.getId();
+		
 		try {
-			dao.createService(t);
+			if (!dao.searchShiftByID(id)){
+				dao.createService(t);
+			}
+			else{
+				throw new ServicesAppServicesException("El servicio ya existe");	
+			}
 		} catch (ServicesIntegrationException e) {
-			e.printStackTrace();
+			e.getMessage();
+			throw new ServicesAppServicesException("Problema al crear servicio");
 		}
 		
 	}
 
 	@Override
 	public void delService(int id) throws ServicesAppServicesException {
-		// TODO borrar servicio
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
 		try {
-			dao.deleteService(id);
+			if (dao.searchShiftByID(id)){
+				dao.deleteService(id);
+			}
+			else{
+				throw new ServicesAppServicesException("El servicio con ese ID no existe");
+			}
 		} catch (ServicesIntegrationException e) {
-			e.printStackTrace();
+			e.getMessage();
+			throw new ServicesAppServicesException("Problema al eliminar servicio");
 		}
 		
 	}
 
 	@Override
 	public void listService() throws ServicesAppServicesException {
-		// TODO listar servicios
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
@@ -49,22 +61,28 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 		try {
 			dao.listService();
 		} catch (ServicesIntegrationException e) {
-			e.printStackTrace();
+			e.getMessage();
+			throw new ServicesAppServicesException("Problema al listar servicios");
 		}
 		
 	}
 
 	@Override
 	public void modService(ServiceTransfer t) throws ServicesAppServicesException {
-		// TODO modificar servicio
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
 		try {
-			dao.updateService(t);
+			if (dao.searchShiftByID(t.getId())){
+				dao.updateService(t);
+			}
+			else{
+				throw new ServicesAppServicesException("El servicio a modificar no existe");
+			}
 		} catch (ServicesIntegrationException e) {
-			e.printStackTrace();
+			e.getMessage();
+			throw new ServicesAppServicesException("Problema al modificar servicio");
 		}
 		
 	}
