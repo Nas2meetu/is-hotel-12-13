@@ -5,6 +5,11 @@ public class ServiceTransfer {
 	private int iD;
 	private String services;
 	
+	public ServiceTransfer(int id,String services){
+		iD = id;
+		this.services = services;
+	}
+	
 	/*
 	 * getters
 	 */
@@ -16,13 +21,6 @@ public class ServiceTransfer {
 		return this.services;
 	}
 	
-	/*
-	 *  setters
-	 */
-	public void setId(int iD){
-		
-		this.iD = iD;
-	}
 	
 	public void setServices(String services){
 		this.services = services;

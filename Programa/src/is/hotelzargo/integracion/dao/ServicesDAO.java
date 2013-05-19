@@ -3,6 +3,7 @@ package is.hotelzargo.integracion.dao;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
+import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 public interface ServicesDAO {
@@ -11,7 +12,11 @@ public interface ServicesDAO {
 	
 	public void deleteService(int id) throws ServicesIntegrationException;
 	
-	public ServiceTransfer getService(String id) throws ServicesIntegrationException;
+	public ServiceTransfer getService(int id) throws ServicesIntegrationException;
+	
+	public boolean searchShift(String serviceName) throws ServicesIntegrationException;
+	
+	public boolean searchShiftByID(int id) throws ServicesIntegrationException;
 	
 	public Vector<ServiceTransfer> listService() throws ServicesIntegrationException;
 	
