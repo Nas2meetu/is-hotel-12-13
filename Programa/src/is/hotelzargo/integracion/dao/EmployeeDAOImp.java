@@ -45,7 +45,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		try {
 			
 			statement.executeUpdate("INSERT INTO Employee (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
-					"("+shiftID+", "+pay+","+name+","+surname+","+dni+","+tlf+", "+pass+ ");" );					
+					"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"', '"+pass+ "');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -69,7 +69,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 				try {
 					
 					statement.executeUpdate("INSERT INTO Employee (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
-							"("+shiftID+", "+pay+","+name+","+surname+","+dni+","+tlf+", "+null+ ");" );					
+							"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"',' "+null+ "');" );					
 					
 				} catch (SQLException e) {
 					e.getMessage();
@@ -81,10 +81,10 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 	@Override
 	public void deleteEmployee(int id) throws EmployeeIntegrationException {
-		String QueryString = "DELETE FROM Employees WHERE idEmployee="+id+";";
+		String QueryString = "DELETE FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);			
+			statement.executeUpdate(QueryString);			
 			
 		  } catch (SQLException e) {
 			e.getMessage();
@@ -96,7 +96,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public EmployeeTransfer getEmployee(int id)
 			throws EmployeeIntegrationException {
-		String QueryString = "SELECT * FROM Employees WHERE idEmployee="+id+";";
+		String QueryString = "SELECT * FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -130,7 +130,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	}
 	
 	private ShiftTransfer getShiftOfEmployee(int shiftID) throws EmployeeIntegrationException {
-		String QueryShiftEmployee = "SELECT * FROM Shifts WHERE id="+shiftID+";";
+		String QueryShiftEmployee = "SELECT * FROM Shifts WHERE id='"+shiftID+"';";
 	  	ShiftTransfer s = null;
 		  try {
 			  ResultSet rs2 = statement.executeQuery(QueryShiftEmployee);			
@@ -203,11 +203,11 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		
 
 		//UPDATE
-		String QueryString = "UPDATE Employees SET shiftID="+shiftID+"," +
-				"pay="+pay+",nameEmployee="+name+",surnameEmployee="+surname+",dniEmployee="+dni+",tlfEmployee="+tlf+"  WHERE id="+id+";";
+		String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
+				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"'  WHERE id='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.getMessage();
@@ -230,11 +230,11 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		
 
 		//UPDATE
-		String QueryString = "UPDATE Employees SET shiftID="+shiftID+"," +
-				"pay="+pay+",nameEmployee="+name+",surnameEmployee="+surname+",dniEmployee="+dni+",tlfEmployee="+tlf+",password="+pass+"  WHERE id="+id+";";
+		String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
+				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"',password='"+pass+"'  WHERE id='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.getMessage();
@@ -247,7 +247,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	public boolean searchEmployee(String dni)
 			throws EmployeeIntegrationException {
 		
-		String QueryString = "SELECT * FROM Employees WHERE dniEmployee="+dni+";";
+		String QueryString = "SELECT * FROM Employees WHERE dniEmployee='"+dni+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -267,7 +267,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	public boolean searchEmployeeByID(int id)
 			throws EmployeeIntegrationException {
 		
-		String QueryString = "SELECT * FROM Employees WHERE idEmployee="+id+";";
+		String QueryString = "SELECT * FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila

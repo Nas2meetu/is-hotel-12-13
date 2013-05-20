@@ -1,8 +1,11 @@
-package is.hotelzargo.presentacion.gui.client;
+package is.hotelzargo.presentacion.gui.employee;
 
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
+import is.hotelzargo.negocio.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.transfer.EmployeeTransferAdmin;
+import is.hotelzargo.negocio.transfer.EmployeeTransferServices;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -21,32 +24,26 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ClientFormAdd extends JDialog {
+public class EmployeeFormAdd extends JDialog {
 	
 	private JLabel nameLabel;
 	private JLabel surnameLabel;
 	private JLabel dniLabel;
 	private JLabel phoneLabel;
-	private JLabel creditCardLabel;
-	private JLabel companyLabel;
-	private JLabel addressLabel;
 	
 	private JTextField nameText;
 	private JTextField surnameText;
 	private JTextField dniText;
 	private JTextField phoneText;
-	private JTextField creditCardText;
-	private JTextField companyText;
-	private JTextField addressText;
 	
-	private JRadioButton companyButton;
+	private JRadioButton adminButton;
 	
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
-	public ClientFormAdd(JFrame owner,boolean mod) {
+	public EmployeeFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Cliente");
+		this.setTitle("Dar de alta Empleado");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
@@ -55,22 +52,16 @@ public class ClientFormAdd extends JDialog {
 		surnameLabel    = new JLabel("Apellidos           ");
 		dniLabel        = new JLabel("DNI                 ");
 		phoneLabel      = new JLabel("Telefono            ");
-		creditCardLabel = new JLabel("Tarjeta de credito  ");
-		addressLabel    = new JLabel("Direccion           ");
-		companyLabel    = new JLabel("Empresa             ");
 		
 		/* text */
 		nameText = new JTextField(20);
 		surnameText = new JTextField(20);
 		dniText = new JTextField(20);
 		phoneText = new JTextField(20);
-		creditCardText = new JTextField(20);
-		companyText = new JTextField(20);
-		addressText = new JTextField(20);
 		
 		/* boton empresa */
-		companyButton = new JRadioButton("Empresa");
-		companyButton.setSelected(false);
+		adminButton = new JRadioButton("Administrador");
+		adminButton.setSelected(false);
 		
 		/* botones aceptar y cancelar */
 		acceptButton = new JButton("Aceptar");
@@ -81,7 +72,7 @@ public class ClientFormAdd extends JDialog {
 		
 		/* Paneles */
 		JPanel radioPanel = new JPanel();
-		radioPanel.add(companyButton);
+		radioPanel.add(adminButton);
 		
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridLayout(1, 2));
@@ -102,22 +93,7 @@ public class ClientFormAdd extends JDialog {
 		phonePanel.setLayout(new GridLayout(1, 2));
 		phonePanel.add(phoneLabel);
 		phonePanel.add(phoneText);
-		
-		JPanel creditCardPanel = new JPanel();
-		creditCardPanel.setLayout(new GridLayout(1, 2));
-		creditCardPanel.add(creditCardLabel);
-		creditCardPanel.add(creditCardText);
-		
-		JPanel companyPanel = new JPanel();
-		companyPanel.setLayout(new GridLayout(1, 2));
-		companyPanel.add(companyLabel);
-		companyPanel.add(companyText);
-		
-		JPanel addressPanel = new JPanel();
-		addressPanel.setLayout(new GridLayout(1, 2));
-		addressPanel.add(addressLabel);
-		addressPanel.add(addressText);
-		
+				
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
 		acPanel.add(acceptButton);
@@ -129,9 +105,6 @@ public class ClientFormAdd extends JDialog {
 		this.add(surnamePanel);
 		this.add(dniPanel);
 		this.add(phonePanel);
-		this.add(creditCardPanel);
-		this.add(companyPanel);
-		this.add(addressPanel);
 		this.add(acPanel);
 		
 		this.pack();
@@ -139,35 +112,32 @@ public class ClientFormAdd extends JDialog {
 	
 	private void accept(){
 		
-		ClientTransfer t;
+		EmployeeTransfer t;
 		
-		if(companyButton.isSelected()){
-			t = new ClientTransferCompany(-1,companyText.getText(),
+		//TODO employeeFormAdd se necesita el turno...
+		
+		/*if(adminButton.isSelected()){
+			t = new EmployeeTransferAdmin(-1,nameText.getText(),
 										  dniText.getText(),
-										  phoneText.getText(),
-										  creditCardText.getText(),
-										  addressText.getText());
+										  phoneText.getText(),);
 		}else {
-			t = new ClientTransferIndividual(-1,nameText.getText(),
+			t = new EmployeeTransferServices(-1,nameText.getText(),
 											 surnameText.getText(),
 											 dniText.getText(),
 											 phoneText.getText(),
 											 creditCardText.getText(),
 											 addressText.getText());
-		}
-		Controller.getInstance().event(Event.ADD_CLIENT,t,null);
+		}*/
+		//Controller.getInstance().event(Event.ADD_CLIENT,t,null);
 	}
 	
 	private void exit(){
 		this.setVisible(false);
-		companyButton.setSelected(false);
+		adminButton.setSelected(false);
 		nameText.setText("sdf");
 		surnameText.setText("fdsa");
 		dniText.setText("587496325");
 		phoneText.setText("658714298");
-		creditCardText.setText("4444444444444");
-		companyText.setText("");
-		addressText.setText("didiidididididi");
 	}
 	
 	private void addListener(){

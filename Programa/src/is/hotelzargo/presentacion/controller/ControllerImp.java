@@ -9,13 +9,6 @@ public class ControllerImp extends Controller {
 		CommandFactory fac = CommandFactory.getInstance();
 		returnData = fac.createCommand(event, data).execute();
 
-		if (returnData ==null){
-			System.out.println("data es null");
-		}
-		else{
-			System.out.println("Data NOOOO es null");
-		}
-
 		return returnData;
 
 	}

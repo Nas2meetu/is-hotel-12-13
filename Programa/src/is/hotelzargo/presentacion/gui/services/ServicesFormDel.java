@@ -1,4 +1,4 @@
-package is.hotelzargo.presentacion.gui.client;
+package is.hotelzargo.presentacion.gui.services;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ClientFormDel extends JDialog {
+public class ServicesFormDel extends JDialog {
 
 	private JLabel idLabel;
 	
@@ -26,13 +26,13 @@ public class ClientFormDel extends JDialog {
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
-	public ClientFormDel(JFrame owner, boolean mod) {
+	public ServicesFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de baja cliente");
+		this.setTitle("Dar de baja servicio");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		idLabel = new JLabel("ID del cliente");
+		idLabel = new JLabel("ID del servicio");
 		
 		idText = new JTextField(10);
 		
@@ -65,7 +65,7 @@ public class ClientFormDel extends JDialog {
 	
 	private void accept(){
 		//paso un int ID
-		Controller.getInstance().event(Event.DELETE_CLIENT,Integer.parseInt(idText.getText()),null);
+		Controller.getInstance().event(Event.DELETE_SERVICE,Integer.parseInt(idText.getText()),null);
 	}
 	
 	private void addListener(){

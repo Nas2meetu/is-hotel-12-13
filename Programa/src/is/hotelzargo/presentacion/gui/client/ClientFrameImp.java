@@ -26,6 +26,7 @@ public class ClientFrameImp extends ClientFrame {
 	private ClientFormAdd addForm;
 	private ClientFormDel delForm;
 	private ClientFormList listForm;
+	private ClientFormMod modForm;
 	
 	public ClientFrameImp() {
 		
@@ -37,6 +38,7 @@ public class ClientFrameImp extends ClientFrame {
 		addForm = new ClientFormAdd(this,true);
 		delForm = new ClientFormDel(this,true);
 		listForm = new ClientFormList(this,true);
+		modForm = new ClientFormMod(this,true);
 		
 		/* botones */
 		
@@ -71,6 +73,10 @@ public class ClientFrameImp extends ClientFrame {
 	
 	private void listClient() {
 		listForm.setVisible(true);
+	}
+	
+	private void modClient() {
+		modForm.setVisible(true);
 	}
 	
 	private void exit() {
@@ -134,6 +140,13 @@ public class ClientFrameImp extends ClientFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				listClient();
+			}
+		});
+		
+		this.modClientButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modClient();
 			}
 		});
 	

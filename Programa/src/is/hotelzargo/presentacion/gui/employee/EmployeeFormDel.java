@@ -1,4 +1,4 @@
-package is.hotelzargo.presentacion.gui.client;
+package is.hotelzargo.presentacion.gui.employee;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ClientFormDel extends JDialog {
+public class EmployeeFormDel extends JDialog {
 
 	private JLabel idLabel;
 	
@@ -26,7 +26,7 @@ public class ClientFormDel extends JDialog {
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
-	public ClientFormDel(JFrame owner, boolean mod) {
+	public EmployeeFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
 		this.setTitle("Dar de baja cliente");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
