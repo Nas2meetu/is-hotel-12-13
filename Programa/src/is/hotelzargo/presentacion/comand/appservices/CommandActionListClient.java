@@ -12,7 +12,10 @@ public class CommandActionListClient implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			return facade.listClient();
+			Object obj = facade.listClient();
+			if(obj == null){
+				System.out.println("Es null");
+			}
 		} catch (ClientAppServicesException e) {
 			//e.printStackTrace();
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());

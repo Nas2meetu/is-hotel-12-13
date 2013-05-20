@@ -61,7 +61,24 @@ public class ClientFormList extends JDialog {
 			public void windowOpened(WindowEvent arg0) {
 				/*Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				setTextArea("holas" + "\n" + "holas 2");*/
-				initTextArea();
+				Vector<ClientTransfer> clientList = null;
+				Controller.getInstance().event(Event.LIST_CLIENT,null,clientList);
+				System.out.println("en initText");
+				System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress());
+				String text = "";
+				if(clientList != null){
+					for(int i = 0; i < clientList.size(); i++){
+						ClientTransfer t = clientList.elementAt(i);
+						if (t instanceof ClientTransferIndividual)
+							text += ((ClientTransferIndividual) t).getName();
+						else
+							text +=((ClientTransferCompany) t).getCompany();
+					}
+				}
+				else{
+					listTextArea.setText("No clients");
+				}
+				setTextArea(text);
 				
 			}
 			
@@ -114,22 +131,6 @@ public class ClientFormList extends JDialog {
 		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
 		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
-		Vector<ClientTransfer> clientList = null;
-		Controller.getInstance().event(Event.LIST_CLIENT,null,clientList);
-		System.out.println("en initText");
-		System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress());
-		if(clientList != null){
-			for(int i = 0; i < clientList.size(); i++){
-				ClientTransfer t = clientList.elementAt(i);
-				if (t instanceof ClientTransferIndividual)
-					listTextArea.setText(((ClientTransferIndividual) t).getName());
-				else
-					listTextArea.setText(((ClientTransferCompany) t).getCompany());
-			}
-		}
-		else{
-			listTextArea.setText("No clients");
-		}
 	}
 	
 	private void setTextArea(String text){
