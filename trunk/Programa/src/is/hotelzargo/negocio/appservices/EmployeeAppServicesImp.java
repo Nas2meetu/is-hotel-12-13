@@ -4,9 +4,9 @@ import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.EmployeeDAO;
 import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
-import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.transfer.EmployeeTransferAdmin;
+import is.hotelzargo.negocio.transfer.EmployeeTransferServices;
 
 public class EmployeeAppServicesImp implements EmployeeAppServices {
 
@@ -46,16 +46,25 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	}
 
 	private void checkDataEmployeeServices(EmployeeTransfer t) throws EmployeeAppServicesException {
-		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
+		
+		String TLF = ((EmployeeTransferServices)t).getPhone();
+		
+		if(!((EmployeeTransferServices)t).getDNI().isEmpty()) 
 			throw new EmployeeAppServicesException("Sin DNI");
-		if(!((EmployeeTransferAdmin)t).getName().isEmpty())
+		if(!((EmployeeTransferServices)t).getName().isEmpty())
 			throw new EmployeeAppServicesException("Sin nombre");
-		if	(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
+		if	(!((EmployeeTransferServices)t).getSurname().isEmpty())
 			throw new EmployeeAppServicesException("Sin apellido");
+		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+			throw new EmployeeAppServicesException("Telefono no valido");
+		if(((EmployeeTransferServices)t).getPay() == 0)
+			throw new EmployeeAppServicesException("Sin sueldo");
 		
 	}
 
 	private void checkDataEmployeeAdmin(EmployeeTransfer t) throws EmployeeAppServicesException {
+		
+		String TLF = ((EmployeeTransferAdmin)t).getPhone();
 		
 		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
 			throw new EmployeeAppServicesException("Sin DNI");
@@ -64,9 +73,11 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		if(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
 			throw new EmployeeAppServicesException("Sin apellido");
 		if(!((EmployeeTransferAdmin)t).getPassword().isEmpty())
-			throw new EmployeeAppServicesException("Sin contrase�a");
-		if(((EmployeeTransferAdmin)t).getTlf().isEmpty())
+			throw new EmployeeAppServicesException("Sin contrasegna");
+		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
 			throw new EmployeeAppServicesException("Sin tlf");
+		if(((EmployeeTransferAdmin)t).getPay() == 0)
+			throw new EmployeeAppServicesException("Sin sueldo");
 		
 		
 	}
@@ -114,20 +125,30 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
-		try {
-			if (dao.searchEmployeeByID(t.getId())){
-				if(t instanceof EmployeeTransferAdmin ) {
-					dao.updateEmployeeAdmin(t);
-				}
-				else{
-					dao.updateEmployeeServices(t);
-				}
+		
+		if(t instanceof EmployeeTransferAdmin ) {
+			
+			checkDataEmployeeAdmin(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("El empleado no existe");
+				else dao.updateEmployeeAdmin(t);
+			} catch (EmployeeIntegrationException e) {
+				e.getMessage();
 			}
-			else{
-				throw new EmployeeAppServicesException("Empleado a actualizar no encontrado");
+					
+		} else {
+			
+			checkDataEmployeeServices(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("El empleado no existe");
+				else dao.updateEmployeeServices(t);
+			} catch (EmployeeIntegrationException e) {
+				e.getMessage();
 			}
-		} catch (EmployeeIntegrationException e) {
-			throw new EmployeeAppServicesException("Problema al actualizar empleados en BD");
 		}
 		
 	}

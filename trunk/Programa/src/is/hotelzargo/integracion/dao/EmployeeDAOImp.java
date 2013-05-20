@@ -39,7 +39,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		String name = ((EmployeeTransferAdmin) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();
 		String dni = ((EmployeeTransfer) t).getDNI();
-		String tlf = ((EmployeeTransfer) t).getTlf();
+		String tlf = ((EmployeeTransfer) t).getPhone();
 		String pass = ((EmployeeTransferAdmin) t).getPassword();
 		
 		try {
@@ -64,7 +64,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 				String name = ((EmployeeTransfer) t).getName();
 				String surname = ((EmployeeTransfer) t).getSurname();
 				String dni = ((EmployeeTransfer) t).getDNI();
-				String tlf = ((EmployeeTransfer) t).getTlf();
+				String tlf = ((EmployeeTransfer) t).getPhone();
 				
 				try {
 					
@@ -199,7 +199,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		String name = ((EmployeeTransfer) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();
 		String dni = ((EmployeeTransfer) t).getDNI();
-		String tlf = ((EmployeeTransfer) t).getTlf();
+		String tlf = ((EmployeeTransfer) t).getPhone();
 		
 
 		//UPDATE
@@ -225,7 +225,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		String name = ((EmployeeTransfer) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();
 		String dni = ((EmployeeTransfer) t).getDNI();
-		String tlf = ((EmployeeTransfer) t).getTlf();
+		String tlf = ((EmployeeTransfer) t).getPhone();
 		String pass = ((EmployeeTransferAdmin) t).getPassword();
 		
 
