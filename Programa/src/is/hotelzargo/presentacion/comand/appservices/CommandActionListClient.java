@@ -18,6 +18,7 @@ public class CommandActionListClient implements Command {
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());
 			
 		}
+		return null;
 	}
 
 }

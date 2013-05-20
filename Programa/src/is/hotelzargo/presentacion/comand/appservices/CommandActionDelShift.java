@@ -23,6 +23,7 @@ public class CommandActionDelShift implements Command {
 		} catch (ShiftAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

@@ -17,6 +17,7 @@ public class CommandActionShowShiftFrame implements Command {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		ShiftFrame.getInstance().setVisible(visible);
+		return null;
 	}
 
 }

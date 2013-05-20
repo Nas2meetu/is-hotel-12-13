@@ -24,6 +24,7 @@ public class CommandActionDelBook implements Command {
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

@@ -17,6 +17,7 @@ public class CommandActionShowServicesFrame implements Command {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		ServicesFrame.getInstance().setVisible(visible);
+		return null;
 		
 	}
 

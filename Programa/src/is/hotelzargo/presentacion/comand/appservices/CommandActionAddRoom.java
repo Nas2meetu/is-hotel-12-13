@@ -25,6 +25,7 @@ public class CommandActionAddRoom implements Command {
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());
 			
 		}
+		return null;
 	}
 
 }

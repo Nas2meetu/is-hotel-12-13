@@ -23,6 +23,7 @@ public class CommandActionConfirmBook implements Command {
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

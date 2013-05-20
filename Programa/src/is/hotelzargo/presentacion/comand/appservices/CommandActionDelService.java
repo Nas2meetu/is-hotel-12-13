@@ -23,6 +23,7 @@ public class CommandActionDelService implements Command {
 		} catch (ServicesAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }
