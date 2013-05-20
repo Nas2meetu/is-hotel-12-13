@@ -64,7 +64,7 @@ public class ClientFormDel extends JDialog {
 	}
 	
 	private void accept(){
-		Controller.getInstance().event(Event.DELETE_CLIENT,idText.getText());
+		Controller.getInstance().event(Event.DELETE_CLIENT,idText.getText(),null);
 	}
 	
 	private void addListener(){
