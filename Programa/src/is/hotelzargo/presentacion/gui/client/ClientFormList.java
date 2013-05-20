@@ -62,6 +62,7 @@ public class ClientFormList extends JDialog {
 				/*Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				setTextArea("holas" + "\n" + "holas 2");*/
 				initTextArea();
+				
 			}
 			
 			@Override
