@@ -5,7 +5,7 @@ import is.hotelzargo.presentacion.comand.Command;
 public class CommandActionError implements Command {
 
 	@Override
-	public void execute() {
+	public Object execute() {
 		
 	}
 

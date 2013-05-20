@@ -13,7 +13,7 @@ public class CommandActionShowShiftFrame implements Command {
 	}
 	
 	@Override
-	public void execute() {
+	public Object execute() {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		ShiftFrame.getInstance().setVisible(visible);

@@ -1,5 +1,7 @@
 package is.hotelzargo.negocio;
 
+import java.util.Vector;
+
 import is.hotelzargo.negocio.appservices.BookAppServices;
 import is.hotelzargo.negocio.appservices.ClientAppServices;
 import is.hotelzargo.negocio.appservices.EmployeeAppServices;
@@ -36,11 +38,11 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listClient() throws ClientAppServicesException {
+	public Vector<ClientTransfer> listClient() throws ClientAppServicesException {
 
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ClientAppServices clientAS = fac.getClientAS();
-		clientAS.listClient();
+		return clientAS.listClient();
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class CommandActionShowBookFrame implements Command {
 	}
 	
 	@Override
-	public void execute() {
+	public Object execute() {
 
 		MainFrame.getInstance().setVisible(!visible);
 		BookFrame.getInstance().setVisible(visible);		

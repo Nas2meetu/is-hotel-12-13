@@ -15,7 +15,7 @@ public class CommandActionModShift implements Command {
 	}
 	
 	@Override
-	public void execute() {
+	public Object execute() {
 		
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		

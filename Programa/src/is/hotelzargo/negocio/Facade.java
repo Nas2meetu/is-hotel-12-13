@@ -1,5 +1,7 @@
 package is.hotelzargo.negocio;
 
+import java.util.Vector;
+
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.exception.ClientAppServicesException;
 import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
@@ -19,7 +21,7 @@ public interface Facade {
 
 	public void delClient(int id)throws ClientAppServicesException;
 
-	public void listClient()throws ClientAppServicesException;
+	public Vector<ClientTransfer> listClient()throws ClientAppServicesException;
 	
 	public void modClient(ClientTransfer t)throws ClientAppServicesException;
 	
