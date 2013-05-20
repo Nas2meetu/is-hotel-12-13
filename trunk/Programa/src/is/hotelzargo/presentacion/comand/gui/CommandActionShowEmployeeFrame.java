@@ -12,7 +12,7 @@ public class CommandActionShowEmployeeFrame implements Command {
 		visible = bool;
 	}
 	@Override
-	public void execute() {
+	public Object execute() {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		EmployeeFrame.getInstance().setVisible(visible);

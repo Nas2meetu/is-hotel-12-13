@@ -11,5 +11,5 @@ public abstract class Controller {
 		return (ControllerImp) instance;
 	}
 	
-	public abstract void event(Event event, Object data);
+	public abstract void event(Event event, Object data,Object returnData);
 }

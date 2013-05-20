@@ -13,7 +13,7 @@ public class CommandActionShowServicesFrame implements Command {
 	}
 
 	@Override
-	public void execute() {
+	public Object execute() {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		ServicesFrame.getInstance().setVisible(visible);
