@@ -1,6 +1,6 @@
 package is.hotelzargo.integracion.dao;
 
-import java.sql.Date;
+import java.sql.Time;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
@@ -22,7 +22,7 @@ public interface ShiftDAO {
 
 	public boolean searchShift(int id) throws ShiftIntegrationException;
 	
-	public boolean searchShift(String name, Date ckeckIn, Date checkOut) throws ShiftIntegrationException;
+	public boolean searchShift(String name, Time ckeckIn, Time checkOut) throws ShiftIntegrationException;
 
 	public boolean employeesWithShift(int id) throws ShiftIntegrationException;
 }
