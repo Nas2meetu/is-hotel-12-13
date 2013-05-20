@@ -24,7 +24,8 @@ public class ClientDAOImp implements ClientDAO {
 			statement = connection.createStatement();
 		} catch (SQLException e) {
 			// Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("en clientDaoImp");
 		}
     }
     
@@ -179,12 +180,12 @@ public class ClientDAOImp implements ClientDAO {
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  
-					String name = rs.getString(1);
-					String surname = rs.getString(2);
-					String dni = rs.getString(3);
-					String phone = rs.getString(4);
-					String creditCard = rs.getString(5);
-					String address = rs.getString(6);
+					String name = rs.getString(2);
+					String surname = rs.getString(3);
+					String dni = rs.getString(4);
+					String phone = rs.getString(5);
+					String creditCard = rs.getString(6);
+					String address = rs.getString(7);
 					
 					ClientTransfer c = new ClientTransferIndividual(id,name, surname, dni, phone, creditCard, address);
 					
@@ -210,11 +211,11 @@ public class ClientDAOImp implements ClientDAO {
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  
-					String company = rs.getString(1);
-					String cif = rs.getString(2);
-					String phone = rs.getString(3);
-					String creditCard = rs.getString(4);
-					String address = rs.getString(5);
+					String company = rs.getString(2);
+					String cif = rs.getString(3);
+					String phone = rs.getString(4);
+					String creditCard = rs.getString(5);
+					String address = rs.getString(6);
 					
 					ClientTransfer c = new ClientTransferCompany(id,company, cif, phone, creditCard, address);
 					
@@ -284,24 +285,40 @@ public class ClientDAOImp implements ClientDAO {
 		  }	
 		
 	}
-
+	
 	@Override
 	public Vector<ClientTransfer> listClient() throws ClientIntegrationException {
+		
 		Vector<ClientTransfer> list = new Vector<ClientTransfer>();
+		listClientIndividual(list);
+		listClientCompany(list);
+		
+		System.out.print(((ClientTransferIndividual)list.get(0)).getAddress());
+
+		
+		return list; 
+		
+	}
+
+	
+	private void listClientIndividual(Vector<ClientTransfer> list) throws ClientIntegrationException {
+		
 		
 		String QueryString = "SELECT * FROM ClientIndividual;";
 		  try {
+			  System.out.println("en try");
 			rs = statement.executeQuery(QueryString);			
 			
 			  while (rs.next()) {
-				  
-				  	int id = rs.getInt(0);
-					String name = rs.getString(1);
-					String surname = rs.getString(2);
-					String dni = rs.getString(3);
-					String phone = rs.getString(4);
-					String creditCard = rs.getString(5);
-					String address = rs.getString(6);
+				  System.out.println("antes de id");
+				  	int id = rs.getInt(1);
+				  	System.out.println(id);
+					String name = rs.getString(2);
+					String surname = rs.getString(3);
+					String dni = rs.getString(4);
+					String phone = rs.getString(5);
+					String creditCard = rs.getString(6);
+					String address = rs.getString(7);
 					
 					ClientTransfer c = new ClientTransferIndividual(id,name, surname, dni, phone, creditCard, address);
 					
@@ -310,16 +327,14 @@ public class ClientDAOImp implements ClientDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			  System.out.println("dentro de list individual");
 			throw new ClientIntegrationException("Problema al listar clientes individuales");				
 		  }
 		
-		return list;
 	}
-	/*
-	@Override
-	public Vector<ClientTransfer> listClientCompany() throws ClientIntegrationException {
-		Vector<ClientTransfer> list = new Vector<ClientTransfer>();
+
+	private void listClientCompany(Vector<ClientTransfer> list) throws ClientIntegrationException {
 		
 		String QueryString = "SELECT * FROM ClientCompany;";
 		  try {
@@ -327,11 +342,11 @@ public class ClientDAOImp implements ClientDAO {
 			  while (rs.next()) {
 				  
 				  	int id = rs.getInt(0);
-					String company = rs.getString(1);
-					String cif = rs.getString(2);
-					String phone = rs.getString(3);
-					String creditCard = rs.getString(4);
-					String address = rs.getString(5);
+					String company = rs.getString(2);
+					String cif = rs.getString(3);
+					String phone = rs.getString(4);
+					String creditCard = rs.getString(5);
+					String address = rs.getString(6);
 					
 					ClientTransfer c = new ClientTransferCompany(id,company, cif, phone, creditCard, address);
 					
@@ -344,9 +359,8 @@ public class ClientDAOImp implements ClientDAO {
 			throw new ClientIntegrationException("Problema al listar clientes company");				
 		  }
 		
-		return list;
 	}
-	*/
+	
 	private void closeAllConnections() throws SQLException{
 		rs.close();
 		statement.close();

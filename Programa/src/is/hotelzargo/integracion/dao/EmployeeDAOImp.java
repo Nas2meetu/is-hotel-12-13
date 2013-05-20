@@ -101,16 +101,16 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
 			  while (rs.next()) {				  					
-				  	int shiftID = rs.getInt(1);
+				  	int shiftID = rs.getInt(2);
 				  	//conseguimos el turno con el ID
 				  	ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
 				  	
-					float pay = rs.getFloat(2);
-					String name = rs.getString(3);
-					String surname = rs.getString(4);
-					String dni = rs.getString(5);
-					String tlf = rs.getString(6);
-					String pass = rs.getString(7);
+					float pay = rs.getFloat(3);
+					String name = rs.getString(4);
+					String surname = rs.getString(5);
+					String dni = rs.getString(6);
+					String tlf = rs.getString(7);
+					String pass = rs.getString(8);
 					EmployeeTransfer e;
 					if (pass == null){
 						e = new EmployeeTransferServices(id,s,pay, name, surname,dni,tlf);
@@ -136,9 +136,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			  ResultSet rs2 = statement.executeQuery(QueryShiftEmployee);			
 			//solo me devolvera 1 fila
 			  while (rs2.next()) {
-				  	String nameShift = rs2.getString(1);
-					Date checkIn = rs2.getDate(2);
-					Date checkOut = rs2.getDate(3);
+				  	String nameShift = rs2.getString(2);
+					Date checkIn = rs2.getDate(3);
+					Date checkOut = rs2.getDate(4);
 					
 					s = new ShiftTransfer(shiftID,nameShift, checkIn, checkOut);
 			  }
@@ -160,17 +160,17 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			Vector<EmployeeTransfer> employees = new Vector<EmployeeTransfer>();
 			
 			  while (rs.next()) {
-				  	int id = rs.getInt(0);
-				  	int shiftID = rs.getInt(1);
+				  	int id = rs.getInt(1);
+				  	int shiftID = rs.getInt(2);
 				  	//conseguimos el turno con el ID
 				  	ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
 				  	
-					float pay = rs.getFloat(2);
-					String name = rs.getString(3);
-					String surname = rs.getString(4);
-					String dni = rs.getString(5);
-					String tlf = rs.getString(6);
-					String pass = rs.getString(7);
+					float pay = rs.getFloat(3);
+					String name = rs.getString(4);
+					String surname = rs.getString(5);
+					String dni = rs.getString(6);
+					String tlf = rs.getString(7);
+					String pass = rs.getString(8);
 					EmployeeTransfer e;
 					if (pass == null){
 						e = new EmployeeTransferServices(id,s,pay, name, surname,dni,tlf);

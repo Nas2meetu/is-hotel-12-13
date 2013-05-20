@@ -151,7 +151,8 @@ public class ClientAppServicesImp implements ClientAppServices {
 		try {
 			return dao.listClient();
 		} catch (ClientIntegrationException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("intentando dao listClient");
 		}
 		return null;
 	}
