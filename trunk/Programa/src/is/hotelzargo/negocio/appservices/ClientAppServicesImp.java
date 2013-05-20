@@ -1,6 +1,7 @@
 package is.hotelzargo.negocio.appservices;
 
 import java.awt.Frame;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -118,8 +119,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 		try {
 			if (dao.searchClient(id)){
 				dao.deleteClient(id);
-			}
-			else{
+			}else{
 				throw new ClientAppServicesException("El usuario a eliminar no existe");
 			}
 		} catch (ClientIntegrationException e) {
@@ -147,26 +147,46 @@ public class ClientAppServicesImp implements ClientAppServices {
 	}
 
 	@Override
-	public void listClient() throws ClientAppServicesException {
+	public Vector<ClientTransfer> listClient() throws ClientAppServicesException {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
-		//TODO llamada a listClient
-		/*try {
-			//dao.listClient();
+		try {
+			return dao.listClient();
 		} catch (ClientIntegrationException e) {
 			e.printStackTrace();
-		}*/
+		}
+		return null;
 	}
 
 	@Override
 	public void modClient(ClientTransfer t) throws ClientAppServicesException {
-		// TODO modificar reserva
+
+		DAOFactory fac = DAOFactory.getInstance();
+		ClientDAO dao = fac.getClientDAO();
 		
-	}
-	
-	private void showMessage(String message){
-		Frame f = new Frame();
-		JOptionPane.showMessageDialog(f, message);
+		if(t instanceof ClientTransferIndividual ) {
+			try {
+				if(dao.searchClient(t.getID())){
+					dao.updateClientIndividual(t);
+				}else{
+					throw new ClientAppServicesException("Cliente no encontrado");
+				}
+			} catch (ClientIntegrationException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			try {
+				if(dao.searchClient(t.getID())){
+					dao.updateClientCompany(t);
+				}else{
+					throw new ClientAppServicesException("Cliente no encontrado");
+				}
+			} catch (ClientIntegrationException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }
