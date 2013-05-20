@@ -1,14 +1,8 @@
 package is.hotelzargo.integracion.dao;
 
-import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
-import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.transfer.RoomTransfer;
-import is.hotelzargo.negocio.transfer.ShiftTransfer;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -74,9 +68,9 @@ public class RoomDAOImp implements RoomDAO {
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  
-				  	int room_number = rs.getInt(1);
-				  	float price = rs.getFloat(2);
-				  	int bed_number = rs.getInt(3);
+				  	int room_number = rs.getInt(2);
+				  	float price = rs.getFloat(3);
+				  	int bed_number = rs.getInt(4);
 					
 				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);					
 					return r;				  
@@ -100,10 +94,10 @@ public class RoomDAOImp implements RoomDAO {
 			
 			  while (rs.next()) {
 				  
-				  	int id = rs.getInt(0);
-				  	int room_number = rs.getInt(1);
-					float price = rs.getFloat(2);
-					int bed_number = rs.getInt(3);
+				  	int id = rs.getInt(1);
+				  	int room_number = rs.getInt(2);
+					float price = rs.getFloat(3);
+					int bed_number = rs.getInt(4);
 					
 					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);						
 					rooms.add(r);

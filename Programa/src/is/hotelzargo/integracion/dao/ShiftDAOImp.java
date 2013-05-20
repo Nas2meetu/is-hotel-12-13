@@ -70,9 +70,9 @@ public class ShiftDAOImp implements ShiftDAO {
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  
-					String nameShift = rs.getString(1);
-					Date checkIn = rs.getDate(2);
-					Date checkOut = rs.getDate(3);
+					String nameShift = rs.getString(2);
+					Date checkIn = rs.getDate(3);
+					Date checkOut = rs.getDate(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);					
 					return s;
@@ -96,9 +96,9 @@ public class ShiftDAOImp implements ShiftDAO {
 			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  
-				  	int id = rs.getInt(0);
-					Date checkIn = rs.getDate(2);
-					Date checkOut = rs.getDate(3);
+				  	int id = rs.getInt(1);
+					Date checkIn = rs.getDate(3);
+					Date checkOut = rs.getDate(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,name, checkIn, checkOut);					
 					return s;
@@ -124,10 +124,10 @@ public class ShiftDAOImp implements ShiftDAO {
 			
 			  while (rs.next()) {
 				  
-				  	int id = rs.getInt(0);
-				  	String nameShift = rs.getString(1);
-					Date checkIn = rs.getDate(2);
-					Date checkOut = rs.getDate(3);
+				  	int id = rs.getInt(1);
+				  	String nameShift = rs.getString(2);
+					Date checkIn = rs.getDate(3);
+					Date checkOut = rs.getDate(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);						
 					shifts.add(s);
