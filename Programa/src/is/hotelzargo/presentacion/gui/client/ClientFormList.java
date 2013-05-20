@@ -1,5 +1,8 @@
 package is.hotelzargo.presentacion.gui.client;
 
+import is.hotelzargo.negocio.transfer.ClientTransfer;
+import is.hotelzargo.negocio.transfer.ClientTransferCompany;
+import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -8,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -55,8 +59,9 @@ public class ClientFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				Controller.getInstance().event(Event.LIST_CLIENT,null,null);
-				setTextArea("holas" + "\n" + "holas 2");
+				/*Controller.getInstance().event(Event.LIST_CLIENT,null,null);
+				setTextArea("holas" + "\n" + "holas 2");*/
+				initTextArea();
 			}
 			
 			@Override
@@ -99,6 +104,7 @@ public class ClientFormList extends JDialog {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private void initTextArea(){
 		listTextArea = new JTextArea();
 		listTextArea.setEditable(false);
@@ -106,6 +112,21 @@ public class ClientFormList extends JDialog {
 		listTextArea.setSize(500, 500);
 		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
 		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		Vector<ClientTransfer> clientList = null;
+		Controller.getInstance().event(Event.LIST_CLIENT,null,clientList);
+		if(clientList != null){
+			for(int i = 0; i < clientList.size(); i++){
+				ClientTransfer t = clientList.elementAt(i);
+				if (t instanceof ClientTransferIndividual)
+					listTextArea.setText(((ClientTransferIndividual) t).getName());
+				else
+					listTextArea.setText(((ClientTransferCompany) t).getCompany());
+			}
+		}
+		else{
+			listTextArea.setText("No clients");
+		}
 	}
 	
 	private void setTextArea(String text){
