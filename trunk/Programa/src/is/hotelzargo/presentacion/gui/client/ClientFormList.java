@@ -64,7 +64,7 @@ public class ClientFormList extends JDialog {
 				Vector<ClientTransfer> clientList = 
 				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				System.out.println("en initText");
-				System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress());
+				System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress().toString());
 				String text = "";
 				if(clientList != null){
 					for(int i = 0; i < clientList.size(); i++){

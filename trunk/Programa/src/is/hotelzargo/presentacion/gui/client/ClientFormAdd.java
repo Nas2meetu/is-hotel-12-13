@@ -157,20 +157,21 @@ public class ClientFormAdd extends JDialog {
 											 creditCardText.getText(),
 											 addressText.getText());
 		}
-		
+		System.out.println("pulado boton add client");
+		System.out.println(addressText.getText());
 		Controller.getInstance().event(Event.ADD_CLIENT,t,null);
 	}
 	
 	private void exit(){
 		this.setVisible(false);
 		companyButton.setSelected(false);
-		nameText.setText("");
-		surnameText.setText("");
-		dniText.setText("");
-		phoneText.setText("");
-		creditCardText.setText("");
+		nameText.setText("sdf");
+		surnameText.setText("fdsa");
+		dniText.setText("587496325");
+		phoneText.setText("658714298");
+		creditCardText.setText("4444444444444");
 		companyText.setText("");
-		addressText.setText("");
+		addressText.setText("didiidididididi");
 	}
 	
 	private void addListener(){
