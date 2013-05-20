@@ -40,12 +40,16 @@ public class ClientDAOImp implements ClientDAO {
 		String address = ((ClientTransferIndividual) t).getAddress();
 		
 		try {
+			//TODO hacer control de IDs a mano
+			statement.executeUpdate("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
+					"('3','"+name+"', '"+surname+"', '"+dni+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );
 			
-			statement.executeUpdate("INSERT INTO ClientIndividual (name, surname, dni, phone, creditCard, address) VALUES " +
-					"("+name+", "+surname+", "+dni+", "+phone+", "+creditCard+", "+address+");" );					
+			//statement.execute("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
+			//		"('15','kjsdahk','jdsk','582235874','652563985','4444444','adrees');" );
 			
 		} catch (SQLException e) {
 			e.getMessage();
+			e.printStackTrace();
 			throw new ClientIntegrationException("Problema al crear cliente individual");			
 		}
 		
@@ -63,8 +67,8 @@ public class ClientDAOImp implements ClientDAO {
 				
 				try {
 					
-					statement.executeUpdate("INSERT INTO ClientCompany (company, cif, phone, creditCard, address) VALUES " +
-							"("+company+", "+cif+", "+phone+", "+creditCard+", "+address+");" );					
+					statement.executeUpdate("INSERT INTO ClientCompany (id,company, cif, phone, creditCard, address) VALUES " +
+							"('5','"+company+"', '"+cif+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );					
 					
 				} catch (SQLException e) {
 					e.getMessage();
@@ -78,7 +82,7 @@ public class ClientDAOImp implements ClientDAO {
 	public void deleteClient(int id) throws ClientIntegrationException {
 			
 		//se busca en ambas tablas el id
-		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -92,7 +96,7 @@ public class ClientDAOImp implements ClientDAO {
 			throw new ClientIntegrationException("Problema al eliminar cliente individual");				
 		  }	
 		  
-			String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id="+id+";";
+			String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
 			  try {
 				rs = statement.executeQuery(QueryString);			
 				//solo me devolvera 1 fila
@@ -119,8 +123,8 @@ public class ClientDAOImp implements ClientDAO {
 		String creditCard = ((ClientTransferIndividual) t).getCreditCard();
 		String address = ((ClientTransferIndividual) t).getAddress();
 		//UPDATE
-		String QueryString = "UPDATE ClientIndividual SET name="+name+",surname="+surname+"," +
-				"dni="+dni+",phone="+phone+",creditCard="+creditCard+",address="+address+"  WHERE dni="+dni+";";
+		String QueryString = "UPDATE ClientIndividual SET name='"+name+"',surname='"+surname+"'," +
+				"dni='"+dni+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE dni='"+dni+"';";
 		  try {
 			  
 			rs = statement.executeQuery(QueryString);
@@ -142,8 +146,8 @@ public class ClientDAOImp implements ClientDAO {
 		String creditCard = ((ClientTransferCompany) t).getCreditCard();
 		String address = ((ClientTransferCompany) t).getAddress();
 		//UPDATE
-		String QueryString = "UPDATE ClientCompany SET company="+company+"," +
-				"cif="+cif+",phone="+phone+",creditCard="+creditCard+",address="+address+"  WHERE cif="+cif+";";
+		String QueryString = "UPDATE ClientCompany SET company='"+company+"'," +
+				"cif='"+cif+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE cif='"+cif+"';";
 		  try {
 			  
 			rs = statement.executeQuery(QueryString);
@@ -174,7 +178,7 @@ public class ClientDAOImp implements ClientDAO {
 
 	private ClientTransfer getClientIndividual(int id) throws ClientIntegrationException {		
 		
-		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -205,7 +209,7 @@ public class ClientDAOImp implements ClientDAO {
 	
 	private ClientTransfer getClientCompany(int id) throws ClientIntegrationException {
 		
-		String QueryString = "SELECT * FROM ClientCompany WHERE id="+id+";";
+		String QueryString = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -251,7 +255,7 @@ public class ClientDAOImp implements ClientDAO {
 	}
 	
 	private boolean searchIndividual(int id) throws ClientIntegrationException{
-		String QueryString = "SELECT * FROM ClientIndividual WHERE id="+id+";";
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);
 			//si existe, solo me devolvera 1 fila
@@ -269,7 +273,7 @@ public class ClientDAOImp implements ClientDAO {
 
 	private boolean searchCompany(int id) throws ClientIntegrationException {
 		
-		String QueryString = "SELECT * FROM ClientCompany WHERE id="+id+";";
+		String QueryString = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);
 			//si existe, solo me devolvera 1 fila

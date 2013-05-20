@@ -16,6 +16,12 @@ public class CommandActionListClient implements Command {
 			if(obj == null){
 				System.out.println("Es null");
 			}
+			else{
+				System.out.println("NO Es null");
+				
+			}
+			
+			return obj;			
 		} catch (ClientAppServicesException e) {
 			//e.printStackTrace();
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());

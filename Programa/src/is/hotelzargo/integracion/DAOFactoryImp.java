@@ -169,7 +169,14 @@ public class DAOFactoryImp extends DAOFactory {
 			JOptionPane.showMessageDialog(null, "Connection refused!");
 		}
         
-        
+		/*try {
+			//s.execute("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
+			//		"('22','kjsdahk','jdsk','586235174','652563985','4444444','adrees');" );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.print("MALLLLLLL");
+		}*/
         
         //insertando prueba
         /*
