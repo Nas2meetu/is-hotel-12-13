@@ -65,13 +65,8 @@ public class ServicesFormList extends JDialog {
 				Vector<ServiceTransfer> servicesList = 
 				(Vector<ServiceTransfer>) Controller.getInstance().event(Event.LIST_SERVICE,null,null);
 				String text = "";
-				System.out.println("listando pringaooo");
 				if(servicesList != null){
-					System.out.println("services no es null");
 					for(int i = 0; i < servicesList.size(); i++){
-						System.out.println("estamos en for");
-						listTextArea.setText("Si services");
-						System.out.println(servicesList.get(0).getServices().toString());
 						ServiceTransfer t = servicesList.elementAt(i);
 							text += ((ServiceTransfer) t).getServices();
 					}
