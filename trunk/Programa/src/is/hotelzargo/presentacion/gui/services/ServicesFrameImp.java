@@ -2,6 +2,10 @@ package is.hotelzargo.presentacion.gui.services;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.gui.client.ClientFormAdd;
+import is.hotelzargo.presentacion.gui.client.ClientFormDel;
+import is.hotelzargo.presentacion.gui.client.ClientFormList;
+import is.hotelzargo.presentacion.gui.client.ClientFormMod;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -23,10 +27,24 @@ public class ServicesFrameImp extends ServicesFrame {
 	private JButton listServicesButton;
 	private JButton exit;
 	
+	private ServicesFormAdd addForm;
+	private ServicesFormDel delForm;
+	private ServicesFormList listForm;
+	private ServicesFormMod modForm;
+	
 	public ServicesFrameImp() {
 		
 		this.setTitle("Servicios");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		/* formularios */
+		
+		addForm = new ServicesFormAdd(this,true);
+		delForm = new ServicesFormDel(this,true);
+		listForm = new ServicesFormList(this,true);
+		modForm = new ServicesFormMod(this,true);
+		
+		/* botones */
 		
 		addServicesButton = new JButton("Dar de alta");
 		delServicesButton = new JButton("Dar de baja");
@@ -47,6 +65,23 @@ public class ServicesFrameImp extends ServicesFrame {
 		this.setLocation(d.width/2 - this.getWidth()/2, d.height/2 - this.getHeight()/2);
 		
 		this.pack();
+	}
+	
+	
+	private void addServices() {
+		addForm.setVisible(true);
+	}
+	
+	private void delServices(){
+		delForm.setVisible(true);
+	}
+	
+	private void listServices() {
+		listForm.setVisible(true);
+	}
+	
+	private void modServices() {
+		modForm.setVisible(true);
 	}
 	
 	private void exit() {
@@ -89,6 +124,38 @@ public class ServicesFrameImp extends ServicesFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
+			}
+		});
+		
+		this.addServicesButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addServices();
+			}
+		});
+		
+		this.delServicesButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				delServices();
+			}
+		});
+		
+		this.modServicesButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modServices();
+			}
+		});
+		
+		this.listServicesButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listServices();
 			}
 		});
 		

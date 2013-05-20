@@ -12,20 +12,13 @@ public class CommandActionListClient implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			Object obj = facade.listClient();
-			if(obj == null){
-				System.out.println("Es null");
-			}
-			else{
-				System.out.println("NO Es null");
-				
-			}
 			
+			Object obj = facade.listClient();			
 			return obj;			
+		
 		} catch (ClientAppServicesException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());
-			System.out.println("en el catch del execute facade list");
 			
 		}
 		return null;

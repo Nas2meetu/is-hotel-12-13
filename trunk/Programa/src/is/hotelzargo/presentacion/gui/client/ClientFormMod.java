@@ -1,6 +1,14 @@
 package is.hotelzargo.presentacion.gui.client;
 
+import is.hotelzargo.negocio.transfer.ClientTransfer;
+import is.hotelzargo.negocio.transfer.ClientTransferCompany;
+import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
+
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -151,6 +159,30 @@ public class ClientFormMod extends JDialog {
 		addressText.setText("");
 	}
 	
+	private void accept(){
+		
+		//TODO ventana que se quiere al modificar,aqui falta chicha gente
+		
+		ClientTransfer t;
+		
+		if(companyButton.isSelected()){
+			t = new ClientTransferCompany(-1,companyText.getText(),
+										  dniText.getText(),
+										  phoneText.getText(),
+										  creditCardText.getText(),
+										  addressText.getText());
+		}else {
+			t = new ClientTransferIndividual(-1,nameText.getText(),
+											 surnameText.getText(),
+											 dniText.getText(),
+											 phoneText.getText(),
+											 creditCardText.getText(),
+											 addressText.getText());
+		}
+		
+		Controller.getInstance().event(Event.MOD_CLIENT,t,null);
+	}
+	
 	private void addListener(){
 		this.addWindowListener(new WindowListener() {
 			
@@ -189,5 +221,20 @@ public class ClientFormMod extends JDialog {
 				
 			}
 		});
+		
+		acceptButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				accept();
+			}
+		});
+		
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exit();
+			}
+		});
+		
 	}
 }

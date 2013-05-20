@@ -1,6 +1,7 @@
 package is.hotelzargo.integracion.dao;
 
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
+import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
@@ -23,9 +24,7 @@ public class ClientDAOImp implements ClientDAO {
     	try {
 			statement = connection.createStatement();
 		} catch (SQLException e) {
-			// Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("en clientDaoImp");
+			e.printStackTrace();
 		}
     }
     
@@ -40,12 +39,15 @@ public class ClientDAOImp implements ClientDAO {
 		String address = ((ClientTransferIndividual) t).getAddress();
 		
 		try {
-			//TODO hacer control de IDs a mano
-			statement.executeUpdate("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
-					"('3','"+name+"', '"+surname+"', '"+dni+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );
+			//Para crear el nuevo cliente se busca el maximo ID en ambas tablas
+			//y se pone el maximo + 1
+			int nextID = getNextID();
 			
-			//statement.execute("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
-			//		"('15','kjsdahk','jdsk','582235874','652563985','4444444','adrees');" );
+			statement.executeUpdate("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
+					"('"+nextID+"','"+name+"', '"+surname+"', '"+dni+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );
+			
+			//seteamos el ID obtenido
+			t.setID(nextID);
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -67,14 +69,57 @@ public class ClientDAOImp implements ClientDAO {
 				
 				try {
 					
-					statement.executeUpdate("INSERT INTO ClientCompany (id,company, cif, phone, creditCard, address) VALUES " +
-							"('5','"+company+"', '"+cif+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );					
+					//Para crear el nuevo cliente se busca el maximo ID en ambas tablas
+					//y se pone el maximo + 1
+					int nextID = getNextID();
 					
+					statement.executeUpdate("INSERT INTO ClientCompany (id,company, cif, phone, creditCard, address) VALUES " +
+							"('"+nextID+"','"+company+"', '"+cif+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );					
+					
+					//seteamos el ID obtenido
+					t.setID(nextID);
+					
+										
 				} catch (SQLException e) {
 					e.getMessage();
 					throw new ClientIntegrationException("Problema al crear cliente company");
 				}
 				
+	}
+	
+	private int getNextID() throws ClientIntegrationException{
+		
+		//elegimos el id maximo de clientIndividual
+		int maxIndividual = -1,maxCompany = -1;
+		try {
+			rs = statement.executeQuery("SELECT MAX(id) FROM ClientIndividual;");			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {
+					maxIndividual = rs.getInt(1);
+			  }			
+
+		} catch (SQLException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		//elegimos el id maximo de clientCompany
+		try {
+			rs = statement.executeQuery("SELECT MAX(id) FROM ClientCompany;");			
+			//solo me devolvera 1 fila
+				while (rs.next()) {
+					maxCompany = rs.getInt(1);
+				}			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		//controlar que alguna tabla puede estar vacia,sin ids
+		int max = Math.max(maxIndividual,maxCompany);
+		//se devuelve el maximo + 1, para el siguiente ID unico
+		return max+1;
+		
 	}
 
 
@@ -98,10 +143,23 @@ public class ClientDAOImp implements ClientDAO {
 		  
 			String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
 			  try {
-				rs = statement.executeQuery(QueryString);			
+				rs = statement.executeQuery(QueryStringCompany);			
 				//solo me devolvera 1 fila
 				  while (rs.next()) {
 					  //TODO eliminar TODAS las dependencias de este cliente, reservas pendientes
+					  //esto es provisional
+						String QueryDeleteCompany = "DELETE FROM ClientCompany WHERE id='"+id+"';";
+						  try {
+							  
+							statement.executeUpdate(QueryDeleteCompany);			
+							
+						  } catch (SQLException e) {
+							e.printStackTrace();
+							throw new ClientIntegrationException("Problema al eliminar turno con ID "+id);				
+						  }
+					  
+					  
+					  
 					  return;
 				  }
 				
@@ -127,7 +185,7 @@ public class ClientDAOImp implements ClientDAO {
 				"dni='"+dni+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE dni='"+dni+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
@@ -150,7 +208,7 @@ public class ClientDAOImp implements ClientDAO {
 				"cif='"+cif+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE cif='"+cif+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
@@ -296,10 +354,7 @@ public class ClientDAOImp implements ClientDAO {
 		Vector<ClientTransfer> list = new Vector<ClientTransfer>();
 		listClientIndividual(list);
 		listClientCompany(list);
-		
-		System.out.print(((ClientTransferIndividual)list.get(0)).getAddress());
-
-		
+				
 		return list; 
 		
 	}

@@ -1,4 +1,4 @@
-package is.hotelzargo.presentacion.gui.client;
+package is.hotelzargo.presentacion.gui.services;
 
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransferCompany;
@@ -21,8 +21,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ClientFormAdd extends JDialog {
+public class ServicesFormMod extends JDialog {
 	
+	private JLabel IDLabel;
 	private JLabel nameLabel;
 	private JLabel surnameLabel;
 	private JLabel dniLabel;
@@ -31,6 +32,7 @@ public class ClientFormAdd extends JDialog {
 	private JLabel companyLabel;
 	private JLabel addressLabel;
 	
+	private JTextField IDText;
 	private JTextField nameText;
 	private JTextField surnameText;
 	private JTextField dniText;
@@ -44,13 +46,14 @@ public class ClientFormAdd extends JDialog {
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
-	public ClientFormAdd(JFrame owner,boolean mod) {
+	public ServicesFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Cliente");
+		this.setTitle("Modificar Cliente");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
+		IDLabel         = new JLabel("ID                  ");
 		nameLabel       = new JLabel("Nombre              ");
 		surnameLabel    = new JLabel("Apellidos           ");
 		dniLabel        = new JLabel("DNI                 ");
@@ -60,6 +63,7 @@ public class ClientFormAdd extends JDialog {
 		companyLabel    = new JLabel("Empresa             ");
 		
 		/* text */
+		IDText = new JTextField(20);
 		nameText = new JTextField(20);
 		surnameText = new JTextField(20);
 		dniText = new JTextField(20);
@@ -82,6 +86,11 @@ public class ClientFormAdd extends JDialog {
 		/* Paneles */
 		JPanel radioPanel = new JPanel();
 		radioPanel.add(companyButton);
+		
+		JPanel idPanel = new JPanel();
+		idPanel.setLayout(new GridLayout(1,2));
+		idPanel.add(IDLabel);
+		idPanel.add(IDText);
 		
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridLayout(1, 2));
@@ -123,8 +132,9 @@ public class ClientFormAdd extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(9, 1, 5, 5));
+		this.setLayout(new GridLayout(10, 1, 5, 5));
 		this.add(radioPanel);
+		this.add(idPanel);
 		this.add(namePanel);
 		this.add(surnamePanel);
 		this.add(dniPanel);
@@ -137,7 +147,21 @@ public class ClientFormAdd extends JDialog {
 		this.pack();
 	}
 	
+	private void exit(){
+		this.setVisible(false);
+		companyButton.setSelected(false);
+		nameText.setText("");
+		surnameText.setText("");
+		dniText.setText("");
+		phoneText.setText("");
+		creditCardText.setText("");
+		companyText.setText("");
+		addressText.setText("");
+	}
+	
 	private void accept(){
+		
+		//TODO ventana que se quiere al modificar,aqui falta chicha gente
 		
 		ClientTransfer t;
 		
@@ -155,62 +179,50 @@ public class ClientFormAdd extends JDialog {
 											 creditCardText.getText(),
 											 addressText.getText());
 		}
-		Controller.getInstance().event(Event.ADD_CLIENT,t,null);
-	}
-	
-	private void exit(){
-		this.setVisible(false);
-		companyButton.setSelected(false);
-		nameText.setText("sdf");
-		surnameText.setText("fdsa");
-		dniText.setText("587496325");
-		phoneText.setText("658714298");
-		creditCardText.setText("4444444444444");
-		companyText.setText("");
-		addressText.setText("didiidididididi");
+		
+		Controller.getInstance().event(Event.MOD_CLIENT,t,null);
 	}
 	
 	private void addListener(){
 		this.addWindowListener(new WindowListener() {
 			
 			@Override
-			public void windowOpened(WindowEvent arg0) {
+			public void windowOpened(WindowEvent e) {
 				
 			}
 			
 			@Override
-			public void windowIconified(WindowEvent arg0) {
+			public void windowIconified(WindowEvent e) {
 				
 			}
 			
 			@Override
-			public void windowDeiconified(WindowEvent arg0) {
+			public void windowDeiconified(WindowEvent e) {
 				
 			}
 			
 			@Override
-			public void windowDeactivated(WindowEvent arg0) {
+			public void windowDeactivated(WindowEvent e) {
 				
 			}
 			
 			@Override
-			public void windowClosing(WindowEvent arg0) {
+			public void windowClosing(WindowEvent e) {
 				exit();
 			}
 			
 			@Override
-			public void windowClosed(WindowEvent arg0) {
+			public void windowClosed(WindowEvent e) {
 				
 			}
 			
 			@Override
-			public void windowActivated(WindowEvent arg0) {
+			public void windowActivated(WindowEvent e) {
 				
 			}
 		});
 		
 		acceptButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				accept();
@@ -218,12 +230,11 @@ public class ClientFormAdd extends JDialog {
 		});
 		
 		cancelButton.addActionListener(new ActionListener() {
-			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				exit();
 			}
 		});
+		
 	}
-
 }

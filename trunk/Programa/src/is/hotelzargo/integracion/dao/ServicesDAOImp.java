@@ -25,7 +25,6 @@ public class ServicesDAOImp implements ServicesDAO {
     	try {
 			statement = connection.createStatement();
 		} catch (SQLException e) {
-			// Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -38,7 +37,7 @@ public class ServicesDAOImp implements ServicesDAO {
 		try {
 			
 			statement.executeUpdate("INSERT INTO Services (services) VALUES " +
-					"("+service+");" );					
+					"('"+service+"');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -50,10 +49,10 @@ public class ServicesDAOImp implements ServicesDAO {
 	@Override
 	public void deleteService(int id) throws ServicesIntegrationException {
 		
-		String QueryString = "DELETE FROM Services WHERE idServices="+id+";";
+		String QueryString = "DELETE FROM Services WHERE idServices='"+id+"';";
 		try {
 					  
-			rs = statement.executeQuery(QueryString);			
+			statement.executeUpdate(QueryString);			
 					
 		} catch (SQLException e) {
 			e.getMessage();
@@ -66,7 +65,7 @@ public class ServicesDAOImp implements ServicesDAO {
 	public ServiceTransfer getService(int id)
 			throws ServicesIntegrationException {
 		
-		String QueryString = "SELECT * FROM Services WHERE id="+id+";";
+		String QueryString = "SELECT * FROM Services WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -125,10 +124,10 @@ public class ServicesDAOImp implements ServicesDAO {
 		
 
 		//UPDATE
-		String QueryString = "UPDATE Services SET services="+name+" WHERE idServices="+id+";";
+		String QueryString = "UPDATE Services SET services='"+name+"' WHERE idServices='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.getMessage();
@@ -141,7 +140,7 @@ public class ServicesDAOImp implements ServicesDAO {
 	public boolean searchShift(String serviceName)
 			throws ServicesIntegrationException {
 		
-		String QueryString = "SELECT * FROM Services WHERE services="+serviceName+";";
+		String QueryString = "SELECT * FROM Services WHERE services='"+serviceName+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -160,7 +159,7 @@ public class ServicesDAOImp implements ServicesDAO {
 	@Override
 	public boolean searchShiftByID(int id) throws ServicesIntegrationException {
 		
-		String QueryString = "SELECT * FROM Services WHERE idServices="+id+";";
+		String QueryString = "SELECT * FROM Services WHERE idServices='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
