@@ -12,7 +12,7 @@ public class CommandActionListClient implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listClient();
+			return facade.listClient();
 		} catch (ClientAppServicesException e) {
 			e.printStackTrace();
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());
