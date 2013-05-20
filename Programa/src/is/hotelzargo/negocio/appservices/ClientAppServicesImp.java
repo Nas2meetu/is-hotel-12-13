@@ -68,8 +68,6 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("Apellido no valido");
 		if(DNI.length() != 9)
 			throw new ClientAppServicesException("DNI no valido");
-		if(!checkDni(DNI))
-			throw new ClientAppServicesException("DNI no valido");
 		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
