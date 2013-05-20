@@ -100,8 +100,8 @@ public class ServicesDAOImp implements ServicesDAO {
 			
 			  while (rs.next()) {
 				  
-				  	int id = rs.getInt(0);
-				  	String name = rs.getString(1);
+				  	int id = rs.getInt(1);
+				  	String name = rs.getString(2);
 					
 				  	ServiceTransfer s = new ServiceTransfer(id,name);						
 				  	services.add(s);
