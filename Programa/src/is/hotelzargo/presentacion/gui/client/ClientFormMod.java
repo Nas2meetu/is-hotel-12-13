@@ -162,17 +162,18 @@ public class ClientFormMod extends JDialog {
 	private void accept(){
 		
 		//TODO ventana que se quiere al modificar,aqui falta chicha gente
-		
+		//dni no deberia ser modificable y a parte si solo quieres cambiar el
+		//apellido esto es muy incomodo
 		ClientTransfer t;
 		
 		if(companyButton.isSelected()){
-			t = new ClientTransferCompany(-1,companyText.getText(),
+			t = new ClientTransferCompany(Integer.parseInt(IDText.getText()),companyText.getText(),
 										  dniText.getText(),
 										  phoneText.getText(),
 										  creditCardText.getText(),
 										  addressText.getText());
 		}else {
-			t = new ClientTransferIndividual(-1,nameText.getText(),
+			t = new ClientTransferIndividual(Integer.parseInt(IDText.getText()),nameText.getText(),
 											 surnameText.getText(),
 											 dniText.getText(),
 											 phoneText.getText(),

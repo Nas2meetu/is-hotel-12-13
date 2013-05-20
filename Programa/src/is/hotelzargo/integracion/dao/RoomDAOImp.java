@@ -35,7 +35,7 @@ public class RoomDAOImp implements RoomDAO {
 		try {
 			
 			statement.executeUpdate("INSERT INTO Rooms (room_number, price, bed_number) VALUES " +
-					"("+room_number+", "+price+", "+bed_number+");" );					
+					"('"+room_number+"', '"+price+"', '"+bed_number+"');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -47,10 +47,10 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public void deleteRoom(int id) throws RoomIntegrationException {
 		// Se busca habitacion y se elimina
-		String QueryString = "DELETE FROM Rooms WHERE id="+id+";";
+		String QueryString = "DELETE FROM Rooms WHERE id='"+id+"';";
 				  try {
 					  
-					rs = statement.executeQuery(QueryString);			
+					statement.executeUpdate(QueryString);			
 					
 				  } catch (SQLException e) {
 					e.getMessage();
@@ -62,7 +62,7 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public RoomTransfer getRoom(int id) throws RoomIntegrationException {
 		// Se devuelve habitacion
-		String QueryString = "SELECT * FROM Rooms WHERE id="+id+";";
+		String QueryString = "SELECT * FROM Rooms WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -121,11 +121,11 @@ public class RoomDAOImp implements RoomDAO {
 		
 
 		//UPDATE
-		String QueryString = "UPDATE Rooms SET room_number="+room_number+"," +
-				"price="+price+",bed_number="+bed_number+"  WHERE id="+id+";";
+		String QueryString = "UPDATE Rooms SET room_number='"+room_number+"'," +
+				"price='"+price+"',bed_number='"+bed_number+"'  WHERE id='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
@@ -137,7 +137,7 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public boolean searchRoom(int numBeds, int numRoom, float price) throws RoomIntegrationException{
 		// Se busca habitacion llamadas a la BBDD
-		String QueryString = "SELECT * FROM Rooms WHERE room_number="+numRoom+" AND bed_number="+numBeds+"AND price="+price+";";
+		String QueryString = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"' AND bed_number='"+numBeds+"' AND price='"+price+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -156,7 +156,7 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public boolean searchRoomByID(int id) throws RoomIntegrationException{
 		// Se busca habitacion llamadas a la BBDD
-				String QueryString = "SELECT * FROM Rooms WHERE id="+id+";";
+				String QueryString = "SELECT * FROM Rooms WHERE id='"+id+"';";
 				  try {
 					rs = statement.executeQuery(QueryString);			
 					//solo me devolvera 1 fila

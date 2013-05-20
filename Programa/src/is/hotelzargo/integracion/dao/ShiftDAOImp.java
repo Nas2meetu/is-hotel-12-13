@@ -37,7 +37,7 @@ public class ShiftDAOImp implements ShiftDAO {
 		try {
 			
 			statement.executeUpdate("INSERT INTO Shifts (nameShift, checkIn, checkOut) VALUES " +
-					"("+nameShift+", "+checkIn+", "+checkOut+ ");" );					
+					"('"+nameShift+"',' "+checkIn+"', '"+checkOut+ "');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -49,10 +49,10 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public void deleteShift(int id) throws ShiftIntegrationException {
 		//Se sabe que si llega aquí no hay empleados con este turno y se puede eliminar
-		String QueryString = "DELETE FROM Shifts WHERE id="+id+";";
+		String QueryString = "DELETE FROM Shifts WHERE id='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);			
+			statement.executeUpdate(QueryString);			
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
@@ -64,7 +64,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public ShiftTransfer getShift(int id) throws ShiftIntegrationException {
 		
-		String QueryString = "SELECT * FROM Shifts WHERE id="+id+";";
+		String QueryString = "SELECT * FROM Shifts WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -90,7 +90,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public ShiftTransfer getShiftByName(String name) throws ShiftIntegrationException {
 		
-		String QueryString = "SELECT * FROM Shifts WHERE nameShift="+name+";";
+		String QueryString = "SELECT * FROM Shifts WHERE nameShift='"+name+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -153,11 +153,11 @@ public class ShiftDAOImp implements ShiftDAO {
 		
 
 		//UPDATE
-		String QueryString = "UPDATE Shifts SET nameShift="+nameShift+"," +
-				"checkIn="+checkIn+",checkOut="+checkOut+"  WHERE id="+id+";";
+		String QueryString = "UPDATE Shifts SET nameShift='"+nameShift+"'," +
+				"checkIn='"+checkIn+"',checkOut='"+checkOut+"'  WHERE id='"+id+"';";
 		  try {
 			  
-			rs = statement.executeQuery(QueryString);
+			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
@@ -169,7 +169,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public boolean searchShift(int id) throws ShiftIntegrationException {
 		
-		String QueryString = "SELECT * FROM Shifts WHERE id="+id+";";
+		String QueryString = "SELECT * FROM Shifts WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -188,7 +188,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public boolean searchShift(String name, Date checkIn, Date checkOut) throws ShiftIntegrationException {
 		
-		String QueryString = "SELECT * FROM Shifts WHERE nameShift="+name+" AND checkIn="+checkIn+"AND checkOut="+checkOut+";";
+		String QueryString = "SELECT * FROM Shifts WHERE nameShift='"+name+"' AND checkIn='"+checkIn+"' AND checkOut='"+checkOut+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -207,7 +207,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public boolean employeesWithShift(int id) throws ShiftIntegrationException {
 		//Buscamos en la tabla empleados que ninguno tenga este ID turno
-		String QueryString = "SELECT * FROM Employees WHERE shiftID="+id+";";
+		String QueryString = "SELECT * FROM Employees WHERE shiftID='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//si devuelve alguna fila, este turno tiene empleados asignados

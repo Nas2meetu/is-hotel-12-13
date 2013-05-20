@@ -174,6 +174,7 @@ public class ClientDAOImp implements ClientDAO {
 	@Override
 	public void updateClientIndividual(ClientTransfer t) throws ClientIntegrationException {
 		
+		int id = ((ClientTransferIndividual) t).getID();
 		String name =((ClientTransferIndividual) t).getName();
 		String surname = ((ClientTransferIndividual) t).getSurname();
 		String dni = ((ClientTransferIndividual) t).getDNI();
@@ -182,7 +183,7 @@ public class ClientDAOImp implements ClientDAO {
 		String address = ((ClientTransferIndividual) t).getAddress();
 		//UPDATE
 		String QueryString = "UPDATE ClientIndividual SET name='"+name+"',surname='"+surname+"'," +
-				"dni='"+dni+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE dni='"+dni+"';";
+				"dni='"+dni+"',phone='"+phone+"',creditCard='"+creditCard+"',address='"+address+"'  WHERE id='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);
