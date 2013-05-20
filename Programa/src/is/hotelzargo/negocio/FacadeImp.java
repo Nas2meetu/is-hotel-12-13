@@ -67,10 +67,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listBook() throws BookAppServicesException {
+	public Vector<BookTransfer> listBook() throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
-		bookAS.listBook();
+		return bookAS.listBook();
 	}
 
 	@Override
@@ -109,10 +109,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listEmployee() throws EmployeeAppServicesException {
+	public Vector<EmployeeTransfer> listEmployee() throws EmployeeAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		EmployeeAppServices employeeAS = fac.getEmployeeAS();
-		employeeAS.listEmployee();
+		return employeeAS.listEmployee();
 	}
 
 	@Override
@@ -137,10 +137,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listRoom() throws RoomAppServicesException {
+	public Vector<RoomTransfer> listRoom() throws RoomAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		RoomAppServices roomAS = fac.getRoomAS();
-		roomAS.listRoom();
+		return roomAS.listRoom();
 	}
 
 	@Override
@@ -165,10 +165,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listService() throws ServicesAppServicesException {
+	public Vector<ServiceTransfer> listService() throws ServicesAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ServicesAppServices servicesAS = fac.getServicesAS();
-		servicesAS.listService();
+		return servicesAS.listService();
 	}
 
 	@Override
@@ -193,10 +193,10 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void listShift() throws ShiftAppServicesException {
+	public Vector<ShiftTransfer> listShift() throws ShiftAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ShiftAppServices shiftAS = fac.getShiftAS();
-		shiftAS.listShift();
+		return shiftAS.listShift();
 	}
 
 	@Override

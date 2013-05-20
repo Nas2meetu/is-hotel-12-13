@@ -1,5 +1,7 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.EmployeeDAO;
 import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
@@ -105,13 +107,13 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	
 	
 	@Override
-	public void listEmployee() throws EmployeeAppServicesException {
+	public Vector<EmployeeTransfer> listEmployee() throws EmployeeAppServicesException {
 		// Listar empleados
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
 		
 		try {
-			dao.listEmployee();
+			return dao.listEmployee();
 		} catch (EmployeeIntegrationException e) {
 			throw new EmployeeAppServicesException("Problema al lista empleados en BD");
 		}

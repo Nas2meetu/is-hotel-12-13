@@ -1,5 +1,7 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.RoomDAO;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
@@ -66,14 +68,14 @@ public class RoomAppServicesImp implements RoomAppServices {
 	}
 
 	@Override
-	public void listRoom() throws RoomAppServicesException {
+	public Vector<RoomTransfer> listRoom() throws RoomAppServicesException {
 		//Listar habitaciones
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
 		try {
-			dao.listRoom();
+			return dao.listRoom();
 		} catch (RoomIntegrationException e) {
 			throw new RoomAppServicesException (e.getMessage());
 		}

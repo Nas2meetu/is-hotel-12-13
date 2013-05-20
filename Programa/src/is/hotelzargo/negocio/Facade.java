@@ -29,7 +29,7 @@ public interface Facade {
 	
 	public void delBook(int id)throws BookAppServicesException;
 	
-	public void listBook()throws BookAppServicesException;
+	public Vector<BookTransfer> listBook()throws BookAppServicesException;
 	
 	public void modBook(BookTransfer t)throws BookAppServicesException;
 	
@@ -41,7 +41,7 @@ public interface Facade {
 	
 	public void delEmployee(int id)throws EmployeeAppServicesException;
 	
-	public void listEmployee()throws EmployeeAppServicesException;
+	public Vector<EmployeeTransfer> listEmployee()throws EmployeeAppServicesException;
 	
 	public void modEmployee(EmployeeTransfer t)throws EmployeeAppServicesException;
 	
@@ -49,7 +49,7 @@ public interface Facade {
 	
 	public void delRoom(int id)throws RoomAppServicesException;
 	
-	public void listRoom()throws RoomAppServicesException;
+	public Vector<RoomTransfer> listRoom()throws RoomAppServicesException;
 	
 	public void modRoom(RoomTransfer t)throws RoomAppServicesException;
 	
@@ -57,7 +57,7 @@ public interface Facade {
 	
 	public void delService(int id)throws ServicesAppServicesException;
 	
-	public void listService()throws ServicesAppServicesException;
+	public Vector<ServiceTransfer> listService()throws ServicesAppServicesException;
 	
 	public void modService(ServiceTransfer t)throws ServicesAppServicesException;
 	
@@ -65,7 +65,7 @@ public interface Facade {
 	
 	public void delShift(int id)throws ShiftAppServicesException;
 	
-	public void listShift()throws ShiftAppServicesException;
+	public Vector<ShiftTransfer> listShift()throws ShiftAppServicesException;
 	
 	public void modShift(ShiftTransfer t)throws ShiftAppServicesException;
 }

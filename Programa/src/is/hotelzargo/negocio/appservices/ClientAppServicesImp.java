@@ -9,6 +9,7 @@ import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ClientDAO;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.negocio.exception.ClientAppServicesException;
+import is.hotelzargo.negocio.exception.ServicesAppServicesException;
 import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
@@ -151,10 +152,10 @@ public class ClientAppServicesImp implements ClientAppServices {
 		try {
 			return dao.listClient();
 		} catch (ClientIntegrationException e) {
-			//e.printStackTrace();
-			System.out.println("intentando dao listClient");
+			e.getMessage();
+			throw new ClientAppServicesException("Problema al listar clientes");
 		}
-		return null;
+
 	}
 
 	@Override

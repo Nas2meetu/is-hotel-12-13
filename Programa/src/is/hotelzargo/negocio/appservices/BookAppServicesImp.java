@@ -1,9 +1,12 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.BookDAO;
 import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
+import is.hotelzargo.negocio.exception.ClientAppServicesException;
 import is.hotelzargo.negocio.transfer.BookTransfer;
 
 public class BookAppServicesImp implements BookAppServices {
@@ -37,16 +40,17 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public void listBook() throws BookAppServicesException {
+	public Vector<BookTransfer> listBook() throws BookAppServicesException {
 		// TODO listar reservas
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			dao.listBook();
+			return dao.listBook();
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
+			throw new BookAppServicesException("Problema al listar reservas");
 		}
 	}
 

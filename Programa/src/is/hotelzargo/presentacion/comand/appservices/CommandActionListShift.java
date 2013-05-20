@@ -13,7 +13,7 @@ public class CommandActionListShift implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listShift();
+			return facade.listShift();
 		} catch (ShiftAppServicesException e) {
 			e.printStackTrace();
 		}

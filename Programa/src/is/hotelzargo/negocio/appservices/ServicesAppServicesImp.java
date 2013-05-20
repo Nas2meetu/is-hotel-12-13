@@ -1,10 +1,13 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ServicesDAO;
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.negocio.exception.ServicesAppServicesException;
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
+import is.hotelzargo.negocio.transfer.ClientTransfer;
 import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 public class ServicesAppServicesImp implements ServicesAppServices {
@@ -53,17 +56,18 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 	}
 
 	@Override
-	public void listService() throws ServicesAppServicesException {
+	public Vector<ServiceTransfer> listService() throws ServicesAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
 		try {
-			dao.listService();
+			return dao.listService();
 		} catch (ServicesIntegrationException e) {
 			e.getMessage();
 			throw new ServicesAppServicesException("Problema al listar servicios");
 		}
+		
 		
 	}
 

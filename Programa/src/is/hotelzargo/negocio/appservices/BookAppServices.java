@@ -1,7 +1,10 @@
 package is.hotelzargo.negocio.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.transfer.BookTransfer;
+import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 public interface BookAppServices {
 
@@ -9,7 +12,7 @@ public interface BookAppServices {
 
 	void delBook(int id)throws BookAppServicesException;
 
-	void listBook()throws BookAppServicesException;
+	Vector<BookTransfer> listBook()throws BookAppServicesException;
 
 	void modBook(BookTransfer t)throws BookAppServicesException;
 

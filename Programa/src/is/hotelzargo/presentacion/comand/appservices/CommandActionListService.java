@@ -13,7 +13,8 @@ public class CommandActionListService implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listService();
+			return facade.listService();
+			//return obj;
 		} catch (ServicesAppServicesException e) {
 			e.printStackTrace();
 		}
