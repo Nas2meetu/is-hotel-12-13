@@ -8,7 +8,7 @@ public class EmployeeTransfer {
 	private String name;
 	private String surname;
 	private String DNI;
-	private String tlf;
+	private String phone;
 	
 	public EmployeeTransfer (int id, 
 							  ShiftTransfer shift, 
@@ -16,7 +16,7 @@ public class EmployeeTransfer {
 							  String name,
 							  String surname,
 							  String DNI,
-							  String tlf){
+							  String phone){
 		
 		this.id = id;
 		this.shift = shift;
@@ -24,7 +24,7 @@ public class EmployeeTransfer {
 		this.name = name;
 		this.surname = surname;
 		this.DNI = DNI;
-		this.tlf = tlf;
+		this.phone = phone;
 		
 	}
 	
@@ -52,8 +52,8 @@ public class EmployeeTransfer {
 		return this.DNI;
 	}
 	
-	public String getTlf(){
-		return this.tlf;
+	public String getPhone(){
+		return this.phone;
 	}
 	
 	public void setId(int id){
@@ -80,7 +80,7 @@ public class EmployeeTransfer {
 		this.DNI = DNI;
 	}
 	
-	public void setTlf(String tlf){
-		this.tlf = tlf;
+	public void setPhone(String phone){
+		this.phone = phone;
 	}
 }
