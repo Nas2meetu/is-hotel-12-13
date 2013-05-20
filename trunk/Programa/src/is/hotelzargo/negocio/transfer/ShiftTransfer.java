@@ -1,6 +1,6 @@
 package is.hotelzargo.negocio.transfer;
 
-import java.sql.Date;
+import java.sql.Time;
 
 
 
@@ -11,14 +11,14 @@ public class ShiftTransfer {
 	//turno, horaentrada, horasalida
 	private int id;
 	private String shift;
-	private Date checkin;
-	private Date chekout;
+	private Time checkin;
+	private Time chekout;
 	
 	
 	public ShiftTransfer(int id,
 						String shift,
-						Date checkin,
-						Date chekout){ 
+						Time checkin,
+						Time chekout){ 
 		this.id = id;
 		this.shift = shift;
 		this.checkin = checkin;
@@ -29,11 +29,11 @@ public class ShiftTransfer {
 		return shift;
 	}
 	
-	public Date getCheckin () {
+	public Time getCheckin () {
 		return checkin;
 	}
 	
-	public Date getCheckout () {
+	public Time getCheckout () {
 		return chekout;
 	}
 		
@@ -41,11 +41,11 @@ public class ShiftTransfer {
 		this.shift = shift;
 	}
 	
-	public void setCheckin (Date checkin) {
+	public void setCheckin (Time checkin) {
 		this.checkin = checkin;
 	}
 	
-	public void setCheckout (Date chekout) {
+	public void setCheckout (Time chekout) {
 		this.chekout = chekout;
 	}
 

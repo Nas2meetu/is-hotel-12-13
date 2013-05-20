@@ -2,6 +2,10 @@ package is.hotelzargo.presentacion.gui.shift;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.gui.services.ServicesFormAdd;
+import is.hotelzargo.presentacion.gui.services.ServicesFormDel;
+import is.hotelzargo.presentacion.gui.services.ServicesFormList;
+import is.hotelzargo.presentacion.gui.services.ServicesFormMod;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -23,10 +27,24 @@ public class ShiftFrameImp extends ShiftFrame {
 	private JButton listShiftButton;
 	private JButton exit;
 	
+	private ShiftFormAdd addForm;
+	private ShiftFormDel delForm;
+	private ShiftFormList listForm;
+	private ShiftFormMod modForm;
+	
 	public ShiftFrameImp() {
 		
 		this.setTitle("Turnos");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		/* formularios */
+		
+		addForm = new ShiftFormAdd(this,true);
+		delForm = new ShiftFormDel(this,true);
+		listForm = new ShiftFormList(this,true);
+		modForm = new ShiftFormMod(this,true);
+		
+		/* botones */
 		
 		addShiftButton = new JButton("Dar de alta");
 		delShiftButton = new JButton("Dar de baja");
@@ -47,6 +65,22 @@ public class ShiftFrameImp extends ShiftFrame {
 		this.setLocation(d.width/2 - this.getWidth()/2, d.height/2 - this.getHeight()/2);
 		
 		this.pack();
+	}
+	
+	private void addShift() {
+		addForm.setVisible(true);
+	}
+	
+	private void delShift(){
+		delForm.setVisible(true);
+	}
+	
+	private void listShift() {
+		listForm.setVisible(true);
+	}
+	
+	private void modShift() {
+		modForm.setVisible(true);
 	}
 	
 	private void exit() {
@@ -96,7 +130,31 @@ public class ShiftFrameImp extends ShiftFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				addShift();
+			}
+		});
+		
+		this.delShiftButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				delShift();
+			}
+		});
+		
+		this.modShiftButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modShift();
+			}
+		});
+		
+		this.listShiftButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listShift();
 			}
 		});
 		

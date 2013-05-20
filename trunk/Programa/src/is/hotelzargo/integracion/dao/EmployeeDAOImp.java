@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.Vector;
 
 public class EmployeeDAOImp implements EmployeeDAO {
@@ -137,8 +138,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			//solo me devolvera 1 fila
 			  while (rs2.next()) {
 				  	String nameShift = rs2.getString(2);
-					Date checkIn = rs2.getDate(3);
-					Date checkOut = rs2.getDate(4);
+					Time checkIn = rs2.getTime(3);
+					Time checkOut = rs2.getTime(4);
 					
 					s = new ShiftTransfer(shiftID,nameShift, checkIn, checkOut);
 			  }

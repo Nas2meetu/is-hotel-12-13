@@ -2,6 +2,7 @@ package is.hotelzargo.negocio.appservices;
 
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.DAOFactory;
@@ -15,8 +16,8 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 
 	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
 	String shift = t.getShift ();
-	Date checkin = t.getCheckin ();
-	Date checkout = t.getCheckout ();
+	Time checkin = t.getCheckin ();
+	Time checkout = t.getCheckout ();
 	int id = t.getId ();
 	
 	if (shift.length () < 0) 

@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.Vector;
 
 public class ShiftDAOImp implements ShiftDAO {
@@ -31,16 +32,18 @@ public class ShiftDAOImp implements ShiftDAO {
 	public void createShift(ShiftTransfer t) throws ShiftIntegrationException {
 		
 		String nameShift =((ShiftTransfer) t).getShift();
-		Date checkIn = ((ShiftTransfer) t).getCheckin();
-		Date checkOut = ((ShiftTransfer) t).getCheckout();
+		Time checkIn = ((ShiftTransfer) t).getCheckin();
+		Time checkOut = ((ShiftTransfer) t).getCheckout();
+		
 		
 		try {
 			
 			statement.executeUpdate("INSERT INTO Shifts (nameShift, checkIn, checkOut) VALUES " +
-					"('"+nameShift+"',' "+checkIn+"', '"+checkOut+ "');" );					
+					"('"+nameShift+"','"+checkIn+"', '"+checkOut+ "');" );					
 			
 		} catch (SQLException e) {
-			e.getMessage();
+			//e.getMessage();
+			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al crear turno "+nameShift);			
 		}
 		
@@ -71,8 +74,8 @@ public class ShiftDAOImp implements ShiftDAO {
 			  while (rs.next()) {
 				  
 					String nameShift = rs.getString(2);
-					Date checkIn = rs.getDate(3);
-					Date checkOut = rs.getDate(4);
+					Time checkIn = rs.getTime(3);
+					Time checkOut = rs.getTime(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);					
 					return s;
@@ -97,8 +100,8 @@ public class ShiftDAOImp implements ShiftDAO {
 			  while (rs.next()) {
 				  
 				  	int id = rs.getInt(1);
-					Date checkIn = rs.getDate(3);
-					Date checkOut = rs.getDate(4);
+				  	Time checkIn = rs.getTime(3);
+				  	Time checkOut = rs.getTime(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,name, checkIn, checkOut);					
 					return s;
@@ -126,8 +129,8 @@ public class ShiftDAOImp implements ShiftDAO {
 				  
 				  	int id = rs.getInt(1);
 				  	String nameShift = rs.getString(2);
-					Date checkIn = rs.getDate(3);
-					Date checkOut = rs.getDate(4);
+				  	Time checkIn = rs.getTime(3);
+				  	Time checkOut = rs.getTime(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);						
 					shifts.add(s);
@@ -148,8 +151,8 @@ public class ShiftDAOImp implements ShiftDAO {
 		
 		int id = ((ShiftTransfer) t).getId();
 		String nameShift = ((ShiftTransfer) t).getShift();
-		Date checkIn = ((ShiftTransfer) t).getCheckin();
-		Date checkOut = ((ShiftTransfer) t).getCheckout();
+		Time checkIn = ((ShiftTransfer) t).getCheckin();
+		Time checkOut = ((ShiftTransfer) t).getCheckout();
 		
 
 		//UPDATE
@@ -186,7 +189,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	}
 	
 	@Override
-	public boolean searchShift(String name, Date checkIn, Date checkOut) throws ShiftIntegrationException {
+	public boolean searchShift(String name, Time checkIn, Time checkOut) throws ShiftIntegrationException {
 		
 		String QueryString = "SELECT * FROM Shifts WHERE nameShift='"+name+"' AND checkIn='"+checkIn+"' AND checkOut='"+checkOut+"';";
 		  try {

@@ -1,9 +1,5 @@
-package is.hotelzargo.presentacion.gui.services;
+package is.hotelzargo.presentacion.gui.shift;
 
-import is.hotelzargo.negocio.transfer.ClientTransfer;
-import is.hotelzargo.negocio.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.transfer.ClientTransferIndividual;
-import is.hotelzargo.negocio.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -18,81 +14,58 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ServicesFormMod extends JDialog {
+public class ShiftFormDel extends JDialog {
+
+	private JLabel idLabel;
 	
-	private JLabel IDLabel;
-	private JLabel nameLabel;
-	
-	private JTextField IDText;
-	private JTextField nameText;
+	private JTextField idText;
 	
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
-	public ServicesFormMod(JFrame owner,boolean mod) {
+	public ShiftFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Servicio");
+		this.setTitle("Dar de baja turno");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		/* Labels */
-		IDLabel         = new JLabel("ID Servicio                 ");
-		nameLabel       = new JLabel("Nuevo nombre Servicio              ");
+		idLabel = new JLabel("ID del turno");
 		
-		/* text */
-		IDText = new JTextField(20);
-		nameText = new JTextField(20);
+		idText = new JTextField(10);
 		
-		/* botones aceptar y cancelar */
 		acceptButton = new JButton("Aceptar");
 		cancelButton = new JButton("Cancelar");
 		
-		/* listener */
 		addListener();
 		
-		/* Paneles */
-		JPanel radioPanel = new JPanel();
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1,2));
+		panel.add(idLabel);
+		panel.add(idText);
 		
-		JPanel idPanel = new JPanel();
-		idPanel.setLayout(new GridLayout(1,2));
-		idPanel.add(IDLabel);
-		idPanel.add(IDText);
+		JPanel panelButtons = new JPanel();
+		panelButtons.setLayout(new GridLayout(1,2));
+		panelButtons.add(acceptButton);
+		panelButtons.add(cancelButton);
 		
-		JPanel namePanel = new JPanel();
-		namePanel.setLayout(new GridLayout(1, 2));
-		namePanel.add(nameLabel);
-		namePanel.add(nameText);
-		
-		JPanel acPanel = new JPanel();
-		acPanel.setLayout(new GridLayout(1, 2));
-		acPanel.add(acceptButton);
-		acPanel.add(cancelButton);
-		
-		this.setLayout(new GridLayout(10, 1, 5, 5));
-		this.add(radioPanel);
-		this.add(idPanel);
-		this.add(namePanel);
-		this.add(acPanel);
+		this.setLayout(new GridLayout(2,1));
+		this.add(panel);
+		this.add(panelButtons);
 		
 		this.pack();
 	}
 	
 	private void exit(){
 		this.setVisible(false);
-		nameText.setText("");
+		idText.setText("");
 	}
 	
 	private void accept(){
-						
-		ServiceTransfer t;
-		
-		t = new ServiceTransfer(Integer.parseInt(IDText.getText()),nameText.getText());
-		
-		Controller.getInstance().event(Event.MOD_SERVICE,t,null);
+		//paso un int ID
+		Controller.getInstance().event(Event.DELETE_SHIFT,Integer.parseInt(idText.getText()),null);
 	}
 	
 	private void addListener(){
@@ -147,6 +120,6 @@ public class ServicesFormMod extends JDialog {
 				exit();
 			}
 		});
-		
 	}
+	
 }
