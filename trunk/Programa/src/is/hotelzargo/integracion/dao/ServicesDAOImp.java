@@ -106,7 +106,6 @@ public class ServicesDAOImp implements ServicesDAO {
 				  	services.add(s);
 				  
 			  }
-			  
 			  return services;
 			
 		  } catch (SQLException e) {

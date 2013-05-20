@@ -13,7 +13,7 @@ public class CommandActionListBook implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listBook();
+			return facade.listBook();
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 		}

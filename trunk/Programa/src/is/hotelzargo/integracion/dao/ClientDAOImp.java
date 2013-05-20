@@ -365,13 +365,11 @@ public class ClientDAOImp implements ClientDAO {
 		
 		String QueryString = "SELECT * FROM ClientIndividual;";
 		  try {
-			  System.out.println("en try");
 			rs = statement.executeQuery(QueryString);			
 			
 			  while (rs.next()) {
-				  System.out.println("antes de id");
+
 				  	int id = rs.getInt(1);
-				  	System.out.println(id);
 					String name = rs.getString(2);
 					String surname = rs.getString(3);
 					String dni = rs.getString(4);
@@ -386,8 +384,7 @@ public class ClientDAOImp implements ClientDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			//e.printStackTrace();
-			  System.out.println("dentro de list individual");
+			e.printStackTrace();
 			throw new ClientIntegrationException("Problema al listar clientes individuales");				
 		  }
 		
@@ -400,7 +397,7 @@ public class ClientDAOImp implements ClientDAO {
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {
 				  
-				  	int id = rs.getInt(0);
+				  	int id = rs.getInt(1);
 					String company = rs.getString(2);
 					String cif = rs.getString(3);
 					String phone = rs.getString(4);

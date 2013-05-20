@@ -2,11 +2,13 @@ package is.hotelzargo.negocio.appservices;
 
 
 import java.sql.Date;
+import java.util.Vector;
 
 import is.hotelzargo.integracion.DAOFactory;
 import is.hotelzargo.integracion.dao.ShiftDAO;
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
+import is.hotelzargo.negocio.transfer.RoomTransfer;
 import is.hotelzargo.negocio.transfer.ShiftTransfer;
 
 public class ShiftAppServicesImp implements ShiftAppServices {
@@ -71,14 +73,14 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 	}
 
 	@Override
-	public void listShift() throws ShiftAppServicesException {
+	public Vector<ShiftTransfer> listShift() throws ShiftAppServicesException {
 		// listar turnos
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
 		
 		try {
-			dao.listShift();
+			return dao.listShift();
 		} catch (ShiftIntegrationException e) {
 			throw new ShiftAppServicesException(e.getMessage());
 		}

@@ -13,7 +13,7 @@ public class CommandActionListRoom implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listRoom();
+			return facade.listRoom();
 		} catch (RoomAppServicesException e) {
 			e.printStackTrace();
 		}

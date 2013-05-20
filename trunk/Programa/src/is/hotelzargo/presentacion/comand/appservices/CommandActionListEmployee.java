@@ -13,7 +13,7 @@ public class CommandActionListEmployee implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.listEmployee();
+			return facade.listEmployee();
 		} catch (EmployeeAppServicesException e) {
 			e.printStackTrace();
 		}

@@ -65,8 +65,13 @@ public class ServicesFormList extends JDialog {
 				Vector<ServiceTransfer> servicesList = 
 				(Vector<ServiceTransfer>) Controller.getInstance().event(Event.LIST_SERVICE,null,null);
 				String text = "";
+				System.out.println("listando pringaooo");
 				if(servicesList != null){
+					System.out.println("services no es null");
 					for(int i = 0; i < servicesList.size(); i++){
+						System.out.println("estamos en for");
+						listTextArea.setText("Si services");
+						System.out.println(servicesList.get(0).getServices().toString());
 						ServiceTransfer t = servicesList.elementAt(i);
 							text += ((ServiceTransfer) t).getServices();
 					}
@@ -122,7 +127,6 @@ public class ServicesFormList extends JDialog {
 	private void initTextArea(){
 		listTextArea = new JTextArea();
 		listTextArea.setEditable(false);
-		//listTextArea.setText("hola");
 		listTextArea.setSize(500, 500);
 		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
 		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
