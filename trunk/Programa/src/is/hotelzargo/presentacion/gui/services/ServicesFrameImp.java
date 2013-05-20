@@ -50,7 +50,7 @@ public class ServicesFrameImp extends ServicesFrame {
 	}
 	
 	private void exit() {
-		Controller.getInstance().event(Event.SHOW_SERVICES_FRAME,false);
+		Controller.getInstance().event(Event.SHOW_SERVICES_FRAME,false,null);
 	}
 	
 	private void setListener(){

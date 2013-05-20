@@ -74,7 +74,7 @@ public class ClientFrameImp extends ClientFrame {
 	}
 	
 	private void exit() {
-		Controller.getInstance().event(Event.SHOW_CLIENT_FRAME,false);
+		Controller.getInstance().event(Event.SHOW_CLIENT_FRAME,false,null);
 	}
 	
 	private void setListener(){

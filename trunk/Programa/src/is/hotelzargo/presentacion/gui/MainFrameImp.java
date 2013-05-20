@@ -42,32 +42,32 @@ public class MainFrameImp extends MainFrame {
 	 */
 	private void showShiftFrame() {
 
-		Controller.getInstance().event(Event.SHOW_SHIFT_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_SHIFT_FRAME, true,null);
 	}
 
 	private void showClientFrame() {
 
-		Controller.getInstance().event(Event.SHOW_CLIENT_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_CLIENT_FRAME, true,null);
 	}
 
 	private void showRoomFrame() {
 
-		Controller.getInstance().event(Event.SHOW_ROOM_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_ROOM_FRAME, true,null);
 	}
 
 	private void showEmployeeFrame() {
 
-		Controller.getInstance().event(Event.SHOW_EMPLOYEE_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_EMPLOYEE_FRAME, true,null);
 	}
 
 	private void showBookFrame() {
 
-		Controller.getInstance().event(Event.SHOW_BOOK_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_BOOK_FRAME, true,null);
 	}
 
 	private void showServicesFrame() {
 
-		Controller.getInstance().event(Event.SHOW_SERVICES_FRAME, true);
+		Controller.getInstance().event(Event.SHOW_SERVICES_FRAME, true,null);
 	}
 	
 	

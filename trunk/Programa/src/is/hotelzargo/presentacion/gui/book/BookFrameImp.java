@@ -129,7 +129,7 @@ public class BookFrameImp extends BookFrame {
 	}
 	
 	private void exit() {
-		Controller.getInstance().event(Event.SHOW_BOOK_FRAME,false);
+		Controller.getInstance().event(Event.SHOW_BOOK_FRAME,false,null);
 	}
 	
 	private void setListener(){

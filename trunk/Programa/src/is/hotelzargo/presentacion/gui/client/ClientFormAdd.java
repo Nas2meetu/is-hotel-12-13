@@ -158,7 +158,7 @@ public class ClientFormAdd extends JDialog {
 											 addressText.getText());
 		}
 		
-		Controller.getInstance().event(Event.ADD_CLIENT,t);
+		Controller.getInstance().event(Event.ADD_CLIENT,t,null);
 	}
 	
 	private void exit(){

@@ -50,7 +50,7 @@ public class ShiftFrameImp extends ShiftFrame {
 	}
 	
 	private void exit() {
-		Controller.getInstance().event(Event.SHOW_SHIFT_FRAME,false);
+		Controller.getInstance().event(Event.SHOW_SHIFT_FRAME,false,null);
 	}
 	
 	private void setListener(){

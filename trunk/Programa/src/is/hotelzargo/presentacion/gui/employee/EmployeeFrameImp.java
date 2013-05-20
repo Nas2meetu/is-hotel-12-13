@@ -50,7 +50,7 @@ public class EmployeeFrameImp extends EmployeeFrame {
 	}
 	
 	private void exit() {
-		Controller.getInstance().event(Event.SHOW_EMPLOYEE_FRAME,false);
+		Controller.getInstance().event(Event.SHOW_EMPLOYEE_FRAME,false,null);
 	}
 	
 	private void setListener() {
