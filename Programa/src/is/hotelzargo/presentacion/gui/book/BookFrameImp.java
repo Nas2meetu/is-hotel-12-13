@@ -75,11 +75,11 @@ public class BookFrameImp extends BookFrame {
 		
 		buttonsPanel.setLayout(new GridLayout(3, 2, 5, 5));
 		
-		URL urlImage = MainFrameImp.class.getResource("C:/hlocal/workspace-4.2-64bits/HotelZargo/res/IconoZargoMini.png");
-		if (urlImage == null)
-			JOptionPane.showMessageDialog(this, "Error cargando la imagen");
+		
 
-		hotelImage = new ImageIcon(urlImage);
+		String curDir = System.getProperty("user.dir");
+		
+		hotelImage = new ImageIcon(curDir+"/res/IconoZargoMini.png");
 		lbHotelIcon = new JLabel(hotelImage);
 		imagePanel.add(Box.createVerticalGlue());
 		imagePanel.add(this.lbHotelIcon,BorderLayout.CENTER);
