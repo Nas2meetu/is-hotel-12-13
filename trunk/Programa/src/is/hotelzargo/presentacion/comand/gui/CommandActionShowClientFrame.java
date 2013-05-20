@@ -17,6 +17,7 @@ public class CommandActionShowClientFrame implements Command {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		ClientFrame.getInstance().setVisible(visible);
+		return null;
 	}
 
 }

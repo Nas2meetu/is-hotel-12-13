@@ -16,7 +16,8 @@ public class CommandActionShowBookFrame implements Command {
 	public Object execute() {
 
 		MainFrame.getInstance().setVisible(!visible);
-		BookFrame.getInstance().setVisible(visible);		
+		BookFrame.getInstance().setVisible(visible);
+		return null;
 	}
 
 }

@@ -23,6 +23,7 @@ public class CommandActionDelRoom implements Command {
 		} catch (RoomAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

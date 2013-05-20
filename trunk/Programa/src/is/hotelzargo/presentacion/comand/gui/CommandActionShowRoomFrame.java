@@ -16,6 +16,7 @@ public class CommandActionShowRoomFrame implements Command {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		RoomFrame.getInstance().setVisible(visible);
+		return null;
 	}
 
 }

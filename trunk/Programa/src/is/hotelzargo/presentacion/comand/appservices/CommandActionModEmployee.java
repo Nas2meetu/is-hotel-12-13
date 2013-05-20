@@ -24,6 +24,7 @@ public class CommandActionModEmployee implements Command {
 		} catch (EmployeeAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

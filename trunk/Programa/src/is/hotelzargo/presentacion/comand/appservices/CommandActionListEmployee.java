@@ -17,6 +17,7 @@ public class CommandActionListEmployee implements Command {
 		} catch (EmployeeAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

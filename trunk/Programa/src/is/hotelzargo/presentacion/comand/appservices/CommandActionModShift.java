@@ -24,6 +24,7 @@ public class CommandActionModShift implements Command {
 		} catch (ShiftAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

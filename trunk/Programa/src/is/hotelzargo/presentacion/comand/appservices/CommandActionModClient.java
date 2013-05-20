@@ -24,6 +24,7 @@ public class CommandActionModClient implements Command {
 		} catch (ClientAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

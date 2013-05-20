@@ -24,6 +24,7 @@ public class CommandActionModRoom implements Command {
 		} catch (RoomAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

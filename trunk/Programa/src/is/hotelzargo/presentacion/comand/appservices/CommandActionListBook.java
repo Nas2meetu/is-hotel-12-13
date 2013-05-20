@@ -17,6 +17,7 @@ public class CommandActionListBook implements Command {
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

@@ -23,6 +23,7 @@ public class CommandActionDelEmployee implements Command {
 		} catch (EmployeeAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

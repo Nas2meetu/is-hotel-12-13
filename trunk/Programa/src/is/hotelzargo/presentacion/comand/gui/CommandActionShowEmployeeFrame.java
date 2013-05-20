@@ -16,6 +16,7 @@ public class CommandActionShowEmployeeFrame implements Command {
 		
 		MainFrame.getInstance().setVisible(!visible);
 		EmployeeFrame.getInstance().setVisible(visible);
+		return null;
 	}
 
 }

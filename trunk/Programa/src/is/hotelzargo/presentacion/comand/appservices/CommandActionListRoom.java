@@ -17,6 +17,7 @@ public class CommandActionListRoom implements Command {
 		} catch (RoomAppServicesException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 }
