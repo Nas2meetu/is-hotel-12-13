@@ -6,6 +6,7 @@ import is.hotelzargo.negocio.transfer.BookTransfer;
 import is.hotelzargo.negocio.transfer.ServiceTransfer;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,16 +32,39 @@ public class BookDAOImp implements BookDAO {
 	@Override
 	public void createBook(BookTransfer t) throws BookIntegrationException {
 		
-		String service = ((BookTransfer) t).get;
+		int idBook = t.getIdBook();
+		Vector<Integer> idRoom = ((BookTransfer) t).getIdRoom();
+		int idClient = ((BookTransfer) t).getIdClient();
+		Date checkIn = ((BookTransfer) t).getCheckIn();
+		Date checkOut = ((BookTransfer) t).getCheckOut();
+		float deposit = ((BookTransfer) t).getDeposit();
+		int numPerson = ((BookTransfer) t).getNumPerson();
+		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
 		
 		try {
+			//
+			statement.executeUpdate("INSERT INTO Books (idClient,checkIn,checkOut,deposit,numPerson) VALUES " +
+					"("+idClient+", "+checkIn+", "+checkOut+", "+deposit+", "+numPerson+");" );
 			
-			statement.executeUpdate("INSERT INTO Books (services) VALUES " +
-					"("+service+");" );					
+			//ahora busco inserto las habitaciones de esa reserva
+			Statement statBookRooms = connection.createStatement();
+			//recorro todas las habitaciones, y las voy almacenando
+			for (int i=0;i<idRoom.size();i++){			
+				statBookRooms.executeUpdate("INSERT INTO Rooms_books (idbook,idRoom) VALUES " +
+						"("+idBook+", "+idRoom.get(i)+");" );				
+			}
+			//ahora toca los servicios de la reserva
+			Statement statBookServices = connection.createStatement();
+			//recorro todas las habitaciones, y las voy almacenando
+			for (int i=0;i<services.size();i++){			
+				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idServices) VALUES " +
+						"("+idBook+", "+services.get(i).getId()+");" );				
+			}			
+			
 			
 		} catch (SQLException e) {
 			e.getMessage();
-			throw new ServicesIntegrationException("Problema al crear servicio");			
+			throw new BookIntegrationException("Problema al crear servicio");			
 		}		
 	}
 

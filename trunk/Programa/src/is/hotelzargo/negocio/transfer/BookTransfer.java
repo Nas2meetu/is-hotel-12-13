@@ -1,20 +1,23 @@
 package is.hotelzargo.negocio.transfer;
 
 import java.sql.Date;
+import java.util.Vector;
 
 public class BookTransfer {
 	
-	private int idRoom;
+	private int idBook;
+	private Vector<Integer> idRoom;
 	private int idClient;
 	private Date checkIn;
 	private Date checkOut;
 	private float deposit;
 	private int numPerson;
-	private ServiceTransfer services;
+	private Vector<ServiceTransfer> services;
 	
-	public BookTransfer(int idRoom, int idClient,Date checkIn, Date checkOut,
-						float deposit, int numPerson,ServiceTransfer services){
+	public BookTransfer(int idBook,Vector<Integer> idRoom, int idClient,Date checkIn, Date checkOut,
+						float deposit, int numPerson,Vector<ServiceTransfer> services){
 			
+			this.idBook = idBook;
 			this.idRoom = idRoom;
 			this.idClient = idClient;
 			this.checkIn = checkIn;
@@ -25,11 +28,11 @@ public class BookTransfer {
 		
 	}
 
-	public int getIdRoom() {
+	public Vector<Integer> getIdRoom() {
 		return idRoom;
 	}
 
-	public void setIdRoom(int idRoom) {
+	public void setIdRoom(Vector<Integer> idRoom) {
 		this.idRoom = idRoom;
 	}
 
@@ -73,12 +76,20 @@ public class BookTransfer {
 		this.numPerson = numPerson;
 	}
 
-	public ServiceTransfer getServices() {
+	public Vector<ServiceTransfer> getServices() {
 		return services;
 	}
 
-	public void setServices(ServiceTransfer services) {
+	public void setServices(Vector<ServiceTransfer> services) {
 		this.services = services;
+	}
+
+	public int getIdBook() {
+		return idBook;
+	}
+
+	public void setIdBook(int idBook) {
+		this.idBook = idBook;
 	}
 	
 	

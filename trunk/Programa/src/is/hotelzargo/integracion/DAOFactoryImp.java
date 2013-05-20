@@ -34,16 +34,19 @@ public class DAOFactoryImp extends DAOFactory {
 		
 		initDataBase();
 		
-		try {
+		/*try {
 			//se crean si no existen
-			createTableClientsIndividual();
-			createTableClientsCompany();
-			createTableRooms();
-			createTableShifts();
+			//createTableClientsIndividual();
+			//createTableClientsCompany();
+			//createTableRooms();
+			//createTableShifts();
 		} catch (SQLException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
-		}	
+			e.getMessage();
+			System.out.println("Aqui estamos al crear cliente");
+			
+		}*/	
 	
 	}		
 	
@@ -161,21 +164,9 @@ public class DAOFactoryImp extends DAOFactory {
 			s = connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-        try {
-			rs = s.executeQuery ("select * from Clients");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        
-     // Recorremos el resultado, mientras haya registros para leer, y escribimos el resultado en pantalla.
-        try {
-			while (rs.next())
-			{
-			    System.out.println (rs.getString (1) + " " + rs.getString (2)+ " " + rs.getString(3));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			e.getMessage();
+			System.out.println("connnnnnnnecttion");
+			JOptionPane.showMessageDialog(null, "Connection refused!");
 		}
         
         
@@ -183,8 +174,8 @@ public class DAOFactoryImp extends DAOFactory {
         //insertando prueba
         /*
         try {
-			s.executeQuery( "INSERT INTO test.Clients (id, nombre, apellidos, tlf) " +
-			     "VALUES ('5','nombreeba', 'gracia', '6258845') ");
+			s.executeQuery( "INSERT INTO ClientIndividual (name, surname, dni,phone,creditCard,address) " +
+			     "VALUES ('nameee','apellido', '456987123', '625884599','4444444444444','fdfdas') ");
 		} catch (SQLException e) {
 			// Auto-generated catch block
 			e.printStackTrace();

@@ -14,8 +14,9 @@ public class CommandActionListClient implements Command {
 		try {
 			return facade.listClient();
 		} catch (ClientAppServicesException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			//Controller.getInstance().event(Event.ERROR,e.getMessage());
+			System.out.println("en el catch del execute facade list");
 			
 		}
 		return null;
