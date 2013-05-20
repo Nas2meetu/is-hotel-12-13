@@ -61,8 +61,8 @@ public class ClientFormList extends JDialog {
 			public void windowOpened(WindowEvent arg0) {
 				/*Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				setTextArea("holas" + "\n" + "holas 2");*/
-				Vector<ClientTransfer> clientList = null;
-				Controller.getInstance().event(Event.LIST_CLIENT,null,clientList);
+				Vector<ClientTransfer> clientList = 
+				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				System.out.println("en initText");
 				System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress());
 				String text = "";
