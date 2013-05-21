@@ -44,7 +44,7 @@ public class DAOFactoryImp extends DAOFactory {
 
 	@Override
 	public EmployeeDAO getEmployeeDAO() {
-		return new EmployeeDAOImp(connection);
+		return new EmployeeDAOImp();
 	}
 
 	@Override
