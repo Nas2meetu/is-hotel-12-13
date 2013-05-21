@@ -1,5 +1,6 @@
 package is.hotelzargo.integracion.service.dao;
 
+import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
@@ -8,6 +9,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,17 +22,12 @@ public class ServicesDAOImp implements ServicesDAO {
     private ResultSet rs = null;
     
     
-    public ServicesDAOImp(Connection connection){
-    	this.connection = connection;
-    	try {
-			statement = connection.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    }
+    public ServicesDAOImp(){}
 
 	@Override
 	public void createService(ServiceTransfer t) throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String service = ((ServiceTransfer) t).getServices();
 		
@@ -42,12 +39,16 @@ public class ServicesDAOImp implements ServicesDAO {
 		} catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al crear servicio");			
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
 
 	@Override
 	public void deleteService(int id) throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "DELETE FROM Services WHERE idServices='"+id+"';";
 		try {
@@ -57,6 +58,8 @@ public class ServicesDAOImp implements ServicesDAO {
 		} catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al eliminar servicio con ID "+id);				
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
@@ -64,6 +67,8 @@ public class ServicesDAOImp implements ServicesDAO {
 	@Override
 	public ServiceTransfer getService(int id)
 			throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Services WHERE id='"+id+"';";
 		  try {
@@ -81,7 +86,9 @@ public class ServicesDAOImp implements ServicesDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ServicesIntegrationException("Problema al referenciar servicio con ID "+id);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		return null;
 		
@@ -90,6 +97,8 @@ public class ServicesDAOImp implements ServicesDAO {
 	@Override
 	public Vector<ServiceTransfer> listService()
 			throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Services;";
 		  try {
@@ -111,12 +120,16 @@ public class ServicesDAOImp implements ServicesDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al referenciar listado servicios");				
-		  }	
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 	}
 
 	@Override
 	public void updateService(ServiceTransfer t)
 			throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		int id = ((ServiceTransfer) t).getId();
 		String name = ((ServiceTransfer) t).getServices();
@@ -131,6 +144,8 @@ public class ServicesDAOImp implements ServicesDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al actualizar servicio "+name);				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		  
 	}
@@ -138,6 +153,8 @@ public class ServicesDAOImp implements ServicesDAO {
 	@Override
 	public boolean searchShift(String serviceName)
 			throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Services WHERE services='"+serviceName+"';";
 		  try {
@@ -150,13 +167,17 @@ public class ServicesDAOImp implements ServicesDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al buscar servicio "+serviceName);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
 	}
 
 	@Override
 	public boolean searchShiftByID(int id) throws ServicesIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Services WHERE idServices='"+id+"';";
 		  try {
@@ -169,9 +190,60 @@ public class ServicesDAOImp implements ServicesDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ServicesIntegrationException("Problema al buscar servicio "+id);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
 	}
 
+	private void initDataBase() throws ServicesIntegrationException {
+		
+        try
+        {
+           Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e)
+        {
+        	//JOptionPane.showMessageDialog(null, "Connection refused!");
+        	throw new ServicesIntegrationException("Conexion rechazada");
+        }
+        
+        
+        // Se registra el Driver de MySQL
+        try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+		} catch (SQLException e1) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ServicesIntegrationException("Conexion rechazada");
+		}
+        
+     // Establecemos la conexión con la base de datos.
+        try {
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+		} catch (SQLException e) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ServicesIntegrationException("Conexion rechazada");
+		}        
+		 
+        try {
+        	statement = connection.createStatement();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			//e.getMessage();
+			//System.out.println("connnnnnnnecttion");
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ServicesIntegrationException("Conexion rechazada");
+		}
+		
+	}
+	
+	private void closeConnectionDataBase() throws ServicesIntegrationException {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			throw new ServicesIntegrationException("Error al desconectar BBDD");
+		}
+	}
+	
 }

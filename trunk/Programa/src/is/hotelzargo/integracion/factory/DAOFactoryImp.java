@@ -49,17 +49,17 @@ public class DAOFactoryImp extends DAOFactory {
 
 	@Override
 	public RoomDAO getRoomDAO() {
-		return new RoomDAOImp(connection);
+		return new RoomDAOImp();
 	}
 
 	@Override
 	public ServicesDAO getServicesDAO() {
-		return new ServicesDAOImp(connection);
+		return new ServicesDAOImp();
 	}
 
 	@Override
 	public ShiftDAO getShiftDAO() {
-		return new ShiftDAOImp(connection);
+		return new ShiftDAOImp();
 	}
 	
 }
