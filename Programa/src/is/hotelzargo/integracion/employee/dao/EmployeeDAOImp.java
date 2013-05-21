@@ -1,5 +1,6 @@
 package is.hotelzargo.integracion.employee.dao;
 
+import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
@@ -8,6 +9,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,19 +23,14 @@ public class EmployeeDAOImp implements EmployeeDAO {
     private ResultSet rs = null;
     
     
-    public EmployeeDAOImp(Connection connection){
-    	this.connection = connection;
-    	try {
-			statement = connection.createStatement();
-		} catch (SQLException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+    public EmployeeDAOImp(){}
 
 	@Override
 	public void createEmployeeAdmin(EmployeeTransfer t)
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
+		
 		// La unica diferencia es que password no es null
 		int shiftID =((EmployeeTransferAdmin) t).getShift().getId();
 		float pay = ((EmployeeTransferAdmin) t).getPay();
@@ -51,13 +48,17 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		} catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al crear empleado ");			
-		}		
+		}finally{
+			closeConnectionDataBase();
+		}
 		
 	}
 	
 	@Override
 	public void createEmployeeServices(EmployeeTransfer t)
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
 		// Aqui password es null, ya que se ha decidido usar solo 1 tabla
 		// La unica diferencia es que password no es null
 				int shiftID =((EmployeeTransfer) t).getShift().getId();
@@ -75,6 +76,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 				} catch (SQLException e) {
 					e.getMessage();
 					throw new EmployeeIntegrationException("Problema al crear empleado ");			
+				}finally{
+					closeConnectionDataBase();
 				}
 		
 		
@@ -82,6 +85,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 	@Override
 	public void deleteEmployee(int id) throws EmployeeIntegrationException {
+		
+		initDataBase();
+		
 		String QueryString = "DELETE FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
 			  
@@ -90,6 +96,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al eliminar empleado");				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
@@ -97,6 +105,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public EmployeeTransfer getEmployee(int id)
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
+		
 		String QueryString = "SELECT * FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -125,12 +136,17 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al buscar empleado");				
-		  }			
+		  }	finally{
+			  closeConnectionDataBase();
+		  }
 
 		return null;
 	}
 	
 	private ShiftTransfer getShiftOfEmployee(int shiftID) throws EmployeeIntegrationException {
+		
+		initDataBase();
+		
 		String QueryShiftEmployee = "SELECT * FROM Shifts WHERE id='"+shiftID+"';";
 	  	ShiftTransfer s = null;
 		  try {
@@ -146,7 +162,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 				e.getMessage();
 				throw new EmployeeIntegrationException("Problema al buscar turno de empleado");				
-		  }	
+		  }	finally{
+			  closeConnectionDataBase();
+		  }
 		  
 		  return s;
 	}
@@ -154,6 +172,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public Vector<EmployeeTransfer> listEmployee()
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
+		
 		String QueryString = "SELECT * FROM Employees;";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -188,11 +209,15 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new EmployeeIntegrationException("Problema al referenciar listado empleados");				
-		  }	
+		  }	finally{
+			  closeConnectionDataBase();
+		  }
 	}
 
 	@Override
 	public void updateEmployeeServices(EmployeeTransfer t) throws EmployeeIntegrationException {
+		
+		initDataBase();
 		
 		int id = ((EmployeeTransfer) t).getId();
 		int shiftID =((EmployeeTransfer) t).getShift().getId();
@@ -213,12 +238,16 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
 	
 	@Override
 	public void updateEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException {
+		
+		initDataBase();
 		
 		int id = ((EmployeeTransfer) t).getId();
 		int shiftID =((EmployeeTransfer) t).getShift().getId();
@@ -240,6 +269,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
@@ -247,6 +278,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public boolean searchEmployee(String dni)
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Employees WHERE dniEmployee='"+dni+"';";
 		  try {
@@ -259,7 +292,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al buscar empleado");				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
 	}
@@ -267,6 +302,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public boolean searchEmployeeByID(int id)
 			throws EmployeeIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Employees WHERE idEmployee='"+id+"';";
 		  try {
@@ -279,9 +316,60 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al buscar empleado");				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
+	}
+	
+	private void initDataBase() throws EmployeeIntegrationException {
+		
+        try
+        {
+           Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e)
+        {
+        	//JOptionPane.showMessageDialog(null, "Connection refused!");
+        	throw new EmployeeIntegrationException("Conexion rechazada");
+        }
+        
+        
+        // Se registra el Driver de MySQL
+        try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+		} catch (SQLException e1) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new EmployeeIntegrationException("Conexion rechazada");
+		}
+        
+     // Establecemos la conexión con la base de datos.
+        try {
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+		} catch (SQLException e) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new EmployeeIntegrationException("Conexion rechazada");
+		}        
+		 
+        try {
+        	statement = connection.createStatement();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			//e.getMessage();
+			//System.out.println("connnnnnnnecttion");
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new EmployeeIntegrationException("Conexion rechazada");
+		}
+		
+	}
+	
+	private void closeConnectionDataBase() throws EmployeeIntegrationException {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			throw new EmployeeIntegrationException("Error al desconectar BBDD");
+		}
 	}
 
 }
