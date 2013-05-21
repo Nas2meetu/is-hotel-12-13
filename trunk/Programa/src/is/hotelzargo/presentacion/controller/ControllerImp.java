@@ -1,6 +1,6 @@
 package is.hotelzargo.presentacion.controller;
 
-import is.hotelzargo.presentacion.comand.CommandFactory;
+import is.hotelzargo.presentacion.commandfactory.CommandFactory;
 
 public class ControllerImp extends Controller {
 
