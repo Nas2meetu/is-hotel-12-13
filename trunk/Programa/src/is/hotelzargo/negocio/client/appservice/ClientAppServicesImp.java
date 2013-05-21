@@ -30,7 +30,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 					throw new ClientAppServicesException("El usuario ya existe");
 				}
 			} catch (ClientIntegrationException e) {
-				e.getMessage();
+				throw new ClientAppServicesException(e.getMessage());
 			}
 		}else {
 			checkDataCompany(t);
@@ -45,7 +45,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			} catch (ClientIntegrationException e) {
 				//e.printStackTrace();
 				//throw new ClientAppServicesException("La compañía ya existe");
-				e.getMessage();
+				throw new ClientAppServicesException(e.getMessage());
 			}
 			
 			
@@ -65,7 +65,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("Apellido no valido");
 		if(DNI.length() != 9)
 			throw new ClientAppServicesException("DNI no valido");
-		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+		if ((TLF.length() != 9))//||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
 			throw new ClientAppServicesException("Telefono no valido");
 		if((TJC.length() < 13)||(TJC.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");

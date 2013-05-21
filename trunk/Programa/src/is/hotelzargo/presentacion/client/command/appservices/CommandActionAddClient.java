@@ -25,7 +25,7 @@ public class CommandActionAddClient implements Command {
 			facade.addClient(clientTransfer);
 		} catch (ClientAppServicesException e) {
 			//e.printStackTrace();
-			//Controller.getInstance().event(Event.ERROR,e.getMessage());
+			//TODO hacer en el resto
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;
