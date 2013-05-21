@@ -1,9 +1,6 @@
 package is.hotelzargo.negocio.client.appservice;
 
-import java.awt.Frame;
 import java.util.Vector;
-
-import javax.swing.JOptionPane;
 
 import is.hotelzargo.integracion.client.dao.ClientDAO;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
@@ -12,7 +9,6 @@ import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.exception.ClientAppServicesException;
-import is.hotelzargo.negocio.exception.ServicesAppServicesException;
 
 public class ClientAppServicesImp implements ClientAppServices {
 

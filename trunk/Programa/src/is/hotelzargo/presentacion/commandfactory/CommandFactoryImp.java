@@ -145,7 +145,7 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionConfirmBook((Integer) data);
 			
 		case ERROR:
-			return new CommandActionError();
+			return new CommandActionError((String) data);
 			
 		default:
 			return null;
