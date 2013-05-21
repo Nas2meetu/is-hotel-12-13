@@ -1,6 +1,5 @@
 package is.hotelzargo.integracion.room.dao;
 
-import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 
@@ -231,6 +230,8 @@ public class RoomDAOImp implements RoomDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new RoomIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}

@@ -4,6 +4,8 @@ import is.hotelzargo.negocio.exception.ServicesAppServicesException;
 import is.hotelzargo.negocio.facade.Facade;
 import is.hotelzargo.negocio.factory.BusinessFactory;
 import is.hotelzargo.presentacion.commandfactory.Command;
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionListService implements Command {
 
@@ -14,9 +16,9 @@ public class CommandActionListService implements Command {
 		
 		try {
 			return facade.listService();
-			//return obj;
 		} catch (ServicesAppServicesException e) {
 			e.printStackTrace();
+			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;
 	}

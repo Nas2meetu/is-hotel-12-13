@@ -24,7 +24,6 @@ import javax.swing.JOptionPane;
 
 public class DAOFactoryImp extends DAOFactory {
 	
-	//TODO todas las funciones que hagas aqui menos los get de los DAO son privadas
     private static Connection connection = null;
     private Statement s = null;
     private ResultSet rs = null;	

@@ -6,9 +6,6 @@ import java.sql.Time;
 
 public class ShiftTransfer {
 	
-	//TODO transfer turnos traducir
-	
-	//turno, horaentrada, horasalida
 	private int id;
 	private String shift;
 	private Time checkin;

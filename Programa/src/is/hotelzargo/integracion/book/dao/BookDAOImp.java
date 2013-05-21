@@ -1,12 +1,8 @@
 package is.hotelzargo.integracion.book.dao;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
-import is.hotelzargo.integracion.exception.ServicesIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
-import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -14,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-
-import javax.swing.JOptionPane;
 
 public class BookDAOImp implements BookDAO {
 
@@ -45,24 +39,11 @@ public class BookDAOImp implements BookDAO {
 			statement.executeUpdate("INSERT INTO Books (idClient,checkIn,checkOut,deposit,numPerson) VALUES " +
 					"('"+idClient+"', '"+checkIn+"', '"+checkOut+"', '"+deposit+"', '"+numPerson+"');" );
 			
-			//ahora busco inserto las habitaciones de esa reserva
-			Statement statBookRooms = connection.createStatement();
-			//recorro todas las habitaciones, y las voy almacenando
-			for (int i=0;i<idRoom.size();i++){			
-				statBookRooms.executeUpdate("INSERT INTO Rooms_books (idbook,idRoom) VALUES " +
-						"('"+idBook+"', '"+idRoom.get(i)+"');" );				
-			}
-			//ahora toca los servicios de la reserva
-			Statement statBookServices = connection.createStatement();
-			//recorro todas las habitaciones, y las voy almacenando
-			for (int i=0;i<services.size();i++){			
-				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idServices) VALUES " +
-						"('"+idBook+"', '"+services.get(i).getId()+"');" );				
-			}			
+			addRoomsToBook(idBook, idRoom);
+			addServicesToBook(idBook, services);
 			
 			
 		} catch (SQLException e) {
-			//e.getMessage();
 			throw new BookIntegrationException("Problema al crear servicio");			
 		}finally {
 			closeConnectionDataBase();
@@ -74,38 +55,13 @@ public class BookDAOImp implements BookDAO {
 		//Para eliminar una reserva es necesario eliminar toda referencia
 		//en las dos tablas auxiliares
 		
-		initDataBase();
-		
-		String QueryString = "DELETE FROM Services_books WHERE idBook='"+id+"';";
-		  try {
-			  
-			statement.executeUpdate(QueryString);			
-			
-		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new BookIntegrationException("Problema al Services_books turno con ID "+id);				
-		  }finally{
-			  closeConnectionDataBase();
-		  }
+		  delAllServicesBook(id);
 		  
-		  initDataBase();
-		  
-		String QueryDel = "DELETE FROM Rooms_books WHERE idBook='"+id+"';";
-			try {
-				  
-				statement.executeUpdate(QueryDel);			
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new BookIntegrationException("Problema al Rooms_books turno con ID "+id);				
-			}finally{
-				closeConnectionDataBase();
-			}
+		  delAllRoomsBook(id);
 		
 			initDataBase();	
 			
-			//TODO comprobar con Noel que el nombre del campo id de Books es idBook
-			String QueryDelEnd = "DELETE FROM Books WHERE idBook='"+id+"';";
+			String QueryDelEnd = "DELETE FROM Books WHERE idBooks='"+id+"';";
 			try {
 				  
 				statement.executeUpdate(QueryDelEnd);			
@@ -121,27 +77,131 @@ public class BookDAOImp implements BookDAO {
 
 	@Override
 	public void updateBook(BookTransfer t) throws BookIntegrationException {
-		// TODO llamadas a BBDD
 		
 		initDataBase();
+
+		int idBook = ((BookTransfer) t).getIdBook();
+		Vector<Integer> idRoom =((BookTransfer) t).getIdRoom();
+		int idClient = ((BookTransfer) t).getIdClient();
+		Date checkIn = ((BookTransfer) t).getCheckIn();
+		Date checkOut = ((BookTransfer) t).getCheckOut();
+		float deposit = ((BookTransfer) t).getDeposit();
+		int numPerson = ((BookTransfer) t).getNumPerson();
+		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
+		//UPDATE
+		String QueryString = "UPDATE Books SET idClient='"+idClient+"',checkIn='"+checkIn+"'," +
+				"checkOut='"+checkOut+"',deposit='"+deposit+"',numPerson='"+numPerson+"' WHERE idBooks='"+idBook+"';";
 		
 		try{
 			
-		}/*catch(SQLException e){
+			statement.executeUpdate(QueryString);
 			
-		}*/finally{
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al actualizar reserva en Books "+idBook);
+		}finally{
+			closeConnectionDataBase();
+		}
+				
+		//para actualizar habitaciones, se eliminan anteriores referencias, y se añaden las nuevas		
+		delAllRoomsBook(idBook);		
+		addRoomsToBook(idBook, idRoom);
+		
+		//con los servicios, la misma idea
+		delAllServicesBook(idBook);
+		addServicesToBook(idBook, services);		
+		
+	}
+	
+	//se añade el vector de habitaciones a la reserva
+	private void addRoomsToBook(int idBook,Vector<Integer> idRoom) throws BookIntegrationException{
+		initDataBase();
+	
+		try{
+			Statement statBookRooms = connection.createStatement();
+			//recorro todas las habitaciones, y las voy almacenando
+			for (int i=0;i<idRoom.size();i++){			
+				statBookRooms.executeUpdate("INSERT INTO Rooms_books (idbook,idRoom) VALUES " +
+						"('"+idBook+"', '"+idRoom.get(i)+"');" );				
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al actualizar reserva en Rooms_books "+idBook);
+		}finally{
 			closeConnectionDataBase();
 		}
 		
 	}
+	
+	//se añade el vector de habitaciones a la reserva
+	private void addServicesToBook(int idBook,Vector<ServiceTransfer> services) throws BookIntegrationException{
+		initDataBase();
+	
+		try{
+			
+			Statement statBookServices = connection.createStatement();
+			//recorro todas las habitaciones, y las voy almacenando
+			for (int i=0;i<services.size();i++){			
+				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idServices) VALUES " +
+						"('"+idBook+"', '"+services.get(i).getId()+"');" );				
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al actualizar reserva en Services_books "+idBook);
+		}finally{
+			closeConnectionDataBase();
+		}
+		
+	}
+	
+	//se eliminan todas las habitaciones de la reserva
+	private void delAllRoomsBook(int idBook) throws BookIntegrationException{
+		initDataBase();
+		  
+		String QueryDel = "DELETE FROM Rooms_books WHERE idBook='"+idBook+"';";
+			try {
+				  
+				statement.executeUpdate(QueryDel);			
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new BookIntegrationException("Problema al Rooms_books turno con ID "+idBook);				
+			}finally{
+				closeConnectionDataBase();
+			}
+	}
+	
+	//se eliminan todos los servicios de la reserva
+	private void delAllServicesBook(int idBook)throws BookIntegrationException{
+		initDataBase();
+		
+		String QueryString = "DELETE FROM Services_books WHERE idBook='"+idBook+"';";
+		  try {
+			  
+			statement.executeUpdate(QueryString);			
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al Services_books turno con ID "+idBook);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	}
 
 	@Override
 	public BookTransfer getBook(int id) throws BookIntegrationException {
-		//TODO comprobar campo tambien
 		
 		initDataBase();
 		
-		String QueryString = "SELECT * FROM Books WHERE idBook='"+id+"';";
+		//obtenemos las habitaciones de la reserva
+		Vector<Integer> rooms = getRoomsOfBook(id);
+		
+		//obtenemos servicios de la reserva
+		Vector<ServiceTransfer> services = getServicesOfBook(id);
+		
+		String QueryString = "SELECT * FROM Books WHERE idBooks='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
@@ -153,8 +213,8 @@ public class BookDAOImp implements BookDAO {
 					float deposit = rs.getFloat(5);
 					int numPerson = rs.getInt(6);
 					
-					//BookTransfer b = new BookTransfer(id,idClient, checkIn, checkOut,deposit,numPerson);					
-					//return b;
+					BookTransfer b = new BookTransfer(id,rooms,idClient, checkIn, checkOut,deposit,numPerson,services);					
+					return b;
 				  
 			  }
 			
@@ -167,31 +227,135 @@ public class BookDAOImp implements BookDAO {
 		
 		return null;
 	}
-
-	@Override
-	public Vector<BookTransfer> listBook() throws BookIntegrationException {
-		// TODO llamadas a BBDD
+	
+	//devuelve las habitaciones de una reserva concreta
+	private Vector<Integer> getRoomsOfBook(int idBook) throws BookIntegrationException{
 		
 		initDataBase();
+		Vector<Integer> rooms = new Vector<Integer>();
+		String QueryString = "SELECT * FROM Rooms_books WHERE idBook='"+idBook+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			  while (rs.next()) {				  				  
+					int idRoom = rs.getInt(3);
+					rooms.add(idRoom);				  
+			  }
+			  
+			  return rooms;
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	}
+	
+	//devuelve las habitaciones de una reserva concreta
+	private Vector<ServiceTransfer> getServicesOfBook(int idBook) throws BookIntegrationException{			
+		initDataBase();
+		Vector<ServiceTransfer> services = new Vector<ServiceTransfer>();
+		String QueryString = "SELECT * FROM Services_books WHERE idBook='"+idBook+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			  while (rs.next()) {				  				  
+					int idService = rs.getInt(3);
+					ServiceTransfer s = getServicesByID(idService);
+					services.add(s);				  
+			  }
+			  
+			  return services;
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	}
+	
+	//devuelve los servicios de cierta reserva
+	private ServiceTransfer getServicesByID(int id) throws BookIntegrationException{
+		initDataBase();
 		
-		try{
+		String QueryString = "SELECT * FROM Services WHERE id='"+id+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			  while (rs.next()) {
+				  
+					String name = rs.getString(1);					
+					ServiceTransfer s = new ServiceTransfer(id,name);					
+					return s;
+				  
+			  }
 			
-		}/*catch(SQLException e){
-			
-		}*/finally{
-			closeConnectionDataBase();
-		}
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al devolver servicios de la reserva con ID "+id);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		return null;
 	}
 
 	@Override
-	public void confirmBook(int id) throws BookIntegrationException {
-		// TODO llamadas a BBDD
-		
+	public Vector<BookTransfer> listBook() throws BookIntegrationException {		
 		initDataBase();
 		
+		Vector<BookTransfer> books = new Vector<BookTransfer>();
+		String QueryString = "SELECT * FROM Books;";
+		try{			
+			rs = statement.executeQuery(QueryString);			
+			  while (rs.next()) {
+				  
+					int id = rs.getInt(1);
+					BookTransfer book = getBook(id);
+					books.add(book);
+				  
+			  }	
+			  
+			  return books;
+			  
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al listar reservas");
+		}finally{
+			closeConnectionDataBase();
+		}
+		
+	}
+	
+	@Override
+	public boolean searchBook(int id) throws BookIntegrationException {
+		initDataBase();
+		String QueryString = "SELECT * FROM Books WHERE idBooks='"+id+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {				  					
+					return true;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new BookIntegrationException("Problema al buscar reserva "+id);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+
+		return false;
+	}
+
+	//por lo especificado en el SRS confirmBook es si el cliente ha ocupado o no la habitacion
+	//se tendría que crear un booleano para esto o lo entiendo como un simple search,
+	//y si la reserva está, la asumo como confirmada.
+	@Override
+	public void confirmBook(int id) throws BookIntegrationException {
+		// TODO confirmBook entendido como busqueda, o meter boolean nuevo		
+		initDataBase();		
 		try{
+			
 			
 		}/*catch(SQLException e){
 			
@@ -232,11 +396,9 @@ public class BookDAOImp implements BookDAO {
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new BookIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
@@ -248,6 +410,16 @@ public class BookDAOImp implements BookDAO {
 			//e.printStackTrace();
 			throw new BookIntegrationException("Error al desconectar BBDD");
 		}
+	}
+	
+	//devuelve true si todas las habitaciones del vector se encuentran desocupadas
+	//false en caso contrario
+	//TODO las habitaciones deberian tener un booleano ocupada
+	//entonces aqui miraría ese boolean
+	public boolean emptyRooms(Vector<Integer> rooms) throws BookIntegrationException{
+		
+		return false;
+		
 	}
 
 }
