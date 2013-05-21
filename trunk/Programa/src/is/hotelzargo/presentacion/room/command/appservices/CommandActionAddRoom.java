@@ -5,6 +5,8 @@ import is.hotelzargo.negocio.facade.Facade;
 import is.hotelzargo.negocio.factory.BusinessFactory;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.presentacion.commandfactory.Command;
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionAddRoom implements Command {
 
@@ -22,8 +24,7 @@ public class CommandActionAddRoom implements Command {
 			facade.addRoom(roomTransfer);
 		} catch (RoomAppServicesException e) {
 			e.printStackTrace();
-			//Controller.getInstance().event(Event.ERROR,e.getMessage());
-			
+			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;
 	}

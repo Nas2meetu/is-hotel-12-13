@@ -1,11 +1,9 @@
 package is.hotelzargo.integracion.shift.dao;
 
-import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -285,11 +283,9 @@ public class ShiftDAOImp implements ShiftDAO {
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ShiftIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}

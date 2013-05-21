@@ -1,8 +1,6 @@
 package is.hotelzargo.integracion.client.dao;
 
-import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
@@ -506,7 +504,7 @@ public class ClientDAOImp implements ClientDAO {
 			throw new ClientIntegrationException("Conexion rechazada");
 		}finally{
 			closeConnectionDataBase();
-			//TODO HACER ESTO EN EL RESTO DE DAOs NO ESTOY MUY SEGURO MIRAR!!!
+			//TODO cerrado en el resto de DAOS,aunque no estamos seguros
 		}
 		
 	}
@@ -514,6 +512,8 @@ public class ClientDAOImp implements ClientDAO {
 	private void closeConnectionDataBase() throws ClientIntegrationException {
 		try {
 			//TODO statement cerrarlo y el resultset MIRAR!!!
+			rs.close();
+			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			//e.printStackTrace();

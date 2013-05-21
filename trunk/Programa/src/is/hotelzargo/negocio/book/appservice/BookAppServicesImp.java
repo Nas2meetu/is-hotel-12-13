@@ -13,13 +13,21 @@ public class BookAppServicesImp implements BookAppServices {
 
 	@Override
 	public void addBook(BookTransfer t) throws BookAppServicesException {
-		// TODO crear reserva
+		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			dao.createBook(t);
+			//TODO si las habitaciones elegidas para la reserva están libres,
+			//entonces se podrá reservar
+			if (dao.emptyRooms(t.getIdRoom())){
+				dao.createBook(t);
+			}
+			else{
+				throw new BookAppServicesException("No es posible crear la reserva, tiene habitaciones ocupadas");
+			}
 		} catch (BookIntegrationException e) {
+			e.printStackTrace();
 			throw new BookAppServicesException(e.getMessage());
 		}
 		
@@ -32,16 +40,22 @@ public class BookAppServicesImp implements BookAppServices {
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			dao.deleteBook(id);
+			if (dao.searchBook(id)){
+				dao.deleteBook(id);
+			}
+			else{
+				throw new BookAppServicesException("La reserva a eliminar no existe");
+			}
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
+			throw new BookAppServicesException(e.getMessage());
 		}
 		
 	}
 
 	@Override
 	public Vector<BookTransfer> listBook() throws BookAppServicesException {
-		// TODO listar reservas
+		// listar reservas
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
@@ -56,28 +70,36 @@ public class BookAppServicesImp implements BookAppServices {
 
 	@Override
 	public void modBook(BookTransfer t) throws BookAppServicesException {
-		// TODO modificar reservas
+		// modificar reservas
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			dao.updateBook(t);
+			//TODO conflicto de fechas se comprueba antes de llegar aqui?
+			//creo que si
+			if (dao.searchBook(t.getIdBook())){
+				dao.updateBook(t);
+			}
+			else{
+				throw new BookAppServicesException("La reserva a modificar no existe");
+			}
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
+			throw new BookAppServicesException("Problema al modificar reserva");
 		}
 		
 	}
 
 	@Override
 	public void findBook(int id) throws BookAppServicesException {
-		// TODO buscar reservas
+		// TODO esto no es search??
 		
 	}
 
 	@Override
 	public void confirmBook(int id) throws BookAppServicesException {
-		// TODO confirmar reserva
+		// TODO confirmar reserva, que necesita un booleano confirmada, por lo que intuyo....
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();

@@ -5,6 +5,8 @@ import is.hotelzargo.negocio.facade.Facade;
 import is.hotelzargo.negocio.factory.BusinessFactory;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.commandfactory.Command;
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionModService implements Command {
 
@@ -23,6 +25,7 @@ public class CommandActionModService implements Command {
 			facade.modService(this.serviceTransfer);
 		} catch (ServicesAppServicesException e) {
 			e.printStackTrace();
+			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;
 	}

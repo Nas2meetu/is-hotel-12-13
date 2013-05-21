@@ -1,6 +1,5 @@
 package is.hotelzargo.integracion.employee.dao;
 
-import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
@@ -8,7 +7,6 @@ import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -359,6 +357,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new EmployeeIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}

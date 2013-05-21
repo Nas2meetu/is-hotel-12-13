@@ -1,14 +1,8 @@
 package is.hotelzargo.integracion.service.dao;
 
-import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
-import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
-import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -233,6 +227,8 @@ public class ServicesDAOImp implements ServicesDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ServicesIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
