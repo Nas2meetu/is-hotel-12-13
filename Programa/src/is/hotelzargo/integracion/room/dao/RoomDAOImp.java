@@ -1,9 +1,11 @@
 package is.hotelzargo.integracion.room.dao;
 
+import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,18 +18,12 @@ public class RoomDAOImp implements RoomDAO {
     private ResultSet rs = null;
     
     
-    public RoomDAOImp(Connection connection){
-    	this.connection = connection;
-    	try {
-			statement = connection.createStatement();
-		} catch (SQLException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+    public RoomDAOImp(){}
 
 	@Override
 	public void createRoom(RoomTransfer t) throws RoomIntegrationException {
+		
+		initDataBase();
 		
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
@@ -41,27 +37,35 @@ public class RoomDAOImp implements RoomDAO {
 		} catch (SQLException e) {
 			e.getMessage();
 			throw new RoomIntegrationException("Problema al crear habitación");			
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
 
 	@Override
 	public void deleteRoom(int id) throws RoomIntegrationException {
+		
+		initDataBase();
 		// Se busca habitacion y se elimina
 		String QueryString = "DELETE FROM Rooms WHERE id='"+id+"';";
-				  try {
-					  
-					statement.executeUpdate(QueryString);			
-					
-				  } catch (SQLException e) {
-					e.getMessage();
-					throw new RoomIntegrationException("Problema al eliminar  habitación ");				
-				  }			
+		  try {
+			  
+			statement.executeUpdate(QueryString);			
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al eliminar  habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 						
 	}
 
 	@Override
 	public RoomTransfer getRoom(int id) throws RoomIntegrationException {
+		
+		initDataBase();
 		// Se devuelve habitacion
 		String QueryString = "SELECT * FROM Rooms WHERE id='"+id+"';";
 		  try {
@@ -79,14 +83,18 @@ public class RoomDAOImp implements RoomDAO {
 			
 		  } catch (SQLException e) {
 			e.getMessage();
-			throw new RoomIntegrationException("Problema al buscar habitación ");				
-		  }			
+			throw new RoomIntegrationException("Problema al buscar habitacion ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		return null;
 	}
 
 	@Override
 	public Vector<RoomTransfer> listRoom() throws RoomIntegrationException {
+		
+		initDataBase();
 		String QueryString = "SELECT * FROM Rooms;";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -110,11 +118,15 @@ public class RoomDAOImp implements RoomDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new RoomIntegrationException("Problema al referenciar listado habitaciones");				
-		  }	
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 	}
 
 	@Override
 	public void updateRoom(RoomTransfer t) throws RoomIntegrationException {
+		
+		initDataBase();
 		int id = ((RoomTransfer) t).getId();
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
@@ -131,12 +143,16 @@ public class RoomDAOImp implements RoomDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new RoomIntegrationException("Problema al actualizar habitacion");				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
 	
 	@Override
 	public boolean searchRoom(int numBeds, int numRoom, float price) throws RoomIntegrationException{
+		
+		initDataBase();
 		// Se busca habitacion llamadas a la BBDD
 		String QueryString = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"' AND bed_number='"+numBeds+"' AND price='"+price+"';";
 		  try {
@@ -149,13 +165,17 @@ public class RoomDAOImp implements RoomDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new RoomIntegrationException("Problema al buscar habitación ");				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		return false;
 	}
 	
 	@Override
 	public boolean searchRoomByID(int id) throws RoomIntegrationException{
+		
+		initDataBase();
 		// Se busca habitacion llamadas a la BBDD
 				String QueryString = "SELECT * FROM Rooms WHERE id='"+id+"';";
 				  try {
@@ -168,9 +188,60 @@ public class RoomDAOImp implements RoomDAO {
 				  } catch (SQLException e) {
 					e.getMessage();
 					throw new RoomIntegrationException("Problema al buscar habitación ");				
-				  }			
+				  }finally{
+					  closeConnectionDataBase();
+				  }
 				
 				return false;
+	}
+	
+	private void initDataBase() throws RoomIntegrationException {
+		
+        try
+        {
+           Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e)
+        {
+        	//JOptionPane.showMessageDialog(null, "Connection refused!");
+        	throw new RoomIntegrationException("Conexion rechazada");
+        }
+        
+        
+        // Se registra el Driver de MySQL
+        try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+		} catch (SQLException e1) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new RoomIntegrationException("Conexion rechazada");
+		}
+        
+     // Establecemos la conexión con la base de datos.
+        try {
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+		} catch (SQLException e) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new RoomIntegrationException("Conexion rechazada");
+		}        
+		 
+        try {
+        	statement = connection.createStatement();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			//e.getMessage();
+			//System.out.println("connnnnnnnecttion");
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new RoomIntegrationException("Conexion rechazada");
+		}
+		
+	}
+	
+	private void closeConnectionDataBase() throws RoomIntegrationException {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			throw new RoomIntegrationException("Error al desconectar BBDD");
+		}
 	}
 
 }

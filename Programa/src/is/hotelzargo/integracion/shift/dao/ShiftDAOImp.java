@@ -1,10 +1,12 @@
 package is.hotelzargo.integracion.shift.dao;
 
+import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,18 +20,12 @@ public class ShiftDAOImp implements ShiftDAO {
     private ResultSet rs = null;
     
     
-    public ShiftDAOImp(Connection connection){
-    	this.connection = connection;
-    	try {
-			statement = connection.createStatement();
-		} catch (SQLException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+    public ShiftDAOImp(){}
 
 	@Override
 	public void createShift(ShiftTransfer t) throws ShiftIntegrationException {
+		
+		initDataBase();
 		
 		String nameShift =((ShiftTransfer) t).getShift();
 		Time checkIn = ((ShiftTransfer) t).getCheckin();
@@ -45,12 +41,16 @@ public class ShiftDAOImp implements ShiftDAO {
 			//e.getMessage();
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al crear turno "+nameShift);			
+		}finally{
+			closeConnectionDataBase();
 		}
 		
 	}
 
 	@Override
 	public void deleteShift(int id) throws ShiftIntegrationException {
+		
+		initDataBase();
 		//Se sabe que si llega aquí no hay empleados con este turno y se puede eliminar
 		String QueryString = "DELETE FROM Shifts WHERE id='"+id+"';";
 		  try {
@@ -60,12 +60,16 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al eliminar turno con ID "+id);				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
 
 	@Override
 	public ShiftTransfer getShift(int id) throws ShiftIntegrationException {
+		
+		initDataBase();
 		
 		String QueryString = "SELECT * FROM Shifts WHERE id='"+id+"';";
 		  try {
@@ -85,7 +89,9 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar turno con ID "+id);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		return null;
 	}
@@ -93,6 +99,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public ShiftTransfer getShiftByName(String name) throws ShiftIntegrationException {
 		
+		initDataBase();
 		String QueryString = "SELECT * FROM Shifts WHERE nameShift='"+name+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -111,7 +118,9 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar turno "+name);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		//si no está ese turno se devuelve null
 		return null;
 	}
@@ -119,6 +128,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public Vector<ShiftTransfer> listShift() throws ShiftIntegrationException {
 		
+		initDataBase();
 		String QueryString = "SELECT * FROM Shifts;";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -142,12 +152,16 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar listado turnos");				
-		  }		
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		  		
 	}
 
 	@Override
 	public void updateShift(ShiftTransfer t) throws ShiftIntegrationException {
+		
+		initDataBase();
 		
 		int id = ((ShiftTransfer) t).getId();
 		String nameShift = ((ShiftTransfer) t).getShift();
@@ -165,6 +179,8 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al actualizar turno "+nameShift);				
+		  }finally{
+			  closeConnectionDataBase();
 		  }
 		
 	}
@@ -172,6 +188,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public boolean searchShift(int id) throws ShiftIntegrationException {
 		
+		initDataBase();
 		String QueryString = "SELECT * FROM Shifts WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -183,7 +200,9 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar turno "+id);				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
 	}
@@ -191,6 +210,7 @@ public class ShiftDAOImp implements ShiftDAO {
 	@Override
 	public boolean searchShift(String name, Time checkIn, Time checkOut) throws ShiftIntegrationException {
 		
+		initDataBase();
 		String QueryString = "SELECT * FROM Shifts WHERE nameShift='"+name+"' AND checkIn='"+checkIn+"' AND checkOut='"+checkOut+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
@@ -202,13 +222,17 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar turno ");				
-		  }			
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 
 		return false;
 	}
 
 	@Override
 	public boolean employeesWithShift(int id) throws ShiftIntegrationException {
+		
+		initDataBase();
 		//Buscamos en la tabla empleados que ninguno tenga este ID turno
 		String QueryString = "SELECT * FROM Employees WHERE shiftID='"+id+"';";
 		  try {
@@ -221,10 +245,61 @@ public class ShiftDAOImp implements ShiftDAO {
 		  } catch (SQLException e) {
 			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar empleados con cierto turno ");				
-		  }		
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 		
 		
 		return false;
 	}
 
+	
+	private void initDataBase() throws ShiftIntegrationException {
+		
+        try
+        {
+           Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e)
+        {
+        	//JOptionPane.showMessageDialog(null, "Connection refused!");
+        	throw new ShiftIntegrationException("Conexion rechazada");
+        }
+        
+        
+        // Se registra el Driver de MySQL
+        try {
+			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
+		} catch (SQLException e1) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ShiftIntegrationException("Conexion rechazada");
+		}
+        
+     // Establecemos la conexión con la base de datos.
+        try {
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+		} catch (SQLException e) {
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ShiftIntegrationException("Conexion rechazada");
+		}        
+		 
+        try {
+        	statement = connection.createStatement();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			//e.getMessage();
+			//System.out.println("connnnnnnnecttion");
+			//JOptionPane.showMessageDialog(null, "Connection refused!");
+			throw new ShiftIntegrationException("Conexion rechazada");
+		}
+		
+	}
+	
+	private void closeConnectionDataBase() throws ShiftIntegrationException {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			throw new ShiftIntegrationException("Error al desconectar BBDD");
+		}
+	}	
 }

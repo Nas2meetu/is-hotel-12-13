@@ -504,12 +504,16 @@ public class ClientDAOImp implements ClientDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ClientIntegrationException("Conexion rechazada");
+		}finally{
+			closeConnectionDataBase();
+			//TODO HACER ESTO EN EL RESTO DE DAOs NO ESTOY MUY SEGURO MIRAR!!!
 		}
 		
 	}
 	
 	private void closeConnectionDataBase() throws ClientIntegrationException {
 		try {
+			//TODO statement cerrarlo y el resultset MIRAR!!!
 			connection.close();
 		} catch (SQLException e) {
 			//e.printStackTrace();
