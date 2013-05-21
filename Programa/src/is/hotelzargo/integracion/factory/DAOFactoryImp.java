@@ -34,7 +34,7 @@ public class DAOFactoryImp extends DAOFactory {
 	
 	@Override
 	public ClientDAO getClientDAO() {
-		return new ClientDAOImp(connection);
+		return new ClientDAOImp();
 	}
 
 	@Override
