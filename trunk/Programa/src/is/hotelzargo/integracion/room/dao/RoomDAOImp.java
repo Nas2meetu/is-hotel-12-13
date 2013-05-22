@@ -27,12 +27,11 @@ public class RoomDAOImp implements RoomDAO {
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
 		int bed_number = ((RoomTransfer) t).getnumBeds();
-		boolean busy = t.isBusy();
 		
 		try {
 			
-			statement.executeUpdate("INSERT INTO Rooms (room_number, price, bed_number,busy) VALUES " +
-					"('"+room_number+"', '"+price+"', '"+bed_number+"','"+busy+"');" );					
+			statement.executeUpdate("INSERT INTO Rooms (room_number, price, bed_number) VALUES " +
+					"('"+room_number+"', '"+price+"', '"+bed_number+"');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -75,10 +74,9 @@ public class RoomDAOImp implements RoomDAO {
 				  
 				  	int room_number = rs.getInt(2);
 				  	float price = rs.getFloat(3);
-				  	int bed_number = rs.getInt(4);
-				  	boolean busy = rs.getBoolean(5);				  	
+				  	int bed_number = rs.getInt(4);				  	
 					
-				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price,busy);					
+				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);					
 					return r;				  
 			  }
 			
@@ -108,9 +106,8 @@ public class RoomDAOImp implements RoomDAO {
 				  	int room_number = rs.getInt(2);
 					float price = rs.getFloat(3);
 					int bed_number = rs.getInt(4);
-					boolean busy = rs.getBoolean(5);
 					
-					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price,busy);						
+					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);						
 					rooms.add(r);
 				  
 			  }
@@ -132,13 +129,11 @@ public class RoomDAOImp implements RoomDAO {
 		int id = ((RoomTransfer) t).getId();
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
-		int bed_number = ((RoomTransfer) t).getnumBeds();
-		boolean busy = t.isBusy();
-		
+		int bed_number = ((RoomTransfer) t).getnumBeds();		
 
 		//UPDATE
 		String QueryString = "UPDATE Rooms SET room_number='"+room_number+"'," +
-				"price='"+price+"',bed_number='"+bed_number+"',busy='"+busy+"'  WHERE id='"+id+"';";
+				"price='"+price+"',bed_number='"+bed_number+"' WHERE id='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);
@@ -229,10 +224,6 @@ public class RoomDAOImp implements RoomDAO {
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new RoomIntegrationException("Conexion rechazada");
 		}
 		

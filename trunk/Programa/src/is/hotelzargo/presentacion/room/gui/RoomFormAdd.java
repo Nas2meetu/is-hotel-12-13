@@ -91,8 +91,7 @@ public class RoomFormAdd extends JDialog {
 
 		t = new RoomTransfer(-1, Integer.parseInt(numBedsText.getText()),
 				Integer.parseInt(numRoomText.getText()),
-				Integer.parseInt(priceText.getText()),
-				false);
+				Integer.parseInt(priceText.getText()));
 
 		Controller.getInstance().event(Event.ADD_ROOM, t, null);
 	}

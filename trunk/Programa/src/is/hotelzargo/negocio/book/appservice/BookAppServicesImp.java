@@ -100,8 +100,7 @@ public class BookAppServicesImp implements BookAppServices {
 
 	@Override
 	public void confirmBook(int id) throws BookAppServicesException {
-		// Confirmar reserva
-		
+		// Confirmar reserva		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
@@ -114,10 +113,20 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public Vector<Integer> findBook(Date checkIn, Date checkOut)
+	public Vector<Integer> findBook(String checkIn, String checkOut)
 			throws BookAppServicesException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		DAOFactory fac = DAOFactory.getInstance();
+		BookDAO dao = fac.getBookDAO();
+		
+		//TODO pasar de int a Date
+		
+		try {
+			return dao.findBook(checkIn,checkOut);
+		} catch (BookIntegrationException e) {
+			e.printStackTrace();
+			throw new BookAppServicesException("Problema al buscar habitaciones para reservar");
+		}
 	}
 
 	@Override

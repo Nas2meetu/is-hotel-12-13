@@ -6,15 +6,13 @@ public class RoomTransfer {
 	private int numBeds;
 	private int numRoom;
 	private float price;
-	private boolean busy;
 
 
-	public RoomTransfer(int id, int numBeds, int numRoom, float price, boolean busy) {
+	public RoomTransfer(int id, int numBeds, int numRoom, float price) {
 		this.id = id;
 		this.numBeds = numBeds;
 		this.numRoom = numRoom;
 		this.price = price;
-		this.setBusy(busy);
 	}
 	
 	/* Get */
@@ -51,14 +49,6 @@ public class RoomTransfer {
 	
 	public void setprice(float price){
 		this.price = price;
-	}
-
-	public boolean isBusy() {
-		return busy;
-	}
-
-	public void setBusy(boolean busy) {
-		this.busy = busy;
 	}
 	
 }

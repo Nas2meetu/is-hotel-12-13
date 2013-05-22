@@ -34,7 +34,7 @@ public interface Facade {
 	
 	public void modBook(BookTransfer t)throws BookAppServicesException;
 		
-	public Vector<Integer> findBook(Date checkIn,Date checkOut) throws BookAppServicesException;
+	public Vector<Integer> findBook(String checkIn,String checkOut) throws BookAppServicesException;
 	
 	public void confirmBook(int id)throws BookAppServicesException;
 	
