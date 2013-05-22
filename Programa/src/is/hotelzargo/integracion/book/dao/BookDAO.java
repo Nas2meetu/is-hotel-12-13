@@ -23,6 +23,8 @@ public interface BookDAO {
 	public Vector<BookTransfer> listBook() throws BookIntegrationException;
 	
 	public void confirmBook(int id) throws BookIntegrationException;
+	
+	public Vector<Integer> findBook(Date checkIn,Date checkOut) throws BookIntegrationException;
 
 	public boolean emptyRooms(Vector<Integer> idRoom) throws BookIntegrationException;
 }

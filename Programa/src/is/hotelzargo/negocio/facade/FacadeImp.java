@@ -83,7 +83,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public Vector<Integer> findBook(Date checkIn, Date checkOut)
+	public Vector<Integer> findBook(String checkIn, String checkOut)
 			throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();

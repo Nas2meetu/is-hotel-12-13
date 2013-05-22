@@ -12,10 +12,10 @@ import java.util.Vector;
 
 public class CommandActionFindBook implements Command {
 
-	private Date checkIn;
-	private Date checkOut;
+	private String checkIn;
+	private String checkOut;
 	
-	public CommandActionFindBook(Vector<Date> dates){		
+	public CommandActionFindBook(Vector<String> dates){		
 		this.checkIn = dates.get(0);
 		this.checkOut = dates.get(1);
 	}
