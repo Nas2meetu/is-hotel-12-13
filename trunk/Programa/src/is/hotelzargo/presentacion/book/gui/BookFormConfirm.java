@@ -64,7 +64,6 @@ public class BookFormConfirm extends JDialog {
 	}
 	
 	private void accept(){
-		//paso un int ID
 		Controller.getInstance().event(Event.CONFIRM_BOOK,Integer.parseInt(idText.getText()),null);
 	}
 	

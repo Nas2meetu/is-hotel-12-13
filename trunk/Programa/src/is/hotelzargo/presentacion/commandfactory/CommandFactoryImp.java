@@ -70,7 +70,7 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionShowShiftFrame((Boolean) data);
 			
 		case ADD_BOOK:
-			return new CommandActionAddBook((BookTransfer) data);
+			return new CommandActionAddBook((Vector<String>) data);
 			
 		case ADD_CLIENT:
 			return new CommandActionAddClient((ClientTransfer) data);
