@@ -71,12 +71,12 @@ public class ClientFormList extends JDialog {
 				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
 				String text[] = {"0"};
 				if(clientList != null){
-					for(int i = 1; i <= clientList.size(); i++){
+					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
 						if (t instanceof ClientTransferIndividual)
-							text[i] = ((ClientTransferIndividual) t).getName();
+							text[i++] = ((ClientTransferIndividual) t).getName();
 						else
-							text[i] =((ClientTransferCompany) t).getCompany();
+							text[i++] =((ClientTransferCompany) t).getCompany();
 					}
 				}
 				else{
