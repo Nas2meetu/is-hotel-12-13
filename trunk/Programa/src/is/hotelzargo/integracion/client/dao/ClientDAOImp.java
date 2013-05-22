@@ -502,9 +502,6 @@ public class ClientDAOImp implements ClientDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ClientIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
-			//TODO cerrado en el resto de DAOS,aunque no estamos seguros
 		}
 		
 	}
