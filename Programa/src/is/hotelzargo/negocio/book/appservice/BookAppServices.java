@@ -18,6 +18,8 @@ public interface BookAppServices {
 
 	void searchBook(int id)throws BookAppServicesException;
 	
+	boolean searchAvailability(Date checkIn, Date checkOut, Vector<Integer> rooms) throws BookAppServicesException;
+	
 	Vector<Integer> findBook(Date checkIn,Date checkOut)throws BookAppServicesException;
 
 	void confirmBook(int id)throws BookAppServicesException;

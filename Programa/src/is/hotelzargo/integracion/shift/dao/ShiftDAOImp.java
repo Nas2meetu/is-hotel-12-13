@@ -284,8 +284,6 @@ public class ShiftDAOImp implements ShiftDAO {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
 			throw new ShiftIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
 		}
 		
 	}
