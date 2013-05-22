@@ -25,7 +25,7 @@ public class BookDAOImp implements BookDAO {
 		
 		initDataBase();
 		
-		int idBook = t.getIdBook();
+		//int idBook = t.getIdBook();
 		Vector<Integer> idRoom = ((BookTransfer) t).getIdRoom();
 		int idClient = ((BookTransfer) t).getIdClient();
 		Date checkIn = ((BookTransfer) t).getCheckIn();
@@ -33,22 +33,50 @@ public class BookDAOImp implements BookDAO {
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
-		boolean busy = t.isConfirm();
+		//boolean busy = t.isConfirm();
+		//el campo en la base de datos es 0->false, 1->true
+		int busy = 0;
 		
 		try {
 			//
 			statement.executeUpdate("INSERT INTO Books (idClient,checkIn,checkOut,deposit,numPerson,confirm) VALUES " +
 					"('"+idClient+"', '"+checkIn+"', '"+checkOut+"', '"+deposit+"', '"+numPerson+"','"+busy+"');" );
 			
-			addRoomsToBook(idBook, idRoom);
-			addServicesToBook(idBook, services);
-			
-			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BookIntegrationException("Problema al crear la reserva");			
 		}finally {
 			closeConnectionDataBase();
 		}
+		
+		//cojo el id de esta ultima reserva creada para guardar referencia en las
+		//otras dos tablas de habitaciones y servicios
+		int idBook = getLastIDBook();
+		addRoomsToBook(idBook, idRoom);
+		addServicesToBook(idBook, services);
+		
+	}
+	
+	private int getLastIDBook() throws BookIntegrationException{
+		initDataBase();
+		
+		//elegimos el id maximo
+		int last = -1;
+		try {
+			rs = statement.executeQuery("SELECT MAX(idBooks) FROM Books;");			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {
+					last = rs.getInt(1);
+			  }			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema conseguir ultimo id de Books");
+		}finally{
+			closeConnectionDataBase();
+		}
+		
+		return last;
 	}
 
 	@Override
@@ -145,7 +173,7 @@ public class BookDAOImp implements BookDAO {
 			Statement statBookServices = connection.createStatement();
 			//recorro todas las habitaciones, y las voy almacenando
 			for (int i=0;i<services.size();i++){			
-				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idServices) VALUES " +
+				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idService) VALUES " +
 						"('"+idBook+"', '"+services.get(i).getId()+"');" );				
 			}
 			
@@ -354,7 +382,9 @@ public class BookDAOImp implements BookDAO {
 	@Override
 	public void confirmBook(int id) throws BookIntegrationException {		
 		initDataBase();
-		boolean b = true;
+		//boolean b = true;
+		//1->true en la BD,porque boolean no tira bien
+		int b = 1;
 		String QueryString = "UPDATE Books SET confirm='"+b+"' WHERE idBooks='"+id+"';";
 		
 		try{
@@ -445,11 +475,12 @@ public class BookDAOImp implements BookDAO {
 		
 		  try {
 			  //en rs tengo los IDs de reserva
-			rs = statement.executeQuery(QueryString);			
+			rs = statement.executeQuery(QueryString);
+			Statement statRoom = connection.createStatement() ;
 			  while (rs.next()) {				  				  
 					int idBook = rs.getInt(1);
 						String QueryRooms = "SELECT room_number FROM Rooms WHERE id NOT IN (SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
-						ResultSet rsRooms = statement.executeQuery(QueryRooms);
+						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
 						while(rsRooms.next()){
 							int room = rsRooms.getInt(1);
 							rooms.add(room);

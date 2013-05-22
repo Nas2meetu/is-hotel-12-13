@@ -1,7 +1,6 @@
 package is.hotelzargo.negocio.book.appservice;
 
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -12,7 +11,6 @@ import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
-import is.hotelzargo.negocio.exception.ClientAppServicesException;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 
 public class BookAppServicesImp implements BookAppServices {
@@ -81,7 +79,9 @@ public class BookAppServicesImp implements BookAppServices {
 		
 		Date date = null;
 		try {
-			date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+			java.util.Date dateUtil = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+			date = new java.sql.Date(dateUtil.getTime());
+			//date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 			//throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
@@ -164,9 +164,15 @@ public class BookAppServicesImp implements BookAppServices {
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			dao.confirmBook(id);
+			if (dao.searchBook(id)){
+				dao.confirmBook(id);
+			}
+			else{
+				throw new BookAppServicesException("La reserva a confirmar no existe");
+			}
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
+			throw new BookAppServicesException("Fallo al confirmar reserva");
 		}
 		
 	}
@@ -177,35 +183,19 @@ public class BookAppServicesImp implements BookAppServices {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
-		
-		//TODO pasar las fechas de string a date puebalo gorka
-		/*String str_date="11-June-07";
-		DateFormat formatter ; 
-		Date date ; 
-		   formatter = new SimpleDateFormat("dd-MMM-yy");
-		   try {
-			date = (Date) formatter.parse(str_date);
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}*/
 
-
-		
-		
-		
-		Date dateIn;
-		Date dateOut;
-		try {
-			dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkIn);
-			dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOut);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-			throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
-		}
+		Date dateIn = stringToDate(checkIn);
+		Date dateOut = stringToDate(checkOut);
 		
 		try {
-			return dao.findBook(dateIn,dateOut);
+			Vector<Integer> v = dao.findBook(dateIn,dateOut);
+			if (v.isEmpty()){
+				System.out.println("el vector disponibilidad es vacio primo");
+			}
+			else{
+				System.out.println(v.get(0).toString());
+			}
+			return v;
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
 			throw new BookAppServicesException("Problema al buscar habitaciones para reservar");
