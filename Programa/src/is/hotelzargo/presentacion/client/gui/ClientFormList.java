@@ -162,20 +162,5 @@ public class ClientFormList extends JDialog {
 			}
 		});
 	}
-	
-	private void initTextArea(){
-		listTextArea = new JTextArea();
-		listTextArea.setEditable(false);
-		//listTextArea.setText("hola");
-		listTextArea.setSize(500, 500);
-		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
-		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-	}
-	
-	private void setTextArea(String text){
-		listTextArea.setText(text);
-	}
-	
 
 }
