@@ -35,6 +35,12 @@ public class RoomFrameImp extends RoomFrame {
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
 	private JPanel mainPanel;
 	
+	private RoomFormAdd addForm;
+	//TODO Hay que implementar las clases de los formularios, solo esta hecho el de ADD
+	//TODO private RoomFormDel delForm;
+	//TODO private RoomFormList listForm;
+	//TODO private RoomFormMod modForm;
+	
 	public RoomFrameImp() {
 		
 		this.setTitle("Habitaciones");
@@ -80,6 +86,23 @@ public class RoomFrameImp extends RoomFrame {
 		this.pack();
 	}
 	
+	
+	private void addRoom() {
+		addForm.setVisible(true);
+	}
+	
+	/* private void delRoom(){
+		delForm.setVisible(true);
+	}
+	
+	private void listRoom(){
+		listForm.setVisible(true);
+	}
+	
+	private void modRoom(){
+		modForm.setVisible(true);
+	}*/
+	
 	private void exit() {
 		Controller.getInstance().event(Event.SHOW_ROOM_FRAME,false,null);
 	}
@@ -122,6 +145,16 @@ public class RoomFrameImp extends RoomFrame {
 				
 			}
 		});
+		
+		
+		this.addRoomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addRoom();
+			}
+		});
+		
+		
 		
 		this.exit.addActionListener(new ActionListener() {
 			
