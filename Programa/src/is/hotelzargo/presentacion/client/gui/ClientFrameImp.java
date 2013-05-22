@@ -3,6 +3,7 @@ package is.hotelzargo.presentacion.client.gui;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -11,8 +12,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class ClientFrameImp extends ClientFrame {
@@ -22,6 +31,10 @@ public class ClientFrameImp extends ClientFrame {
 	private JButton modClientButton;
 	private JButton listClientButton;
 	private JButton exit;
+	private ImageIcon hotelImage; // imagen hotel
+	private JLabel lbHotelIcon; // etiqueta con imagen hotel
+	private JPanel mainPanel;
+
 	
 	private ClientFormAdd addForm;
 	private ClientFormDel delForm;
@@ -48,14 +61,32 @@ public class ClientFrameImp extends ClientFrame {
 		listClientButton = new JButton("Listar");
 		exit = new JButton("Salir");
 		
+		createMenu();
 		setListener();
 		
-		this.setLayout(new GridLayout(5, 1, 5, 5));
-		this.add(addClientButton);
-		this.add(delClientButton);
-		this.add(modClientButton);
-		this.add(listClientButton);
-		this.add(exit);
+		JPanel btPanel = new JPanel();
+		JPanel imagePanel = new JPanel();
+		JPanel mainPanel = new JPanel();
+
+		btPanel.setLayout(new GridLayout(3, 2, 5, 5));
+
+		String curDir = System.getProperty("user.dir");
+
+		hotelImage = new ImageIcon(curDir + "/res/IconoZargoMini.png");
+		lbHotelIcon = new JLabel(hotelImage);
+		imagePanel.add(this.lbHotelIcon, BorderLayout.CENTER);
+		
+		btPanel.add(addClientButton);
+		btPanel.add(delClientButton);
+		btPanel.add(modClientButton);
+		btPanel.add(listClientButton);
+		btPanel.add(exit);
+		
+		mainPanel.setBorder(new TitledBorder("Clientes"));
+		mainPanel.add(imagePanel);
+		mainPanel.add(btPanel);
+		this.add(mainPanel);
+
 		
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(d.width/2 - this.getWidth()/2, d.height/2 - this.getHeight()/2);
@@ -159,5 +190,24 @@ public class ClientFrameImp extends ClientFrame {
 		});
 	}
 
+	private void createMenu() {
+		JMenuBar mbMenu = new JMenuBar();
+		this.setJMenuBar(mbMenu);
+		JMenu mDialogs = new JMenu("Archivo");
+		mbMenu.add(mDialogs);
+		initializeMenu(mDialogs);
+	}
 
+	private void initializeMenu(JMenu mDialogs) {
+
+		JMenuItem mQuit = new JMenuItem("Salir");
+		mDialogs.add(mQuit);
+		mQuit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+
+			}
+		});
+	}
 }
