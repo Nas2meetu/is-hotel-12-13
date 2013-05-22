@@ -439,39 +439,27 @@ public class BookDAOImp implements BookDAO {
 		initDataBase();
 		Vector<Integer> rooms = new Vector<Integer>();
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
-		String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+checkIn+"' AND checkIn<='"+checkOut+"') OR (checkOut>='"+checkIn+"' AND checkOut<='"+checkOut+"');";
-		  try {
-			rs = statement.executeQuery(QueryString);			
-			  while (rs.next()) {				  				  
-					int idRoom = rs.getInt(3);
-					rooms.add(idRoom);				  
-			  }
-			  
-			  return rooms;
-			
-		  } catch (SQLException e) {
-			e.printStackTrace();
-			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
-		  }finally{
-			  closeConnectionDataBase();
-		  }
-		  
+		String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+checkIn+"' AND checkIn<='"+checkOut+"') OR (checkOut>='"+checkIn+"' AND checkOut<='"+checkOut+"');";		  
 		  //ahora busco en la tabla las habitaciones con esas reservas, que son las que van a estar
 		  //ocupadas en ese periodo
-		  initDataBase();
-		String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook=;";
+		
 		  try {
+			  //en rs tengo los IDs de reserva
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {				  				  
-					int idRoom = rs.getInt(3);
-					rooms.add(idRoom);				  
+					int idBook = rs.getInt(1);
+						//TODO AQUIIIIIIIIIIIIIIIIIII
+						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
+						ResultSet rsRooms = statement.executeQuery(QueryRooms);
+						
+					
 			  }
 			  
 			  return rooms;
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
-			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
+			throw new BookIntegrationException("Problema al buscar habitaciones libres en cierta fecha");				
 		  }finally{
 			  closeConnectionDataBase();
 		  }

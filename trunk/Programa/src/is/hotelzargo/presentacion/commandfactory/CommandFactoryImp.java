@@ -141,9 +141,9 @@ public class CommandFactoryImp extends CommandFactory {
 		case MOD_SHIFT:
 			return new CommandActionModShift((ShiftTransfer) data);
 			
-		//En el vector va la hora de checkIn y checkOut	
+		//En el vector va la hora de checkIn y checkOut	en formato String
 		case FIND_BOOK:
-			return new CommandActionFindBook((Vector<Date>) data);
+			return new CommandActionFindBook((Vector<String>) data);
 			
 		case CONFIRM_BOOK:
 			return new CommandActionConfirmBook((Integer) data);

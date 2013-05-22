@@ -1,6 +1,7 @@
 package is.hotelzargo.negocio.book.appservice;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Vector;
@@ -95,12 +96,6 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public void searchBook(int id) throws BookAppServicesException {
-		// TODO esto no es search??
-		
-	}
-
-	@Override
 	public void confirmBook(int id) throws BookAppServicesException {
 		// Confirmar reserva		
 		DAOFactory fac = DAOFactory.getInstance();
@@ -122,22 +117,22 @@ public class BookAppServicesImp implements BookAppServices {
 		BookDAO dao = fac.getBookDAO();
 		
 		//TODO pasar las fechas de string a date puebalo gorka
-		Date dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkIn);
-		Date dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOut);
+		Date dateIn;
+		Date dateOut;
+		try {
+			dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkIn);
+			dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOut);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+			throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
+		}
 		
 		try {
-			return dao.findBook(checkIn,checkOut);
+			return dao.findBook(dateIn,dateOut);
 		} catch (BookIntegrationException e) {
 			e.printStackTrace();
 			throw new BookAppServicesException("Problema al buscar habitaciones para reservar");
 		}
-	}
-
-	@Override
-	public boolean searchAvailability(Date checkIn, Date checkOut,
-			Vector<Integer> rooms) throws BookAppServicesException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
