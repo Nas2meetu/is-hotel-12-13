@@ -46,47 +46,70 @@ public class ClientFormList extends JDialog {
 		
 		renderPanel = new JPanel();
 		
-		//initTextArea();
+		scrollPane = new JScrollPane(renderPanel,
+									ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+									ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		
 		exitButton = new JButton("Salir");
 		
 		addListener();
 		
-		this.setLayout(new GridLayout(2, 1));
-		this.add(renderPanel);
-		this.add(exitButton);
+		this.setLayout(new GridLayout(1, 1));
+		this.add(scrollPane);
+		//this.add(exitButton);
 		
-		this.pack();
+		this.setSize(500,300);
+		
+		//this.pack();
 		
 	}
 	
 	
 	private void exit(){
 		this.setVisible(false);
-		listTextArea.setText("");
+		//listTextArea.setText("");
+	}
+	
+	private ClientTransfer createT(){
+		return new ClientTransferCompany(-1,"hola" , "hola", "4252435", "21343121324", "caller bla");
 	}
 	
 	private void setText(){
-		Vector<ClientTransfer> clientList = 
-				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
-				String text[] = {"0"};
+		Vector<ClientTransfer> clientList = new Vector<ClientTransfer>(); 
+				//(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
+				
+				for(int j = 0; j < 10 ; j++){
+					clientList.add(createT());
+				}
+				
+				String text[] = new String[clientList.size()];
 				if(clientList != null){
 					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
 						if (t instanceof ClientTransferIndividual)
-							text[i++] = ((ClientTransferIndividual) t).getName();
+							text[i] = ((ClientTransferIndividual) t).getName();
 						else
-							text[i++] =((ClientTransferCompany) t).getCompany();
+							text[i] =((ClientTransferCompany) t).getCompany()+System.getProperty("line.separator")+
+									 ((ClientTransferCompany) t).getCIF()+System.getProperty("line.separator")+
+									 ((ClientTransferCompany) t).getPhone()+System.getProperty("line.separator")+
+									 ((ClientTransferCompany) t).getCreditCard()+System.getProperty("line.separator")+
+									 ((ClientTransferCompany) t).getAddress();
 					}
 				}
 				else{
 					text[0] = "No hay clientes";
 				}
 				
+				renderPanel.setLayout(new BorderLayout());
+				
 				JList list = new JList(text);
 		        list.setCellRenderer(renderList);
-		        renderPanel.add( list, BorderLayout.CENTER );
+		        renderPanel.add(list, BorderLayout.CENTER);
+		        //renderPanel.add(list);
 				
+		        //this.pack();
+		        
 				//setTextArea(text);
 	}
 	

@@ -18,8 +18,8 @@ public class RenderList extends JTextArea implements ListCellRenderer {
             setBorder( new BevelBorder( BevelBorder.RAISED ) );
             setText( valor.toString() );
             if ( seleccionado ) {
-                setBackground( Color.red );
-                setForeground( Color.white );
+                setBackground( Color.lightGray );
+                setForeground( Color.black );
             }
             else {
                 setBackground( Color.lightGray );

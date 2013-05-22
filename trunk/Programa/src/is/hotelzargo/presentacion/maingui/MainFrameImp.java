@@ -111,11 +111,8 @@ public class MainFrameImp extends MainFrame {
 		mainPanel.add(imagePanel);
 		mainPanel.add(btPanel);
 		this.add(mainPanel);
-
-
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(d.width / 2 - this.getWidth() / 2,
-				d.height / 2 - this.getHeight() / 2);
+		
+		this.setLocationRelativeTo(null);
 
 		this.pack();
 	}
