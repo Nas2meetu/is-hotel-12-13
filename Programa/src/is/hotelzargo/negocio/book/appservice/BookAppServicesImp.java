@@ -1,6 +1,8 @@
 package is.hotelzargo.negocio.book.appservice;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.book.dao.BookDAO;
@@ -119,7 +121,9 @@ public class BookAppServicesImp implements BookAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
-		//TODO pasar de int a Date
+		//TODO pasar las fechas de string a date puebalo gorka
+		Date dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkIn);
+		Date dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOut);
 		
 		try {
 			return dao.findBook(checkIn,checkOut);
