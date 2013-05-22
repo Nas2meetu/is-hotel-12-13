@@ -3,7 +3,6 @@ package is.hotelzargo.negocio.book.appservice;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 
-import java.sql.Date;
 import java.util.Vector;
 
 public interface BookAppServices {
@@ -15,12 +14,8 @@ public interface BookAppServices {
 	Vector<BookTransfer> listBook()throws BookAppServicesException;
 
 	void modBook(BookTransfer t)throws BookAppServicesException;
-
-	void searchBook(int id)throws BookAppServicesException;
 	
-	boolean searchAvailability(Date checkIn, Date checkOut, Vector<Integer> rooms) throws BookAppServicesException;
-	
-	Vector<Integer> findBook(Date checkIn,Date checkOut)throws BookAppServicesException;
+	Vector<Integer> findBook(String checkIn,String checkOut)throws BookAppServicesException;
 
 	void confirmBook(int id)throws BookAppServicesException;
 
