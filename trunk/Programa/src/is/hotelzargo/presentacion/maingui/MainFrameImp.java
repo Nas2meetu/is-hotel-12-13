@@ -89,10 +89,10 @@ public class MainFrameImp extends MainFrame {
 		createMenu();
 		setListener();
 
-		JPanel buttonsPanel = new JPanel();
+		JPanel btPanel = new JPanel();
 		JPanel imagePanel = new JPanel();
 		JPanel mainPanel = new JPanel();
-		buttonsPanel.setLayout(new GridLayout(3,2, 5, 5));
+		btPanel.setLayout(new GridLayout(3,2, 5, 5));
 
 		String curDir = System.getProperty("user.dir");
 		
@@ -101,15 +101,15 @@ public class MainFrameImp extends MainFrame {
 		imagePanel.add(Box.createVerticalGlue());
 		imagePanel.add(this.lbHotelIcon,BorderLayout.CENTER);
 		imagePanel.add(Box.createVerticalGlue());
-		buttonsPanel.add(this.bookButton);
-		buttonsPanel.add(this.clientButton);
-		buttonsPanel.add(this.employeeButton);
-		buttonsPanel.add(this.roomButton);
-		buttonsPanel.add(this.servicesButton);
-		buttonsPanel.add(this.shiftButton);
+		btPanel.add(this.bookButton);
+		btPanel.add(this.clientButton);
+		btPanel.add(this.employeeButton);
+		btPanel.add(this.roomButton);
+		btPanel.add(this.servicesButton);
+		btPanel.add(this.shiftButton);
 		mainPanel.setBorder(new TitledBorder("Menu principal"));
 		mainPanel.add(imagePanel);
-		mainPanel.add(buttonsPanel);
+		mainPanel.add(btPanel);
 		this.add(mainPanel);
 
 
