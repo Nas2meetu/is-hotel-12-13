@@ -149,7 +149,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			return dao.listClient();
 		} catch (ClientIntegrationException e) {
 			e.getMessage();
-			throw new ClientAppServicesException("Problema al listar clientes");
+			throw new ClientAppServicesException(e.getMessage());
 		}
 
 	}
