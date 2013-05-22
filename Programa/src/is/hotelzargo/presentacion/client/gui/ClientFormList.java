@@ -88,7 +88,12 @@ public class ClientFormList extends JDialog {
 					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
 						if (t instanceof ClientTransferIndividual)
-							text[i] = ((ClientTransferIndividual) t).getName();
+							text[i] = ((ClientTransferIndividual) t).getName()+System.getProperty("line.separator")+
+									  ((ClientTransferIndividual) t).getSurname()+System.getProperty("line.separator")+
+									  ((ClientTransferIndividual) t).getDNI()+System.getProperty("line.separator")+
+									  ((ClientTransferIndividual) t).getPhone()+System.getProperty("line.separator")+
+									  ((ClientTransferIndividual) t).getCreditCard()+System.getProperty("line.separator")+
+									  ((ClientTransferIndividual) t).getAddress();
 						else
 							text[i] =((ClientTransferCompany) t).getCompany()+System.getProperty("line.separator")+
 									 ((ClientTransferCompany) t).getCIF()+System.getProperty("line.separator")+
