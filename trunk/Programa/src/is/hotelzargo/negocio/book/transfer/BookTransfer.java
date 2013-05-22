@@ -15,9 +15,10 @@ public class BookTransfer {
 	private float deposit;
 	private int numPerson;
 	private Vector<ServiceTransfer> services;
+	private boolean confirm;
 	
 	public BookTransfer(int idBook,Vector<Integer> idRoom, int idClient,Date checkIn, Date checkOut,
-						float deposit, int numPerson,Vector<ServiceTransfer> services){
+						float deposit, int numPerson,Vector<ServiceTransfer> services,boolean confirm){
 			
 			this.idBook = idBook;
 			this.idRoom = idRoom;
@@ -27,6 +28,7 @@ public class BookTransfer {
 			this.deposit = deposit;
 			this.numPerson = numPerson;
 			this.services = services;
+			this.setConfirm(confirm);
 		
 	}
 
@@ -92,6 +94,14 @@ public class BookTransfer {
 
 	public void setIdBook(int idBook) {
 		this.idBook = idBook;
+	}
+
+	public boolean isConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(boolean confirm) {
+		this.confirm = confirm;
 	}
 	
 	

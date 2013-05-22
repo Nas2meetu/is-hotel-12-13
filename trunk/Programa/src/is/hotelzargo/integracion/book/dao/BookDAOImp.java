@@ -33,18 +33,19 @@ public class BookDAOImp implements BookDAO {
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
+		boolean busy = t.isConfirm();
 		
 		try {
 			//
-			statement.executeUpdate("INSERT INTO Books (idClient,checkIn,checkOut,deposit,numPerson) VALUES " +
-					"('"+idClient+"', '"+checkIn+"', '"+checkOut+"', '"+deposit+"', '"+numPerson+"');" );
+			statement.executeUpdate("INSERT INTO Books (idClient,checkIn,checkOut,deposit,numPerson,confirm) VALUES " +
+					"('"+idClient+"', '"+checkIn+"', '"+checkOut+"', '"+deposit+"', '"+numPerson+"','"+busy+"');" );
 			
 			addRoomsToBook(idBook, idRoom);
 			addServicesToBook(idBook, services);
 			
 			
 		} catch (SQLException e) {
-			throw new BookIntegrationException("Problema al crear servicio");			
+			throw new BookIntegrationException("Problema al crear la reserva");			
 		}finally {
 			closeConnectionDataBase();
 		}
@@ -88,9 +89,10 @@ public class BookDAOImp implements BookDAO {
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
+		boolean busy = t.isConfirm();
 		//UPDATE
 		String QueryString = "UPDATE Books SET idClient='"+idClient+"',checkIn='"+checkIn+"'," +
-				"checkOut='"+checkOut+"',deposit='"+deposit+"',numPerson='"+numPerson+"' WHERE idBooks='"+idBook+"';";
+				"checkOut='"+checkOut+"',deposit='"+deposit+"',numPerson='"+numPerson+"',confirm='"+busy+"' WHERE idBooks='"+idBook+"';";
 		
 		try{
 			
@@ -212,8 +214,9 @@ public class BookDAOImp implements BookDAO {
 					Date checkOut = rs.getDate(4);
 					float deposit = rs.getFloat(5);
 					int numPerson = rs.getInt(6);
+					boolean busy = rs.getBoolean(7);
 					
-					BookTransfer b = new BookTransfer(id,rooms,idClient, checkIn, checkOut,deposit,numPerson,services);					
+					BookTransfer b = new BookTransfer(id,rooms,idClient, checkIn, checkOut,deposit,numPerson,services,busy);					
 					return b;
 				  
 			  }
@@ -347,19 +350,21 @@ public class BookDAOImp implements BookDAO {
 		return false;
 	}
 
-	//por lo especificado en el SRS confirmBook es si el cliente ha ocupado o no la habitacion
-	//se tendría que crear un booleano para esto o lo entiendo como un simple search,
-	//y si la reserva está, la asumo como confirmada.
+	//pone a true la confirmacion
 	@Override
-	public void confirmBook(int id) throws BookIntegrationException {
-		// TODO confirmBook entendido como busqueda, o meter boolean nuevo		
-		initDataBase();		
+	public void confirmBook(int id) throws BookIntegrationException {		
+		initDataBase();
+		boolean b = true;
+		String QueryString = "UPDATE Books SET confirm='"+b+"' WHERE idBooks='"+id+"';";
+		
 		try{
 			
+			statement.executeUpdate(QueryString);
 			
-		}/*catch(SQLException e){
-			
-		}*/finally{
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al confirmar reserva en Books "+id);
+		}finally{
 			closeConnectionDataBase();
 		}
 		
@@ -420,6 +425,13 @@ public class BookDAOImp implements BookDAO {
 		
 		return false;
 		
+	}
+
+	@Override
+	public boolean searchAvailability(Date checkIn, Date checkOut,
+			Vector<Integer> rooms) throws BookIntegrationException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -512,8 +512,8 @@ public class ClientDAOImp implements ClientDAO {
 	private void closeConnectionDataBase() throws ClientIntegrationException {
 		try {
 			//TODO statement cerrarlo y el resultset MIRAR!!!
-			rs.close();
-			statement.close();
+			//rs.close();
+			//statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			//e.printStackTrace();

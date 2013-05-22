@@ -1,5 +1,6 @@
 package is.hotelzargo.integracion.book.dao;
 
+import java.sql.Date;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
@@ -15,8 +16,9 @@ public interface BookDAO {
 	
 	public BookTransfer getBook(int id) throws BookIntegrationException;
 	
-	// TODO No entiendo esto de Luis Hay que pensar que le entra a esto o si se hacen varias
 	public boolean searchBook(int id) throws BookIntegrationException;
+	
+	public boolean searchAvailability(Date checkIn, Date checkOut, Vector<Integer> rooms) throws BookIntegrationException;
 	
 	public Vector<BookTransfer> listBook() throws BookIntegrationException;
 	
