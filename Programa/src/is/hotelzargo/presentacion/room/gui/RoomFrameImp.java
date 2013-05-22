@@ -1,5 +1,9 @@
 package is.hotelzargo.presentacion.room.gui;
 
+import is.hotelzargo.presentacion.client.gui.ClientFormAdd;
+import is.hotelzargo.presentacion.client.gui.ClientFormDel;
+import is.hotelzargo.presentacion.client.gui.ClientFormList;
+import is.hotelzargo.presentacion.client.gui.ClientFormMod;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -12,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,15 +40,22 @@ public class RoomFrameImp extends RoomFrame {
 	
 	private RoomFormAdd addForm;
 	//TODO Hay que implementar las clases de los formularios, solo esta hecho el de ADD
-	//TODO private RoomFormDel delForm;
-	//TODO private RoomFormList listForm;
-	//TODO private RoomFormMod modForm;
+	private RoomFormDel delForm;
+	private RoomFormList listForm;
+	private RoomFormMod modForm;
 	
 	public RoomFrameImp() {
 		
 		this.setTitle("Habitaciones");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
+		/* formularios */		
+		addForm = new RoomFormAdd(this,true);
+		delForm = new RoomFormDel(this,true);
+		listForm = new RoomFormList(this,true);
+		modForm = new RoomFormMod(this,true);
+		
+		/* botones */		
 		addRoomButton = new JButton("Dar de alta");
 		delRoomButton = new JButton("Dar de baja");
 		modRoomButton = new JButton("Modificar");
@@ -91,7 +101,7 @@ public class RoomFrameImp extends RoomFrame {
 		addForm.setVisible(true);
 	}
 	
-	/* private void delRoom(){
+	private void delRoom(){
 		delForm.setVisible(true);
 	}
 	
@@ -101,7 +111,7 @@ public class RoomFrameImp extends RoomFrame {
 	
 	private void modRoom(){
 		modForm.setVisible(true);
-	}*/
+	}
 	
 	private void exit() {
 		Controller.getInstance().event(Event.SHOW_ROOM_FRAME,false,null);
@@ -154,7 +164,26 @@ public class RoomFrameImp extends RoomFrame {
 			}
 		});
 		
+		this.delRoomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addRoom();
+			}
+		});
 		
+		this.listRoomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addRoom();
+			}
+		});	
+		
+		this.modRoomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addRoom();
+			}
+		});		
 		
 		this.exit.addActionListener(new ActionListener() {
 			

@@ -1,5 +1,6 @@
 package is.hotelzargo.negocio.book.appservice;
 
+import java.sql.Date;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.book.dao.BookDAO;
@@ -35,7 +36,7 @@ public class BookAppServicesImp implements BookAppServices {
 
 	@Override
 	public void delBook(int id) throws BookAppServicesException {
-		// TODO borrar reserva
+		// Borrar reserva
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
@@ -92,14 +93,14 @@ public class BookAppServicesImp implements BookAppServices {
 	}
 
 	@Override
-	public void findBook(int id) throws BookAppServicesException {
+	public void searchBook(int id) throws BookAppServicesException {
 		// TODO esto no es search??
 		
 	}
 
 	@Override
 	public void confirmBook(int id) throws BookAppServicesException {
-		// TODO confirmar reserva, que necesita un booleano confirmada, por lo que intuyo....
+		// Confirmar reserva
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
@@ -110,6 +111,13 @@ public class BookAppServicesImp implements BookAppServices {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public Vector<Integer> findBook(Date checkIn, Date checkOut)
+			throws BookAppServicesException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
