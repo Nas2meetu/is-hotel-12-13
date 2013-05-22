@@ -1,6 +1,7 @@
 package is.hotelzargo.negocio.book.appservice;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -12,14 +13,21 @@ import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.exception.ClientAppServicesException;
+import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 
 public class BookAppServicesImp implements BookAppServices {
 
 	@Override
-	public void addBook(BookTransfer t) throws BookAppServicesException {
+	public void addBook(Vector<String> v) throws BookAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
+		
+		BookTransfer t = obtainParameters(v);
+		
+		//se crea tranfer con los datos ya comprobados
+		//añadir false al final
+		
 		
 		try {
 			//TODO si las habitaciones elegidas para la reserva están libres,
@@ -35,6 +43,60 @@ public class BookAppServicesImp implements BookAppServices {
 			throw new BookAppServicesException(e.getMessage());
 		}
 		
+	}
+	
+	//aqui miro todos los datos del vector comprobando que sean datos validos
+	//es decir, fechas, numeros...
+	private BookTransfer obtainParameters(Vector<String> v){
+		Vector sol = new Vector();
+		//TODO supongo que la gui me pasa un vector de habitaciones, que
+		//se sacaran con el checkbox multiple que se ha pensado...
+		Vector<Integer> rooms = getRoomsVector(v.get(0));
+		int client = Integer.parseInt(v.get(1));
+		
+		Date checkIn = stringToDate(v.get(2));
+		Date checkOut = stringToDate(v.get(3));
+		
+		float deposit = Float.parseFloat(v.get(4));
+		int numPerson = Integer.parseInt(v.get(5));
+		
+		Vector<ServiceTransfer> services = getServices(v.get(6));
+		
+		BookTransfer b = new BookTransfer(-1, rooms, client, checkIn, checkOut, deposit, numPerson, services, false);
+		
+		
+		return b;
+		
+	}
+	
+	private Vector<Integer> getRoomsVector(String rooms){
+		Vector<Integer> sol = new Vector<Integer>();
+		sol.add(2);
+		sol.add(3);
+		//TODO obtener habitaciones
+		return sol;
+	}
+	
+	private Date stringToDate(String s){
+		
+		Date date = null;
+		try {
+			date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+			//throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
+		}
+		return date;
+		
+	}
+	
+	private Vector<ServiceTransfer> getServices(String s){
+		Vector<ServiceTransfer> sol = new Vector<ServiceTransfer>();
+		//TODO no se como me llegan aqui los servicios, intuyo que seran
+		//ids de servicios y hay que buscarlos en la DB?
+		ServiceTransfer st = new ServiceTransfer(1, "cosa");
+		sol.add(st);
+		return sol;
 	}
 
 	@Override
@@ -117,6 +179,21 @@ public class BookAppServicesImp implements BookAppServices {
 		BookDAO dao = fac.getBookDAO();
 		
 		//TODO pasar las fechas de string a date puebalo gorka
+		/*String str_date="11-June-07";
+		DateFormat formatter ; 
+		Date date ; 
+		   formatter = new SimpleDateFormat("dd-MMM-yy");
+		   try {
+			date = (Date) formatter.parse(str_date);
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}*/
+
+
+		
+		
+		
 		Date dateIn;
 		Date dateOut;
 		try {

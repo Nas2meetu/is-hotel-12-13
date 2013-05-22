@@ -1,5 +1,7 @@
 package is.hotelzargo.presentacion.book.command.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.facade.Facade;
@@ -10,9 +12,9 @@ import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionAddBook implements Command {
 
-	private BookTransfer bookTransfer;
+	private Vector<String> bookTransfer;
 	
-	public CommandActionAddBook(BookTransfer t){
+	public CommandActionAddBook(Vector<String> t){
 		bookTransfer = t;
 	}
 	

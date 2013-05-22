@@ -421,7 +421,7 @@ public class BookDAOImp implements BookDAO {
 	//entonces aqui miraría ese boolean
 	public boolean emptyRooms(Vector<Integer> rooms) throws BookIntegrationException{
 		
-		return false;
+		return true;
 		
 	}
 
@@ -435,7 +435,7 @@ public class BookDAOImp implements BookDAO {
 	@Override
 	public Vector<Integer> findBook(Date checkIn, Date checkOut)
 			throws BookIntegrationException {
-		// TODO buscando...
+		// TODO revision profunda
 		initDataBase();
 		Vector<Integer> rooms = new Vector<Integer>();
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
@@ -448,10 +448,12 @@ public class BookDAOImp implements BookDAO {
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {				  				  
 					int idBook = rs.getInt(1);
-						//TODO AQUIIIIIIIIIIIIIIIIIII
-						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
+						String QueryRooms = "SELECT room_number FROM Rooms WHERE id NOT IN (SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
 						ResultSet rsRooms = statement.executeQuery(QueryRooms);
-						
+						while(rsRooms.next()){
+							int room = rsRooms.getInt(1);
+							rooms.add(room);
+						}
 					
 			  }
 			  

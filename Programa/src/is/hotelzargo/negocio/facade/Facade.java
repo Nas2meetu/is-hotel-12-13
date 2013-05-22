@@ -26,7 +26,7 @@ public interface Facade {
 	
 	public void modClient(ClientTransfer t)throws ClientAppServicesException;
 	
-	public void addBook(BookTransfer t)throws BookAppServicesException;
+	public void addBook(Vector<String> t)throws BookAppServicesException;
 	
 	public void delBook(int id)throws BookAppServicesException;
 	

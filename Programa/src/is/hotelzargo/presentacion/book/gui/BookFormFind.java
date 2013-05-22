@@ -32,7 +32,7 @@ public class BookFormFind extends JDialog {
 	public BookFormFind(JFrame owner,boolean mod) {
 		super(owner,mod);
 		
-		this.setTitle("Dar de baja reserva");
+		this.setTitle("Buscar disponibilidad");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
@@ -77,7 +77,6 @@ public class BookFormFind extends JDialog {
 	}
 	
 	private void accept(){
-		//paso un int ID
 		Vector<String> dates = new Vector<String>();
 		dates.add(checkinText.getText());
 		dates.add(checkoutText.getText());

@@ -4,6 +4,8 @@ import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
+import is.hotelzargo.negocio.exception.BookAppServicesException;
+import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -12,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -135,20 +142,47 @@ public class BookFormAdd extends JDialog {
 	
 	private void accept(){
 		
-		BookTransfer t;
+		/*BookTransfer t;
 		
-		//TODO convertir todos los datos insertados a lo requerido
-		//A TRABAJAR GENTE
+		Date dateIn = null;
+		Date dateOut = null;
+		try {
+			dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkInText.getText());
+			dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOutText.getText());
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+			//throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
+		}
+		//provisional pruebas
+		Vector<Integer> r = new Vector<Integer>();
+		r.add(2);
+		r.add(11);
+		Vector<ServiceTransfer> s = new Vector<ServiceTransfer>();
+		ServiceTransfer st = new ServiceTransfer(1, "cosas");
+		s.add(st);
+		
 
-		/*t = new BookTransfer (-1,roomsText.getText(),
+		t = new BookTransfer (-1,r,
 										  Integer.parseInt(clientText.getText()),
-										  checkInText.getText(),
-										  checkOutText.getText(),
-										  depositText.getText(),
-										  numpersonText.getText(),
-										  servicesText.getText());
+										  dateIn,
+										  dateOut,
+										  Float.parseFloat(depositText.getText()),
+										  Integer.parseInt(numpersonText.getText()),
+										  s,
+										  false);*/
 
-		Controller.getInstance().event(Event.ADD_BOOK,t,null);*/
+		Vector<String> dataBook = new Vector<String>();
+		dataBook.add(roomsText.getText());
+		dataBook.add(clientText.getText());
+		dataBook.add(checkInText.getText());
+		dataBook.add(checkOutText.getText());
+		dataBook.add(depositText.getText());
+		dataBook.add(numpersonText.getText());
+		dataBook.add(servicesText.getText());
+		//y añadir false en app
+
+		Controller.getInstance().event(Event.ADD_BOOK,dataBook,null);
+		
 	}
 	
 	private void exit(){
