@@ -474,7 +474,7 @@ public class ClientDAOImp implements ClientDAO {
         } catch (Exception e)
         {
         	//JOptionPane.showMessageDialog(null, "Connection refused!");
-        	throw new ClientIntegrationException("Conexion rechazada");
+        	throw new ClientIntegrationException("Conexion rechazada Driver");
         } 
         
         // Se registra el Driver de MySQL
@@ -482,7 +482,7 @@ public class ClientDAOImp implements ClientDAO {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
-			throw new ClientIntegrationException("Conexion rechazada");
+			throw new ClientIntegrationException("Conexion rechazada RegisterDriver");
 		}
         
         
@@ -491,7 +491,7 @@ public class ClientDAOImp implements ClientDAO {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
-			throw new ClientIntegrationException("Conexion rechazada");
+			throw new ClientIntegrationException("Conexion rechazada Connection");
 		}        
 		 
         try {
@@ -501,7 +501,7 @@ public class ClientDAOImp implements ClientDAO {
 			//e.getMessage();
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
-			throw new ClientIntegrationException("Conexion rechazada");
+			throw new ClientIntegrationException("Conexion rechazada Statement");
 		}
 		
 	}
