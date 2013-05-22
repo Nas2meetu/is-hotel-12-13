@@ -120,4 +120,11 @@ public class BookAppServicesImp implements BookAppServices {
 		return null;
 	}
 
+	@Override
+	public boolean searchAvailability(Date checkIn, Date checkOut,
+			Vector<Integer> rooms) throws BookAppServicesException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

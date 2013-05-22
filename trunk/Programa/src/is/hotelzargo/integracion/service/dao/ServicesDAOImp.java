@@ -222,13 +222,7 @@ public class ServicesDAOImp implements ServicesDAO {
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ServicesIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
 		}
 		
 	}

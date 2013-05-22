@@ -352,13 +352,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new EmployeeIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
 		}
 		
 	}

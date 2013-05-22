@@ -402,8 +402,6 @@ public class BookDAOImp implements BookDAO {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
 			throw new BookIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
 		}
 		
 	}

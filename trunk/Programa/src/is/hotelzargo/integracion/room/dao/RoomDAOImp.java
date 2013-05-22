@@ -27,11 +27,12 @@ public class RoomDAOImp implements RoomDAO {
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
 		int bed_number = ((RoomTransfer) t).getnumBeds();
+		boolean busy = t.isBusy();
 		
 		try {
 			
-			statement.executeUpdate("INSERT INTO Rooms (room_number, price, bed_number) VALUES " +
-					"('"+room_number+"', '"+price+"', '"+bed_number+"');" );					
+			statement.executeUpdate("INSERT INTO Rooms (room_number, price, bed_number,busy) VALUES " +
+					"('"+room_number+"', '"+price+"', '"+bed_number+"','"+busy+"');" );					
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -75,8 +76,9 @@ public class RoomDAOImp implements RoomDAO {
 				  	int room_number = rs.getInt(2);
 				  	float price = rs.getFloat(3);
 				  	int bed_number = rs.getInt(4);
+				  	boolean busy = rs.getBoolean(5);				  	
 					
-				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);					
+				  	RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price,busy);					
 					return r;				  
 			  }
 			
@@ -106,8 +108,9 @@ public class RoomDAOImp implements RoomDAO {
 				  	int room_number = rs.getInt(2);
 					float price = rs.getFloat(3);
 					int bed_number = rs.getInt(4);
+					boolean busy = rs.getBoolean(5);
 					
-					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price);						
+					RoomTransfer r = new RoomTransfer(id,bed_number, room_number, price,busy);						
 					rooms.add(r);
 				  
 			  }
@@ -130,11 +133,12 @@ public class RoomDAOImp implements RoomDAO {
 		int room_number = ((RoomTransfer) t).getnumRoom();
 		float price = ((RoomTransfer) t).getPrice();
 		int bed_number = ((RoomTransfer) t).getnumBeds();
+		boolean busy = t.isBusy();
 		
 
 		//UPDATE
 		String QueryString = "UPDATE Rooms SET room_number='"+room_number+"'," +
-				"price='"+price+"',bed_number='"+bed_number+"'  WHERE id='"+id+"';";
+				"price='"+price+"',bed_number='"+bed_number+"',busy='"+busy+"'  WHERE id='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);
@@ -230,8 +234,6 @@ public class RoomDAOImp implements RoomDAO {
 			//System.out.println("connnnnnnnecttion");
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new RoomIntegrationException("Conexion rechazada");
-		}finally{
-			closeConnectionDataBase();
 		}
 		
 	}

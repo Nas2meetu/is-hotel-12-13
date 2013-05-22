@@ -1,5 +1,6 @@
 package is.hotelzargo.negocio.facade;
 
+import java.sql.Date;
 import java.util.Vector;
 
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
@@ -32,8 +33,8 @@ public interface Facade {
 	public Vector<BookTransfer> listBook()throws BookAppServicesException;
 	
 	public void modBook(BookTransfer t)throws BookAppServicesException;
-	
-	public void findBook(int id)throws BookAppServicesException;
+		
+	public Vector<Integer> findBook(Date checkIn,Date checkOut) throws BookAppServicesException;
 	
 	public void confirmBook(int id)throws BookAppServicesException;
 	

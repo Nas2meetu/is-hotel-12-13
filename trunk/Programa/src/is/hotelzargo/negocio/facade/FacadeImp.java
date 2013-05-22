@@ -1,5 +1,6 @@
 package is.hotelzargo.negocio.facade;
 
+import java.sql.Date;
 import java.util.Vector;
 
 import is.hotelzargo.negocio.book.appservice.BookAppServices;
@@ -82,10 +83,11 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void findBook(int id) throws BookAppServicesException {
+	public Vector<Integer> findBook(Date checkIn, Date checkOut)
+			throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
-		bookAS.findBook(id);
+		return bookAS.findBook(checkIn, checkOut);
 	}
 
 	@Override

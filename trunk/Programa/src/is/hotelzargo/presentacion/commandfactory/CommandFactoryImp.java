@@ -41,6 +41,9 @@ import is.hotelzargo.presentacion.shift.command.appservices.CommandActionListShi
 import is.hotelzargo.presentacion.shift.command.appservices.CommandActionModShift;
 import is.hotelzargo.presentacion.shift.command.gui.CommandActionShowShiftFrame;
 
+import java.sql.Date;
+import java.util.Vector;
+
 public class CommandFactoryImp extends CommandFactory {
 
 	@Override
@@ -138,8 +141,9 @@ public class CommandFactoryImp extends CommandFactory {
 		case MOD_SHIFT:
 			return new CommandActionModShift((ShiftTransfer) data);
 			
+		//En el vector va la hora de checkIn y checkOut	
 		case FIND_BOOK:
-			return new CommandActionFindBook((Integer) data);
+			return new CommandActionFindBook((Vector<Date>) data);
 			
 		case CONFIRM_BOOK:
 			return new CommandActionConfirmBook((Integer) data);
