@@ -12,9 +12,9 @@ import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionAddBook implements Command {
 
-	private Vector<String> bookTransfer;
+	private BookTransfer bookTransfer;
 	
-	public CommandActionAddBook(Vector<String> t){
+	public CommandActionAddBook(BookTransfer t){
 		bookTransfer = t;
 	}
 	

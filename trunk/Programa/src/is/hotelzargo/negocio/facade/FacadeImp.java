@@ -182,7 +182,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void addShift(Vector<String> t) throws ShiftAppServicesException {
+	public void addShift(ShiftTransfer t) throws ShiftAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		ShiftAppServices shiftAS = fac.getShiftAS();
 		shiftAS.addShift(t);
