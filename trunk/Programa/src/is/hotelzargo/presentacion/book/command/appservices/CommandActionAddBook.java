@@ -1,7 +1,5 @@
 package is.hotelzargo.presentacion.book.command.appservices;
 
-import java.util.Vector;
-
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.facade.Facade;

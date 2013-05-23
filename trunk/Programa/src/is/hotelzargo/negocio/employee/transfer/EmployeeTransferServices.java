@@ -1,7 +1,5 @@
 package is.hotelzargo.negocio.employee.transfer;
 
-import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
-
 public class EmployeeTransferServices extends EmployeeTransfer {
 	
 	public EmployeeTransferServices(int id, 

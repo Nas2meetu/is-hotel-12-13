@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -27,7 +28,8 @@ import javax.swing.ScrollPaneConstants;
 @SuppressWarnings("serial")
 public class ShiftFormList extends JDialog {
 	
-	private JTextArea listTextArea;
+	//private JTextArea listTextArea;
+	private JList list;
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -66,6 +68,7 @@ public class ShiftFormList extends JDialog {
 	}
 	
 	private void setText(){
+		System.out.println("en setText");
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
@@ -87,7 +90,7 @@ public class ShiftFormList extends JDialog {
 				
 				renderPanel.setLayout(new BorderLayout());
 
-				JList list = new JList(text);
+				list = new JList(text);
 				list.setCellRenderer(renderList);
 				renderPanel.add(list, BorderLayout.CENTER);
 		        //renderPanel.add(list);
@@ -99,7 +102,10 @@ public class ShiftFormList extends JDialog {
 	
 	private void exit(){
 		this.setVisible(false);
-		listTextArea.setText("");
+		//listTextArea.setText("");
+		//al setear un modelo vacio se limpia
+		DefaultListModel model = new DefaultListModel();
+        list.setModel(model);
 	}
 	
 	private void addListener(){
@@ -107,7 +113,7 @@ public class ShiftFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-
+				//TODO el listado no refresca
 				setText();
 				
 			}
