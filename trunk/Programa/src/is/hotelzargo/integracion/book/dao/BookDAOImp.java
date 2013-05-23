@@ -32,7 +32,7 @@ public class BookDAOImp implements BookDAO {
 		Date checkOut = ((BookTransfer) t).getCheckOut();
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
-		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
+		Vector<Integer> services = ((BookTransfer) t).getServices();
 		//boolean busy = t.isConfirm();
 		//el campo en la base de datos es 0->false, 1->true
 		int busy = 0;
@@ -116,7 +116,7 @@ public class BookDAOImp implements BookDAO {
 		Date checkOut = ((BookTransfer) t).getCheckOut();
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
-		Vector<ServiceTransfer> services = ((BookTransfer) t).getServices();
+		Vector<Integer> services = ((BookTransfer) t).getServices();
 		boolean busy = t.isConfirm();
 		//UPDATE
 		String QueryString = "UPDATE Books SET idClient='"+idClient+"',checkIn='"+checkIn+"'," +
