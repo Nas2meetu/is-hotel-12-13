@@ -1,6 +1,7 @@
 package is.hotelzargo.integracion.shift.dao;
 
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
+import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
@@ -9,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class ShiftDAOImp implements ShiftDAO {
@@ -26,23 +29,37 @@ public class ShiftDAOImp implements ShiftDAO {
 		initDataBase();
 		
 		String nameShift =((ShiftTransfer) t).getShift();
-		Time checkIn = ((ShiftTransfer) t).getCheckin();
-		Time checkOut = ((ShiftTransfer) t).getCheckout();
+		String checkIn = ((ShiftTransfer) t).getCheckin();
+		String checkOut = ((ShiftTransfer) t).getCheckout();
 		
+		Time in = stringToTime(checkIn);
+		Time out = stringToTime(checkOut);		
 		
 		try {
 			
 			statement.executeUpdate("INSERT INTO Shifts (nameShift, checkIn, checkOut) VALUES " +
-					"('"+nameShift+"','"+checkIn+"', '"+checkOut+ "');" );					
+					"('"+nameShift+"','"+in+"', '"+out+ "');" );					
 			
 		} catch (SQLException e) {
-			//e.getMessage();
 			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al crear turno "+nameShift);			
 		}finally{
 			closeConnectionDataBase();
 		}
 		
+	}
+	
+	private Time stringToTime(String s) throws ShiftIntegrationException{
+		Time time;
+		
+		try{
+			time = Time.valueOf(s);
+		}
+		catch (Exception e){
+			throw new ShiftIntegrationException("Formato de hora turno invalido");
+		}
+		
+		return time;
 	}
 
 	@Override
@@ -79,7 +96,7 @@ public class ShiftDAOImp implements ShiftDAO {
 					Time checkIn = rs.getTime(3);
 					Time checkOut = rs.getTime(4);
 					
-					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);					
+					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn.toString(), checkOut.toString());					
 					return s;
 				  
 			  }
@@ -108,7 +125,7 @@ public class ShiftDAOImp implements ShiftDAO {
 				  	Time checkIn = rs.getTime(3);
 				  	Time checkOut = rs.getTime(4);
 					
-					ShiftTransfer s = new ShiftTransfer(id,name, checkIn, checkOut);					
+					ShiftTransfer s = new ShiftTransfer(id,name, checkIn.toString(), checkOut.toString());					
 					return s;
 				  
 			  }
@@ -140,7 +157,7 @@ public class ShiftDAOImp implements ShiftDAO {
 				  	Time checkIn = rs.getTime(3);
 				  	Time checkOut = rs.getTime(4);
 					
-					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn, checkOut);						
+					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn.toString(), checkOut.toString());						
 					shifts.add(s);
 				  
 			  }
@@ -163,13 +180,15 @@ public class ShiftDAOImp implements ShiftDAO {
 		
 		int id = ((ShiftTransfer) t).getId();
 		String nameShift = ((ShiftTransfer) t).getShift();
-		Time checkIn = ((ShiftTransfer) t).getCheckin();
-		Time checkOut = ((ShiftTransfer) t).getCheckout();
+		String checkIn = ((ShiftTransfer) t).getCheckin();
+		String checkOut = ((ShiftTransfer) t).getCheckout();
 		
+		Time in = stringToTime(checkIn);
+		Time out = stringToTime(checkOut);		
 
 		//UPDATE
 		String QueryString = "UPDATE Shifts SET nameShift='"+nameShift+"'," +
-				"checkIn='"+checkIn+"',checkOut='"+checkOut+"'  WHERE id='"+id+"';";
+				"checkIn='"+in+"',checkOut='"+out+"'  WHERE id='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);

@@ -30,7 +30,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		initDataBase();
 		
 		// La unica diferencia es que password no es null
-		int shiftID =((EmployeeTransferAdmin) t).getShift().getId();
+		int shiftID =((EmployeeTransferAdmin) t).getShift();
 		float pay = ((EmployeeTransferAdmin) t).getPay();
 		String name = ((EmployeeTransferAdmin) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();
@@ -59,7 +59,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		initDataBase();
 		// Aqui password es null, ya que se ha decidido usar solo 1 tabla
 		// La unica diferencia es que password no es null
-				int shiftID =((EmployeeTransfer) t).getShift().getId();
+				int shiftID =((EmployeeTransfer) t).getShift();
 				float pay = ((EmployeeTransfer) t).getPay();
 				String name = ((EmployeeTransfer) t).getName();
 				String surname = ((EmployeeTransfer) t).getSurname();
@@ -111,10 +111,10 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
 			  while (rs.next()) {				  					
-				  	int shiftID = rs.getInt(2);
+				  	//int shiftID = rs.getInt(2);
 				  	//conseguimos el turno con el ID
-				  	ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
-				  	
+				  	//ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
+				  	int s = rs.getInt(2);
 					float pay = rs.getFloat(3);
 					String name = rs.getString(4);
 					String surname = rs.getString(5);
@@ -155,7 +155,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 					Time checkIn = rs2.getTime(3);
 					Time checkOut = rs2.getTime(4);
 					
-					s = new ShiftTransfer(shiftID,nameShift, checkIn, checkOut);
+					s = new ShiftTransfer(shiftID,nameShift, checkIn.toString(), checkOut.toString());
 			  }
 		  } catch (SQLException e) {
 				e.getMessage();
@@ -181,9 +181,9 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			
 			  while (rs.next()) {
 				  	int id = rs.getInt(1);
-				  	int shiftID = rs.getInt(2);
+				  	int s = rs.getInt(2);
 				  	//conseguimos el turno con el ID
-				  	ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
+				  	//ShiftTransfer s = getShiftOfEmployee(shiftID);					  	
 				  	
 					float pay = rs.getFloat(3);
 					String name = rs.getString(4);
@@ -218,7 +218,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		initDataBase();
 		
 		int id = ((EmployeeTransfer) t).getId();
-		int shiftID =((EmployeeTransfer) t).getShift().getId();
+		int shiftID =((EmployeeTransfer) t).getShift();
 		float pay = ((EmployeeTransfer) t).getPay();
 		String name = ((EmployeeTransfer) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();
@@ -248,7 +248,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		initDataBase();
 		
 		int id = ((EmployeeTransfer) t).getId();
-		int shiftID =((EmployeeTransfer) t).getShift().getId();
+		int shiftID =((EmployeeTransfer) t).getShift();
 		float pay = ((EmployeeTransfer) t).getPay();
 		String name = ((EmployeeTransfer) t).getName();
 		String surname = ((EmployeeTransfer) t).getSurname();

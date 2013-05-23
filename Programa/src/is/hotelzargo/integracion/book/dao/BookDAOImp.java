@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -177,7 +178,7 @@ public class BookDAOImp implements BookDAO {
 			//recorro todas las habitaciones, y las voy almacenando
 			for (int i=0;i<services.size();i++){			
 				statBookServices.executeUpdate("INSERT INTO Services_books (idBook,idService) VALUES " +
-						"('"+idBook+"', '"+services.get(i).getId()+"');" );				
+						"('"+idBook+"', '"+services.get(i)+"');" );				
 			}
 			
 		}catch(SQLException e){
@@ -231,8 +232,8 @@ public class BookDAOImp implements BookDAO {
 		//obtenemos las habitaciones de la reserva
 		Vector<Integer> rooms = getRoomsOfBook(id);
 		
-		//obtenemos servicios de la reserva
-		Vector<ServiceTransfer> services = getServicesOfBook(id);
+		//obtenemos un vector de IDs de servicios de la reserva
+		Vector<Integer> services = getServicesOfBook(id);
 		
 		String QueryString = "SELECT * FROM Books WHERE idBooks='"+id+"';";
 		  try {
@@ -247,7 +248,10 @@ public class BookDAOImp implements BookDAO {
 					int numPerson = rs.getInt(6);
 					boolean busy = rs.getBoolean(7);
 					
-					BookTransfer b = new BookTransfer(id,rooms,idClient, checkIn, checkOut,deposit,numPerson,services,busy);					
+					String in = dateToString(checkIn);
+					String out = dateToString(checkOut);
+					
+					BookTransfer b = new BookTransfer(id,rooms,idClient, in, out,deposit,numPerson,services,busy);					
 					return b;
 				  
 			  }
@@ -261,6 +265,13 @@ public class BookDAOImp implements BookDAO {
 		
 		return null;
 	}
+	
+	//convierte una fecha sacada de la BD a un String, para pasarlo en el Transfer
+	private String dateToString(Date d){
+		Format formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		String s = formatter.format(d);
+		return s;
+	}	
 	
 	//devuelve las habitaciones de una reserva concreta
 	private Vector<Integer> getRoomsOfBook(int idBook) throws BookIntegrationException{
@@ -286,16 +297,17 @@ public class BookDAOImp implements BookDAO {
 	}
 	
 	//devuelve las habitaciones de una reserva concreta
-	private Vector<ServiceTransfer> getServicesOfBook(int idBook) throws BookIntegrationException{			
+	private Vector<Integer> getServicesOfBook(int idBook) throws BookIntegrationException{			
 		initDataBase();
-		Vector<ServiceTransfer> services = new Vector<ServiceTransfer>();
+		Vector<Integer> services = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Services_books WHERE idBook='"+idBook+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {				  				  
 					int idService = rs.getInt(3);
-					ServiceTransfer s = getServicesByID(idService);
-					services.add(s);				  
+					//Ya no hace falta porque ahora guardo los IDs
+					//ServiceTransfer s = getServicesByID(idService);
+					services.add(idService);				  
 			  }
 			  
 			  return services;
@@ -410,7 +422,6 @@ public class BookDAOImp implements BookDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new BookIntegrationException("Conexion rechazada");
         } 
         
@@ -418,7 +429,6 @@ public class BookDAOImp implements BookDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new BookIntegrationException("Conexion rechazada");
 		}
         

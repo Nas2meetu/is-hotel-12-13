@@ -1,16 +1,12 @@
 package is.hotelzargo.negocio.shift.appservice;
 
 
-import java.sql.Date;
 import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.integracion.shift.dao.ShiftDAO;
-import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
@@ -84,32 +80,30 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		ShiftDAO dao = fac.getShiftDAO();
 		
 		try {
-			dao.updateShift(t);
+			if(dao.searchShift(t.getId())){
+				dao.updateShift(t);
+			}
+			else{
+				throw new ShiftAppServicesException("El turno a modificar no existe");
+			}
 		} catch (ShiftIntegrationException e) {
 			throw new ShiftAppServicesException(e.getMessage());
 		}
 		
 	}
-	/*
-	private ShiftTransfer checkData(Vector<String> t) throws ShiftAppServicesException {
-		String shift = t.get(0);
+	
+	/*private boolean checkData(ShiftTransfer t) throws ShiftAppServicesException {
+		String shift = t.getShift();
 		
 		if (shift.length () <= 0) 
 			throw new ShiftAppServicesException("Nombre de turno no valido");
 		
-		Time timeIn = checkTime(t.get(1));
-		Time timeOut = checkTime(t.get(2));
-		
 		if (timeIn.equals (timeOut)) 
 			throw new ShiftAppServicesException("Hora entrada es la misma que a la hora de salida");
-		//TODO alguna comprobacion mas del horario(in anterior a out por ejemplo)
 		
-		//Devolvemos tranfer formado		
-		ShiftTransfer transfer = new ShiftTransfer(-1,shift,timeIn,timeOut);
-		
-		return transfer;
-	}
-	*/
+		return true;
+	}*/
+	
 	private Time checkTime(String t) throws ShiftAppServicesException{
 		Time time;
 		
