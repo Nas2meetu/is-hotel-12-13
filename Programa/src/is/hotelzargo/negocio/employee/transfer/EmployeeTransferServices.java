@@ -5,7 +5,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 public class EmployeeTransferServices extends EmployeeTransfer {
 	
 	public EmployeeTransferServices(int id, 
-			  						ShiftTransfer shift, 
+			  						int shift, 
 			  						float pay,
 			  						String name,
 			  						String surname,
