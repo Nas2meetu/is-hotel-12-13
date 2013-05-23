@@ -47,6 +47,7 @@ public class ShiftFrameImp extends ShiftFrame {
 		
 		this.setTitle("Turnos");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
 		
 		/* formularios */
 		

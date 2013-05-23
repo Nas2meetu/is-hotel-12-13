@@ -47,6 +47,7 @@ public class ServicesFrameImp extends ServicesFrame {
 		
 		this.setTitle("Servicios");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
 		
 		/* formularios */
 		

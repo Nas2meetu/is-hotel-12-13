@@ -48,6 +48,7 @@ public class RoomFrameImp extends RoomFrame {
 		
 		this.setTitle("Habitaciones");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
 		
 		/* formularios */		
 		addForm = new RoomFormAdd(this,true);

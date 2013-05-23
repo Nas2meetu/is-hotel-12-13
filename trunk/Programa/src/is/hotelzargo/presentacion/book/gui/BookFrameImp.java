@@ -51,7 +51,8 @@ public class BookFrameImp extends BookFrame {
 
 		this.setTitle("Reservas");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+		this.setResizable(false);
+		
 		/* formularios */
 		addForm = new BookFormAdd(this, true);
 		delForm = new BookFormDel(this, true);
