@@ -3,6 +3,9 @@ package is.hotelzargo.presentacion.employee.gui;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -16,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -28,20 +32,20 @@ public class EmployeeFormMod extends JDialog {
 	private JLabel surnameLabel;
 	private JLabel dniLabel;
 	private JLabel phoneLabel;
-	private JLabel creditCardLabel;
-	private JLabel companyLabel;
-	private JLabel addressLabel;
+	private JLabel passwdLabel;
+	private JLabel shiftLabel;
+	private JLabel payLabel;
 	
 	private JTextField IDText;
 	private JTextField nameText;
 	private JTextField surnameText;
 	private JTextField dniText;
 	private JTextField phoneText;
-	private JTextField creditCardText;
-	private JTextField companyText;
-	private JTextField addressText;
+	private JTextField passwdText;
+	private JTextField shiftText;
+	private JTextField payText;
 	
-	private JRadioButton companyButton;
+	private JRadioButton adminButton;
 	
 	private JButton acceptButton;
 	private JButton cancelButton;
@@ -53,14 +57,14 @@ public class EmployeeFormMod extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		IDLabel         = new JLabel("ID                  ");
-		nameLabel       = new JLabel("Nombre              ");
-		surnameLabel    = new JLabel("Apellidos           ");
-		dniLabel        = new JLabel("DNI                 ");
-		phoneLabel      = new JLabel("Telefono            ");
-		creditCardLabel = new JLabel("Tarjeta de credito  ");
-		addressLabel    = new JLabel("Direccion           ");
-		companyLabel    = new JLabel("Empresa             ");
+		IDLabel         = new JLabel("ID");
+		nameLabel       = new JLabel("Nombre");
+		surnameLabel    = new JLabel("Apellidos");
+		dniLabel        = new JLabel("DNI");
+		phoneLabel      = new JLabel("Telefono");
+		passwdLabel     = new JLabel("password");
+		shiftLabel      = new JLabel("Turno");
+		payLabel        = new JLabel("Sueldo");
 		
 		/* text */
 		IDText = new JTextField(20);
@@ -68,13 +72,13 @@ public class EmployeeFormMod extends JDialog {
 		surnameText = new JTextField(20);
 		dniText = new JTextField(20);
 		phoneText = new JTextField(20);
-		creditCardText = new JTextField(20);
-		companyText = new JTextField(20);
-		addressText = new JTextField(20);
+		passwdText = new JTextField(20);
+		shiftText = new JTextField(20);
+		payText = new JTextField(20);
 		
 		/* boton empresa */
-		companyButton = new JRadioButton("Empresa");
-		companyButton.setSelected(false);
+		adminButton = new JRadioButton("Administrador");
+		adminButton.setSelected(false);
 		
 		/* botones aceptar y cancelar */
 		acceptButton = new JButton("Aceptar");
@@ -85,7 +89,7 @@ public class EmployeeFormMod extends JDialog {
 		
 		/* Paneles */
 		JPanel radioPanel = new JPanel();
-		radioPanel.add(companyButton);
+		radioPanel.add(adminButton);
 		
 		JPanel idPanel = new JPanel();
 		idPanel.setLayout(new GridLayout(1,2));
@@ -112,20 +116,20 @@ public class EmployeeFormMod extends JDialog {
 		phonePanel.add(phoneLabel);
 		phonePanel.add(phoneText);
 		
-		JPanel creditCardPanel = new JPanel();
-		creditCardPanel.setLayout(new GridLayout(1, 2));
-		creditCardPanel.add(creditCardLabel);
-		creditCardPanel.add(creditCardText);
+		JPanel passPanel = new JPanel();
+		passPanel.setLayout(new GridLayout(1, 2));
+		passPanel.add(passwdLabel);
+		passPanel.add(passwdText);
 		
-		JPanel companyPanel = new JPanel();
-		companyPanel.setLayout(new GridLayout(1, 2));
-		companyPanel.add(companyLabel);
-		companyPanel.add(companyText);
+		JPanel shiftPanel = new JPanel();
+		shiftPanel.setLayout(new GridLayout(1, 2));
+		shiftPanel.add(shiftLabel);
+		shiftPanel.add(shiftText);
 		
-		JPanel addressPanel = new JPanel();
-		addressPanel.setLayout(new GridLayout(1, 2));
-		addressPanel.add(addressLabel);
-		addressPanel.add(addressText);
+		JPanel payPanel = new JPanel();
+		payPanel.setLayout(new GridLayout(1, 2));
+		payPanel.add(payLabel);
+		payPanel.add(payText);
 		
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
@@ -139,9 +143,9 @@ public class EmployeeFormMod extends JDialog {
 		this.add(surnamePanel);
 		this.add(dniPanel);
 		this.add(phonePanel);
-		this.add(creditCardPanel);
-		this.add(companyPanel);
-		this.add(addressPanel);
+		this.add(passPanel);
+		this.add(shiftPanel);
+		this.add(payPanel);
 		this.add(acPanel);
 		
 		this.pack();
@@ -149,38 +153,63 @@ public class EmployeeFormMod extends JDialog {
 	
 	private void exit(){
 		this.setVisible(false);
-		companyButton.setSelected(false);
+		adminButton.setSelected(false);
 		nameText.setText("");
 		surnameText.setText("");
 		dniText.setText("");
 		phoneText.setText("");
-		creditCardText.setText("");
-		companyText.setText("");
-		addressText.setText("");
+		passwdText.setText("");
+		shiftText.setText("");
+		payText.setText("");
 	}
 	
 	private void accept(){
 		
-		//TODO ventana que se quiere al modificar,aqui falta chicha gente
+		EmployeeTransfer t;
 		
-		ClientTransfer t;
+		int id;
 		
-		if(companyButton.isSelected()){
-			t = new ClientTransferCompany(-1,companyText.getText(),
-										  dniText.getText(),
-										  phoneText.getText(),
-										  creditCardText.getText(),
-										  addressText.getText());
-		}else {
-			t = new ClientTransferIndividual(-1,nameText.getText(),
-											 surnameText.getText(),
-											 dniText.getText(),
-											 phoneText.getText(),
-											 creditCardText.getText(),
-											 addressText.getText());
+		try{
+			id = Integer.valueOf(IDText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo (debe existir) "+IDLabel.getText()+" debe ser un numero entero");
+			return;
 		}
 		
-		Controller.getInstance().event(Event.MOD_CLIENT,t,null);
+		int shift;
+		try{
+			shift = Integer.valueOf(shiftText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+shiftLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		float pay;
+		try{
+			pay = Float.valueOf(payText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+payLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
+		if(adminButton.isSelected()){
+			t = new EmployeeTransferAdmin(id,
+										  shift,
+										  pay,
+										  nameText.getText(),
+										  surnameText.getText(),
+										  dniText.getText(),
+										  phoneText.getText(),
+										  passwdText.getText());
+		}else {
+			t = new EmployeeTransferServices(id,
+					                         shift,
+					                         pay,
+					                         nameText.getText(),
+					                         surnameText.getText(),
+					                         dniText.getText(),
+					                         phoneText.getText());
+		}
+		Controller.getInstance().event(Event.MOD_EMPLOYEE,t,null);
 	}
 	
 	private void addListener(){
