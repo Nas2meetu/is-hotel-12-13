@@ -21,12 +21,6 @@ public class BookAppServicesImp implements BookAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
-		
-		
-		//se crea tranfer con los datos ya comprobados
-		//añadir false al final
-		
-		
 		try {
 			//TODO si las habitaciones elegidas para la reserva están libres,
 			//entonces se podrá reservar
@@ -37,47 +31,13 @@ public class BookAppServicesImp implements BookAppServices {
 				throw new BookAppServicesException("No es posible crear la reserva, tiene habitaciones ocupadas");
 			}
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
 			throw new BookAppServicesException(e.getMessage());
 		}
 		
 	}
-	
-	private Vector<Integer> getRoomsVector(String rooms){
-		Vector<Integer> sol = new Vector<Integer>();
-		sol.add(2);
-		sol.add(3);
-		//TODO obtener habitaciones
-		return sol;
-	}
-	
-	private Date stringToDate(String s){
-		
-		Date date = null;
-		try {
-			java.util.Date dateUtil = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
-			date = new java.sql.Date(dateUtil.getTime());
-			//date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-			//throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
-		}
-		return date;
-		
-	}
-	
-	private Vector<ServiceTransfer> getServices(String s){
-		Vector<ServiceTransfer> sol = new Vector<ServiceTransfer>();
-		//TODO no se como me llegan aqui los servicios, intuyo que seran
-		//ids de servicios y hay que buscarlos en la DB?
-		ServiceTransfer st = new ServiceTransfer(1, "cosa");
-		sol.add(st);
-		return sol;
-	}
 
 	@Override
 	public void delBook(int id) throws BookAppServicesException {
-		// Borrar reserva
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
@@ -89,7 +49,6 @@ public class BookAppServicesImp implements BookAppServices {
 				throw new BookAppServicesException("La reserva a eliminar no existe");
 			}
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
 			throw new BookAppServicesException(e.getMessage());
 		}
 		
@@ -97,7 +56,6 @@ public class BookAppServicesImp implements BookAppServices {
 
 	@Override
 	public Vector<BookTransfer> listBook() throws BookAppServicesException {
-		// listar reservas
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
@@ -105,21 +63,18 @@ public class BookAppServicesImp implements BookAppServices {
 		try {
 			return dao.listBook();
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
-			throw new BookAppServicesException("Problema al listar reservas");
+			throw new BookAppServicesException(e.getMessage());
 		}
 	}
 
 	@Override
 	public void modBook(BookTransfer t) throws BookAppServicesException {
-		// modificar reservas
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
-			//TODO conflicto de fechas se comprueba antes de llegar aqui?
-			//creo que si
+			//TODO conflicto de fechas se comprueba antes de llegar aqui? NO, se comprueba aqui
 			if (dao.searchBook(t.getIdBook())){
 				dao.updateBook(t);
 			}
@@ -127,15 +82,13 @@ public class BookAppServicesImp implements BookAppServices {
 				throw new BookAppServicesException("La reserva a modificar no existe");
 			}
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
-			throw new BookAppServicesException("Problema al modificar reserva");
+			throw new BookAppServicesException(e.getMessage());
 		}
 		
 	}
 
 	@Override
-	public void confirmBook(int id) throws BookAppServicesException {
-		// Confirmar reserva		
+	public void confirmBook(int id) throws BookAppServicesException {		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
@@ -147,8 +100,7 @@ public class BookAppServicesImp implements BookAppServices {
 				throw new BookAppServicesException("La reserva a confirmar no existe");
 			}
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
-			throw new BookAppServicesException("Fallo al confirmar reserva");
+			throw new BookAppServicesException(e.getMessage());
 		}
 		
 	}
@@ -166,16 +118,48 @@ public class BookAppServicesImp implements BookAppServices {
 		try {
 			Vector<Integer> v = dao.findBook(dateIn,dateOut);
 			if (v.isEmpty()){
-				System.out.println("el vector disponibilidad es vacio primo");
+				throw new BookAppServicesException("No hay habitaciones disponibles en esas fechas");
 			}
 			else{
-				System.out.println(v.get(0).toString());
+				return v;
 			}
-			return v;
+			
 		} catch (BookIntegrationException e) {
-			e.printStackTrace();
-			throw new BookAppServicesException("Problema al buscar habitaciones para reservar");
+			throw new BookAppServicesException(e.getMessage());
 		}
 	}
+	
+	private Date stringToDate(String s) throws BookAppServicesException{
+		
+		Date date = null;
+		try {
+			java.util.Date dateUtil = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+			date = new java.sql.Date(dateUtil.getTime());
+			//date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+		} catch (ParseException e1) {
+			throw new BookAppServicesException("El formato de la fecha no es correcto");
+		}
+		return date;
+		
+	}
+	/*
+	private Vector<ServiceTransfer> getServices(String s){
+		Vector<ServiceTransfer> sol = new Vector<ServiceTransfer>();
+		//TODO no se como me llegan aqui los servicios, intuyo que seran
+		//ids de servicios y hay que buscarlos en la DB?
+		ServiceTransfer st = new ServiceTransfer(1, "cosa");
+		sol.add(st);
+		return sol;
+	}
+	
+	private Vector<Integer> getRoomsVector(String rooms){
+		Vector<Integer> sol = new Vector<Integer>();
+		sol.add(2);
+		sol.add(3);
+		//TODO obtener habitaciones
+		return sol;
+	}
+	
+	*/
 
 }
