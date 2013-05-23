@@ -3,9 +3,14 @@ package is.hotelzargo.presentacion.employee.gui;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.maingui.RenderList;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +21,8 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -26,7 +33,11 @@ public class EmployeeFormList extends JDialog {
 	private JTextArea listTextArea;
 	private JScrollPane scrollPane;
 	
+	private JPanel renderPanel;
+	
 	private JButton exitButton;
+	
+	private RenderList renderList;
 	
 	public EmployeeFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -34,24 +45,68 @@ public class EmployeeFormList extends JDialog {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		initTextArea();
+		renderList = new RenderList();
+		
+		renderPanel = new JPanel();
+		
+		scrollPane = new JScrollPane(renderPanel,
+									ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+									ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		
 		exitButton = new JButton("Salir");
 		
 		addListener();
 		
-		this.setLayout(new GridLayout(2, 1));
+		this.setLayout(new GridLayout(1, 1));
 		this.add(scrollPane);
-		this.add(exitButton);
+		//this.add(exitButton);
 		
-		this.pack();
+		this.setSize(500,300);
+		
+		//this.pack();
 		
 	}
 	
 	
+	private void setText(){
+		Vector<EmployeeTransfer> clientList = //new Vector<ClientTransfer>(); 
+				(Vector<EmployeeTransfer>) Controller.getInstance().event(Event.LIST_EMPLOYEE,null,null);
+		
+		String text[] = new String[clientList.size()];
+		if(clientList != null){
+			for(int i = 0; i < clientList.size(); i++){
+				EmployeeTransfer t = clientList.elementAt(i);
+				if (t instanceof EmployeeTransferAdmin)
+					text[i] = ((EmployeeTransferAdmin) t).getName()+System.getProperty("line.separator")+
+							  ((EmployeeTransferAdmin) t).getSurname()+System.getProperty("line.separator")+
+							  ((EmployeeTransferAdmin) t).getDNI()+System.getProperty("line.separator")+
+							  ((EmployeeTransferAdmin) t).getPhone()+System.getProperty("line.separator")+
+							  ((EmployeeTransferAdmin) t).getShift()+System.getProperty("line.separator")+
+							  ((EmployeeTransferAdmin) t).getPay();
+				else
+					text[i] =((EmployeeTransferServices) t).getName()+System.getProperty("line.separator")+
+							 ((EmployeeTransferServices) t).getSurname()+System.getProperty("line.separator")+
+							 ((EmployeeTransferServices) t).getDNI()+System.getProperty("line.separator")+
+							 ((EmployeeTransferServices) t).getPhone()+System.getProperty("line.separator")+
+							 ((EmployeeTransferServices) t).getShift()+System.getProperty("line.separator")+
+							 ((EmployeeTransferServices) t).getPay();
+			}
+		}
+		else{
+			text[0] = "No hay empleados";
+		}
+		
+		renderPanel.setLayout(new BorderLayout());
+		
+		JList list = new JList(text);
+        list.setCellRenderer(renderList);
+        renderPanel.add(list, BorderLayout.CENTER);
+	}
+	
 	private void exit(){
 		this.setVisible(false);
-		listTextArea.setText("");
+		//listTextArea.setText("");
 	}
 	
 	private void addListener(){
@@ -59,27 +114,7 @@ public class EmployeeFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				/*Controller.getInstance().event(Event.LIST_CLIENT,null,null);
-				setTextArea("holas" + "\n" + "holas 2");*/
-				Vector<ClientTransfer> clientList = 
-				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
-				System.out.println("en initText");
-				System.out.print(((ClientTransferIndividual)clientList.get(0)).getAddress().toString());
-				String text = "";
-				if(clientList != null){
-					for(int i = 0; i < clientList.size(); i++){
-						ClientTransfer t = clientList.elementAt(i);
-						if (t instanceof ClientTransferIndividual)
-							text += ((ClientTransferIndividual) t).getName();
-						else
-							text +=((ClientTransferCompany) t).getCompany();
-					}
-				}
-				else{
-					listTextArea.setText("No clients");
-				}
-				setTextArea(text);
-				
+				setText();
 			}
 			
 			@Override
@@ -120,22 +155,4 @@ public class EmployeeFormList extends JDialog {
 			}
 		});
 	}
-	
-	
-	@SuppressWarnings("unused")
-	private void initTextArea(){
-		listTextArea = new JTextArea();
-		listTextArea.setEditable(false);
-		//listTextArea.setText("hola");
-		listTextArea.setSize(500, 500);
-		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
-		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-	}
-	
-	private void setTextArea(String text){
-		listTextArea.setText(text);
-	}
-	
-
 }
