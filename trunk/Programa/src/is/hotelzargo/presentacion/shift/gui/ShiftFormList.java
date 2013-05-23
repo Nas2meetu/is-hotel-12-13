@@ -71,6 +71,7 @@ public class ShiftFormList extends JDialog {
 	
 	private void setText(){
 		System.out.println("en setText");
+		
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
@@ -106,8 +107,8 @@ public class ShiftFormList extends JDialog {
 		this.setVisible(false);
 		//listTextArea.setText("");
 		//al setear un modelo vacio se limpia
-		DefaultListModel model = new DefaultListModel();
-        list.setModel(model);
+		//DefaultListModel model = new DefaultListModel();
+        //list.setModel(model);
 	}
 	
 	private void addListener(){
@@ -171,7 +172,7 @@ public class ShiftFormList extends JDialog {
 			
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
-				
+				setText();
 			}
 		});
 				
