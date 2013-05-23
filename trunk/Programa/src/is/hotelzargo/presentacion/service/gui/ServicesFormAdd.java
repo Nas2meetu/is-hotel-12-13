@@ -40,7 +40,7 @@ public class ServicesFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		nameLabel       = new JLabel("Nuevo servicio              ");
+		nameLabel       = new JLabel("Nuevo servicio");
 		
 		/* text */
 		nameText = new JTextField(25);

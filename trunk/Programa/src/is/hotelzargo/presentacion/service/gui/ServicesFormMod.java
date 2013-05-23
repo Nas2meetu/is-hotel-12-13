@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -89,8 +90,15 @@ public class ServicesFormMod extends JDialog {
 	private void accept(){
 						
 		ServiceTransfer t;
+		int id;
+		try{
+			id = Integer.valueOf(IDText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+IDLabel.getText()+" debe ser un numero entero");
+			return;
+		}
 		
-		t = new ServiceTransfer(Integer.parseInt(IDText.getText()),nameText.getText());
+		t = new ServiceTransfer(id,nameText.getText());
 		
 		Controller.getInstance().event(Event.MOD_SERVICE,t,null);
 	}
