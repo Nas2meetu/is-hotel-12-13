@@ -12,9 +12,9 @@ import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionAddShift implements Command {
 	
-	private Vector<String> shiftTransfer;
+	private ShiftTransfer shiftTransfer;
 	
-	public CommandActionAddShift(Vector<String> data){
+	public CommandActionAddShift(ShiftTransfer data){
 		shiftTransfer = data;
 	}
 

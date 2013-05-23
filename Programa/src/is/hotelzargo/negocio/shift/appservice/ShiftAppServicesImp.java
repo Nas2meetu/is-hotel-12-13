@@ -45,12 +45,10 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 	}
 	
 	@Override
-	public void addShift(Vector<String> v) throws ShiftAppServicesException {
+	public void addShift(ShiftTransfer t) throws ShiftAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
-		
-		ShiftTransfer t = checkData(v);
 		
 		try {
 			if(!dao.searchShift(t.getShift(),t.getCheckin(),t.getCheckout())){
