@@ -45,6 +45,7 @@ public class ClientFrameImp extends ClientFrame {
 		
 		this.setTitle("Clientes");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
 		
 		/* formularios */
 		

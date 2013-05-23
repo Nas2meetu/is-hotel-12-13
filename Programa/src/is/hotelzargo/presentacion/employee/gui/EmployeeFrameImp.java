@@ -38,6 +38,7 @@ public class EmployeeFrameImp extends EmployeeFrame {
 		
 		this.setTitle("Empleados");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
 		
 		addEmployeeButton = new JButton("Dar de alta");
 		delEmployeeButton = new JButton("Dar de baja");
