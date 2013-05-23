@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -30,11 +31,17 @@ public class EmployeeFormAdd extends JDialog {
 	private JLabel surnameLabel;
 	private JLabel dniLabel;
 	private JLabel phoneLabel;
+	private JLabel passwdLabel;
+	private JLabel shiftLabel;
+	private JLabel payLabel;
 	
 	private JTextField nameText;
 	private JTextField surnameText;
 	private JTextField dniText;
 	private JTextField phoneText;
+	private JTextField passwdText;
+	private JTextField shiftText;
+	private JTextField payText;
 	
 	private JRadioButton adminButton;
 	
@@ -48,16 +55,22 @@ public class EmployeeFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		nameLabel       = new JLabel("Nombre              ");
-		surnameLabel    = new JLabel("Apellidos           ");
-		dniLabel        = new JLabel("DNI                 ");
-		phoneLabel      = new JLabel("Telefono            ");
+		nameLabel       = new JLabel("Nombre");
+		surnameLabel    = new JLabel("Apellidos");
+		dniLabel        = new JLabel("DNI");
+		phoneLabel      = new JLabel("Telefono");
+		passwdLabel     = new JLabel("password");
+		shiftLabel      = new JLabel("Turno");
+		payLabel        = new JLabel("Sueldo");
 		
 		/* text */
 		nameText = new JTextField(20);
 		surnameText = new JTextField(20);
 		dniText = new JTextField(20);
 		phoneText = new JTextField(20);
+		passwdText = new JTextField(20);
+		shiftText = new JTextField(20);
+		payText = new JTextField(20);
 		
 		/* boton empresa */
 		adminButton = new JRadioButton("Administrador");
@@ -93,7 +106,22 @@ public class EmployeeFormAdd extends JDialog {
 		phonePanel.setLayout(new GridLayout(1, 2));
 		phonePanel.add(phoneLabel);
 		phonePanel.add(phoneText);
-				
+		
+		JPanel passPanel = new JPanel();
+		passPanel.setLayout(new GridLayout(1, 2));
+		passPanel.add(passwdLabel);
+		passPanel.add(passwdText);
+		
+		JPanel shiftPanel = new JPanel();
+		shiftPanel.setLayout(new GridLayout(1, 2));
+		shiftPanel.add(shiftLabel);
+		shiftPanel.add(shiftText);
+		
+		JPanel payPanel = new JPanel();
+		payPanel.setLayout(new GridLayout(1, 2));
+		payPanel.add(payLabel);
+		payPanel.add(payText);
+		
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
 		acPanel.add(acceptButton);
@@ -105,6 +133,9 @@ public class EmployeeFormAdd extends JDialog {
 		this.add(surnamePanel);
 		this.add(dniPanel);
 		this.add(phonePanel);
+		this.add(passPanel);
+		this.add(shiftPanel);
+		this.add(payPanel);
 		this.add(acPanel);
 		
 		this.pack();
@@ -114,21 +145,42 @@ public class EmployeeFormAdd extends JDialog {
 		
 		EmployeeTransfer t;
 		
-		//TODO employeeFormAdd se necesita el turno...
+		int shift;
+		try{
+			shift = Integer.valueOf(shiftText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+shiftLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		float pay;
+		try{
+			pay = Float.valueOf(payText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+payLabel.getText()+" debe ser un numero entero");
+			return;
+		}
 		
-		/*if(adminButton.isSelected()){
-			t = new EmployeeTransferAdmin(-1,nameText.getText(),
+		//TODO employeeFormAdd se necesita el turno... NO SE NECESITA EL TURNO SE NECESITA EL ID, UN INT
+		
+		if(adminButton.isSelected()){
+			t = new EmployeeTransferAdmin(-1,
+										  shift,
+										  pay,
+										  nameText.getText(),
+										  surnameText.getText(),
 										  dniText.getText(),
-										  phoneText.getText(),);
+										  phoneText.getText(),
+										  passwdText.getText());
 		}else {
-			t = new EmployeeTransferServices(-1,nameText.getText(),
-											 surnameText.getText(),
-											 dniText.getText(),
-											 phoneText.getText(),
-											 creditCardText.getText(),
-											 addressText.getText());
-		}*/
-		//Controller.getInstance().event(Event.ADD_CLIENT,t,null);
+			t = new EmployeeTransferServices(-1,
+					                         shift,
+					                         pay,
+					                         nameText.getText(),
+					                         surnameText.getText(),
+					                         dniText.getText(),
+					                         phoneText.getText());
+		}
+		Controller.getInstance().event(Event.ADD_EMPLOYEE,t,null);
 	}
 	
 	private void exit(){

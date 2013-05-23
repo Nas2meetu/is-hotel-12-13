@@ -8,7 +8,7 @@ public class EmployeeTransferAdmin extends EmployeeTransfer {
 	private String password;
 	
 	public EmployeeTransferAdmin(int id, 
-								 ShiftTransfer shift, 
+								 int shift, 
 								 float pay,
 								 String name,
 								 String surname,

@@ -5,7 +5,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 public class EmployeeTransfer {
 
 	private int id;
-	private ShiftTransfer shift;
+	private int shift;
 	private float pay;
 	private String name;
 	private String surname;
@@ -13,7 +13,7 @@ public class EmployeeTransfer {
 	private String phone;
 	
 	public EmployeeTransfer (int id, 
-							  ShiftTransfer shift, 
+							  int shift, 
 							  float pay,
 							  String name,
 							  String surname,
@@ -34,7 +34,7 @@ public class EmployeeTransfer {
 		return this.id;
 	}
 	
-	public ShiftTransfer getShift(){
+	public int getShift(){
 		return this.shift;
 	}
 	
@@ -62,7 +62,7 @@ public class EmployeeTransfer {
 		this.id = id;
 	}
 	
-	public void setShift(ShiftTransfer shift){
+	public void setShift(int shift){
 		this.shift = shift;
 	}
 	

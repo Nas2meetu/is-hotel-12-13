@@ -34,11 +34,22 @@ public class EmployeeFrameImp extends EmployeeFrame {
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
 	private JPanel mainPanel;
 	
+	private EmployeeFormAdd addForm;
+	private EmployeeFormDel delForm;
+	private EmployeeFormList listForm;
+	private EmployeeFormMod modForm;
+	
 	public EmployeeFrameImp() {
 		
 		this.setTitle("Empleados");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
+		
+		/* formularios */
+		addForm = new EmployeeFormAdd(this,true);
+		delForm = new EmployeeFormDel(this,true);
+		listForm = new EmployeeFormList(this,true);
+		modForm = new EmployeeFormMod(this,true);
 		
 		addEmployeeButton = new JButton("Dar de alta");
 		delEmployeeButton = new JButton("Dar de baja");
@@ -118,6 +129,38 @@ public class EmployeeFrameImp extends EmployeeFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
+			}
+		});
+		
+		this.addEmployeeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addForm.setVisible(true);
+			}
+		});
+		
+		this.delEmployeeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				delForm.setVisible(true);
+			}
+		});
+		
+		this.listEmployeeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listForm.setVisible(true);
+			}
+		});
+		
+		this.modEmployeeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modForm.setVisible(true);
 			}
 		});
 		
