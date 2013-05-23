@@ -3,6 +3,10 @@ package is.hotelzargo.presentacion.room.gui;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
 import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
+import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
+import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -16,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -23,26 +28,16 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class RoomFormMod extends JDialog {
 	
-	private JLabel IDLabel;
-	private JLabel nameLabel;
-	private JLabel surnameLabel;
-	private JLabel dniLabel;
-	private JLabel phoneLabel;
-	private JLabel creditCardLabel;
-	private JLabel companyLabel;
-	private JLabel addressLabel;
-	
-	private JTextField IDText;
-	private JTextField nameText;
-	private JTextField surnameText;
-	private JTextField dniText;
-	private JTextField phoneText;
-	private JTextField creditCardText;
-	private JTextField companyText;
-	private JTextField addressText;
-	
-	private JRadioButton companyButton;
-	
+	private JLabel idLabel;
+	private JLabel numBedsLabel;
+	private JLabel numRoomLabel;
+	private JLabel priceLabel;
+
+	private JTextField idText;
+	private JTextField numBedsText;
+	private JTextField numRoomText;
+	private JTextField priceText;
+
 	private JButton acceptButton;
 	private JButton cancelButton;
 	
@@ -53,135 +48,100 @@ public class RoomFormMod extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		IDLabel         = new JLabel("ID                  ");
-		nameLabel       = new JLabel("Nombre              ");
-		surnameLabel    = new JLabel("Apellidos           ");
-		dniLabel        = new JLabel("DNI                 ");
-		phoneLabel      = new JLabel("Telefono            ");
-		creditCardLabel = new JLabel("Tarjeta de credito  ");
-		addressLabel    = new JLabel("Direccion           ");
-		companyLabel    = new JLabel("Empresa             ");
-		
+		idLabel      = new JLabel("ID");
+		numBedsLabel = new JLabel("Numero de camas");
+		numRoomLabel = new JLabel("Numero de habitacion");
+		priceLabel   = new JLabel("Precio");
+
 		/* text */
-		IDText = new JTextField(20);
-		nameText = new JTextField(20);
-		surnameText = new JTextField(20);
-		dniText = new JTextField(20);
-		phoneText = new JTextField(20);
-		creditCardText = new JTextField(20);
-		companyText = new JTextField(20);
-		addressText = new JTextField(20);
-		
-		/* boton empresa */
-		companyButton = new JRadioButton("Empresa");
-		companyButton.setSelected(false);
-		
+		idText = new JTextField(20);
+		numBedsText = new JTextField(20);
+		numRoomText = new JTextField(20);
+		priceText = new JTextField(20);
+
 		/* botones aceptar y cancelar */
 		acceptButton = new JButton("Aceptar");
 		cancelButton = new JButton("Cancelar");
-		
+
 		/* listener */
 		addListener();
-		
+
 		/* Paneles */
-		JPanel radioPanel = new JPanel();
-		radioPanel.add(companyButton);
-		
 		JPanel idPanel = new JPanel();
 		idPanel.setLayout(new GridLayout(1,2));
-		idPanel.add(IDLabel);
-		idPanel.add(IDText);
+		idPanel.add(idLabel);
+		idPanel.add(idText);
 		
-		JPanel namePanel = new JPanel();
-		namePanel.setLayout(new GridLayout(1, 2));
-		namePanel.add(nameLabel);
-		namePanel.add(nameText);
+		JPanel numBedsPanel = new JPanel();
+		numBedsPanel.setLayout(new GridLayout(1, 2));
+		numBedsPanel.add(numBedsLabel);
+		numBedsPanel.add(numBedsText);
+
+		JPanel numRoomPanel = new JPanel();
+		numRoomPanel.setLayout(new GridLayout(1, 2));
+		numRoomPanel.add(numRoomLabel);
+		numRoomPanel.add(numRoomText);
+
+		JPanel pricePanel = new JPanel();
+		pricePanel.setLayout(new GridLayout(1, 2));
+		pricePanel.add(priceLabel);
+		pricePanel.add(priceText);
 		
-		JPanel surnamePanel = new JPanel();
-		surnamePanel.setLayout(new GridLayout(1, 2));
-		surnamePanel.add(surnameLabel);
-		surnamePanel.add(surnameText);
-		
-		JPanel dniPanel = new JPanel();
-		dniPanel.setLayout(new GridLayout(1, 2));
-		dniPanel.add(dniLabel);
-		dniPanel.add(dniText);
-		
-		JPanel phonePanel = new JPanel();
-		phonePanel.setLayout(new GridLayout(1, 2));
-		phonePanel.add(phoneLabel);
-		phonePanel.add(phoneText);
-		
-		JPanel creditCardPanel = new JPanel();
-		creditCardPanel.setLayout(new GridLayout(1, 2));
-		creditCardPanel.add(creditCardLabel);
-		creditCardPanel.add(creditCardText);
-		
-		JPanel companyPanel = new JPanel();
-		companyPanel.setLayout(new GridLayout(1, 2));
-		companyPanel.add(companyLabel);
-		companyPanel.add(companyText);
-		
-		JPanel addressPanel = new JPanel();
-		addressPanel.setLayout(new GridLayout(1, 2));
-		addressPanel.add(addressLabel);
-		addressPanel.add(addressText);
 		
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
-		
-		this.setLayout(new GridLayout(10, 1, 5, 5));
-		this.add(radioPanel);
+
+		this.setLayout(new GridLayout(4, 1, 5, 5));
 		this.add(idPanel);
-		this.add(namePanel);
-		this.add(surnamePanel);
-		this.add(dniPanel);
-		this.add(phonePanel);
-		this.add(creditCardPanel);
-		this.add(companyPanel);
-		this.add(addressPanel);
+		this.add(numBedsPanel);
+		this.add(numRoomPanel);
+		this.add(pricePanel);
 		this.add(acPanel);
-		
+
 		this.pack();
 	}
 	
 	private void exit(){
 		this.setVisible(false);
-		companyButton.setSelected(false);
-		nameText.setText("");
-		surnameText.setText("");
-		dniText.setText("");
-		phoneText.setText("");
-		creditCardText.setText("");
-		companyText.setText("");
-		addressText.setText("");
 	}
 	
 	private void accept(){
 		
-		//TODO ventana que se quiere al modificar,aqui falta chicha gente
-		//dni no deberia ser modificable y a parte si solo quieres cambiar el
-		//apellido esto es muy incomodo
-		ClientTransfer t;
+		RoomTransfer t;
+
+		int id,numBeds,numRoom;
+		float price;
 		
-		if(companyButton.isSelected()){
-			t = new ClientTransferCompany(Integer.parseInt(IDText.getText()),companyText.getText(),
-										  dniText.getText(),
-										  phoneText.getText(),
-										  creditCardText.getText(),
-										  addressText.getText());
-		}else {
-			t = new ClientTransferIndividual(Integer.parseInt(IDText.getText()),nameText.getText(),
-											 surnameText.getText(),
-											 dniText.getText(),
-											 phoneText.getText(),
-											 creditCardText.getText(),
-											 addressText.getText());
+		try{
+			id = Integer.valueOf(idText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+idLabel.getText()+" debe ser un numero entero");
+			return;
 		}
 		
-		Controller.getInstance().event(Event.MOD_CLIENT,t,null);
+		try{
+			numBeds = Integer.valueOf(numBedsText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+numBedsLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		try{
+			numRoom = Integer.valueOf(numRoomText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+numRoomLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		try{
+			price = Float.valueOf(priceText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+priceLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		t = new RoomTransfer(id, numBeds,numRoom,price);
+
+		Controller.getInstance().event(Event.MOD_ROOM, t, null);
 	}
 	
 	private void addListener(){

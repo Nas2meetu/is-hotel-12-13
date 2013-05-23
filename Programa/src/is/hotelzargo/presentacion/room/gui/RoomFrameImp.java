@@ -39,7 +39,6 @@ public class RoomFrameImp extends RoomFrame {
 	private JPanel mainPanel;
 	
 	private RoomFormAdd addForm;
-	//TODO Hay que implementar las clases de los formularios, solo esta hecho el de ADD
 	private RoomFormDel delForm;
 	private RoomFormList listForm;
 	private RoomFormMod modForm;
@@ -168,21 +167,21 @@ public class RoomFrameImp extends RoomFrame {
 		this.delRoomButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				addRoom();
+				delRoom();
 			}
 		});
 		
 		this.listRoomButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				addRoom();
+				listRoom();
 			}
 		});	
 		
 		this.modRoomButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				addRoom();
+				modRoom();
 			}
 		});		
 		
