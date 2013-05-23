@@ -116,6 +116,7 @@ public class ShiftFormList extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				//TODO el listado no refresca
+				System.out.println("en openedddd");
 				setText();
 				
 			}
