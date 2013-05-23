@@ -12,8 +12,6 @@ public class RoomAppServicesImp implements RoomAppServices {
 
 	@Override
 	public void addRoom(RoomTransfer t) throws RoomAppServicesException {
-		//Crear habitacion
-		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();		
 		
@@ -29,27 +27,10 @@ public class RoomAppServicesImp implements RoomAppServices {
 		catch (RoomIntegrationException e) {
 			throw new RoomAppServicesException (e.getMessage());
 		}
-}
-		
-
-	private void checkData (RoomTransfer t) throws RoomAppServicesException {
-		int numRoom = t.getnumRoom();
-		int numBeds = t.getnumBeds();
-		float price = t.getPrice();
-		
-		if (price<0)
-			throw new RoomAppServicesException("Precio invalido");
-		if (numBeds<=0)
-			throw new RoomAppServicesException("Numero camas invalido");
-		if (numRoom<=0)
-			throw new RoomAppServicesException("Numero habitacion invalido");
-	}
-	
+	}	
 	
 	@Override
 	public void delRoom(int id) throws RoomAppServicesException {
-		//Borrar habitacion
-		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
@@ -69,8 +50,6 @@ public class RoomAppServicesImp implements RoomAppServices {
 
 	@Override
 	public Vector<RoomTransfer> listRoom() throws RoomAppServicesException {
-		//Listar habitaciones
-		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
@@ -84,8 +63,6 @@ public class RoomAppServicesImp implements RoomAppServices {
 
 	@Override
 	public void modRoom(RoomTransfer t) throws RoomAppServicesException {
-		//Modificar habitaciones
-		
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
@@ -100,6 +77,19 @@ public class RoomAppServicesImp implements RoomAppServices {
 			throw new RoomAppServicesException (e.getMessage());
 		}
 		
+	}
+	
+	private void checkData (RoomTransfer t) throws RoomAppServicesException {
+		int numRoom = t.getnumRoom();
+		int numBeds = t.getnumBeds();
+		float price = t.getPrice();
+		
+		if (price<0)
+			throw new RoomAppServicesException("Precio invalido");
+		if (numBeds<=0)
+			throw new RoomAppServicesException("Numero camas invalido");
+		if (numRoom<=0)
+			throw new RoomAppServicesException("Numero habitacion invalido");
 	}
 
 }
