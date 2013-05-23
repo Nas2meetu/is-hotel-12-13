@@ -10,15 +10,15 @@ public class BookTransfer {
 	private int idBook;
 	private Vector<Integer> idRoom;
 	private int idClient;
-	private Date checkIn;
-	private Date checkOut;
+	private String checkIn;
+	private String checkOut;
 	private float deposit;
 	private int numPerson;
-	private Vector<ServiceTransfer> services;
+	private Vector<Integer> services;
 	private boolean confirm;
 	
-	public BookTransfer(int idBook,Vector<Integer> idRoom, int idClient,Date checkIn, Date checkOut,
-						float deposit, int numPerson,Vector<ServiceTransfer> services,boolean confirm){
+	public BookTransfer(int idBook,Vector<Integer> idRoom, int idClient,String checkIn, String checkOut,
+						float deposit, int numPerson,Vector<Integer> services,boolean confirm){
 			
 			this.idBook = idBook;
 			this.idRoom = idRoom;
@@ -48,19 +48,19 @@ public class BookTransfer {
 		this.idClient = idClient;
 	}
 
-	public Date getCheckIn() {
+	public String getCheckIn() {
 		return checkIn;
 	}
 
-	public void setCheckIn(Date checkIn) {
+	public void setCheckIn(String checkIn) {
 		this.checkIn = checkIn;
 	}
 
-	public Date getCheckOut() {
+	public String getCheckOut() {
 		return checkOut;
 	}
 
-	public void setCheckOut(Date checkOut) {
+	public void setCheckOut(String checkOut) {
 		this.checkOut = checkOut;
 	}
 
@@ -80,11 +80,11 @@ public class BookTransfer {
 		this.numPerson = numPerson;
 	}
 
-	public Vector<ServiceTransfer> getServices() {
+	public Vector<Integer> getServices() {
 		return services;
 	}
 
-	public void setServices(Vector<ServiceTransfer> services) {
+	public void setServices(Vector<Integer> services) {
 		this.services = services;
 	}
 
