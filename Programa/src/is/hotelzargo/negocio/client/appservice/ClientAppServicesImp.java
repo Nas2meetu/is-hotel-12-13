@@ -43,8 +43,6 @@ public class ClientAppServicesImp implements ClientAppServices {
 				}
 
 			} catch (ClientIntegrationException e) {
-				//e.printStackTrace();
-				//throw new ClientAppServicesException("La compañía ya existe");
 				throw new ClientAppServicesException(e.getMessage());
 			}
 			
@@ -110,10 +108,15 @@ public class ClientAppServicesImp implements ClientAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		ClientDAO dao = fac.getClientDAO();
 		
-		//deleteClient(id);
 		try {
+			//el usuario tiene que existir y no puede tener reservas sin confirmar(no pagadas)
 			if (dao.searchClient(id)){
-				dao.deleteClient(id);
+				if(dao.allBooksConfirmed(id)){
+					dao.deleteClient(id);
+				}
+				else{
+					throw new ClientAppServicesException("El usuario a eliminar tiene reservas pendientes de confirmar");
+				}
 			}else{
 				throw new ClientAppServicesException("El usuario a eliminar no existe");
 			}
@@ -122,23 +125,6 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("Problema al eliminar cliente");
 		}
 		
-		/*
-			try {
-				dao.deleteClientIndividual(id);
-			} catch (ClientIntegrationException e) {
-				e.printStackTrace();
-				throw new ClientAppServicesException("Problema al eliminar cliente individual");
-			}
-		}
-		else{
-			try {
-				dao.deleteClientCompany(id);
-			} catch (ClientIntegrationException e) {
-				e.printStackTrace();
-				throw new ClientAppServicesException("Problema al eliminar cliente compañía");				
-			}
-		}
-		*/
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package is.hotelzargo.presentacion.shift.command.appservices;
 
+import java.util.Vector;
+
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.facade.Facade;
 import is.hotelzargo.negocio.factory.BusinessFactory;
@@ -10,9 +12,9 @@ import is.hotelzargo.presentacion.controller.Event;
 
 public class CommandActionAddShift implements Command {
 	
-	private ShiftTransfer shiftTransfer;
+	private Vector<String> shiftTransfer;
 	
-	public CommandActionAddShift(ShiftTransfer data){
+	public CommandActionAddShift(Vector<String> data){
 		shiftTransfer = data;
 	}
 

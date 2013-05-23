@@ -445,22 +445,14 @@ public class BookDAOImp implements BookDAO {
 		}
 	}
 	
-	//devuelve true si todas las habitaciones del vector se encuentran desocupadas
+	//TODO devuelve true si todas las habitaciones del vector se encuentran desocupadas
 	//false en caso contrario
-	//TODO las habitaciones deberian tener un booleano ocupada
-	//entonces aqui miraría ese boolean
 	public boolean emptyRooms(Vector<Integer> rooms) throws BookIntegrationException{
 		
 		return true;
 		
 	}
 
-	@Override
-	public boolean searchAvailability(Date checkIn, Date checkOut,
-			Vector<Integer> rooms) throws BookIntegrationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public Vector<Integer> findBook(Date checkIn, Date checkOut)

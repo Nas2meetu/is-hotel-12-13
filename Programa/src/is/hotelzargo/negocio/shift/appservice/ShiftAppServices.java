@@ -8,7 +8,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 public interface ShiftAppServices {
 
-	void addShift(ShiftTransfer t)throws ShiftAppServicesException;
+	void addShift(Vector<String> t)throws ShiftAppServicesException;
 
 	void deleteShift(int id)throws ShiftAppServicesException;;
 

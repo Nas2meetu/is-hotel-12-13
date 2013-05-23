@@ -1,5 +1,6 @@
 package is.hotelzargo.integracion.client.dao;
 
+import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
@@ -24,8 +25,6 @@ public class ClientDAOImp implements ClientDAO {
 	@Override
 	public void createClientIndividual(ClientTransfer t) throws ClientIntegrationException {
 		
-		initDataBase();
-		
 		String name =((ClientTransferIndividual) t).getName();
 		String surname = ((ClientTransferIndividual) t).getSurname();
 		String dni = ((ClientTransferIndividual) t).getDNI();
@@ -37,6 +36,8 @@ public class ClientDAOImp implements ClientDAO {
 			//Para crear el nuevo cliente se busca el maximo ID en ambas tablas
 			//y se pone el maximo + 1
 			int nextID = getNextID();
+			
+			initDataBase();
 			
 			statement.executeUpdate("INSERT INTO ClientIndividual (id,name, surname, dni, phone, creditCard, address) VALUES " +
 					"('"+nextID+"','"+name+"', '"+surname+"', '"+dni+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );
@@ -56,9 +57,7 @@ public class ClientDAOImp implements ClientDAO {
 
 	
 	@Override
-	public void createClientCompany(ClientTransfer t) throws ClientIntegrationException {
-				
-				initDataBase();
+	public void createClientCompany(ClientTransfer t) throws ClientIntegrationException {				
 		
 				String company =((ClientTransferCompany) t).getCompany();
 				String cif = ((ClientTransferCompany) t).getCIF();
@@ -72,6 +71,8 @@ public class ClientDAOImp implements ClientDAO {
 					//y se pone el maximo + 1
 					int nextID = getNextID();
 					
+					initDataBase();
+					
 					statement.executeUpdate("INSERT INTO ClientCompany (id,company, cif, phone, creditCard, address) VALUES " +
 							"('"+nextID+"','"+company+"', '"+cif+"', '"+phone+"', '"+creditCard+"', '"+address+"');" );					
 					
@@ -80,7 +81,7 @@ public class ClientDAOImp implements ClientDAO {
 					
 										
 				} catch (SQLException e) {
-					e.getMessage();
+					e.printStackTrace();
 					throw new ClientIntegrationException("Problema al crear cliente company");
 				}finally{
 					closeConnectionDataBase();
@@ -93,7 +94,7 @@ public class ClientDAOImp implements ClientDAO {
 		initDataBase();
 		
 		//elegimos el id maximo de clientIndividual
-		int maxIndividual = -1,maxCompany = -1;
+		int maxIndividual = 0,maxCompany = 0;
 		try {
 			rs = statement.executeQuery("SELECT MAX(id) FROM ClientIndividual;");			
 			//solo me devolvera 1 fila
@@ -102,8 +103,8 @@ public class ClientDAOImp implements ClientDAO {
 			  }			
 
 		} catch (SQLException e) {
-			// Auto-generated catch block
 			e.printStackTrace();
+			throw new ClientIntegrationException("Problema al conseguir id MAX en cliente individual");
 		}finally{
 			closeConnectionDataBase();
 		}
@@ -120,6 +121,7 @@ public class ClientDAOImp implements ClientDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new ClientIntegrationException("Problema al conseguir id MAX en cliente company");
 		}finally{
 			closeConnectionDataBase();
 		} 
@@ -135,54 +137,70 @@ public class ClientDAOImp implements ClientDAO {
 	@Override
 	public void deleteClient(int id) throws ClientIntegrationException {
 		
+		//booleano que controla si se ha encontrado o no al cliente
+		boolean found = false;
+		
 		initDataBase();
 		//se busca en ambas tablas el id
 		String QueryString = "SELECT * FROM ClientIndividual WHERE id='"+id+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
-			//solo me devolvera 1 fila
 			  while (rs.next()) {
-				  //TODO eliminar TODAS las dependencias de este cliente, reservas pendientes
-				  return;
+				  //si llega aqui es que el id se corresponde con un cliente de tipo individual 
+				  String QueryDeleteIn = "DELETE FROM ClientIndividual WHERE id='"+id+"';";
+				  try {
+					  
+					statement.executeUpdate(QueryDeleteIn);			
+					
+				  } catch (SQLException e) {
+					e.printStackTrace();
+					throw new ClientIntegrationException("Problema al eliminar cliente individual con ID "+id);				
+				  }				  
+				  
+				  found = true;
 			  }
 			
 		  } catch (SQLException e) {
 			e.printStackTrace();
-			throw new ClientIntegrationException("Problema al eliminar cliente individual");				
+			throw new ClientIntegrationException("Problema al seleccionar para eliminar cliente individual");				
 		  }finally{
 			  closeConnectionDataBase();
 		  }
 		  
-		  initDataBase();
+		  //si no es cliente individual, tiene que ser de tipo company
+		  if (!found){
 		  
-			String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
-			  try {
-				rs = statement.executeQuery(QueryStringCompany);			
-				//solo me devolvera 1 fila
-				  while (rs.next()) {
-					  //TODO eliminar TODAS las dependencias de este cliente, reservas pendientes
-					  //esto es provisional
-						String QueryDeleteCompany = "DELETE FROM ClientCompany WHERE id='"+id+"';";
-						  try {
-							  
-							statement.executeUpdate(QueryDeleteCompany);			
-							
-						  } catch (SQLException e) {
-							e.printStackTrace();
-							throw new ClientIntegrationException("Problema al eliminar turno con ID "+id);				
-						  }
-					  
-					  
-					  
-					  return;
+			  initDataBase();
+			  
+				String QueryStringCompany = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
+				  try {
+					rs = statement.executeQuery(QueryStringCompany);			
+					//solo me devolvera 1 fila
+					  while (rs.next()) {
+						  //Aqui llega sin reservas pendientes, sino no se elimina
+							String QueryDeleteCompany = "DELETE FROM ClientCompany WHERE id='"+id+"';";
+							  try {
+								  
+								statement.executeUpdate(QueryDeleteCompany);			
+								
+							  } catch (SQLException e) {
+								e.printStackTrace();
+								throw new ClientIntegrationException("Problema al eliminar cliente company con ID "+id);				
+							  }
+						  
+						  
+						  
+						  return;
+					  }
+					
+				  } catch (SQLException e) {
+					e.printStackTrace();
+					throw new ClientIntegrationException("Problema al seleccionar para eliminar cliente company");				
+				  }finally{
+						closeConnectionDataBase();
 				  }
-				
-			  } catch (SQLException e) {
-				e.printStackTrace();
-				throw new ClientIntegrationException("Problema al eliminar cliente individual");				
-			  }finally{
-					closeConnectionDataBase();
-			  }
+				  
+			}
 			
 	}
 	
@@ -508,7 +526,7 @@ public class ClientDAOImp implements ClientDAO {
 	
 	private void closeConnectionDataBase() throws ClientIntegrationException {
 		try {
-			//TODO statement cerrarlo y el resultset MIRAR!!!
+			//No se deben cerrar statement y resulset porque siguen recibiendo flujo
 			//rs.close();
 			//statement.close();
 			connection.close();
@@ -516,6 +534,30 @@ public class ClientDAOImp implements ClientDAO {
 			//e.printStackTrace();
 			throw new ClientIntegrationException("Error al desconectar BBDD");
 		}
+	}
+
+	@Override
+	public boolean allBooksConfirmed(int id) throws ClientIntegrationException {
+		//Se busca al cliente en la tabla reservas, y se mira que esten todos
+		//los pagos en regla(confirm->true)
+		initDataBase();
+		String QueryString = "SELECT * FROM Books WHERE idClient='"+id+"'AND confirm=0;";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//si entra en el while significa que ha encontrado al menos 1 reserva sin confirmar
+			  while (rs.next()) {				  					
+					return false;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new ClientIntegrationException("Problema al buscar reservas confirmadas");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+
+		return true;
+
 	}
 
 	

@@ -114,7 +114,8 @@ public class ShiftFormMod extends JDialog {
 						
 		ShiftTransfer t;
 		
-		//TODO comprobar formato time introducido
+		//TODO tambien iria con un vector<String>, a la espera de confirmacion
+ 
 		String in = checkInText.getText();
 		String out = checkOutText.getText();
 		
