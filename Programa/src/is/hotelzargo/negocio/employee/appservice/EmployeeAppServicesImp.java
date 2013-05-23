@@ -13,8 +13,7 @@ import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
 public class EmployeeAppServicesImp implements EmployeeAppServices {
 
 	@Override
-	public void addEmployee(EmployeeTransfer t)
-			throws EmployeeAppServicesException {
+	public void addEmployee(EmployeeTransfer t) throws EmployeeAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		EmployeeDAO dao = fac.getEmployeeDAO();
@@ -28,7 +27,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 						throw new EmployeeAppServicesException("DNI repetido");
 				else dao.createEmployeeAdmin(t);
 			} catch (EmployeeIntegrationException e) {
-				e.getMessage();
+				throw new EmployeeAppServicesException(e.getMessage());
 			}
 					
 		} else {
@@ -40,13 +39,79 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 						throw new EmployeeAppServicesException("DNI repetido");
 				else dao.createEmployeeServices(t);
 			} catch (EmployeeIntegrationException e) {
-				e.getMessage();
+				throw new EmployeeAppServicesException(e.getMessage());
 			}
 		}
 	
 		
 	}
+	
+	@Override
+	public void delEmployee(int id) throws EmployeeAppServicesException {
+		DAOFactory fac = DAOFactory.getInstance();
+		EmployeeDAO dao = fac.getEmployeeDAO();
+		
+		try {
+			if (dao.searchEmployeeByID(id)){
+				dao.deleteEmployee(id);
+			}
+			else{
+				throw new EmployeeAppServicesException("Empleado inexistente con ese ID");
+			}
+		} catch (EmployeeIntegrationException e) {
+			throw new EmployeeAppServicesException(e.getMessage());
+		}
+		
+	}
 
+	
+	
+	@Override
+	public Vector<EmployeeTransfer> listEmployee() throws EmployeeAppServicesException {
+		DAOFactory fac = DAOFactory.getInstance();
+		EmployeeDAO dao = fac.getEmployeeDAO();
+		
+		try {
+			return dao.listEmployee();
+		} catch (EmployeeIntegrationException e) {
+			throw new EmployeeAppServicesException(e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public void modEmployee(EmployeeTransfer t) throws EmployeeAppServicesException {
+		DAOFactory fac = DAOFactory.getInstance();
+		EmployeeDAO dao = fac.getEmployeeDAO();
+		
+		
+		if(t instanceof EmployeeTransferAdmin ) {
+			
+			checkDataEmployeeAdmin(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("El empleado no existe");
+				else dao.updateEmployeeAdmin(t);
+			} catch (EmployeeIntegrationException e) {
+				throw new EmployeeAppServicesException(e.getMessage());
+			}
+					
+		} else {
+			
+			checkDataEmployeeServices(t);
+			
+			try{
+				if (!dao.searchEmployee(t.getDNI()))
+						throw new EmployeeAppServicesException("El empleado no existe");
+				else dao.updateEmployeeServices(t);
+			} catch (EmployeeIntegrationException e) {
+				throw new EmployeeAppServicesException(e.getMessage());
+			}
+		}
+		
+	}
+	
 	private void checkDataEmployeeServices(EmployeeTransfer t) throws EmployeeAppServicesException {
 		
 		String TLF = ((EmployeeTransferServices)t).getPhone();
@@ -81,77 +146,6 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		if(((EmployeeTransferAdmin)t).getPay() == 0)
 			throw new EmployeeAppServicesException("Sin sueldo");
 		
-		
-	}
-	
-	
-	@Override
-	public void delEmployee(int id) throws EmployeeAppServicesException {
-		// Borrar empleado
-		DAOFactory fac = DAOFactory.getInstance();
-		EmployeeDAO dao = fac.getEmployeeDAO();
-		
-		try {
-			if (dao.searchEmployeeByID(id)){
-				dao.deleteEmployee(id);
-			}
-			else{
-				throw new EmployeeAppServicesException("Empleado inexistente con ese ID");
-			}
-		} catch (EmployeeIntegrationException e) {
-			throw new EmployeeAppServicesException("Problema al eliminar empleado en BD");
-		}
-		
-	}
-
-	
-	
-	@Override
-	public Vector<EmployeeTransfer> listEmployee() throws EmployeeAppServicesException {
-		// Listar empleados
-		DAOFactory fac = DAOFactory.getInstance();
-		EmployeeDAO dao = fac.getEmployeeDAO();
-		
-		try {
-			return dao.listEmployee();
-		} catch (EmployeeIntegrationException e) {
-			throw new EmployeeAppServicesException("Problema al lista empleados en BD");
-		}
-		
-	}
-
-	@Override
-	public void modEmployee(EmployeeTransfer t)
-			throws EmployeeAppServicesException {
-		// Modificar empleado
-		DAOFactory fac = DAOFactory.getInstance();
-		EmployeeDAO dao = fac.getEmployeeDAO();
-		
-		
-		if(t instanceof EmployeeTransferAdmin ) {
-			
-			checkDataEmployeeAdmin(t);
-			
-			try{
-				if (!dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("El empleado no existe");
-				else dao.updateEmployeeAdmin(t);
-			} catch (EmployeeIntegrationException e) {
-				e.getMessage();
-			}
-					
-		} else {
-			
-			checkDataEmployeeServices(t);
-			
-			try{
-				if (!dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("El empleado no existe");
-				else dao.updateEmployeeServices(t);
-			} catch (EmployeeIntegrationException e) {
-				e.getMessage();
-			}
-		}
 		
 	}
 
