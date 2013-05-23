@@ -36,8 +36,6 @@ public class ClientFormList extends JDialog {
 	
 	private RenderList renderList;
 	
-	private int mode;
-	
 	public ClientFormList(JFrame owner, boolean mod){
 		super(owner,mod);
 		this.setTitle("Listar Clientes");
@@ -66,11 +64,6 @@ public class ClientFormList extends JDialog {
 		//this.pack();
 		
 	}
-	
-	public void setShowMode(int mode){
-		this.mode = mode;
-	}
-	
 	
 	private void exit(){
 		this.setVisible(false);

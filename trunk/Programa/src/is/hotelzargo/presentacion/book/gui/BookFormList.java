@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -36,6 +37,8 @@ public class BookFormList extends JDialog {
 	private JButton exitButton;
 	
 	private RenderList renderList;
+	
+	private int mode;// 0 mostrar, 1 añadir reserva, 2 modificar
 	
 	public BookFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -66,6 +69,9 @@ public class BookFormList extends JDialog {
 		
 	}
 	
+	public void setShowMode(int mode){
+		this.mode = mode;
+	}
 	
 	private void exit(){
 		this.setVisible(false);
@@ -100,10 +106,10 @@ public class BookFormList extends JDialog {
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
-				
+
 				JList list = new JList(text);
-		        list.setCellRenderer(renderList);
-		        renderPanel.add(list, BorderLayout.CENTER);
+				list.setCellRenderer(renderList);
+				renderPanel.add(list, BorderLayout.CENTER);
 		        //renderPanel.add(list);
 				
 		        //this.pack();
