@@ -17,9 +17,7 @@ public interface BookDAO {
 	public BookTransfer getBook(int id) throws BookIntegrationException;
 	
 	public boolean searchBook(int id) throws BookIntegrationException;
-	
-	public boolean searchAvailability(Date checkIn, Date checkOut, Vector<Integer> rooms) throws BookIntegrationException;
-	
+		
 	public Vector<BookTransfer> listBook() throws BookIntegrationException;
 	
 	public void confirmBook(int id) throws BookIntegrationException;

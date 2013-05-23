@@ -22,6 +22,8 @@ public interface ClientDAO {
 	public boolean searchClient(int id) throws ClientIntegrationException;
 	
 	public Vector<ClientTransfer> listClient() throws ClientIntegrationException;
+
+	public boolean allBooksConfirmed(int id) throws ClientIntegrationException;
 	
 
 	

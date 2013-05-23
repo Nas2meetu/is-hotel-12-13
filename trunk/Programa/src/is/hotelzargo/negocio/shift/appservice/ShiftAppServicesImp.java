@@ -1,7 +1,6 @@
 package is.hotelzargo.negocio.shift.appservice;
 
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
 
@@ -9,30 +8,49 @@ import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.integracion.shift.dao.ShiftDAO;
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
-import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 public class ShiftAppServicesImp implements ShiftAppServices {
 
-	private void checkData(ShiftTransfer t) throws ShiftAppServicesException {
-	String shift = t.getShift ();
-	Time checkin = t.getCheckin ();
-	Time checkout = t.getCheckout ();
-	int id = t.getId ();
+	private ShiftTransfer checkData(Vector<String> t) throws ShiftAppServicesException {
+		String shift = t.get(0);
+		
+		if (shift.length () <= 0) 
+			throw new ShiftAppServicesException("Nombre de turno no valido");
+		
+		Time timeIn = checkTime(t.get(1));
+		Time timeOut = checkTime(t.get(2));
+		
+		if (timeIn.equals (timeOut)) 
+			throw new ShiftAppServicesException("Hora entrada es la misma que a la hora de salida");
+		//TODO alguna comprobacion mas del horario(in anterior a out por ejemplo)
+		
+		//Devolvemos tranfer formado		
+		ShiftTransfer transfer = new ShiftTransfer(-1,shift,timeIn,timeOut);
+		
+		return transfer;
+	}
 	
-	if (shift.length () < 0) 
-		throw new ShiftAppServicesException("Nombre de turno no valido");
-	if (checkin.equals (checkout)) 
-		throw new ShiftAppServicesException("Hora entrada es la misma que a la hora de salida");
+	private Time checkTime(String t) throws ShiftAppServicesException{
+		Time time;
+		
+		try{
+			time = Time.valueOf(t);
+		}
+		catch (Exception e){
+			throw new ShiftAppServicesException("Formato de hora turno invalido");
+		}
+		
+		return time;
 	}
 	
 	@Override
-	public void addShift(ShiftTransfer t) throws ShiftAppServicesException {
+	public void addShift(Vector<String> v) throws ShiftAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
 		
-		checkData(t);
+		ShiftTransfer t = checkData(v);
 		
 		try {
 			if(!dao.searchShift(t.getShift(),t.getCheckin(),t.getCheckout())){
@@ -43,6 +61,12 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		} catch (ShiftIntegrationException e) {
 			throw new ShiftAppServicesException(e.getMessage());
 		}
+		//TODO ventanas onformativas asi o JOptionPlane
+		//si llega aqui, el turno se ha añadido con exito
+		throw new ShiftAppServicesException("Turno añadido correctamente");
+		
+		//o esta que es mas sucia
+		 //JOptionPane.showMessageDialog(null,"No, para nada ","Aviso",JOptionPane.PLAIN_MESSAGE);
 		
 	}
 

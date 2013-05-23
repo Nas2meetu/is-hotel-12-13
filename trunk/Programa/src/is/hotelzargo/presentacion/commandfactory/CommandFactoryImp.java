@@ -85,7 +85,7 @@ public class CommandFactoryImp extends CommandFactory {
 			return new CommandActionAddService((ServiceTransfer) data);
 		
 		case ADD_SHIFT:
-			return new CommandActionAddShift((ShiftTransfer) data);
+			return new CommandActionAddShift((Vector<String>) data);
 			
 		case DELETE_BOOK:
 			return new CommandActionDelBook((Integer) data);

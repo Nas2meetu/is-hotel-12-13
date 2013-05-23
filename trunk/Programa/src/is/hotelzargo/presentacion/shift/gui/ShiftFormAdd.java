@@ -1,8 +1,5 @@
 package is.hotelzargo.presentacion.shift.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -12,19 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.Date;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.SimpleTimeZone;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -108,9 +100,9 @@ public class ShiftFormAdd extends JDialog {
 	
 	private void accept(){
 		
-		ShiftTransfer t;
+		/*ShiftTransfer t;
 		
-		//TODO comprobar formato time introducido
+		
 		String in = checkInText.getText();
 		String out = checkOutText.getText();
 		
@@ -119,9 +111,15 @@ public class ShiftFormAdd extends JDialog {
 
 			t = new ShiftTransfer(-1,nameText.getText(),
 											 timeIn,
-											 timeOut);
+											 timeOut);*/
 			
-		Controller.getInstance().event(Event.ADD_SHIFT,t,null);
+		//Se pasa un vector de strings, y la comprobacion de datos se hace en app
+		Vector<String> data = new Vector<String>();
+		data.add(nameText.getText());
+		data.add(checkInText.getText());
+		data.add(checkOutText.getText());
+			
+		Controller.getInstance().event(Event.ADD_SHIFT,data,null);
 	}
 	
 	private void exit(){

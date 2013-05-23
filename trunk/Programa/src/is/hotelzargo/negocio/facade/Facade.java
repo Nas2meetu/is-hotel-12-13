@@ -62,7 +62,7 @@ public interface Facade {
 	
 	public void modService(ServiceTransfer t)throws ServicesAppServicesException;
 	
-	public void addShift(ShiftTransfer t)throws ShiftAppServicesException;
+	public void addShift(Vector<String> t)throws ShiftAppServicesException;
 	
 	public void delShift(int id)throws ShiftAppServicesException;
 	
