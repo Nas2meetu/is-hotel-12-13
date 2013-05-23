@@ -8,14 +8,14 @@ public class ShiftTransfer {
 	
 	private int id;
 	private String shift;
-	private Time checkin;
-	private Time chekout;
+	private String checkin;
+	private String chekout;
 	
 	
 	public ShiftTransfer(int id,
 						String shift,
-						Time checkin,
-						Time chekout){ 
+						String checkin,
+						String chekout){ 
 		this.id = id;
 		this.shift = shift;
 		this.checkin = checkin;
@@ -26,11 +26,11 @@ public class ShiftTransfer {
 		return shift;
 	}
 	
-	public Time getCheckin () {
+	public String getCheckin () {
 		return checkin;
 	}
 	
-	public Time getCheckout () {
+	public String getCheckout () {
 		return chekout;
 	}
 		
@@ -38,11 +38,11 @@ public class ShiftTransfer {
 		this.shift = shift;
 	}
 	
-	public void setCheckin (Time checkin) {
+	public void setCheckin (String checkin) {
 		this.checkin = checkin;
 	}
 	
-	public void setCheckout (Time chekout) {
+	public void setCheckout (String chekout) {
 		this.chekout = chekout;
 	}
 

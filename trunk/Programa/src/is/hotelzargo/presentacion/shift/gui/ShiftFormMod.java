@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -46,10 +47,10 @@ public class ShiftFormMod extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		IDLabel         = new JLabel("ID Servicio                 ");
-		nameLabel       = new JLabel("Nuevo nombre turno              ");
-		checkInLabel    = new JLabel("Nueva hora entrada              ");
-		checkOutLabel   = new JLabel("Nueva hora salida              ");
+		IDLabel         = new JLabel("ID Servicio");
+		nameLabel       = new JLabel("Nuevo nombre turno");
+		checkInLabel    = new JLabel("Nueva hora entrada");
+		checkOutLabel   = new JLabel("Nueva hora salida");
 		
 		/* text */
 		IDText = new JTextField(20);
@@ -111,18 +112,16 @@ public class ShiftFormMod extends JDialog {
 	}
 	
 	private void accept(){
-						
-		ShiftTransfer t;
 		
-		//TODO tambien iria con un vector<String>, a la espera de confirmacion
- 
-		String in = checkInText.getText();
-		String out = checkOutText.getText();
+		int id;
+		try{
+			id = Integer.valueOf(IDText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+IDLabel.getText()+" debe ser un numero entero");
+			return;
+		}
 		
-		Time timeIn = Time.valueOf(in);
-		Time timeOut = Time.valueOf(out);
-		
-		t = new ShiftTransfer(Integer.parseInt(IDText.getText()),nameText.getText(),timeIn,timeOut);
+		 ShiftTransfer t = new ShiftTransfer(id,nameText.getText(),checkInText.getText(),checkOutText.getText());
 		
 		Controller.getInstance().event(Event.MOD_SHIFT,t,null);
 	}

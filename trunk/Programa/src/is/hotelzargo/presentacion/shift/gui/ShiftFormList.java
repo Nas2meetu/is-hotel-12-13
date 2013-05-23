@@ -1,10 +1,13 @@
 package is.hotelzargo.presentacion.shift.gui;
 
+import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.maingui.RenderList;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +18,8 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -25,7 +30,11 @@ public class ShiftFormList extends JDialog {
 	private JTextArea listTextArea;
 	private JScrollPane scrollPane;
 	
+	private JPanel renderPanel;
+	
 	private JButton exitButton;
+	
+	private RenderList renderList;
 	
 	public ShiftFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -33,20 +42,60 @@ public class ShiftFormList extends JDialog {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		initTextArea();
+		renderList = new RenderList();
+		
+		renderPanel = new JPanel();
+		
+		scrollPane = new JScrollPane(renderPanel,
+									ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+									ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		
 		exitButton = new JButton("Salir");
 		
 		addListener();
 		
-		this.setLayout(new GridLayout(2, 1));
+		this.setLayout(new GridLayout(1, 1));
 		this.add(scrollPane);
-		this.add(exitButton);
+		//this.add(exitButton);
 		
-		this.pack();
+		this.setSize(500,300);
+		
+		//this.pack();
 		
 	}
 	
+	private void setText(){
+		Vector<ShiftTransfer> shiftList =  
+				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
+				
+				
+				String text[] = new String[shiftList.size()];
+				if(shiftList != null){
+					for(int i = 0; i < shiftList.size(); i++){
+						ShiftTransfer t = shiftList.elementAt(i);
+					
+						text[i] = t.getId()+System.getProperty("line.separator")+
+								  t.getShift()+System.getProperty("line.separator")+
+								  t.getCheckin()+System.getProperty("line.separator")+
+								  t.getCheckout();
+					}
+				}
+				else{
+					text[0] = "No hay turnos";
+				}
+				
+				renderPanel.setLayout(new BorderLayout());
+
+				JList list = new JList(text);
+				list.setCellRenderer(renderList);
+				renderPanel.add(list, BorderLayout.CENTER);
+		        //renderPanel.add(list);
+				
+		        //this.pack();
+		        
+				//setTextArea(text);
+	}
 	
 	private void exit(){
 		this.setVisible(false);
@@ -59,19 +108,7 @@ public class ShiftFormList extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 
-				Vector<ShiftTransfer> shiftList = 
-				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
-				String text = "";
-				if(shiftList != null){
-					for(int i = 0; i < shiftList.size(); i++){
-						ShiftTransfer t = shiftList.elementAt(i);
-							text += ((ShiftTransfer) t).getCheckin().toString();
-					}
-				}
-				else{
-					listTextArea.setText("No turnos");
-				}
-				setTextArea(text);
+				setText();
 				
 			}
 			
@@ -112,22 +149,5 @@ public class ShiftFormList extends JDialog {
 				exit();
 			}
 		});
-	}
-	
-	
-	@SuppressWarnings("unused")
-	private void initTextArea(){
-		listTextArea = new JTextArea();
-		listTextArea.setEditable(false);
-		listTextArea.setSize(500, 500);
-		scrollPane = new JScrollPane(listTextArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);	
-		//scrollPaneVertical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-	}
-	
-	private void setTextArea(String text){
-		listTextArea.setText(text);
-	}
-	
-
+	}	
 }

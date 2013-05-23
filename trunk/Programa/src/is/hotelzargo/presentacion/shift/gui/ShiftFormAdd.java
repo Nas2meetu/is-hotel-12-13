@@ -100,26 +100,10 @@ public class ShiftFormAdd extends JDialog {
 	
 	private void accept(){
 		
-		/*ShiftTransfer t;
+		ShiftTransfer t = new ShiftTransfer(-1,nameText.getText(),checkInText.getText(), checkOutText.getText());
 		
-		
-		String in = checkInText.getText();
-		String out = checkOutText.getText();
-		
-		Time timeIn = Time.valueOf(in);
-		Time timeOut = Time.valueOf(out);
-
-			t = new ShiftTransfer(-1,nameText.getText(),
-											 timeIn,
-											 timeOut);*/
 			
-		//Se pasa un vector de strings, y la comprobacion de datos se hace en app
-		Vector<String> data = new Vector<String>();
-		data.add(nameText.getText());
-		data.add(checkInText.getText());
-		data.add(checkOutText.getText());
-			
-		Controller.getInstance().event(Event.ADD_SHIFT,data,null);
+		Controller.getInstance().event(Event.ADD_SHIFT,t,null);
 	}
 	
 	private void exit(){
