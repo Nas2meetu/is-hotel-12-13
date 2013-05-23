@@ -19,18 +19,15 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
-		int id = t.getId();
-		
 		try {
-			if (!dao.searchShiftByID(id)){
+			if (!dao.searchShift(t.getServices())){
 				dao.createService(t);
 			}
 			else{
 				throw new ServicesAppServicesException("El servicio ya existe");	
 			}
 		} catch (ServicesIntegrationException e) {
-			e.getMessage();
-			throw new ServicesAppServicesException("Problema al crear servicio");
+			throw new ServicesAppServicesException(e.getMessage());
 		}
 		
 	}
@@ -49,8 +46,7 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 				throw new ServicesAppServicesException("El servicio con ese ID no existe");
 			}
 		} catch (ServicesIntegrationException e) {
-			e.getMessage();
-			throw new ServicesAppServicesException("Problema al eliminar servicio");
+			throw new ServicesAppServicesException(e.getMessage());
 		}
 		
 	}
@@ -64,8 +60,7 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 		try {
 			return dao.listService();
 		} catch (ServicesIntegrationException e) {
-			e.getMessage();
-			throw new ServicesAppServicesException("Problema al listar servicios");
+			throw new ServicesAppServicesException(e.getMessage());
 		}
 		
 		
@@ -85,8 +80,7 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 				throw new ServicesAppServicesException("El servicio a modificar no existe");
 			}
 		} catch (ServicesIntegrationException e) {
-			e.getMessage();
-			throw new ServicesAppServicesException("Problema al modificar servicio");
+			throw new ServicesAppServicesException(e.getMessage());
 		}
 		
 	}
