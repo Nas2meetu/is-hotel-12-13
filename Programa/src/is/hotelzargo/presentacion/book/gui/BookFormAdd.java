@@ -18,12 +18,14 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -62,13 +64,13 @@ public class BookFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		roomsLabel    	= new JLabel("Habitaciones           ");
-		clientLabel      = new JLabel("ID Cliente                 ");
-		checkInLabel     = new JLabel("Fecha entrada            ");
-		checkOutLabel 	= new JLabel("Fecha salida  ");
-		depositLabel    	= new JLabel("Fianza           ");
-		numpersonLabel   = new JLabel("Número de personas             ");
-		servicesLabel    = new JLabel("Servicios             ");
+		roomsLabel    		= new JLabel("Habitaciones");
+		clientLabel      	= new JLabel("ID Cliente");
+		checkInLabel     	= new JLabel("Fecha entrada");
+		checkOutLabel 		= new JLabel("Fecha salida");
+		depositLabel    	= new JLabel("Fianza");
+		numpersonLabel   	= new JLabel("Número de personas");
+		servicesLabel    	= new JLabel("Servicios");
 		
 		/* text */
 		roomsText = new JTextField(20);
@@ -140,49 +142,77 @@ public class BookFormAdd extends JDialog {
 		this.pack();
 	}
 	
+	private Vector<Integer> parseString(String data) throws NumberFormatException {
+		Vector<Integer> v = new Vector<Integer>();
+		
+		StringTokenizer st = new StringTokenizer(data,"-");
+		
+		while(st.hasMoreTokens()){
+			String room = st.nextToken();
+			
+			v.add(Integer.valueOf(room));
+			
+		}
+		
+		return v;
+	}
+	
 	private void accept(){
 		
-		/*BookTransfer t;
+		Vector<Integer> rooms = null;
+		Vector<Integer> services = null;
 		
-		Date dateIn = null;
-		Date dateOut = null;
-		try {
-			dateIn = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkInText.getText());
-			dateOut = (Date) new SimpleDateFormat("dd MM yyyy", Locale.FRANCE).parse(checkOutText.getText());
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-			//throw new BookAppServicesException("Problema al parsear formato fecha en findBook");
+		try{
+			rooms = parseString(roomsText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+roomsLabel.getText()+" deben ser numeros enteros separados por -");
+			return;
 		}
-		//provisional pruebas
-		Vector<Integer> r = new Vector<Integer>();
-		r.add(2);
-		r.add(11);
-		Vector<ServiceTransfer> s = new Vector<ServiceTransfer>();
-		ServiceTransfer st = new ServiceTransfer(1, "cosas");
-		s.add(st);
 		
-
-		t = new BookTransfer (-1,r,
-										  Integer.parseInt(clientText.getText()),
-										  dateIn,
-										  dateOut,
-										  Float.parseFloat(depositText.getText()),
-										  Integer.parseInt(numpersonText.getText()),
-										  s,
-										  false);*/
-
-		Vector<String> dataBook = new Vector<String>();
-		dataBook.add(roomsText.getText());
-		dataBook.add(clientText.getText());
-		dataBook.add(checkInText.getText());
-		dataBook.add(checkOutText.getText());
-		dataBook.add(depositText.getText());
-		dataBook.add(numpersonText.getText());
-		dataBook.add(servicesText.getText());
-		//y añadir false en app
-
-		Controller.getInstance().event(Event.ADD_BOOK,dataBook,null);
+		try{
+			services = parseString(servicesText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+servicesLabel.getText()+" deben ser numeros enteros separados por -");
+			return;
+		}
 		
+		int numperson;
+		
+		try{
+			 numperson = Integer.valueOf(numpersonText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+numpersonLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
+		float deposit;
+		
+		try{
+			deposit = Float.valueOf(depositLabel.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+depositLabel.getText()+"debe ser numerico");
+			return;
+		}
+		
+		int idClient;
+		
+		try{
+			idClient = Integer.valueOf(clientText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+clientLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
+		BookTransfer t = new BookTransfer(-1,rooms,
+										  idClient,
+										  checkInText.getText(), 
+										  checkOutText.getText(),
+										  deposit,
+										  numperson,
+										  services,
+										  false);
+		
+		Controller.getInstance().event(Event.ADD_BOOK,t,null);
 	}
 	
 	private void exit(){

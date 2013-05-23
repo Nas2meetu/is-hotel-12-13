@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -65,7 +66,14 @@ public class BookFormDel extends JDialog {
 	
 	private void accept(){
 		//paso un int ID
-		Controller.getInstance().event(Event.DELETE_BOOK,Integer.parseInt(idText.getText()),null);
+		int id;
+		try{
+			id = Integer.valueOf(idText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+idLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		Controller.getInstance().event(Event.DELETE_BOOK,id,null);
 	}
 	
 	private void addListener(){

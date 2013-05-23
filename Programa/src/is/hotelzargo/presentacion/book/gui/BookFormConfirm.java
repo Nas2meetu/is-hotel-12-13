@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -64,7 +65,16 @@ public class BookFormConfirm extends JDialog {
 	}
 	
 	private void accept(){
-		Controller.getInstance().event(Event.CONFIRM_BOOK,Integer.parseInt(idText.getText()),null);
+		
+		int id;
+		try{
+			id = Integer.valueOf(idText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+idLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
+		Controller.getInstance().event(Event.CONFIRM_BOOK,id,null);
 	}
 	
 	private void addListener(){

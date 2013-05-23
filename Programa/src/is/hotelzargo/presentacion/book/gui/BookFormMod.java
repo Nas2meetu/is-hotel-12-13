@@ -1,6 +1,8 @@
 package is.hotelzargo.presentacion.book.gui;
 
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
+import is.hotelzargo.presentacion.controller.Controller;
+import is.hotelzargo.presentacion.controller.Event;
 
 import java.awt.GridLayout;
 import java.awt.TextField;
@@ -45,12 +47,12 @@ public class BookFormMod extends JDialog {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		bookIdLabel    = new JLabel("ID de la reserva (debe existir) ");
-		roomsLabel     = new JLabel("Habitaciones                    ");
-		checkinLabel   = new JLabel("Fecha de entrada                ");
-		checkoutLabel  = new JLabel("Fecha de salida                 ");
-		numpersonLabel = new JLabel("Numero de personas              ");
-		servicesLabel  = new JLabel("Servicios                       ");
+		bookIdLabel    = new JLabel("ID de la reserva (debe existir)");
+		roomsLabel     = new JLabel("Habitaciones");
+		checkinLabel   = new JLabel("Fecha de entrada");
+		checkoutLabel  = new JLabel("Fecha de salida");
+		numpersonLabel = new JLabel("Numero de personas");
+		servicesLabel  = new JLabel("Servicios");
 		
 		bookIdText = new JTextField(20);
 		roomsText = new JTextField(20);
@@ -170,6 +172,7 @@ public class BookFormMod extends JDialog {
 										  numperson,
 										  services,
 										  false);//confirmacion no se modifica
+		Controller.getInstance().event(Event.MOD_BOOK,t,null);
 	}
 	
 	private void exit(){
