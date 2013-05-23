@@ -2,6 +2,7 @@ package is.hotelzargo.integracion.book.dao;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
+import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class BookDAOImp implements BookDAO {
@@ -28,8 +31,8 @@ public class BookDAOImp implements BookDAO {
 		//int idBook = t.getIdBook();
 		Vector<Integer> idRoom = ((BookTransfer) t).getIdRoom();
 		int idClient = ((BookTransfer) t).getIdClient();
-		Date checkIn = ((BookTransfer) t).getCheckIn();
-		Date checkOut = ((BookTransfer) t).getCheckOut();
+		Date checkIn = stringToDate(t.getCheckIn());
+		Date checkOut = stringToDate(t.getCheckOut());
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<Integer> services = ((BookTransfer) t).getServices();
@@ -112,8 +115,8 @@ public class BookDAOImp implements BookDAO {
 		int idBook = ((BookTransfer) t).getIdBook();
 		Vector<Integer> idRoom =((BookTransfer) t).getIdRoom();
 		int idClient = ((BookTransfer) t).getIdClient();
-		Date checkIn = ((BookTransfer) t).getCheckIn();
-		Date checkOut = ((BookTransfer) t).getCheckOut();
+		Date checkIn = stringToDate(t.getCheckIn());
+		Date checkOut = stringToDate(t.getCheckOut());
 		float deposit = ((BookTransfer) t).getDeposit();
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<Integer> services = ((BookTransfer) t).getServices();
@@ -165,7 +168,7 @@ public class BookDAOImp implements BookDAO {
 	}
 	
 	//se añade el vector de habitaciones a la reserva
-	private void addServicesToBook(int idBook,Vector<ServiceTransfer> services) throws BookIntegrationException{
+	private void addServicesToBook(int idBook,Vector<Integer> services) throws BookIntegrationException{
 		initDataBase();
 	
 		try{
@@ -489,6 +492,20 @@ public class BookDAOImp implements BookDAO {
 			  closeConnectionDataBase();
 		  }
 		
+		
+	}
+	
+	private Date stringToDate(String s) throws BookIntegrationException{
+		
+		Date date = null;
+		try {
+			java.util.Date dateUtil = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+			date = new java.sql.Date(dateUtil.getTime());
+			//date = (Date) new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(s);
+		} catch (ParseException e1) {
+			throw new BookIntegrationException("El formato de la fecha no es correcto");
+		}
+		return date;
 		
 	}
 
