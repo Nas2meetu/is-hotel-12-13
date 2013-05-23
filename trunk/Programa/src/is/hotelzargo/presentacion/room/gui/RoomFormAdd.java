@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -38,9 +39,9 @@ public class RoomFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 
 		/* Labels */
-		numBedsLabel = new JLabel("Numero de camas 			");
-		numRoomLabel = new JLabel("Numero de habitacion		");
-		priceLabel = new JLabel("Precio 					");
+		numBedsLabel = new JLabel("Numero de camas");
+		numRoomLabel = new JLabel("Numero de habitacion");
+		priceLabel   = new JLabel("Precio");
 
 		/* text */
 		numBedsText = new JTextField(20);
@@ -89,9 +90,27 @@ public class RoomFormAdd extends JDialog {
 
 		RoomTransfer t;
 
-		t = new RoomTransfer(-1, Integer.parseInt(numBedsText.getText()),
-				Integer.parseInt(numRoomText.getText()),
-				Integer.parseInt(priceText.getText()));
+		int numBeds,numRoom;
+		float price;
+		try{
+			numBeds = Integer.valueOf(numBedsText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+numBedsLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		try{
+			numRoom = Integer.valueOf(numRoomText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+numRoomLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		try{
+			price = Float.valueOf(priceText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+priceLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		t = new RoomTransfer(-1, numBeds,numRoom,price);
 
 		Controller.getInstance().event(Event.ADD_ROOM, t, null);
 	}
