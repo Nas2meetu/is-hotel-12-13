@@ -55,7 +55,7 @@ public class FacadeImp implements Facade {
 	}
 
 	@Override
-	public void addBook(Vector<String> t) throws BookAppServicesException {
+	public void addBook(BookTransfer t) throws BookAppServicesException {
 		BusinessFactory fac = BusinessFactory.getInstance();
 		BookAppServices bookAS = fac.getBookAS();
 		bookAS.addBook(t);
