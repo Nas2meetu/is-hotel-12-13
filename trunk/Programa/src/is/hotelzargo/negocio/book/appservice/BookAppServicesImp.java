@@ -16,12 +16,12 @@ import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 public class BookAppServicesImp implements BookAppServices {
 
 	@Override
-	public void addBook(Vector<String> v) throws BookAppServicesException {
+	public void addBook(BookTransfer t) throws BookAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
-		BookTransfer t = obtainParameters(v);
+		
 		
 		//se crea tranfer con los datos ya comprobados
 		//añadir false al final
@@ -40,30 +40,6 @@ public class BookAppServicesImp implements BookAppServices {
 			e.printStackTrace();
 			throw new BookAppServicesException(e.getMessage());
 		}
-		
-	}
-	
-	//aqui miro todos los datos del vector comprobando que sean datos validos
-	//es decir, fechas, numeros...
-	private BookTransfer obtainParameters(Vector<String> v){
-		Vector sol = new Vector();
-		//TODO supongo que la gui me pasa un vector de habitaciones, que
-		//se sacaran con el checkbox multiple que se ha pensado...
-		Vector<Integer> rooms = getRoomsVector(v.get(0));
-		int client = Integer.parseInt(v.get(1));
-		
-		Date checkIn = stringToDate(v.get(2));
-		Date checkOut = stringToDate(v.get(3));
-		
-		float deposit = Float.parseFloat(v.get(4));
-		int numPerson = Integer.parseInt(v.get(5));
-		
-		Vector<ServiceTransfer> services = getServices(v.get(6));
-		
-		BookTransfer b = new BookTransfer(-1, rooms, client, checkIn, checkOut, deposit, numPerson, services, false);
-		
-		
-		return b;
 		
 	}
 	

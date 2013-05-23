@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public interface BookAppServices {
 
-	void addBook(Vector<String> t)throws BookAppServicesException;
+	void addBook(BookTransfer t)throws BookAppServicesException;
 
 	void delBook(int id)throws BookAppServicesException;
 
