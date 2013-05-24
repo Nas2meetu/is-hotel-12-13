@@ -70,8 +70,7 @@ public class ShiftFormList extends JDialog {
 	}
 	
 	private void setText(){
-		System.out.println("en setText");
-		
+		System.out.println("setText");
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
@@ -96,6 +95,8 @@ public class ShiftFormList extends JDialog {
 				list = new JList(text);
 				list.setCellRenderer(renderList);
 				renderPanel.add(list, BorderLayout.CENTER);
+				
+				//this.validate();
 		        //renderPanel.add(list);
 				
 		        //this.pack();
