@@ -35,7 +35,7 @@ public class ServicesFormAdd extends JDialog {
 	
 	public ServicesFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Servicio");
+		this.setTitle("Dar de alta servicio");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

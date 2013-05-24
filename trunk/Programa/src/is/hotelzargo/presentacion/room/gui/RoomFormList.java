@@ -39,7 +39,7 @@ public class RoomFormList extends JDialog {
 	
 	public RoomFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Clientes");
+		this.setTitle("Lista de habitaciones");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

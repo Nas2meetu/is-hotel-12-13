@@ -52,7 +52,7 @@ public class EmployeeFormMod extends JDialog {
 	
 	public EmployeeFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Cliente");
+		this.setTitle("Modificar empleado");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

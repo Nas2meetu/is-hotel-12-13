@@ -38,7 +38,7 @@ public class ClientFormList extends JDialog {
 	
 	public ClientFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Clientes");
+		this.setTitle("Lista de clientes");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

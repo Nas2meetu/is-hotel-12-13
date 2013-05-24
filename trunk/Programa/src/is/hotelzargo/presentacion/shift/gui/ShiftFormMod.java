@@ -42,7 +42,7 @@ public class ShiftFormMod extends JDialog {
 	
 	public ShiftFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Turno");
+		this.setTitle("Modificar turno");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
@@ -66,7 +66,7 @@ public class ShiftFormMod extends JDialog {
 		addListener();
 		
 		/* Paneles */
-		JPanel radioPanel = new JPanel();
+	//	JPanel radioPanel = new JPanel(); TODO ¿que narices hace esto?
 		
 		JPanel idPanel = new JPanel();
 		idPanel.setLayout(new GridLayout(1,2));
@@ -93,8 +93,8 @@ public class ShiftFormMod extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(10, 1, 5, 5));
-		this.add(radioPanel);
+		this.setLayout(new GridLayout(5, 1, 5, 5));
+	//	this.add(radioPanel); 
 		this.add(idPanel);
 		this.add(namePanel);
 		this.add(checkInPanel);

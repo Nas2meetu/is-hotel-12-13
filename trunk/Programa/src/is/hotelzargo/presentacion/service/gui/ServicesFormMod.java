@@ -36,7 +36,7 @@ public class ServicesFormMod extends JDialog {
 	
 	public ServicesFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Servicio");
+		this.setTitle("Modificar servicio");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

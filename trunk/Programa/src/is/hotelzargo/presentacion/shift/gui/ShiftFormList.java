@@ -43,7 +43,7 @@ public class ShiftFormList extends JDialog {
 	
 	public ShiftFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Turnos");
+		this.setTitle("Lista de turnos");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

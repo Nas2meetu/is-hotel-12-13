@@ -39,7 +39,7 @@ public class ShiftFormAdd extends JDialog {
 	
 	public ShiftFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Turno");
+		this.setTitle("Dar de alta turno");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
