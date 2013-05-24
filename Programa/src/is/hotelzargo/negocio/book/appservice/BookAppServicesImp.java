@@ -30,11 +30,21 @@ public class BookAppServicesImp implements BookAppServices {
 			Date dout = stringToDate(out);
 			//TODO si las habitaciones elegidas para la reserva están libres,
 			//entonces se podrá reservar. Esto es si no tiene reservas en esas fechas
-			if (dao.emptyRooms(t.getIdRoom(),din,dout)){
-				dao.createBook(t);
+			if (dao.existsRooms(t.getIdRoom())){
+				if (dao.emptyRooms(t.getIdRoom(),din,dout)){
+					if (dao.existsClient(t.getIdClient())){
+						dao.createBook(t);
+					}
+					else{
+						throw new BookAppServicesException("No es posible crear la reserva, el cliente no existe");
+					}
+				}
+				else{
+					throw new BookAppServicesException("No es posible crear la reserva, tiene habitaciones ocupadas");
+				}
 			}
 			else{
-				throw new BookAppServicesException("No es posible crear la reserva, tiene habitaciones ocupadas");
+				throw new BookAppServicesException("No es posible crear la reserva, alguna habitacion no existe");
 			}
 		} catch (BookIntegrationException e) {
 			throw new BookAppServicesException(e.getMessage());
