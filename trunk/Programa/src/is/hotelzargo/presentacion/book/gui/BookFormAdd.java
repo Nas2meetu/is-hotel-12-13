@@ -188,9 +188,9 @@ public class BookFormAdd extends JDialog {
 		float deposit;
 		
 		try{
-			deposit = Float.valueOf(depositLabel.getText());
+			deposit = Float.valueOf(depositText.getText());
 		}catch(NumberFormatException e){
-			JOptionPane.showMessageDialog(null, "El campo "+depositLabel.getText()+"debe ser numerico");
+			JOptionPane.showMessageDialog(null, "El campo "+depositLabel.getText()+" debe ser numerico");
 			return;
 		}
 		
