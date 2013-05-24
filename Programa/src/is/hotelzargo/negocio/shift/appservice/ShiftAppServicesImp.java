@@ -24,6 +24,9 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		if(checkin.getTime() > checkout.getTime()) 
 			throw new ShiftAppServicesException("La hora de entrada tiene que ser menor que la de salida");
 		
+		if(checkin.getHours() > checkout.getHours()-4)
+			throw new ShiftAppServicesException("Tiene que haber 4 horas de diferencia entre horas");
+		
 		try {
 			if(!dao.searchShift(t.getShift(),checkin,checkout)){
 				dao.createShift(t);
