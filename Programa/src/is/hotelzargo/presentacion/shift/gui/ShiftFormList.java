@@ -58,7 +58,7 @@ public class ShiftFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
-		list = null;
+		list = new JList();
 		
 		addListener();
 		
@@ -78,7 +78,7 @@ public class ShiftFormList extends JDialog {
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
-				
+				DefaultListModel model = new DefaultListModel();
 				String text[] = new String[shiftList.size()];
 				if(shiftList != null){
 					for(int i = 0; i < shiftList.size(); i++){
@@ -88,15 +88,18 @@ public class ShiftFormList extends JDialog {
 								  t.getShift()+System.getProperty("line.separator")+
 								  t.getCheckin()+System.getProperty("line.separator")+
 								  t.getCheckout();
+						model.addElement(text[i]);
 					}
 				}
 				else{
 					text[0] = "No hay turnos";
+					model.addElement(text[0]);
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
 
-				list = new JList(text);
+				//list = new JList(text);
+				list.setModel(model);
 				list.setCellRenderer(renderList);
 				renderPanel.add(list, BorderLayout.CENTER);
 				
