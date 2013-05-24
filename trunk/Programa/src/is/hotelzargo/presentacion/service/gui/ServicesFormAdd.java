@@ -64,7 +64,7 @@ public class ServicesFormAdd extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(9, 1, 5, 5));
+		this.setLayout(new GridLayout(2, 1, 5, 5));
 		this.add(namePanel);
 		this.add(acPanel);
 		
