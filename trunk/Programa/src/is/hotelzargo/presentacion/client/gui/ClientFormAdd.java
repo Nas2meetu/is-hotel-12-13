@@ -46,7 +46,7 @@ public class ClientFormAdd extends JDialog {
 	
 	public ClientFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Cliente");
+		this.setTitle("Dar de alta cliente");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

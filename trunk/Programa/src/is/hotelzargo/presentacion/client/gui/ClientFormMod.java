@@ -48,7 +48,7 @@ public class ClientFormMod extends JDialog {
 	
 	public ClientFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Cliente");
+		this.setTitle("Modificar cliente");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
