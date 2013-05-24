@@ -1,8 +1,5 @@
 package is.hotelzargo.negocio.book.transfer;
 
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
-
-import java.sql.Date;
 import java.util.Vector;
 
 public class BookTransfer {

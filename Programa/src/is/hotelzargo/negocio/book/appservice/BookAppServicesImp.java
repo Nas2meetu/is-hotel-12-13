@@ -22,9 +22,15 @@ public class BookAppServicesImp implements BookAppServices {
 		BookDAO dao = fac.getBookDAO();
 		
 		try {
+			
+			String in = t.getCheckIn();
+			String out = t.getCheckOut();
+			
+			Date din = stringToDate(in);
+			Date dout = stringToDate(out);
 			//TODO si las habitaciones elegidas para la reserva están libres,
-			//entonces se podrá reservar
-			if (dao.emptyRooms(t.getIdRoom())){
+			//entonces se podrá reservar. Esto es si no tiene reservas en esas fechas
+			if (dao.emptyRooms(t.getIdRoom(),din,dout)){
 				dao.createBook(t);
 			}
 			else{

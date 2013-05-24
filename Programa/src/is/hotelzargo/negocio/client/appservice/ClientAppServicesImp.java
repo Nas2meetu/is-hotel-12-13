@@ -23,7 +23,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			checkDataIndividual(t);
 			
 			try {
-				if(!dao.searchClient(((ClientTransfer) t).getID())){
+				if(!dao.searchClientByDni(((ClientTransferIndividual) t).getDNI())){
 					dao.createClientIndividual(t);
 				}else{
 					throw new ClientAppServicesException("El usuario ya existe");
@@ -35,7 +35,7 @@ public class ClientAppServicesImp implements ClientAppServices {
 			checkDataCompany(t);
 			
 			try {
-				if(!dao.searchClient(((ClientTransfer) t).getID())){
+				if(!dao.searchClientByCif(((ClientTransferCompany) t).getCIF())){
 					dao.createClientCompany(t);
 				}else{
 					throw new ClientAppServicesException("El usuario company ya existe");

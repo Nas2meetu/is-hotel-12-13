@@ -459,10 +459,40 @@ public class BookDAOImp implements BookDAO {
 	}
 	
 	//TODO devuelve true si todas las habitaciones del vector se encuentran desocupadas
-	//false en caso contrario
-	public boolean emptyRooms(Vector<Integer> rooms) throws BookIntegrationException{
+	//entre esas fechas,false en caso contrario
+	public boolean emptyRooms(Vector<Integer> rooms,Date in, Date out) throws BookIntegrationException{
 		
-		return true;
+		//se buscan reservas en ese intervalo de fechas(ocupadas)
+		initDataBase();
+
+		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
+		String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+in+"' AND checkIn<='"+out+"') OR (checkOut>='"+in+"' AND checkOut<='"+out+"');";
+		try {
+			rs = statement.executeQuery(QueryString);
+			Statement statRoom = connection.createStatement() ;
+			  while (rs.next()) {				  				  
+					int idBook = rs.getInt(1);
+						//cojo las habitaciones de esa reserva
+						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
+						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
+						while(rsRooms.next()){
+							int room = rsRooms.getInt(1);
+							if (rooms.contains(room)){
+								return false;
+							}
+						}
+					
+			  }
+			  
+			  return true;
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al buscar habitaciones libres en cierta fecha");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	
 		
 	}
 

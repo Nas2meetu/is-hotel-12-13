@@ -220,14 +220,24 @@ public class RoomDAOImp implements RoomDAO {
 	@Override
 	public boolean checkNumRoom(int id, int numRoom)
 			throws RoomIntegrationException {
+		
 		initDataBase();
-		String QueryString = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"' AND id='"+id+"');";
+		String QueryString = "SELECT id FROM Rooms WHERE room_number='"+numRoom+"');";
 		  try {
 			rs = statement.executeQuery(QueryString);			
-			//si hay alguna fila, quiere decir que esta modificando su propia habitacion
-			  while (rs.next()) {
-				  	//aparece en su propia fila, por lo que puede cambiarla sin problemas
-					return false;				  
+			//si hay alguna fila, la habitacion ya existe, pero hayq ue ver que no exista en otra
+			//zona de la tabla
+			  if (rs.next()) {
+				  	//hay que mirar si aparece en su propia fila, por lo que puede cambiarla sin problemas
+				  	//en caso contrario no puede
+				  	int idRoom = rs.getInt(1);
+				  
+				  	if (id == idRoom){
+				  		return false;
+				  	}else{
+				  		return true;
+				  	}
+				  					  
 			  }
 			
 		  } catch (SQLException e) {
@@ -237,25 +247,8 @@ public class RoomDAOImp implements RoomDAO {
 			  closeConnectionDataBase();
 		  }
 		  
-		  //si llega aqui hay que mirar que no este ya esa habitacion
-		  initDataBase();
-			String QueryRoom = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"');";
-			  try {
-				rs = statement.executeQuery(QueryRoom);			
-				//si hay alguna fila
-				  while (rs.next()) {
-					  //no se puede modificar a ese numero de habitacion, porque ya existe
-						return true;				  
-				  }
-				
-			  } catch (SQLException e) {
-				e.getMessage();
-				throw new RoomIntegrationException("Problema al checkear habitación ");				
-			  }finally{
-				  closeConnectionDataBase();
-			  }
-		
-			 return false;
+		  return true;
+		 
 	}
 	
 	private void initDataBase() throws RoomIntegrationException {

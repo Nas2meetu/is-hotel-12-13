@@ -69,14 +69,13 @@ public class RoomAppServicesImp implements RoomAppServices {
 		checkData(t);
 		
 		try {
-			if (dao.searchRoomByID(t.getId())){
-				//TODO repensar
-				//if (!dao.checkNumRoom(t.getId(),t.getnumRoom())){
+			if (dao.searchRoomByID(t.getId())){				
+				if (!dao.checkNumRoom(t.getId(),t.getnumRoom())){
 					dao.updateRoom(t);
-				//}
-				//else{
-				//	throw new RoomAppServicesException ("la habitacion a modificar intenta cambiar a un número de habitación ya existente");
-				//}
+				}
+				else{
+					throw new RoomAppServicesException ("la habitacion a modificar intenta cambiar a un número de habitación ya existente");
+				}
 			}
 			else{
 				throw new RoomAppServicesException ("la habitacion a modificar no existe");
