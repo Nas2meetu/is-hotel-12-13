@@ -4,6 +4,7 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.awt.event.WindowListener;
 import java.sql.Time;
 import java.util.Vector;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -43,7 +45,7 @@ public class ShiftFormAdd extends JDialog {
 		
 		/* Labels */
 		nameLabel       = new JLabel("Nombre");
-		example 		= new JLabel("hh:mm   09:30");
+		example 		= new JLabel("Ejemplo: hh:mm   09:30");
 		checkInLabel    = new JLabel("Hora entrada");
 		checkOutLabel   = new JLabel("Hora salida");
 
@@ -61,7 +63,7 @@ public class ShiftFormAdd extends JDialog {
 		addListener();
 		
 		/* Paneles */
-		JPanel radioPanel = new JPanel();
+//		JPanel radioPanel = new JPanel();
 		
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridLayout(1, 1));
@@ -70,6 +72,7 @@ public class ShiftFormAdd extends JDialog {
 		
 		JPanel examplePanel = new JPanel();
 		examplePanel.setLayout(new GridLayout(1, 2));
+		examplePanel.add(Box.createVerticalGlue());
 		examplePanel.add(example);
 		
 		JPanel checkInPanel = new JPanel();
@@ -87,8 +90,8 @@ public class ShiftFormAdd extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(9, 1, 5, 5));
-		this.add(radioPanel);
+		this.setLayout(new GridLayout(5, 1, 5, 5));
+//		this.add(radioPanel);
 		this.add(namePanel);
 		this.add(examplePanel);
 		this.add(checkInPanel);

@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -64,11 +65,13 @@ public class BookFormFind extends JDialog {
 		
 		JPanel checkinInfoPanel = new JPanel();
 		checkinInfoPanel.setLayout(new GridLayout(1,2));
+		checkinInfoPanel.add(Box.createVerticalGlue());
 		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
 		checkinInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
 		
 		JPanel checkoutInfoPanel = new JPanel();
 		checkoutInfoPanel.setLayout(new GridLayout(1,2));
+		checkoutInfoPanel.add(Box.createVerticalGlue());
 		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
 		checkoutInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
 		

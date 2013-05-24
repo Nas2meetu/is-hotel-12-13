@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -69,7 +70,7 @@ public class BookFormAdd extends JDialog {
 		checkInLabel     	= new JLabel("Fecha entrada");
 		checkOutLabel 		= new JLabel("Fecha salida");
 		depositLabel    	= new JLabel("Fianza");
-		numpersonLabel   	= new JLabel("Número de personas");
+		numpersonLabel   	= new JLabel("Numero de personas");
 		servicesLabel    	= new JLabel("Servicios");
 		
 		/* text */
@@ -132,36 +133,43 @@ public class BookFormAdd extends JDialog {
 		/* paneles de labels de info */
 		JPanel roomsInfoPanel = new JPanel();
 		roomsInfoPanel.setLayout(new GridLayout(1,2));
+		roomsInfoPanel.add(Box.createVerticalGlue());
 		//roomsInfoPanel.add(new JLabel("Numeros separados por '-'"));
 		roomsInfoPanel.add(new JLabel("Ejemplo: 123-456-1253"));
 		
 		JPanel clientInfoPanel = new JPanel();
 		clientInfoPanel.setLayout(new GridLayout(1,2));
+		clientInfoPanel.add(Box.createVerticalGlue());
 		//clientInfoPanel.add(new JLabel("Numero entero"));
 		clientInfoPanel.add(new JLabel("Ejemplo: 143"));
 		
 		JPanel checkinInfoPanel = new JPanel();
 		checkinInfoPanel.setLayout(new GridLayout(1,2));
+		checkinInfoPanel.add(Box.createVerticalGlue());
 		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
 		checkinInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
 		
 		JPanel checkoutInfoPanel = new JPanel();
 		checkoutInfoPanel.setLayout(new GridLayout(1,2));
+		checkoutInfoPanel.add(Box.createVerticalGlue());
 		//checkoutInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
 		checkoutInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
 		
 		JPanel depositInfoPanel = new JPanel();
 		depositInfoPanel.setLayout(new GridLayout(1,2));
+		depositInfoPanel.add(Box.createVerticalGlue());
 		//depositInfoPanel.add(new JLabel("Numero real"));
 		depositInfoPanel.add(new JLabel("Ejemplo: 50.0"));
 		
 		JPanel numpersonInfoPanel = new JPanel();
 		numpersonInfoPanel.setLayout(new GridLayout(1,2));
+		numpersonInfoPanel.add(Box.createVerticalGlue());
 		//numpersonInfoPanel.add(new JLabel("Numero entero"));
 		numpersonInfoPanel.add(new JLabel("Ejemplo: 4"));
 		
 		JPanel servicesInfoPanel = new JPanel();
 		servicesInfoPanel.setLayout(new GridLayout(1,2));
+		servicesInfoPanel.add(Box.createVerticalGlue());
 		//servicesInfoPanel.add(new JLabel("Numeros separados por '-'"));
 		servicesInfoPanel.add(new JLabel("Ejemplo: 43-2-213"));
 		
