@@ -8,6 +8,7 @@ import is.hotelzargo.presentacion.controller.Event;
 import is.hotelzargo.presentacion.maingui.RenderList;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,8 @@ public class ShiftFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list = null;
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -71,6 +74,7 @@ public class ShiftFormList extends JDialog {
 	
 	private void setText(){
 		System.out.println("setText");
+		
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
