@@ -93,14 +93,45 @@ public class BookAppServicesImp implements BookAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();
 		
+		
+		
 		try {
-			//TODO conflicto de fechas se comprueba antes de llegar aqui? NO, se comprueba aqui
-			if (dao.searchBook(t.getIdBook())){
-				dao.updateBook(t);
+			
+			String in = t.getCheckIn();
+			String out = t.getCheckOut();
+			
+			Date din = stringToDate(in);
+			Date dout = stringToDate(out);
+			
+			//TODO comprobar a saco gente
+			if (dao.searchBook(t.getIdBook())){				
+				if (dao.existsServices(t.getServices())){
+					if (dao.existsRooms(t.getIdRoom())){
+						if (dao.emptyRooms(t.getIdRoom(),din,dout)){
+							if (dao.existsClient(t.getIdClient())){
+								dao.updateBook(t);
+							}
+							else{
+								throw new BookAppServicesException("No es posible modificar la reserva, el cliente no existe");
+							}
+						}
+						else{
+							throw new BookAppServicesException("No es posible modificar la reserva, tiene habitaciones ocupadas");
+						}
+					}
+					else{
+						throw new BookAppServicesException("No es posible modificar la reserva, alguna habitacion no existe");
+					}
+				}
+				else{
+					throw new BookAppServicesException("No es posible modificar la reserva, alguna servicio no existe");
+				}				
 			}
 			else{
 				throw new BookAppServicesException("La reserva a modificar no existe");
 			}
+			
+			
 		} catch (BookIntegrationException e) {
 			throw new BookAppServicesException(e.getMessage());
 		}
@@ -165,7 +196,7 @@ public class BookAppServicesImp implements BookAppServices {
 	/*
 	private Vector<ServiceTransfer> getServices(String s){
 		Vector<ServiceTransfer> sol = new Vector<ServiceTransfer>();
-		//TODO no se como me llegan aqui los servicios, intuyo que seran
+		//no se como me llegan aqui los servicios, intuyo que seran
 		//ids de servicios y hay que buscarlos en la DB?
 		ServiceTransfer st = new ServiceTransfer(1, "cosa");
 		sol.add(st);
@@ -176,7 +207,7 @@ public class BookAppServicesImp implements BookAppServices {
 		Vector<Integer> sol = new Vector<Integer>();
 		sol.add(2);
 		sol.add(3);
-		//TODO obtener habitaciones
+		//obtener habitaciones
 		return sol;
 	}
 	

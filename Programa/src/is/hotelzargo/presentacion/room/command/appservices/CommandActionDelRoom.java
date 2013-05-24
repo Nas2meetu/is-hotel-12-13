@@ -22,7 +22,7 @@ public class CommandActionDelRoom implements Command {
 		
 		try {
 			facade.delRoom(this.id);
-			Controller.getInstance().event(Event.MESSAGE,"Habitacion eliminado",null);
+			Controller.getInstance().event(Event.MESSAGE,"Habitacion eliminada",null);
 		} catch (RoomAppServicesException e) {
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
