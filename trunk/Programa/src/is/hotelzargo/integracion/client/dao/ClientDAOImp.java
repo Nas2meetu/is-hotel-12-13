@@ -1,6 +1,5 @@
 package is.hotelzargo.integracion.client.dao;
 
-import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.exception.ClientIntegrationException;
 import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
@@ -371,7 +370,7 @@ public class ClientDAOImp implements ClientDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);
 			//si existe, solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  return true;
 			  }
 			  
@@ -393,7 +392,7 @@ public class ClientDAOImp implements ClientDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);
 			//si existe, solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  return true;
 			  }
 			  
@@ -406,6 +405,54 @@ public class ClientDAOImp implements ClientDAO {
 			  closeConnectionDataBase();
 		  }
 		
+	}
+	
+	@Override
+	public boolean searchClientByDni(String dni)
+			throws ClientIntegrationException {
+		
+		initDataBase();
+		
+		String QueryString = "SELECT * FROM ClientIndividual WHERE dni='"+dni+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);
+			//si existe, solo me devolvera 1 fila
+			  if (rs.next()) {
+				  return true;
+			  }
+			  
+			  return false;
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new ClientIntegrationException("Problema al buscar en tabla ClientIndividual");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	}
+	
+	@Override
+	public boolean searchClientByCif(String cif)
+			throws ClientIntegrationException {
+		
+		initDataBase();
+		
+		String QueryString = "SELECT * FROM ClientCompany WHERE cif='"+cif+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);
+			//si existe, solo me devolvera 1 fila
+			  if (rs.next()) {
+				  return true;
+			  }
+			  
+			 return false;
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new ClientIntegrationException("Problema al buscar en tabla ClientCompany");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
 	}
 	
 	@Override

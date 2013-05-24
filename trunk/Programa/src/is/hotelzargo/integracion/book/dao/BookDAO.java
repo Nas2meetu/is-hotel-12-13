@@ -24,5 +24,5 @@ public interface BookDAO {
 	
 	public Vector<Integer> findBook(Date checkIn,Date checkOut) throws BookIntegrationException;
 
-	public boolean emptyRooms(Vector<Integer> idRoom) throws BookIntegrationException;
+	public boolean emptyRooms(Vector<Integer> idRoom,Date in,Date out) throws BookIntegrationException;
 }

@@ -21,6 +21,10 @@ public interface ClientDAO {
 	
 	public boolean searchClient(int id) throws ClientIntegrationException;
 	
+	public boolean searchClientByDni(String dni) throws ClientIntegrationException;
+	
+	public boolean searchClientByCif(String cif) throws ClientIntegrationException;
+	
 	public Vector<ClientTransfer> listClient() throws ClientIntegrationException;
 
 	public boolean allBooksConfirmed(int id) throws ClientIntegrationException;
