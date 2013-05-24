@@ -29,11 +29,11 @@ public class RoomFormDel extends JDialog {
 	
 	public RoomFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de baja habitación");
+		this.setTitle("Dar de baja habitacion");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		idLabel = new JLabel("Número de la habitación a eliminar");
+		idLabel = new JLabel("Numero de la habitacion a eliminar");
 		
 		idText = new JTextField(10);
 		

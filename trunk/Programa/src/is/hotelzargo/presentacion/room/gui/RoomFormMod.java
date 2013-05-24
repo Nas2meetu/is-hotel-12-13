@@ -93,7 +93,7 @@ public class RoomFormMod extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 
-		this.setLayout(new GridLayout(4, 1, 5, 5));
+		this.setLayout(new GridLayout(5, 1, 5, 5));
 		this.add(idPanel);
 		this.add(numBedsPanel);
 		this.add(numRoomPanel);

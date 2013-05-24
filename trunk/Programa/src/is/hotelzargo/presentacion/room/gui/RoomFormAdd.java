@@ -77,7 +77,7 @@ public class RoomFormAdd extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 
-		this.setLayout(new GridLayout(3, 1, 5, 5));
+		this.setLayout(new GridLayout(4, 1, 5, 5));
 		this.add(numBedsPanel);
 		this.add(numRoomPanel);
 		this.add(pricePanel);
