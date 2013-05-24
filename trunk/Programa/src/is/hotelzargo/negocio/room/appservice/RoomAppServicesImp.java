@@ -36,7 +36,12 @@ public class RoomAppServicesImp implements RoomAppServices {
 		
 		try {
 			if (dao.searchRoomByID(id)){
-				dao.deleteRoom(id);
+				if (!dao.existsBooksWithRoom(id)){
+					dao.deleteRoom(id);
+				}
+				else{
+					throw new RoomAppServicesException("La habitación a eliminar tiene reservas pendientes");
+				}
 			}
 			else{
 				throw new RoomAppServicesException("El ID de la habitación a eliminar no existe");

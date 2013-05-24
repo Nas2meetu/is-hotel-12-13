@@ -1,13 +1,17 @@
 package is.hotelzargo.integracion.room.dao;
 
+import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class RoomDAOImp implements RoomDAO {
@@ -34,7 +38,6 @@ public class RoomDAOImp implements RoomDAO {
 					"('"+room_number+"', '"+price+"', '"+bed_number+"');" );					
 			
 		} catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al crear habitación");			
 		}finally{
 			closeConnectionDataBase();
@@ -53,7 +56,6 @@ public class RoomDAOImp implements RoomDAO {
 			statement.executeUpdate(QueryString);			
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al eliminar  habitación ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -70,7 +72,7 @@ public class RoomDAOImp implements RoomDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  
 				  	int room_number = rs.getInt(2);
 				  	float price = rs.getFloat(3);
@@ -81,7 +83,6 @@ public class RoomDAOImp implements RoomDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al buscar habitacion ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -115,7 +116,6 @@ public class RoomDAOImp implements RoomDAO {
 			  return rooms;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al referenciar listado habitaciones");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -156,12 +156,11 @@ public class RoomDAOImp implements RoomDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al buscar habitación ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -179,12 +178,11 @@ public class RoomDAOImp implements RoomDAO {
 				  try {
 					rs = statement.executeQuery(QueryString);			
 					//solo me devolvera 1 fila
-					  while (rs.next()) {				  					
+					  if (rs.next()) {				  					
 							return true;				  
 					  }
 					
 				  } catch (SQLException e) {
-					e.getMessage();
 					throw new RoomIntegrationException("Problema al buscar habitación ");				
 				  }finally{
 					  closeConnectionDataBase();
@@ -293,6 +291,51 @@ public class RoomDAOImp implements RoomDAO {
 			//e.printStackTrace();
 			throw new RoomIntegrationException("Error al desconectar BBDD");
 		}
+	}
+	//sirve para ver si hay reservas pendientes con la habitacion idRoom,controla que no
+	//se elimine una habitacion con una reserva futura ya establecida
+	//TODO revisar funcionamiento
+	@Override
+	public boolean existsBooksWithRoom(int idRoom)
+			throws RoomIntegrationException {
+		
+		initDataBase();
+		Date date = null;
+		String QueryString = "SELECT idBook FROM Rooms_books WHERE idRoom='"+idRoom+"');";
+		String currentTime = "SELECT CURDATE();";
+		  try {
+			rs = statement.executeQuery(currentTime);			
+
+			  if (rs.next()) {
+				  date = rs.getDate(1);
+				  System.out.println(date.toString());
+			  }
+				  	
+			  ResultSet rsTime = statement.executeQuery(QueryString);
+			  while (rsTime.next()) {
+				  
+				  int idBook = rs.getInt(1);				  	
+				  	//ahora hay que comprobar que no haya reservas futuras con esa habitacion
+				  	//comparo fecha del sistema con checkOut
+				  	String QueryInTime = "SELECT * FROM Books WHERE idBooks='"+idBook+"' AND checkOut>='"+date+"' );";
+				  	ResultSet rsFound = statement.executeQuery(QueryInTime);
+				  	if (rsFound.next()) {
+				  		//si devuelve alguna fila entonces existe alguna reserva futura
+				  		//que usara esa habitacion, por lo tanto no se puede eliminar
+				  		return true;
+				  	}
+				  					  
+			  }
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new RoomIntegrationException("Problema al checkear habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		  
+		  return false;
+		
 	}
 
 }

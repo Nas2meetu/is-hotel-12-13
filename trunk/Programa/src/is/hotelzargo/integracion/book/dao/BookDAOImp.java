@@ -1,8 +1,6 @@
 package is.hotelzargo.integracion.book.dao;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
-import is.hotelzargo.integracion.exception.ClientIntegrationException;
-import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import java.sql.Connection;
@@ -354,12 +352,10 @@ public class BookDAOImp implements BookDAO {
 		String QueryString = "SELECT * FROM Books;";
 		try{			
 			rs = statement.executeQuery(QueryString);			
-			  while (rs.next()) {
-				  
+			  while (rs.next()) {				  
 					int id = rs.getInt(1);
 					BookTransfer book = getBook(id);
-					books.add(book);
-				  
+					books.add(book);				  
 			  }	
 			  
 			  return books;
@@ -459,7 +455,7 @@ public class BookDAOImp implements BookDAO {
 		}
 	}
 	
-	//TODO devuelve true si todas las habitaciones del vector se encuentran desocupadas
+	//TODO COMPROBAR devuelve true si todas las habitaciones del vector se encuentran desocupadas
 	//entre esas fechas,false en caso contrario
 	public boolean emptyRooms(Vector<Integer> rooms,Date in, Date out) throws BookIntegrationException{
 		
@@ -473,6 +469,7 @@ public class BookDAOImp implements BookDAO {
 			Statement statRoom = connection.createStatement() ;
 			  while (rs.next()) {				  				  
 					int idBook = rs.getInt(1);
+						System.out.println("conflicto con reserva "+idBook);
 						//cojo las habitaciones de esa reserva
 						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
 						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);

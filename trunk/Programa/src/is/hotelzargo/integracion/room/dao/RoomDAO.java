@@ -24,5 +24,7 @@ public interface RoomDAO {
 	public boolean searchRoomByRoomID(int id) throws RoomIntegrationException;
 
 	public boolean checkNumRoom(int id, int numRoom) throws RoomIntegrationException;
+
+	public boolean existsBooksWithRoom(int idRoom) throws RoomIntegrationException;
 	
 }
