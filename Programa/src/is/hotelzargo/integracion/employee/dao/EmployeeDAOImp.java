@@ -343,7 +343,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
         
      // Establecemos la conexión con la base de datos.
         try {
-        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", null);
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new EmployeeIntegrationException("Conexion rechazada");
