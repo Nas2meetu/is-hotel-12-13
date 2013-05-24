@@ -83,12 +83,12 @@ public class BookFormList extends JDialog {
 	}
 	
 	private void setText(){
-		Vector<BookTransfer> bookList = new Vector<BookTransfer>(); 
-				//(Vector<BookTransfer>) Controller.getInstance().event(Event.LIST_BOOK,null,null);
+		Vector<BookTransfer> bookList = //new Vector<BookTransfer>(); 
+				(Vector<BookTransfer>) Controller.getInstance().event(Event.LIST_BOOK,null,null);
 				
-				for(int j = 0; j < 10 ; j++){
+				/*for(int j = 0; j < 10 ; j++){
 					bookList.add(createT());
-				}
+				}*/
 				
 				String text[] = new String[bookList.size()];
 				if(bookList != null){

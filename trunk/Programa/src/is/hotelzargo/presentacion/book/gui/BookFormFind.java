@@ -62,9 +62,21 @@ public class BookFormFind extends JDialog {
 		panelButtons.add(acceptButton);
 		panelButtons.add(cancelButton);
 		
-		this.setLayout(new GridLayout(3,1));
+		JPanel checkinInfoPanel = new JPanel();
+		checkinInfoPanel.setLayout(new GridLayout(1,2));
+		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
+		checkinInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
+		
+		JPanel checkoutInfoPanel = new JPanel();
+		checkoutInfoPanel.setLayout(new GridLayout(1,2));
+		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
+		checkoutInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
+		
+		this.setLayout(new GridLayout(5,1));
 		this.add(panelIn);
+		this.add(checkinInfoPanel);
 		this.add(panelOut);
+		this.add(checkoutInfoPanel);
 		this.add(panelButtons);
 		
 		this.pack();
