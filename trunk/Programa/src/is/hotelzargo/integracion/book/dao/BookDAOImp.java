@@ -1,8 +1,9 @@
 package is.hotelzargo.integracion.book.dao;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
+import is.hotelzargo.integracion.exception.ClientIntegrationException;
+import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
-import is.hotelzargo.negocio.exception.BookAppServicesException;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import java.sql.Connection;
 import java.sql.Date;
@@ -546,6 +547,111 @@ public class BookDAOImp implements BookDAO {
 			throw new BookIntegrationException("El formato de la fecha no es correcto");
 		}
 		return date;
+		
+	}
+
+	@Override
+	public boolean existsClient(int idClient) throws BookIntegrationException {
+		
+		if (searchClient(idClient)){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
+	
+
+	private boolean searchClient(int id) throws BookIntegrationException {
+		
+		//Se ha decidido usar ID unico para las dos tablas, así que este ID
+		//puede estar en clientes individuales o en company, se busca en una tabla
+		//y luego en otra
+		if (searchIndividual(id)){
+			return true;
+		}
+		else if (searchCompany(id)){
+			return true;
+		}
+		else{
+			return false;
+		}
+				
+	}
+	
+	private boolean searchIndividual(int id) throws BookIntegrationException{
+		
+		initDataBase();
+		
+		String QueryString = "SELECT * FROM ClientIndividual WHERE id='"+id+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);
+			//si existe, solo me devolvera 1 fila
+			  if (rs.next()) {
+				  return true;
+			  }
+			  
+			  return false;
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new BookIntegrationException("Problema al buscar en tabla ClientIndividual");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+	}
+
+	private boolean searchCompany(int id) throws BookIntegrationException {
+		
+		initDataBase();
+		
+		String QueryString = "SELECT * FROM ClientCompany WHERE id='"+id+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);
+			//si existe, solo me devolvera 1 fila
+			  if (rs.next()) {
+				  return true;
+			  }
+			  
+			 return false;
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new BookIntegrationException("Problema al buscar en tabla ClientCompany");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		
+	}
+
+	@Override
+	public boolean existsRooms(Vector<Integer> idRoom)
+			throws BookIntegrationException {
+		
+		int n = 0;
+		initDataBase();
+		// Se buscan las habitaciones en la DB
+		String QueryString = "SELECT room_number FROM Rooms;";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {
+				  	n = rs.getInt(1);
+				  	//si cierta habitacion no existe, devuelve falso
+				  	if (!idRoom.contains(n)){
+				  		return false;
+				  	}
+			  }
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al buscar habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		
+		return false;
 		
 	}
 

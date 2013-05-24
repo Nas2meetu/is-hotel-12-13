@@ -202,12 +202,11 @@ public class RoomDAOImp implements RoomDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al buscar habitación ");				
 		  }finally{
 			  closeConnectionDataBase();
