@@ -26,6 +26,7 @@ public class ShiftFormAdd extends JDialog {
 	
 	private JLabel nameLabel;
 	private JLabel example;
+	private JLabel example2;
 	private JLabel checkInLabel;
 	private JLabel checkOutLabel;
 
@@ -46,6 +47,7 @@ public class ShiftFormAdd extends JDialog {
 		/* Labels */
 		nameLabel       = new JLabel("Nombre");
 		example 		= new JLabel("Ejemplo: hh:mm   09:30");
+		example2 		= new JLabel("Ejemplo: hh:mm   11:30");
 		checkInLabel    = new JLabel("Hora entrada");
 		checkOutLabel   = new JLabel("Hora salida");
 
@@ -70,32 +72,39 @@ public class ShiftFormAdd extends JDialog {
 		namePanel.add(nameLabel);
 		namePanel.add(nameText);
 		
-		JPanel examplePanel = new JPanel();
-		examplePanel.setLayout(new GridLayout(1, 2));
-		examplePanel.add(Box.createVerticalGlue());
-		examplePanel.add(example);
 		
 		JPanel checkInPanel = new JPanel();
 		checkInPanel.setLayout(new GridLayout(1, 2));
 		checkInPanel.add(checkInLabel);
 		checkInPanel.add(checkInText);
 		
+		JPanel examplePanel = new JPanel();
+		examplePanel.setLayout(new GridLayout(1, 2));
+		examplePanel.add(Box.createVerticalGlue());
+		examplePanel.add(example);
+		
 		JPanel checkOutPanel = new JPanel();
 		checkOutPanel.setLayout(new GridLayout(1, 2));
 		checkOutPanel.add(checkOutLabel);
 		checkOutPanel.add(checkOutText);
+		
+		JPanel examplePanel2 = new JPanel();
+		examplePanel2.setLayout(new GridLayout(1, 2));
+		examplePanel2.add(Box.createVerticalGlue());
+		examplePanel2.add(example2);
 		
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(5, 1, 5, 5));
+		this.setLayout(new GridLayout(6, 1, 5, 5));
 //		this.add(radioPanel);
 		this.add(namePanel);
-		this.add(examplePanel);
 		this.add(checkInPanel);
+		this.add(examplePanel);
 		this.add(checkOutPanel);
+		this.add(examplePanel2);
 		this.add(acPanel);
 		
 		this.pack();
