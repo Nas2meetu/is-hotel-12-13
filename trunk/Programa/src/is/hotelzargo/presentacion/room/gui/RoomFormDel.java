@@ -29,11 +29,11 @@ public class RoomFormDel extends JDialog {
 	
 	public RoomFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de baja cliente");
+		this.setTitle("Dar de baja habitación");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		idLabel = new JLabel("ID del cliente");
+		idLabel = new JLabel("Número de la habitación a eliminar");
 		
 		idText = new JTextField(10);
 		
@@ -73,7 +73,7 @@ public class RoomFormDel extends JDialog {
 			JOptionPane.showMessageDialog(null, "El campo "+idLabel.getText()+" debe ser un numero entero");
 			return;
 		}
-		Controller.getInstance().event(Event.DELETE_CLIENT,id,null);
+		Controller.getInstance().event(Event.DELETE_ROOM,id,null);
 	}
 	
 	private void addListener(){

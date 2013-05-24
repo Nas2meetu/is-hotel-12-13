@@ -60,7 +60,7 @@ public class RoomDAOImp implements RoomDAO {
 		  }
 						
 	}
-
+	//se trabaja con el numero de habitacion, que suponemos unico
 	@Override
 	public RoomTransfer getRoom(int id) throws RoomIntegrationException {
 		
@@ -191,6 +191,71 @@ public class RoomDAOImp implements RoomDAO {
 				  }
 				
 				return false;
+	}
+	
+	@Override
+	public boolean searchRoomByRoomID(int id) throws RoomIntegrationException{
+		
+		initDataBase();
+		// Se busca habitacion llamadas a la BBDD
+		String QueryString = "SELECT * FROM Rooms WHERE room_number='"+id+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {				  					
+					return true;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al buscar habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		
+		return false;
+	}
+	
+	//comprueba que el numero de habitacion modificado no aparece en otra fila
+	@Override
+	public boolean checkNumRoom(int id, int numRoom)
+			throws RoomIntegrationException {
+		initDataBase();
+		String QueryString = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"' AND id='"+id+"');";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//si hay alguna fila, quiere decir que esta modificando su propia habitacion
+			  while (rs.next()) {
+				  	//aparece en su propia fila, por lo que puede cambiarla sin problemas
+					return false;				  
+			  }
+			
+		  } catch (SQLException e) {
+			e.getMessage();
+			throw new RoomIntegrationException("Problema al checkear habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		  
+		  //si llega aqui hay que mirar que no este ya esa habitacion
+		  initDataBase();
+			String QueryRoom = "SELECT * FROM Rooms WHERE room_number='"+numRoom+"');";
+			  try {
+				rs = statement.executeQuery(QueryRoom);			
+				//si hay alguna fila
+				  while (rs.next()) {
+					  //no se puede modificar a ese numero de habitacion, porque ya existe
+						return true;				  
+				  }
+				
+			  } catch (SQLException e) {
+				e.getMessage();
+				throw new RoomIntegrationException("Problema al checkear habitación ");				
+			  }finally{
+				  closeConnectionDataBase();
+			  }
+		
+			 return false;
 	}
 	
 	private void initDataBase() throws RoomIntegrationException {

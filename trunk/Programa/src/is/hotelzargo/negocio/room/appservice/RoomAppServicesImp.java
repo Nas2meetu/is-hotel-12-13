@@ -18,7 +18,7 @@ public class RoomAppServicesImp implements RoomAppServices {
 		checkData (t);
 		
 		try {
-			if (!dao.searchRoom (t.getnumRoom(), t.getnumBeds(), t.getPrice())) {
+			if (!dao.searchRoomByRoomID (t.getnumRoom())) {
 				dao.createRoom(t);
 			}
 			else  
@@ -66,9 +66,17 @@ public class RoomAppServicesImp implements RoomAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		RoomDAO dao = fac.getRoomDAO();
 		
+		checkData(t);
+		
 		try {
 			if (dao.searchRoomByID(t.getId())){
-				dao.updateRoom(t);
+				//TODO repensar
+				//if (!dao.checkNumRoom(t.getId(),t.getnumRoom())){
+					dao.updateRoom(t);
+				//}
+				//else{
+				//	throw new RoomAppServicesException ("la habitacion a modificar intenta cambiar a un número de habitación ya existente");
+				//}
 			}
 			else{
 				throw new RoomAppServicesException ("la habitacion a modificar no existe");

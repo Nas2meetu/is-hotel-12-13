@@ -3,9 +3,7 @@ package is.hotelzargo.integracion.room.dao;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
-import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 public interface RoomDAO {
 
@@ -22,4 +20,9 @@ public interface RoomDAO {
 	public boolean searchRoom(int numBeds, int numRoom, float price) throws RoomIntegrationException;
 	
 	public boolean searchRoomByID(int id) throws RoomIntegrationException;
+	
+	public boolean searchRoomByRoomID(int id) throws RoomIntegrationException;
+
+	public boolean checkNumRoom(int id, int numRoom) throws RoomIntegrationException;
+	
 }
