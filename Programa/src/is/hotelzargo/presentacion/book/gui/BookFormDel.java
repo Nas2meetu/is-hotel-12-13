@@ -52,8 +52,13 @@ public class BookFormDel extends JDialog {
 		panelButtons.add(acceptButton);
 		panelButtons.add(cancelButton);
 		
-		this.setLayout(new GridLayout(2,1));
+		JPanel idInfoPanel = new JPanel();
+		idInfoPanel.setLayout(new GridLayout(1,2));
+		idInfoPanel.add(new JLabel("Ejemplo: 321"));
+		
+		this.setLayout(new GridLayout(3,1));
 		this.add(panel);
+		this.add(idInfoPanel);
 		this.add(panelButtons);
 		
 		this.pack();

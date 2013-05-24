@@ -129,14 +129,63 @@ public class BookFormAdd extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(9, 1, 5, 5));
+		/* paneles de labels de info */
+		JPanel roomsInfoPanel = new JPanel();
+		roomsInfoPanel.setLayout(new GridLayout(1,2));
+		//roomsInfoPanel.add(new JLabel("Numeros separados por '-'"));
+		roomsInfoPanel.add(new JLabel("Ejemplo: 123-456-1253"));
+		
+		JPanel clientInfoPanel = new JPanel();
+		clientInfoPanel.setLayout(new GridLayout(1,2));
+		//clientInfoPanel.add(new JLabel("Numero entero"));
+		clientInfoPanel.add(new JLabel("Ejemplo: 143"));
+		
+		JPanel checkinInfoPanel = new JPanel();
+		checkinInfoPanel.setLayout(new GridLayout(1,2));
+		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
+		checkinInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
+		
+		JPanel checkoutInfoPanel = new JPanel();
+		checkoutInfoPanel.setLayout(new GridLayout(1,2));
+		//checkoutInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
+		checkoutInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
+		
+		JPanel depositInfoPanel = new JPanel();
+		depositInfoPanel.setLayout(new GridLayout(1,2));
+		//depositInfoPanel.add(new JLabel("Numero real"));
+		depositInfoPanel.add(new JLabel("Ejemplo: 50.0"));
+		
+		JPanel numpersonInfoPanel = new JPanel();
+		numpersonInfoPanel.setLayout(new GridLayout(1,2));
+		//numpersonInfoPanel.add(new JLabel("Numero entero"));
+		numpersonInfoPanel.add(new JLabel("Ejemplo: 4"));
+		
+		JPanel servicesInfoPanel = new JPanel();
+		servicesInfoPanel.setLayout(new GridLayout(1,2));
+		//servicesInfoPanel.add(new JLabel("Numeros separados por '-'"));
+		servicesInfoPanel.add(new JLabel("Ejemplo: 43-2-213"));
+		
+		this.setLayout(new GridLayout(15, 1, 5, 5));
+		
 		this.add(roomsPanel);
+		this.add(roomsInfoPanel);
 		this.add(clientPanel);
+		this.add(clientInfoPanel);
+		
 		this.add(checkInPanel);
+		this.add(checkinInfoPanel);
+		
 		this.add(checkOutPanel);
+		this.add(checkoutInfoPanel);
+		
 		this.add(depositPanel);
+		this.add(depositInfoPanel);
+		
 		this.add(numpersonPanel);
+		this.add(numpersonInfoPanel);
+		
 		this.add(servicesPanel);
+		this.add(servicesInfoPanel);
 		this.add(acPanel);
 		
 		this.pack();
@@ -213,6 +262,7 @@ public class BookFormAdd extends JDialog {
 										  false);
 		
 		Controller.getInstance().event(Event.ADD_BOOK,t,null);
+		this.setVisible(false);
 	}
 	
 	private void exit(){
