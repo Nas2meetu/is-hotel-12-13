@@ -14,12 +14,9 @@ public class CommandActionListClient implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			
-			Object obj = facade.listClient();			
-			return obj;			
+			return facade.listClient();						
 		
 		} catch (ClientAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

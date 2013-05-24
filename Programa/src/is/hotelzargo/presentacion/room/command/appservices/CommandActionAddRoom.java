@@ -22,8 +22,8 @@ public class CommandActionAddRoom implements Command {
 		
 		try {
 			facade.addRoom(roomTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Habitacion añadida",null);
 		} catch (RoomAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

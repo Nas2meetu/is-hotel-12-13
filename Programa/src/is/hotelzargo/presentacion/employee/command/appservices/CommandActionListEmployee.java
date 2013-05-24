@@ -17,7 +17,6 @@ public class CommandActionListEmployee implements Command {
 		try {
 			return facade.listEmployee();
 		} catch (EmployeeAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

@@ -23,8 +23,8 @@ public class CommandActionAddBook implements Command {
 		
 		try {
 			facade.addBook(bookTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Reserva creada correctamente",null);
 		} catch (BookAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		

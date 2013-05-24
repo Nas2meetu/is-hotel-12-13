@@ -22,8 +22,8 @@ public class CommandActionDelShift implements Command {
 		
 		try {
 			facade.delShift(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Turno eliminado",null);
 		} catch (ShiftAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

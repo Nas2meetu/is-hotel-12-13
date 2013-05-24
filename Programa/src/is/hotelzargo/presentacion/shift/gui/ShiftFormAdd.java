@@ -104,6 +104,9 @@ public class ShiftFormAdd extends JDialog {
 		
 			
 		Controller.getInstance().event(Event.ADD_SHIFT,t,null);
+		
+		this.setVisible(false);
+		
 	}
 	
 	private void exit(){

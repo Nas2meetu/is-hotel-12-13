@@ -22,8 +22,8 @@ public class CommandActionDelEmployee implements Command {
 		
 		try {
 			facade.delEmployee(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Empleado eliminado",null);
 		} catch (EmployeeAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

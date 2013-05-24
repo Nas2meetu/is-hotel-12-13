@@ -22,8 +22,8 @@ public class CommandActionAddService implements Command {
 		
 		try {
 			facade.addService(serviceTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Servicio añadido",null);
 		} catch (ServicesAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

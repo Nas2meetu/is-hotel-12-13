@@ -435,7 +435,7 @@ public class BookDAOImp implements BookDAO {
         
      // Establecemos la conexión con la base de datos.
         try {
-        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", null);
 		} catch (SQLException e) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new BookIntegrationException("Conexion rechazada");

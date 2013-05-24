@@ -23,8 +23,8 @@ public class CommandActionAddClient implements Command {
 		
 		try {
 			facade.addClient(clientTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Cliente añadido",null);
 		} catch (ClientAppServicesException e) {
-			//e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

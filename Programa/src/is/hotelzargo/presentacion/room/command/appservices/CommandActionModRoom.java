@@ -23,8 +23,8 @@ public class CommandActionModRoom implements Command {
 		
 		try {
 			facade.modRoom(this.roomTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Habitacion modificada",null);
 		} catch (RoomAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

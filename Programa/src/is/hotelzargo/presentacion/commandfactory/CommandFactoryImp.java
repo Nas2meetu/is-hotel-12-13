@@ -19,6 +19,7 @@ import is.hotelzargo.presentacion.client.command.appservices.CommandActionListCl
 import is.hotelzargo.presentacion.client.command.appservices.CommandActionModClient;
 import is.hotelzargo.presentacion.client.command.gui.CommandActionShowClientFrame;
 import is.hotelzargo.presentacion.commandfactory.error.CommandActionError;
+import is.hotelzargo.presentacion.commandfactory.message.CommandActionMessage;
 import is.hotelzargo.presentacion.controller.Event;
 import is.hotelzargo.presentacion.employee.command.appservices.CommandActionAddEmployee;
 import is.hotelzargo.presentacion.employee.command.appservices.CommandActionDelEmployee;
@@ -150,6 +151,9 @@ public class CommandFactoryImp extends CommandFactory {
 			
 		case ERROR:
 			return new CommandActionError((String) data);
+			
+		case MESSAGE:
+			return new CommandActionMessage((String) data);
 			
 		default:
 			return null;

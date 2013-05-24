@@ -21,8 +21,8 @@ public class CommandActionDelClient implements Command {
 		
 		try {
 			facade.delClient(id);
+			Controller.getInstance().event(Event.MESSAGE,"Cliente eliminado",null);
 		} catch (ClientAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

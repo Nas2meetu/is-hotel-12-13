@@ -23,8 +23,8 @@ public class CommandActionModShift implements Command {
 		
 		try {
 			facade.modShift(this.shiftTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Turno modificado",null);
 		} catch (ShiftAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;
