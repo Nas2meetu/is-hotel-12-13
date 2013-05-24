@@ -630,17 +630,22 @@ public class BookDAOImp implements BookDAO {
 			throws BookIntegrationException {
 		
 		int n = 0;
+		int cont = 0;
 		initDataBase();
 		// Se buscan las habitaciones en la DB
-		String QueryString = "SELECT room_number FROM Rooms;";
+		String QueryString = "SELECT id FROM Rooms;";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {
 				  	n = rs.getInt(1);
 				  	//si cierta habitacion no existe, devuelve falso
-				  	if (!idRoom.contains(n)){
-				  		return false;
+				  	if (idRoom.contains(n)){
+				  		cont++;
 				  	}
+			  }
+			  
+			  if (cont == idRoom.size()){
+				  return true;
 			  }
 			
 		  } catch (SQLException e) {
@@ -659,6 +664,8 @@ public class BookDAOImp implements BookDAO {
 			throws BookIntegrationException {
 		
 		int n = 0;
+		//variable local para contar que todos los servicios esten en la tabla
+		int cont = 0;
 		initDataBase();
 		// Se buscan los servicios en la DB
 		String QueryString = "SELECT idServices FROM Services;";
@@ -667,9 +674,13 @@ public class BookDAOImp implements BookDAO {
 			  while (rs.next()) {
 				  	n = rs.getInt(1);
 				  	//si cierto servicio no existe, devuelve falso
-				  	if (!services.contains(n)){
-				  		return false;
+				  	if (services.contains(n)){
+				  		cont++;
 				  	}
+			  }
+			  //estan todos
+			  if (cont == services.size()){
+				  return true;
 			  }
 			
 		  } catch (SQLException e) {
