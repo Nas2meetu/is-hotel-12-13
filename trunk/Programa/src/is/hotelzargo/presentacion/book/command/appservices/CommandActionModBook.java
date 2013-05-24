@@ -23,8 +23,8 @@ public class CommandActionModBook implements Command {
 		
 		try {
 			facade.modBook(this.bookTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Reserva modificada",null);
 		} catch (BookAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

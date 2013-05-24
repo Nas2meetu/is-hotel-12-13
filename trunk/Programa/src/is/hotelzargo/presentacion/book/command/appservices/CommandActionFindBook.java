@@ -26,9 +26,8 @@ public class CommandActionFindBook implements Command {
 		Facade facade = BusinessFactory.getInstance().getFacade();
 		
 		try {
-			facade.findBook(checkIn,checkOut);
+			return facade.findBook(checkIn,checkOut);
 		} catch (BookAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

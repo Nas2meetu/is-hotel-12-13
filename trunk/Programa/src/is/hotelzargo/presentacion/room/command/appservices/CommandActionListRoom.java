@@ -17,7 +17,6 @@ public class CommandActionListRoom implements Command {
 		try {
 			return facade.listRoom();
 		} catch (RoomAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

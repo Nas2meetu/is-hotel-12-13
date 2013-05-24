@@ -22,8 +22,8 @@ public class CommandActionDelRoom implements Command {
 		
 		try {
 			facade.delRoom(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Habitacion eliminado",null);
 		} catch (RoomAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

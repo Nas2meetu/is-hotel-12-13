@@ -81,6 +81,7 @@ public class BookFormFind extends JDialog {
 		dates.add(checkinText.getText());
 		dates.add(checkoutText.getText());
 		Controller.getInstance().event(Event.FIND_BOOK,dates,null);
+		//TODO recoger los datos y mostrar la lista de habitaciones
 	}
 	
 	private void addListener(){

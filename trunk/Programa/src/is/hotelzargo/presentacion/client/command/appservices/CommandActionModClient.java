@@ -23,8 +23,8 @@ public class CommandActionModClient implements Command {
 		
 		try {
 			facade.modClient(this.clientTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Cliente modificado",null);
 		} catch (ClientAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

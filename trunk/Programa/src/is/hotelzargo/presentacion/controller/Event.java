@@ -39,5 +39,6 @@ public enum Event {
 	FIND_BOOK,
 	CONFIRM_BOOK,
 	
-	ERROR
+	ERROR,
+	MESSAGE
 }

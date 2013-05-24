@@ -23,6 +23,7 @@ public class CommandActionDelBook implements Command {
 		
 		try {
 			facade.delBook(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Reserva borrada",null);
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);

@@ -23,8 +23,8 @@ public class CommandActionModService implements Command {
 		
 		try {
 			facade.modService(this.serviceTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Servicio modificado",null);
 		} catch (ServicesAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

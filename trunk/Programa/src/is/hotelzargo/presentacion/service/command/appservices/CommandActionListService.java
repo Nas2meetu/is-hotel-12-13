@@ -17,7 +17,6 @@ public class CommandActionListService implements Command {
 		try {
 			return facade.listService();
 		} catch (ServicesAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

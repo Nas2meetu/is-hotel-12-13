@@ -22,6 +22,7 @@ public class CommandActionConfirmBook implements Command {
 		
 		try {
 			facade.confirmBook(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Reserva confirmada",null);
 		} catch (BookAppServicesException e) {
 			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);

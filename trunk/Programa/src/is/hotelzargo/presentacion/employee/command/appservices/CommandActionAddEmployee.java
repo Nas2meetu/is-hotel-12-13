@@ -22,8 +22,8 @@ public class CommandActionAddEmployee implements Command {
 		
 		try {
 			facade.addEmployee(employeeTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Empleado añadido",null);
 		} catch (EmployeeAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

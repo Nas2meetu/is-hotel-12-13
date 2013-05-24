@@ -23,8 +23,8 @@ public class CommandActionModEmployee implements Command {
 		
 		try {
 			facade.modEmployee(employeeTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Empleado modificado",null);
 		} catch (EmployeeAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

@@ -24,8 +24,8 @@ public class CommandActionAddShift implements Command {
 		
 		try {
 			facade.addShift(shiftTransfer);
+			Controller.getInstance().event(Event.MESSAGE,"Turno añadido con exito",null);
 		} catch (ShiftAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
 		}
 		return null;

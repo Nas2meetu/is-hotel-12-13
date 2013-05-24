@@ -22,8 +22,8 @@ public class CommandActionDelService implements Command {
 		
 		try {
 			facade.delService(this.id);
+			Controller.getInstance().event(Event.MESSAGE,"Servico eliminado",null);
 		} catch (ServicesAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;

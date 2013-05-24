@@ -17,7 +17,6 @@ public class CommandActionListBook implements Command {
 		try {
 			return facade.listBook();
 		} catch (BookAppServicesException e) {
-			e.printStackTrace();
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
 		}
 		return null;
