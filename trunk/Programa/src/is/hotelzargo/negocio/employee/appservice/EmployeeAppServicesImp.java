@@ -116,13 +116,13 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		
 		String TLF = ((EmployeeTransferServices)t).getPhone();
 		
-		if(!((EmployeeTransferServices)t).getDNI().isEmpty()) 
+		if(((EmployeeTransferServices)t).getDNI().length() != 9) 
 			throw new EmployeeAppServicesException("Sin DNI");
-		if(!((EmployeeTransferServices)t).getName().isEmpty())
+		if(((EmployeeTransferServices)t).getName().length() < 3)
 			throw new EmployeeAppServicesException("Sin nombre");
-		if	(!((EmployeeTransferServices)t).getSurname().isEmpty())
+		if	(((EmployeeTransferServices)t).getSurname().length() < 3)
 			throw new EmployeeAppServicesException("Sin apellido");
-		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+		if (TLF.length() != 9)
 			throw new EmployeeAppServicesException("Telefono no valido");
 		if(((EmployeeTransferServices)t).getPay() == 0)
 			throw new EmployeeAppServicesException("Sin sueldo");
