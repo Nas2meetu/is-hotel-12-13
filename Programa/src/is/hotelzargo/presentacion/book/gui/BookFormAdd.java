@@ -60,7 +60,7 @@ public class BookFormAdd extends JDialog {
 	
 	public BookFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Reserva");
+		this.setTitle("Dar de alta reserva");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

@@ -43,7 +43,7 @@ public class BookFormMod extends JDialog {
 	
 	public BookFormMod(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Modificar Reserva");
+		this.setTitle("Modificar reserva");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
