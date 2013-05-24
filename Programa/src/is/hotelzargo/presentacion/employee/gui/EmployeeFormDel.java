@@ -29,7 +29,7 @@ public class EmployeeFormDel extends JDialog {
 	
 	public EmployeeFormDel(JFrame owner, boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de baja cliente");
+		this.setTitle("Dar de baja empleado");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

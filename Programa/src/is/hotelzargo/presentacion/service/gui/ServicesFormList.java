@@ -40,7 +40,7 @@ public class ServicesFormList extends JDialog {
 	
 	public ServicesFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Servicios");
+		this.setTitle("Listar de servicio");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

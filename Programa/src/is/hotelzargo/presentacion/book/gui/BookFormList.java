@@ -42,7 +42,7 @@ public class BookFormList extends JDialog {
 	
 	public BookFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Reservas");
+		this.setTitle("Lista de reservas");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

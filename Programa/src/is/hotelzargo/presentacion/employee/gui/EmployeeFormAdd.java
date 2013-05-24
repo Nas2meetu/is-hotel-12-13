@@ -50,7 +50,7 @@ public class EmployeeFormAdd extends JDialog {
 	
 	public EmployeeFormAdd(JFrame owner,boolean mod) {
 		super(owner,mod);
-		this.setTitle("Dar de alta Empleado");
+		this.setTitle("Dar de alta empleado");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		

@@ -34,7 +34,7 @@ public class RoomFormAdd extends JDialog {
 
 	public RoomFormAdd(JFrame owner, boolean mod) {
 		super(owner, mod);
-		this.setTitle("Dar de alta Habitacion");
+		this.setTitle("Dar de alta habitacion");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 

@@ -41,7 +41,7 @@ public class EmployeeFormList extends JDialog {
 	
 	public EmployeeFormList(JFrame owner, boolean mod){
 		super(owner,mod);
-		this.setTitle("Listar Clientes");
+		this.setTitle("Lista de empleados");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
