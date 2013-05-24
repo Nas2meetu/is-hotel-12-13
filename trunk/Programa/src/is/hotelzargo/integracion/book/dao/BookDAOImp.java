@@ -635,7 +635,6 @@ public class BookDAOImp implements BookDAO {
 		String QueryString = "SELECT room_number FROM Rooms;";
 		  try {
 			rs = statement.executeQuery(QueryString);			
-			//solo me devolvera 1 fila
 			  while (rs.next()) {
 				  	n = rs.getInt(1);
 				  	//si cierta habitacion no existe, devuelve falso
@@ -647,6 +646,35 @@ public class BookDAOImp implements BookDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new BookIntegrationException("Problema al buscar habitación ");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+		
+		return false;
+		
+	}
+
+	@Override
+	public boolean existsServices(Vector<Integer> services)
+			throws BookIntegrationException {
+		
+		int n = 0;
+		initDataBase();
+		// Se buscan los servicios en la DB
+		String QueryString = "SELECT idServices FROM Services;";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			  while (rs.next()) {
+				  	n = rs.getInt(1);
+				  	//si cierto servicio no existe, devuelve falso
+				  	if (!services.contains(n)){
+				  		return false;
+				  	}
+			  }
+			
+		  } catch (SQLException e) {
+			e.printStackTrace();
+			throw new BookIntegrationException("Problema al buscar servicio ");				
 		  }finally{
 			  closeConnectionDataBase();
 		  }
