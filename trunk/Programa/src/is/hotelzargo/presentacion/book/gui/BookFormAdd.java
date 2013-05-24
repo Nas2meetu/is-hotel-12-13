@@ -267,13 +267,13 @@ public class BookFormAdd extends JDialog {
 	
 	private void exit(){
 		this.setVisible(false);
-		roomsText.setText("2,3,4,12");
-		clientText.setText("ads");
-		checkInText.setText("");
-		checkOutText.setText("658714298");
-		depositText.setText("4444444444444");
-		numpersonText.setText("");
-		servicesText.setText("didiidididididi");
+		roomsText.setText("2-3-4-12");
+		clientText.setText("1");
+		checkInText.setText("12/12/12 12:12:12");
+		checkOutText.setText("14/12/12 12:12:12");
+		depositText.setText("100");
+		numpersonText.setText("2");
+		servicesText.setText("3-5");
 	}
 	
 	private void addListener(){
