@@ -42,10 +42,10 @@ public class ShiftFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		nameLabel       = new JLabel("Nombre              ");
-		example 		= new JLabel("hh:mm:ss   09:30:00        ");
-		checkInLabel    = new JLabel("Hora entrada           ");
-		checkOutLabel   = new JLabel("Hora salida                 ");
+		nameLabel       = new JLabel("Nombre");
+		example 		= new JLabel("hh:mm   09:30");
+		checkInLabel    = new JLabel("Hora entrada");
+		checkOutLabel   = new JLabel("Hora salida");
 
 		
 		/* text */
