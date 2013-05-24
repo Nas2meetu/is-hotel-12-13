@@ -29,5 +29,7 @@ public interface BookDAO {
 	public boolean existsClient(int idClient) throws BookIntegrationException;
 
 	public boolean existsRooms(Vector<Integer> idRoom) throws BookIntegrationException;
+
+	public boolean existsServices(Vector<Integer> services) throws BookIntegrationException;
 	
 }
