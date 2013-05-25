@@ -133,15 +133,15 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 		
 		String phone = ((EmployeeTransferAdmin)t).getPhone();
 		
-		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
+		if(((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
 			throw new EmployeeAppServicesException("Sin DNI");
-		if(!((EmployeeTransferAdmin)t).getName().isEmpty())
+		if(((EmployeeTransferAdmin)t).getName().isEmpty())
 			throw new EmployeeAppServicesException("Sin nombre");
-		if(!((EmployeeTransferAdmin)t).getSurname().isEmpty())
+		if(((EmployeeTransferAdmin)t).getSurname().isEmpty())
 			throw new EmployeeAppServicesException("Sin apellido");
-		if(!((EmployeeTransferAdmin)t).getPassword().isEmpty())
+		if(((EmployeeTransferAdmin)t).getPassword().isEmpty())
 			throw new EmployeeAppServicesException("Sin contrasegna");
-		if ((phone.length() != 9)||(phone.indexOf("9") == -1)||(phone.indexOf("6") == -1))
+		if ((phone.length() != 9))//||(phone.indexOf("9") == -1)||(phone.indexOf("6") == -1))
 			throw new EmployeeAppServicesException("Sin tlf");
 		if(((EmployeeTransferAdmin)t).getPay() == 0)
 			throw new EmployeeAppServicesException("Sin sueldo");
