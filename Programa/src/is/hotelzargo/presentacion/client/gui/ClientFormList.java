@@ -87,18 +87,22 @@ public class ClientFormList extends JDialog {
 					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
 						if (t instanceof ClientTransferIndividual)
-							text[i] = ((ClientTransferIndividual) t).getName()+System.getProperty("line.separator")+
-									  ((ClientTransferIndividual) t).getSurname()+System.getProperty("line.separator")+
-									  ((ClientTransferIndividual) t).getDNI()+System.getProperty("line.separator")+
-									  ((ClientTransferIndividual) t).getPhone()+System.getProperty("line.separator")+
-									  ((ClientTransferIndividual) t).getCreditCard()+System.getProperty("line.separator")+
-									  ((ClientTransferIndividual) t).getAddress();
+							text[i] = "Individual"+System.getProperty("line.separator")+
+							          "ID: "+((ClientTransferIndividual) t).getID()+System.getProperty("line.separator")+
+									  "Nombre: "+((ClientTransferIndividual) t).getName()+System.getProperty("line.separator")+
+									  "Apellidos: "+((ClientTransferIndividual) t).getSurname()+System.getProperty("line.separator")+
+									  "DNI: "+((ClientTransferIndividual) t).getDNI()+System.getProperty("line.separator")+
+									  "Telefono: "+((ClientTransferIndividual) t).getPhone()+System.getProperty("line.separator")+
+									  "Tarjeta de Credito: "+((ClientTransferIndividual) t).getCreditCard()+System.getProperty("line.separator")+
+									  "Direccion: "+((ClientTransferIndividual) t).getAddress();
 						else
-							text[i] =((ClientTransferCompany) t).getCompany()+System.getProperty("line.separator")+
-									 ((ClientTransferCompany) t).getCIF()+System.getProperty("line.separator")+
-									 ((ClientTransferCompany) t).getPhone()+System.getProperty("line.separator")+
-									 ((ClientTransferCompany) t).getCreditCard()+System.getProperty("line.separator")+
-									 ((ClientTransferCompany) t).getAddress();
+							text[i] ="Empresa"+System.getProperty("line.separator")+
+									 "ID: "+((ClientTransferCompany) t).getID()+System.getProperty("line.separator")+
+									 "Empresa: "+((ClientTransferCompany) t).getCompany()+System.getProperty("line.separator")+
+									 "CIF: "+((ClientTransferCompany) t).getCIF()+System.getProperty("line.separator")+
+									 "Telefono: "+((ClientTransferCompany) t).getPhone()+System.getProperty("line.separator")+
+									 "Tarjeta de Credito: "+((ClientTransferCompany) t).getCreditCard()+System.getProperty("line.separator")+
+									 "Direccion: "+((ClientTransferCompany) t).getAddress();
 					}
 				}
 				else{
