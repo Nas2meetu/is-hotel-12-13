@@ -18,8 +18,8 @@ public class CommandActionListEmployee implements Command {
 			return facade.listEmployee();
 		} catch (EmployeeAppServicesException e) {
 			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
+			return null;
 		}
-		return null;
 	}
 
 }

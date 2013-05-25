@@ -1,6 +1,5 @@
 package is.hotelzargo.presentacion.commandfactory.error;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import is.hotelzargo.presentacion.commandfactory.Command;

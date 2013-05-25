@@ -42,11 +42,11 @@ import is.hotelzargo.presentacion.shift.command.appservices.CommandActionListShi
 import is.hotelzargo.presentacion.shift.command.appservices.CommandActionModShift;
 import is.hotelzargo.presentacion.shift.command.gui.CommandActionShowShiftFrame;
 
-import java.sql.Date;
 import java.util.Vector;
 
 public class CommandFactoryImp extends CommandFactory {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Command createCommand(Event event, Object data) {
 		

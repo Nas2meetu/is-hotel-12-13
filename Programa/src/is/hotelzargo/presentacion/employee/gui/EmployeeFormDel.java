@@ -75,6 +75,7 @@ public class EmployeeFormDel extends JDialog {
 		}
 		
 		Controller.getInstance().event(Event.DELETE_CLIENT,id,null);
+		exit();
 	}
 	
 	private void addListener(){

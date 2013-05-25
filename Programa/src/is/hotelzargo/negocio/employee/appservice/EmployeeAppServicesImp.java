@@ -114,7 +114,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 	
 	private void checkDataEmployeeServices(EmployeeTransfer t) throws EmployeeAppServicesException {
 		
-		String TLF = ((EmployeeTransferServices)t).getPhone();
+		String phone = ((EmployeeTransferServices)t).getPhone();
 		
 		if(((EmployeeTransferServices)t).getDNI().length() != 9) 
 			throw new EmployeeAppServicesException("Sin DNI");
@@ -122,7 +122,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			throw new EmployeeAppServicesException("Sin nombre");
 		if	(((EmployeeTransferServices)t).getSurname().length() < 3)
 			throw new EmployeeAppServicesException("Sin apellido");
-		if (TLF.length() != 9)
+		if (phone.length() != 9)
 			throw new EmployeeAppServicesException("Telefono no valido");
 		if(((EmployeeTransferServices)t).getPay() == 0)
 			throw new EmployeeAppServicesException("Sin sueldo");
@@ -131,7 +131,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 
 	private void checkDataEmployeeAdmin(EmployeeTransfer t) throws EmployeeAppServicesException {
 		
-		String TLF = ((EmployeeTransferAdmin)t).getPhone();
+		String phone = ((EmployeeTransferAdmin)t).getPhone();
 		
 		if(!((EmployeeTransferAdmin)t).getDNI().isEmpty()) 
 			throw new EmployeeAppServicesException("Sin DNI");
@@ -141,7 +141,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			throw new EmployeeAppServicesException("Sin apellido");
 		if(!((EmployeeTransferAdmin)t).getPassword().isEmpty())
 			throw new EmployeeAppServicesException("Sin contrasegna");
-		if ((TLF.length() != 9)||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+		if ((phone.length() != 9)||(phone.indexOf("9") == -1)||(phone.indexOf("6") == -1))
 			throw new EmployeeAppServicesException("Sin tlf");
 		if(((EmployeeTransferAdmin)t).getPay() == 0)
 			throw new EmployeeAppServicesException("Sin sueldo");

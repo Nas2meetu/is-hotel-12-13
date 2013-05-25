@@ -32,7 +32,6 @@ public class EmployeeFrameImp extends EmployeeFrame {
 	private JButton exit;
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
 	
 	private EmployeeFormAdd addForm;
 	private EmployeeFormDel delForm;
