@@ -127,27 +127,12 @@ public class ClientAppServicesImp implements ClientAppServices {
 			throw new ClientAppServicesException("Apellido no valido");
 		if(dni.length() != 9)
 			throw new ClientAppServicesException("DNI no valido");
-		if ((phone.length() != 9))//||(TLF.indexOf("9") == -1)||(TLF.indexOf("6") == -1))
+		if ((phone.length() != 9)||(phone.indexOf("9") == -1)||(phone.indexOf("6") == -1))
 			throw new ClientAppServicesException("Telefono no valido");
 		if((creditCard.length() < 13)||(creditCard.length() > 16))
 			throw new ClientAppServicesException("Tarjeta de credito no valida");
 		if(((ClientTransferIndividual)t).getAddress().length() == 0)
 			throw new ClientAppServicesException("Domicilio no valido");
-	}
-	
-	private boolean checkDni(String DNI) {
-		
-		int num_t = 0;
-		char num = ' ';
-		char letters [] = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
-		
-		for (int i=0 ; i<=7 ; i++){
-			num = DNI.charAt(i);
-			num_t += num-48; 
-		}
-		
-	    if (letters[num_t%23]!=DNI.charAt(8)) return false;
-	    else return true;
 	}
 
 	private void checkDataCompany(ClientTransfer t) throws ClientAppServicesException {

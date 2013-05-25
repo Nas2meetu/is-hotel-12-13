@@ -15,19 +15,20 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class ClientFormList extends JDialog {
 	
-	private JTextArea listTextArea;
+	private JList list;
+	
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -53,6 +54,8 @@ public class ClientFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list = new JList();
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -67,26 +70,19 @@ public class ClientFormList extends JDialog {
 	
 	private void exit(){
 		this.setVisible(false);
-		//listTextArea.setText("");
-	}
-	
-	private ClientTransfer createT(){
-		return new ClientTransferCompany(-1,"hola" , "hola", "4252435", "21343121324", "caller bla");
 	}
 	
 	private void setText(){
-		Vector<ClientTransfer> clientList = //new Vector<ClientTransfer>(); 
+		@SuppressWarnings("unchecked")
+		Vector<ClientTransfer> clientList =  
 				(Vector<ClientTransfer>) Controller.getInstance().event(Event.LIST_CLIENT,null,null);
-				/*
-				for(int j = 0; j < 10 ; j++){
-					clientList.add(createT());
-				}*/
 				
+				DefaultListModel model = new DefaultListModel();
 				String text[] = new String[clientList.size()];
-				if(clientList != null){
+				if(clientList.isEmpty()){
 					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
-						if (t instanceof ClientTransferIndividual)
+						if (t instanceof ClientTransferIndividual){
 							text[i] = "Individual"+System.getProperty("line.separator")+
 							          "ID: "+((ClientTransferIndividual) t).getID()+System.getProperty("line.separator")+
 									  "Nombre: "+((ClientTransferIndividual) t).getName()+System.getProperty("line.separator")+
@@ -95,7 +91,8 @@ public class ClientFormList extends JDialog {
 									  "Telefono: "+((ClientTransferIndividual) t).getPhone()+System.getProperty("line.separator")+
 									  "Tarjeta de Credito: "+((ClientTransferIndividual) t).getCreditCard()+System.getProperty("line.separator")+
 									  "Direccion: "+((ClientTransferIndividual) t).getAddress();
-						else
+						model.addElement(text[i]);
+						}else{
 							text[i] ="Empresa"+System.getProperty("line.separator")+
 									 "ID: "+((ClientTransferCompany) t).getID()+System.getProperty("line.separator")+
 									 "Empresa: "+((ClientTransferCompany) t).getCompany()+System.getProperty("line.separator")+
@@ -103,6 +100,8 @@ public class ClientFormList extends JDialog {
 									 "Telefono: "+((ClientTransferCompany) t).getPhone()+System.getProperty("line.separator")+
 									 "Tarjeta de Credito: "+((ClientTransferCompany) t).getCreditCard()+System.getProperty("line.separator")+
 									 "Direccion: "+((ClientTransferCompany) t).getAddress();
+						model.addElement(text[i]);
+						}
 					}
 				}
 				else{
@@ -111,7 +110,8 @@ public class ClientFormList extends JDialog {
 				
 				renderPanel.setLayout(new BorderLayout());
 				
-				JList list = new JList(text);
+				//JList list = new JList(text);
+				list.setModel(model);
 		        list.setCellRenderer(renderList);
 		        renderPanel.add(list, BorderLayout.CENTER);
 		        //renderPanel.add(list);

@@ -17,9 +17,9 @@ public class CommandActionListClient implements Command {
 			return facade.listClient();						
 		
 		} catch (ClientAppServicesException e) {
-			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);			
+			Controller.getInstance().event(Event.ERROR,e.getMessage(),null);
+			return null;
 		}
-		return null;
 	}
 
 }

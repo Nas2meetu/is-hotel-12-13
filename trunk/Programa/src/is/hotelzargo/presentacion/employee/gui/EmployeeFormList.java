@@ -1,8 +1,5 @@
 package is.hotelzargo.presentacion.employee.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
@@ -18,19 +15,20 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class EmployeeFormList extends JDialog {
 	
-	private JTextArea listTextArea;
+	private JList list;
+	
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -56,6 +54,8 @@ public class EmployeeFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list = new JList();
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -70,27 +70,34 @@ public class EmployeeFormList extends JDialog {
 	
 	
 	private void setText(){
+		@SuppressWarnings("unchecked")
 		Vector<EmployeeTransfer> clientList = //new Vector<ClientTransfer>(); 
 				(Vector<EmployeeTransfer>) Controller.getInstance().event(Event.LIST_EMPLOYEE,null,null);
 		
+		DefaultListModel model = new DefaultListModel();
 		String text[] = new String[clientList.size()];
-		if(clientList != null){
+		if(clientList.isEmpty()){
 			for(int i = 0; i < clientList.size(); i++){
 				EmployeeTransfer t = clientList.elementAt(i);
-				if (t instanceof EmployeeTransferAdmin)
-					text[i] = ((EmployeeTransferAdmin) t).getName()+System.getProperty("line.separator")+
-							  ((EmployeeTransferAdmin) t).getSurname()+System.getProperty("line.separator")+
-							  ((EmployeeTransferAdmin) t).getDNI()+System.getProperty("line.separator")+
-							  ((EmployeeTransferAdmin) t).getPhone()+System.getProperty("line.separator")+
-							  ((EmployeeTransferAdmin) t).getShift()+System.getProperty("line.separator")+
-							  ((EmployeeTransferAdmin) t).getPay();
-				else
-					text[i] =((EmployeeTransferServices) t).getName()+System.getProperty("line.separator")+
-							 ((EmployeeTransferServices) t).getSurname()+System.getProperty("line.separator")+
-							 ((EmployeeTransferServices) t).getDNI()+System.getProperty("line.separator")+
-							 ((EmployeeTransferServices) t).getPhone()+System.getProperty("line.separator")+
-							 ((EmployeeTransferServices) t).getShift()+System.getProperty("line.separator")+
-							 ((EmployeeTransferServices) t).getPay();
+				if (t instanceof EmployeeTransferAdmin){
+					text[i] = "Administrador"+System.getProperty("line.separator")+
+							  "ID:"+((EmployeeTransferAdmin) t).getId()+System.getProperty("line.separator")+
+							  "Nombre: "+((EmployeeTransferAdmin) t).getName()+System.getProperty("line.separator")+
+							  "Apellidos: "+((EmployeeTransferAdmin) t).getSurname()+System.getProperty("line.separator")+
+							  "DNI: "+((EmployeeTransferAdmin) t).getDNI()+System.getProperty("line.separator")+
+							  "Telefono: "+((EmployeeTransferAdmin) t).getPhone()+System.getProperty("line.separator")+
+							  "Turno: "+((EmployeeTransferAdmin) t).getShift()+System.getProperty("line.separator")+
+							  "Sueldo: "+((EmployeeTransferAdmin) t).getPay();
+				}else{
+					text[i] ="Servicios"+System.getProperty("line.separator")+
+							 "ID:"+((EmployeeTransferServices) t).getId()+System.getProperty("line.separator")+
+							 "Nombre: "+((EmployeeTransferServices) t).getName()+System.getProperty("line.separator")+
+							 "Apellidos: "+((EmployeeTransferServices) t).getSurname()+System.getProperty("line.separator")+
+							 "DNI: "+((EmployeeTransferServices) t).getDNI()+System.getProperty("line.separator")+
+							 "Telefono: "+((EmployeeTransferServices) t).getPhone()+System.getProperty("line.separator")+
+							 "Turno: "+((EmployeeTransferServices) t).getShift()+System.getProperty("line.separator")+
+							 "Sueldo: "+((EmployeeTransferServices) t).getPay();
+				}
 			}
 		}
 		else{
@@ -99,14 +106,14 @@ public class EmployeeFormList extends JDialog {
 		
 		renderPanel.setLayout(new BorderLayout());
 		
-		JList list = new JList(text);
+		//JList list = new JList(text);
+		list.setModel(model);
         list.setCellRenderer(renderList);
         renderPanel.add(list, BorderLayout.CENTER);
 	}
 	
 	private void exit(){
 		this.setVisible(false);
-		//listTextArea.setText("");
 	}
 	
 	private void addListener(){

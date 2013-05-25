@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,8 +32,6 @@ public class ClientFrameImp extends ClientFrame {
 	private JButton exit;
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
-
 	
 	private ClientFormAdd addForm;
 	private ClientFormDel delForm;

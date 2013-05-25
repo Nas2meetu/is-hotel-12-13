@@ -1,8 +1,5 @@
 package is.hotelzargo.presentacion.employee.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
@@ -83,62 +80,129 @@ public class EmployeeFormAdd extends JDialog {
 		/* listener */
 		addListener();
 		
-		/* Paneles */
-		JPanel radioPanel = new JPanel();
-		radioPanel.add(adminButton);
-		
-		JPanel namePanel = new JPanel();
-		namePanel.setLayout(new GridLayout(1, 2));
-		namePanel.add(nameLabel);
-		namePanel.add(nameText);
-		
-		JPanel surnamePanel = new JPanel();
-		surnamePanel.setLayout(new GridLayout(1, 2));
-		surnamePanel.add(surnameLabel);
-		surnamePanel.add(surnameText);
-		
-		JPanel dniPanel = new JPanel();
-		dniPanel.setLayout(new GridLayout(1, 2));
-		dniPanel.add(dniLabel);
-		dniPanel.add(dniText);
-		
-		JPanel phonePanel = new JPanel();
-		phonePanel.setLayout(new GridLayout(1, 2));
-		phonePanel.add(phoneLabel);
-		phonePanel.add(phoneText);
-		
-		JPanel passPanel = new JPanel();
-		passPanel.setLayout(new GridLayout(1, 2));
-		passPanel.add(passwdLabel);
-		passPanel.add(passwdText);
-		
-		JPanel shiftPanel = new JPanel();
-		shiftPanel.setLayout(new GridLayout(1, 2));
-		shiftPanel.add(shiftLabel);
-		shiftPanel.add(shiftText);
-		
-		JPanel payPanel = new JPanel();
-		payPanel.setLayout(new GridLayout(1, 2));
-		payPanel.add(payLabel);
-		payPanel.add(payText);
-		
-		JPanel acPanel = new JPanel();
-		acPanel.setLayout(new GridLayout(1, 2));
-		acPanel.add(acceptButton);
-		acPanel.add(cancelButton);
-		
-		this.setLayout(new GridLayout(9, 1, 5, 5));
-		this.add(radioPanel);
-		this.add(namePanel);
-		this.add(surnamePanel);
-		this.add(dniPanel);
-		this.add(phonePanel);
-		this.add(passPanel);
-		this.add(shiftPanel);
-		this.add(payPanel);
-		this.add(acPanel);
+		selectAdmin();
 		
 		this.pack();
+	}
+	
+	private void selectAdmin(){
+		if(adminButton.isSelected()){
+			this.getContentPane().removeAll();
+			
+			JPanel radioPanel = new JPanel();
+			radioPanel.add(adminButton);
+			
+			JPanel namePanel = new JPanel();
+			namePanel.setLayout(new GridLayout(1, 2));
+			namePanel.add(nameLabel);
+			namePanel.add(nameText);
+			
+			JPanel surnamePanel = new JPanel();
+			surnamePanel.setLayout(new GridLayout(1, 2));
+			surnamePanel.add(surnameLabel);
+			surnamePanel.add(surnameText);
+			
+			JPanel dniPanel = new JPanel();
+			dniPanel.setLayout(new GridLayout(1, 2));
+			dniPanel.add(dniLabel);
+			dniPanel.add(dniText);
+			
+			JPanel phonePanel = new JPanel();
+			phonePanel.setLayout(new GridLayout(1, 2));
+			phonePanel.add(phoneLabel);
+			phonePanel.add(phoneText);
+			
+			JPanel passPanel = new JPanel();
+			passPanel.setLayout(new GridLayout(1, 2));
+			passPanel.add(passwdLabel);
+			passPanel.add(passwdText);
+			
+			JPanel shiftPanel = new JPanel();
+			shiftPanel.setLayout(new GridLayout(1, 2));
+			shiftPanel.add(shiftLabel);
+			shiftPanel.add(shiftText);
+			
+			JPanel payPanel = new JPanel();
+			payPanel.setLayout(new GridLayout(1, 2));
+			payPanel.add(payLabel);
+			payPanel.add(payText);
+			
+			JPanel acPanel = new JPanel();
+			acPanel.setLayout(new GridLayout(1, 2));
+			acPanel.add(acceptButton);
+			acPanel.add(cancelButton);
+			
+			this.getContentPane().setLayout(new GridLayout(9, 1, 5, 5));
+			this.getContentPane().add(radioPanel);
+			this.getContentPane().add(namePanel);
+			this.getContentPane().add(surnamePanel);
+			this.getContentPane().add(dniPanel);
+			this.getContentPane().add(passPanel);
+			this.getContentPane().add(phonePanel);
+			this.getContentPane().add(shiftPanel);
+			this.getContentPane().add(payPanel);
+			this.getContentPane().add(acPanel);
+			
+			this.pack();
+			this.invalidate();
+			this.validate();
+			this.repaint();
+		}else{
+			this.getContentPane().removeAll();
+			
+			JPanel radioPanel = new JPanel();
+			radioPanel.add(adminButton);
+			
+			JPanel namePanel = new JPanel();
+			namePanel.setLayout(new GridLayout(1, 2));
+			namePanel.add(nameLabel);
+			namePanel.add(nameText);
+			
+			JPanel surnamePanel = new JPanel();
+			surnamePanel.setLayout(new GridLayout(1, 2));
+			surnamePanel.add(surnameLabel);
+			surnamePanel.add(surnameText);
+			
+			JPanel dniPanel = new JPanel();
+			dniPanel.setLayout(new GridLayout(1, 2));
+			dniPanel.add(dniLabel);
+			dniPanel.add(dniText);
+			
+			JPanel phonePanel = new JPanel();
+			phonePanel.setLayout(new GridLayout(1, 2));
+			phonePanel.add(phoneLabel);
+			phonePanel.add(phoneText);
+			
+			JPanel shiftPanel = new JPanel();
+			shiftPanel.setLayout(new GridLayout(1, 2));
+			shiftPanel.add(shiftLabel);
+			shiftPanel.add(shiftText);
+			
+			JPanel payPanel = new JPanel();
+			payPanel.setLayout(new GridLayout(1, 2));
+			payPanel.add(payLabel);
+			payPanel.add(payText);
+			
+			JPanel acPanel = new JPanel();
+			acPanel.setLayout(new GridLayout(1, 2));
+			acPanel.add(acceptButton);
+			acPanel.add(cancelButton);
+			
+			this.getContentPane().setLayout(new GridLayout(8, 1, 5, 5));
+			this.getContentPane().add(radioPanel);
+			this.getContentPane().add(namePanel);
+			this.getContentPane().add(surnamePanel);
+			this.getContentPane().add(dniPanel);
+			this.getContentPane().add(phonePanel);
+			this.getContentPane().add(shiftPanel);
+			this.getContentPane().add(payPanel);
+			this.getContentPane().add(acPanel);
+			
+			this.pack();
+			this.invalidate();
+			this.validate();
+			this.repaint();
+		}
 	}
 	
 	private void accept(){
@@ -160,8 +224,6 @@ public class EmployeeFormAdd extends JDialog {
 			return;
 		}
 		
-		//TODO employeeFormAdd se necesita el turno... NO SE NECESITA EL TURNO SE NECESITA EL ID, UN INT
-		
 		if(adminButton.isSelected()){
 			t = new EmployeeTransferAdmin(-1,
 										  shift,
@@ -181,6 +243,7 @@ public class EmployeeFormAdd extends JDialog {
 					                         phoneText.getText());
 		}
 		Controller.getInstance().event(Event.ADD_EMPLOYEE,t,null);
+		exit();
 	}
 	
 	private void exit(){
@@ -244,6 +307,14 @@ public class EmployeeFormAdd extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				exit();
+			}
+		});
+		
+		adminButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				selectAdmin();
 			}
 		});
 	}
