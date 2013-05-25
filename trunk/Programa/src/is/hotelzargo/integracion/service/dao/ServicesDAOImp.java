@@ -213,7 +213,7 @@ public class ServicesDAOImp implements ServicesDAO {
         
      // Establecemos la conexión con la base de datos.
         try {
-        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "1234");
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ServicesIntegrationException("Conexion rechazada");
