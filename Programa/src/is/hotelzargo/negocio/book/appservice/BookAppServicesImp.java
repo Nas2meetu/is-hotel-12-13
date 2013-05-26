@@ -47,7 +47,7 @@ public class BookAppServicesImp implements BookAppServices {
 				}
 			}
 			else{
-				throw new BookAppServicesException("No es posible crear la reserva, alguna servicio no existe");
+				throw new BookAppServicesException("No es posible crear la reserva, algun servicio no existe");
 			}
 		} catch (BookIntegrationException e) {
 			throw new BookAppServicesException(e.getMessage());
