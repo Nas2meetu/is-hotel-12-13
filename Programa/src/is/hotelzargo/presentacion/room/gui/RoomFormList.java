@@ -1,8 +1,5 @@
 package is.hotelzargo.presentacion.room.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -16,19 +13,18 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class RoomFormList extends JDialog {
 	
-	private JTextArea listTextArea;
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -36,6 +32,8 @@ public class RoomFormList extends JDialog {
 	private JButton exitButton;
 	
 	private RenderList renderList;
+	
+	private JList list;
 	
 	public RoomFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -54,6 +52,8 @@ public class RoomFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list = new JList();
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -67,22 +67,25 @@ public class RoomFormList extends JDialog {
 	}
 	
 	private void setText(){
+		@SuppressWarnings("unchecked")
 		Vector<RoomTransfer> roomList = //new Vector<ClientTransfer>(); 
 				(Vector<RoomTransfer>) Controller.getInstance().event(Event.LIST_ROOM,null,null);
 				/*
 				for(int j = 0; j < 10 ; j++){
 					clientList.add(createT());
 				}*/
-				
+		DefaultListModel model = new DefaultListModel();
 				String text[] = new String[roomList.size()];
-				if(roomList != null){
+				if(!roomList.isEmpty()){
 					for(int i = 0; i < roomList.size(); i++){
 						RoomTransfer t = roomList.elementAt(i);
 						
-						text[i] = t.getId()+System.getProperty("line.separator")+
-								  t.getnumRoom()+System.getProperty("line.separator")+
-								  t.getnumBeds()+System.getProperty("line.separator")+
-								  t.getPrice();
+						text[i] = "Habitacion"+System.getProperty("line.separator")+
+								  "ID: "+t.getId()+System.getProperty("line.separator")+
+								  "Numero: "+t.getnumRoom()+System.getProperty("line.separator")+
+								  "Camas: "+t.getnumBeds()+System.getProperty("line.separator")+
+								  "Precio: "+t.getPrice();
+						model.addElement(text[i]);
 					}
 				}
 				else{
@@ -91,7 +94,7 @@ public class RoomFormList extends JDialog {
 				
 				renderPanel.setLayout(new BorderLayout());
 				
-				JList list = new JList(text);
+				list.setModel(model);
 		        list.setCellRenderer(renderList);
 		        renderPanel.add(list, BorderLayout.CENTER);
 	}

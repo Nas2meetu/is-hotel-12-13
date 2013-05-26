@@ -1,14 +1,11 @@
 package is.hotelzargo.presentacion.shift.gui;
 
-import is.hotelzargo.negocio.book.transfer.BookTransfer;
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 import is.hotelzargo.presentacion.maingui.RenderList;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
@@ -73,21 +69,22 @@ public class ShiftFormList extends JDialog {
 	}
 	
 	private void setText(){
-		System.out.println("setText");
 		
+		@SuppressWarnings("unchecked")
 		Vector<ShiftTransfer> shiftList =  
 				(Vector<ShiftTransfer>) Controller.getInstance().event(Event.LIST_SHIFT,null,null);
 				
 				DefaultListModel model = new DefaultListModel();
 				String text[] = new String[shiftList.size()];
-				if(shiftList != null){
+				if(!shiftList.isEmpty()){
 					for(int i = 0; i < shiftList.size(); i++){
 						ShiftTransfer t = shiftList.elementAt(i);
 					
-						text[i] = t.getId()+System.getProperty("line.separator")+
-								  t.getShift()+System.getProperty("line.separator")+
-								  t.getCheckin()+System.getProperty("line.separator")+
-								  t.getCheckout();
+						text[i] = "Turno"+System.getProperty("line.separator")+
+								  "ID: "+t.getId()+System.getProperty("line.separator")+
+								  "Nombre: "+t.getShift()+System.getProperty("line.separator")+
+								  "Hora de entrada: "+t.getCheckin()+System.getProperty("line.separator")+
+								  "Hora de salida: "+t.getCheckout();
 						model.addElement(text[i]);
 					}
 				}
@@ -124,8 +121,6 @@ public class ShiftFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				//TODO el listado no refresca
-				System.out.println("en openedddd");
 				setText();
 				
 			}
@@ -180,7 +175,7 @@ public class ShiftFormList extends JDialog {
 			
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
-				setText();
+				//setText();
 			}
 		});
 				

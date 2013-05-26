@@ -1,8 +1,5 @@
 package is.hotelzargo.presentacion.service.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -19,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -101,6 +97,7 @@ public class ServicesFormMod extends JDialog {
 		t = new ServiceTransfer(id,nameText.getText());
 		
 		Controller.getInstance().event(Event.MOD_SERVICE,t,null);
+		exit();
 	}
 	
 	private void addListener(){

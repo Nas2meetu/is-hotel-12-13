@@ -2,10 +2,6 @@ package is.hotelzargo.presentacion.shift.gui;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
-import is.hotelzargo.presentacion.service.gui.ServicesFormAdd;
-import is.hotelzargo.presentacion.service.gui.ServicesFormDel;
-import is.hotelzargo.presentacion.service.gui.ServicesFormList;
-import is.hotelzargo.presentacion.service.gui.ServicesFormMod;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -36,7 +32,6 @@ public class ShiftFrameImp extends ShiftFrame {
 	private JButton exit;
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
 	
 	private ShiftFormAdd addForm;
 	private ShiftFormDel delForm;
