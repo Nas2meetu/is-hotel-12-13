@@ -21,8 +21,9 @@ public class RoomAppServicesImp implements RoomAppServices {
 			if (!dao.searchRoomByRoomID (t.getnumRoom())) {
 				dao.createRoom(t);
 			}
-			else  
+			else{  
 				throw new RoomAppServicesException("La habitacion ya existe");
+			}
 		}	
 		catch (RoomIntegrationException e) {
 			throw new RoomAppServicesException (e.getMessage());
