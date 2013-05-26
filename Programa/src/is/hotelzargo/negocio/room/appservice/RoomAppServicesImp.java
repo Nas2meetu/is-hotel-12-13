@@ -76,7 +76,7 @@ public class RoomAppServicesImp implements RoomAppServices {
 		
 		try {
 			if (dao.searchRoomByID(t.getId())){				
-				if (!dao.checkNumRoom(t.getId(),t.getnumRoom())){
+				if (dao.checkNumRoom(t.getId(),t.getnumRoom())){
 					dao.updateRoom(t);
 				}
 				else{

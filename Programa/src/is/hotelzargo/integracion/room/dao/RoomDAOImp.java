@@ -218,17 +218,16 @@ public class RoomDAOImp implements RoomDAO {
 		String QueryString = "SELECT id FROM Rooms WHERE room_number='"+numRoom+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
-			//si hay alguna fila, la habitacion ya existe, pero hayq ue ver que no exista en otra
+			//si hay alguna fila, la habitacion ya existe, pero hay que ver que no exista en otra
 			//zona de la tabla
 			  if (rs.next()) {
 				  	//hay que mirar si aparece en su propia fila, por lo que puede cambiarla sin problemas
 				  	//en caso contrario no puede
 				  	int idRoom = rs.getInt(1);
-				  
 				  	if (id == idRoom){
-				  		return false;
-				  	}else{
 				  		return true;
+				  	}else{
+				  		return false;
 				  	}
 				  					  
 			  }
@@ -302,7 +301,7 @@ public class RoomDAOImp implements RoomDAO {
 
 			  if (rs.next()) {
 				  date = rs.getDate(1);
-				  System.out.println(date.toString());
+				  //System.out.println(date.toString());
 			  }
 				  	
 			  ResultSet rsTime = statement.executeQuery(QueryString);
