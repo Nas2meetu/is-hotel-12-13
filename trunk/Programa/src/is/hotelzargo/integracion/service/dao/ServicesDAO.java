@@ -3,7 +3,6 @@ package is.hotelzargo.integracion.service.dao;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
-import is.hotelzargo.integracion.exception.ShiftIntegrationException;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 
 public interface ServicesDAO {
