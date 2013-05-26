@@ -114,7 +114,7 @@ public class BookFormFind extends JDialog {
 		dates.add(checkoutText.getText());
 		@SuppressWarnings("unchecked")
 		Vector<Integer> data = (Vector<Integer>) Controller.getInstance().event(Event.FIND_BOOK,dates,null);
-		showList(data);
+		if(data != null)showList(data);
 	}
 	
 	private void showList(Vector<Integer> rooms){
