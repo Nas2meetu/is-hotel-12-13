@@ -33,7 +33,7 @@ public class EmployeeFormDel extends JDialog {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocationRelativeTo(owner);
 		
-		idLabel = new JLabel("ID del cliente");
+		idLabel = new JLabel("ID del empleado");
 		
 		idText = new JTextField(10);
 		
@@ -74,7 +74,7 @@ public class EmployeeFormDel extends JDialog {
 			return;
 		}
 		
-		Controller.getInstance().event(Event.DELETE_CLIENT,id,null);
+		Controller.getInstance().event(Event.DELETE_EMPLOYEE,id,null);
 		exit();
 	}
 	

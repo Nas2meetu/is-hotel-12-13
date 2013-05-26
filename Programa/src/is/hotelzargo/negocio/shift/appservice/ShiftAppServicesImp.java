@@ -17,8 +17,13 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
-		Time checkin = checkTime(t.getCheckin());
-		Time checkout = checkTime(t.getCheckout());
+
+		String checkIn = t.getCheckin()+":00";
+		String checkOut = t.getCheckout()+":00";
+		t.setCheckin(checkIn);
+		t.setCheckout(checkOut);
+		Time checkin = checkTime(checkIn);
+		Time checkout = checkTime(checkOut);
 		
 		if(checkin.getTime() > checkout.getTime()) 
 			throw new ShiftAppServicesException("La hora de entrada tiene que ser menor que la de salida");
@@ -33,6 +38,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 				throw new ShiftAppServicesException("El turno ya existe");
 			}
 		} catch (ShiftIntegrationException e) {
+			e.printStackTrace();
 			throw new ShiftAppServicesException(e.getMessage());
 		}
 	}
@@ -113,6 +119,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 			time = Time.valueOf(t);
 		}
 		catch (Exception e){
+			e.printStackTrace();
 			throw new ShiftAppServicesException("Formato de hora turno invalido");
 		}
 		
