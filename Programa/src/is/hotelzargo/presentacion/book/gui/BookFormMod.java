@@ -30,6 +30,7 @@ public class BookFormMod extends JDialog {
 	private JLabel checkoutLabel;
 	private JLabel numpersonLabel;
 	private JLabel servicesLabel;
+	private JLabel depositLabel;
 	
 	private JTextField bookIdText;
 	private JTextField clientText;
@@ -38,6 +39,7 @@ public class BookFormMod extends JDialog {
 	private JTextField checkoutText;
 	private JTextField numpersonText;
 	private JTextField servicesText;
+	private JTextField depositText;
 	
 	private JButton acceptButton;
 	private JButton cancelButton;
@@ -53,6 +55,7 @@ public class BookFormMod extends JDialog {
 		roomsLabel     = new JLabel("Habitaciones");
 		checkinLabel   = new JLabel("Fecha de entrada");
 		checkoutLabel  = new JLabel("Fecha de salida");
+		depositLabel    	= new JLabel("Fianza");
 		numpersonLabel = new JLabel("Numero de personas");
 		servicesLabel  = new JLabel("Servicios");
 		
@@ -61,6 +64,7 @@ public class BookFormMod extends JDialog {
 		roomsText = new JTextField(20);
 		checkinText = new JTextField(20);
 		checkoutText = new JTextField(20);
+		depositText = new JTextField(20);
 		numpersonText = new JTextField(20);
 		servicesText = new JTextField(20);
 		
@@ -94,6 +98,11 @@ public class BookFormMod extends JDialog {
 		checkoutPanel.add(checkoutLabel);
 		checkoutPanel.add(checkoutText);
 		
+		JPanel depositPanel = new JPanel();
+		depositPanel.setLayout(new GridLayout(1, 2));
+		depositPanel.add(depositLabel);
+		depositPanel.add(depositText);
+		
 		JPanel numpersonPanel = new JPanel();
 		numpersonPanel.setLayout(new GridLayout(1,2));
 		numpersonPanel.add(numpersonLabel);
@@ -115,6 +124,7 @@ public class BookFormMod extends JDialog {
 		this.add(clientPanel);
 		this.add(checkinPanel);
 		this.add(checkoutPanel);
+		this.add(depositPanel);
 		this.add(numpersonPanel);
 		this.add(servicesPanel);
 		this.add(buttonPanel);
@@ -164,6 +174,14 @@ public class BookFormMod extends JDialog {
 			return;
 		}
 		
+		int deposit;
+		try{
+			deposit= Integer.valueOf(depositText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+depositLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
 		try{
 			services = parseString(servicesText.getText());
 		}catch(NumberFormatException e){
@@ -185,7 +203,7 @@ public class BookFormMod extends JDialog {
 										  idClient,//id del cliente, no se modifica
 										  checkinText.getText(),
 										  checkoutText.getText(),
-										  -1,//deposito no se modifica
+										  deposit,//deposito no se modifica
 										  numperson,
 										  services,
 										  false);//confirmacion no se modifica
