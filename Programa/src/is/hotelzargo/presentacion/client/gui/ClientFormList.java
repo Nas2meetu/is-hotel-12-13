@@ -107,8 +107,7 @@ public class ClientFormList extends JDialog {
 					}
 				}
 				else{
-					text[0] = "No hay clientes";
-					model.addElement(text[0]);
+					model.addElement("No hay clientes");
 				}
 				
 				renderPanel.setLayout(new BorderLayout());

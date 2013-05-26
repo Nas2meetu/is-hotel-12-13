@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
@@ -89,7 +91,7 @@ public class RoomFormList extends JDialog {
 					}
 				}
 				else{
-					text[0] = "No hay habitaciones";
+					model.addElement("No hay habitaciones");
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
@@ -139,6 +141,29 @@ public class RoomFormList extends JDialog {
 			
 			@Override
 			public void windowActivated(WindowEvent arg0) {
+				
+			}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				setText();
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
 				
 			}
 		});

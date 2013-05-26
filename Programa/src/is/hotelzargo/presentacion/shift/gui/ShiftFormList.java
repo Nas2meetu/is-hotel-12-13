@@ -89,8 +89,7 @@ public class ShiftFormList extends JDialog {
 					}
 				}
 				else{
-					text[0] = "No hay turnos";
-					model.addElement(text[0]);
+					model.addElement("No hay turnos");
 				}
 				
 				renderPanel.setLayout(new BorderLayout());

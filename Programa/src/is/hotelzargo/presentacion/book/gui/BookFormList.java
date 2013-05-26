@@ -96,8 +96,7 @@ public class BookFormList extends JDialog {
 					}
 				}
 				else{
-					text[0] = "No hay clientes";
-					model.addElement(text[0]);
+					model.addElement("No hay reservas");
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
