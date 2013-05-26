@@ -40,11 +40,11 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		
 		try {
 			
-			statement.executeUpdate("INSERT INTO Employee (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
+			statement.executeUpdate("INSERT INTO Employees (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
 					"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"', '"+pass+ "');" );					
 			
 		} catch (SQLException e) {
-			e.getMessage();
+			e.printStackTrace();
 			throw new EmployeeIntegrationException("Problema al crear empleado ");			
 		}finally{
 			closeConnectionDataBase();
@@ -68,11 +68,11 @@ public class EmployeeDAOImp implements EmployeeDAO {
 				
 				try {
 					
-					statement.executeUpdate("INSERT INTO Employee (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
+					statement.executeUpdate("INSERT INTO Employees (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
 							"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"',' "+null+ "');" );					
 					
 				} catch (SQLException e) {
-					e.getMessage();
+					e.printStackTrace();
 					throw new EmployeeIntegrationException("Problema al crear empleado ");			
 				}finally{
 					closeConnectionDataBase();
@@ -228,13 +228,12 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 		//UPDATE
 		String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
-				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"'  WHERE id='"+id+"';";
+				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"'  WHERE idEmployee='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -259,13 +258,12 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 		//UPDATE
 		String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
-				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"',password='"+pass+"'  WHERE id='"+id+"';";
+				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"',password='"+pass+"'  WHERE idEmployee='"+id+"';";
 		  try {
 			  
 			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -307,7 +305,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
@@ -337,7 +335,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new EmployeeIntegrationException("Conexion rechazada");
 		}
         
@@ -364,6 +361,28 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			//e.printStackTrace();
 			throw new EmployeeIntegrationException("Error al desconectar BBDD");
 		}
+	}
+
+	@Override
+	public boolean existsShift(int shift) throws EmployeeIntegrationException {
+		
+		initDataBase();
+		String QueryString = "SELECT id FROM Shifts WHERE id='"+shift+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  if (rs.next()) {				  					
+					return true;				  
+			  }
+			
+		  } catch (SQLException e) {
+			throw new EmployeeIntegrationException("Problema al buscar turno "+shift);				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+
+		return false;
+		
 	}
 
 }

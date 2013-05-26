@@ -23,10 +23,21 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeAdmin(t);
 			
 			try{
-				if (dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("DNI repetido");
-				else dao.createEmployeeAdmin(t);
+				
+				if (!dao.searchEmployee(t.getDNI())){
+					if (dao.existsShift(t.getShift())){
+						dao.createEmployeeAdmin(t);
+					}
+					else{
+						throw new EmployeeAppServicesException("El turno del empleado no existe");
+					}
+				}
+				else{
+					throw new EmployeeAppServicesException("DNI empleado repetido");
+				}
+
 			} catch (EmployeeIntegrationException e) {
+				e.printStackTrace();
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 					
@@ -35,10 +46,19 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeServices(t);
 			
 			try{
-				if (dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("DNI repetido");
-				else dao.createEmployeeServices(t);
+				if (!dao.searchEmployee(t.getDNI())){
+					if (dao.existsShift(t.getShift())){
+						dao.createEmployeeServices(t);
+					}
+					else{
+						throw new EmployeeAppServicesException("El turno del empleado no existe");
+					}
+				}
+				else{
+						throw new EmployeeAppServicesException("DNI empleado repetido");
+				} 
 			} catch (EmployeeIntegrationException e) {
+				e.printStackTrace();
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 		}
@@ -90,9 +110,18 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeAdmin(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("El empleado no existe");
-				else dao.updateEmployeeAdmin(t);
+				if (!dao.searchEmployee(t.getDNI())){
+					if (dao.existsShift(t.getShift())){
+						dao.updateEmployeeAdmin(t);
+					}
+					else{
+						throw new EmployeeAppServicesException("El turno del empleado a modificar no existe");
+					}
+				}
+				else{
+					throw new EmployeeAppServicesException("El empleado no existe");
+				}
+						
 			} catch (EmployeeIntegrationException e) {
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
@@ -102,9 +131,18 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeServices(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI()))
-						throw new EmployeeAppServicesException("El empleado no existe");
-				else dao.updateEmployeeServices(t);
+				if (!dao.searchEmployee(t.getDNI())){
+					if (dao.existsShift(t.getShift())){
+						dao.updateEmployeeServices(t);
+					}
+					else{
+						throw new EmployeeAppServicesException("El turno del empleado a modificar no existe");
+					}
+				}
+				else{
+					throw new EmployeeAppServicesException("El empleado no existe");
+				}
+
 			} catch (EmployeeIntegrationException e) {
 				throw new EmployeeAppServicesException(e.getMessage());
 			}

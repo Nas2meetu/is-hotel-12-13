@@ -90,7 +90,7 @@ public class ShiftDAOImp implements ShiftDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  
 					String nameShift = rs.getString(2);
 					Time checkIn = rs.getTime(3);
@@ -102,7 +102,6 @@ public class ShiftDAOImp implements ShiftDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar turno con ID "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -119,7 +118,7 @@ public class ShiftDAOImp implements ShiftDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  
 				  	int id = rs.getInt(1);
 				  	Time checkIn = rs.getTime(3);
@@ -131,7 +130,6 @@ public class ShiftDAOImp implements ShiftDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar turno "+name);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -158,14 +156,12 @@ public class ShiftDAOImp implements ShiftDAO {
 				  	Time checkOut = rs.getTime(4);
 					
 					ShiftTransfer s = new ShiftTransfer(id,nameShift, checkIn.toString(), checkOut.toString());						
-					shifts.add(s);
-				  
+					shifts.add(s);				  
 			  }
 			  
 			  return shifts;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al referenciar listado turnos");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -194,7 +190,6 @@ public class ShiftDAOImp implements ShiftDAO {
 			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
 			throw new ShiftIntegrationException("Problema al actualizar turno "+nameShift);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -210,12 +205,11 @@ public class ShiftDAOImp implements ShiftDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar turno "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -232,12 +226,11 @@ public class ShiftDAOImp implements ShiftDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar turno ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -255,12 +248,11 @@ public class ShiftDAOImp implements ShiftDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//si devuelve alguna fila, este turno tiene empleados asignados
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ShiftIntegrationException("Problema al buscar empleados con cierto turno ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -311,7 +303,6 @@ public class ShiftDAOImp implements ShiftDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw new ShiftIntegrationException("Error al desconectar BBDD");
 		}
 	}	

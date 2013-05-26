@@ -25,4 +25,6 @@ public interface EmployeeDAO {
 	
 	public boolean searchEmployeeByID(int id) throws EmployeeIntegrationException;
 
+	public boolean existsShift(int shift) throws EmployeeIntegrationException;
+
 }
