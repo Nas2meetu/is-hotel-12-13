@@ -394,8 +394,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 	//Sirve para controlar que el usuario al modificar no pueda usar un dni
 	//usado por otro empleado
-	@Override
-	public boolean checkDniWithEmployees(int id, String dni) throws EmployeeIntegrationException {
+	private boolean checkDniWithEmployees(int id, String dni) throws EmployeeIntegrationException {
 		
 		initDataBase();
 		//busco algun otro empleado que pudiera tener ese nuevo dni insertado

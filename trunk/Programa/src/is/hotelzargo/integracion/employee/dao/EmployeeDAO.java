@@ -27,7 +27,5 @@ public interface EmployeeDAO {
 
 	public boolean existsShift(int shift) throws EmployeeIntegrationException;
 
-	public boolean checkDniWithEmployees(int id, String dni) throws EmployeeIntegrationException;
-
 
 }

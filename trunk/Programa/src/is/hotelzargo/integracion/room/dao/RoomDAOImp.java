@@ -1,6 +1,5 @@
 package is.hotelzargo.integracion.room.dao;
 
-import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.exception.RoomIntegrationException;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 
@@ -10,8 +9,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class RoomDAOImp implements RoomDAO {
@@ -219,7 +216,7 @@ public class RoomDAOImp implements RoomDAO {
 			throws RoomIntegrationException {
 		
 		initDataBase();
-		String QueryString = "SELECT id FROM Rooms WHERE room_number='"+numRoom+"');";
+		String QueryString = "SELECT id FROM Rooms WHERE room_number='"+numRoom+"';";
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//si hay alguna fila, la habitacion ya existe, pero hayq ue ver que no exista en otra
@@ -301,7 +298,16 @@ public class RoomDAOImp implements RoomDAO {
 		
 		initDataBase();
 		Date date = null;
-		String QueryString = "SELECT idBook FROM Rooms_books WHERE idRoom='"+idRoom+"');";
+		Statement statBook = null;
+		
+		try {
+			statBook = connection.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String QueryString = "SELECT idBook FROM Rooms_books WHERE idRoom='"+idRoom+"';";
 		String currentTime = "SELECT CURDATE();";
 		  try {
 			rs = statement.executeQuery(currentTime);			
@@ -313,17 +319,26 @@ public class RoomDAOImp implements RoomDAO {
 				  	
 			  ResultSet rsTime = statement.executeQuery(QueryString);
 			  while (rsTime.next()) {
+				  //si llega aqui, quiere decir que hay reservas usando esa habitacion,
+				  //por lo tanto no dejamos eliminarla
+				  System.out.println("CUMPLE NENE");
+				  return true;
 				  
-				  int idBook = rs.getInt(1);				  	
-				  	//ahora hay que comprobar que no haya reservas futuras con esa habitacion
-				  	//comparo fecha del sistema con checkOut
-				  	String QueryInTime = "SELECT * FROM Books WHERE idBooks='"+idBook+"' AND checkOut>='"+date+"' );";
-				  	ResultSet rsFound = statement.executeQuery(QueryInTime);
-				  	if (rsFound.next()) {
-				  		//si devuelve alguna fila entonces existe alguna reserva futura
-				  		//que usara esa habitacion, por lo tanto no se puede eliminar
-				  		return true;
-				  	}
+				  	/*
+					  //int idBook = rsTime.getInt(1);	
+					  
+					  //System.out.println("el id reserva es "+idBook);
+					  	//ahora hay que comprobar que no haya reservas futuras con esa habitacion
+					  	//comparo fecha del sistema con checkOut
+					  	//String QueryInTime = "SELECT * FROM Books WHERE idBooks='"+idBook+"' AND checkOut>='"+date+"';";
+					  String QueryInTime = "SELECT * FROM Books WHERE idBooks='"+idBook+"' AND checkOut>='"+date+"';";
+					  	ResultSet rsFound = statBook.executeQuery(QueryInTime);
+					  	if (rsFound.next()) {
+					  		//si devuelve alguna fila entonces existe alguna reserva futura
+					  		//que usara esa habitacion, por lo tanto no se puede eliminar
+					  		System.out.println("CUMPLE FECHA");
+					  		return true;
+					  	}*/
 				  					  
 			  }
 			
@@ -334,6 +349,7 @@ public class RoomDAOImp implements RoomDAO {
 			  closeConnectionDataBase();
 		  }
 		  
+		  System.out.println("NO TIO NO");
 		  return false;
 		
 	}
