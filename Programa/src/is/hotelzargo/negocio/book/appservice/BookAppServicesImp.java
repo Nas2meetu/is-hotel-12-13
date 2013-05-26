@@ -3,7 +3,6 @@ package is.hotelzargo.negocio.book.appservice;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Vector;
 
 import is.hotelzargo.integracion.book.dao.BookDAO;
@@ -11,7 +10,6 @@ import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
 import is.hotelzargo.negocio.exception.BookAppServicesException;
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 
 public class BookAppServicesImp implements BookAppServices {
 

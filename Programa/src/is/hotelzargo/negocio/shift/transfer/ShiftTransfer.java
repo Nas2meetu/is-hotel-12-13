@@ -1,9 +1,5 @@
 package is.hotelzargo.negocio.shift.transfer;
 
-import java.sql.Time;
-
-
-
 public class ShiftTransfer {
 	
 	private int id;

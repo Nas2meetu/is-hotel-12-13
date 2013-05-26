@@ -5,9 +5,7 @@ import java.util.Vector;
 import is.hotelzargo.integracion.exception.ServicesIntegrationException;
 import is.hotelzargo.integracion.factory.DAOFactory;
 import is.hotelzargo.integracion.service.dao.ServicesDAO;
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
 import is.hotelzargo.negocio.exception.ServicesAppServicesException;
-import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 
 public class ServicesAppServicesImp implements ServicesAppServices {
