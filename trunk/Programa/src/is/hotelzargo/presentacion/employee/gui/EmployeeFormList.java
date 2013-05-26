@@ -104,8 +104,7 @@ public class EmployeeFormList extends JDialog {
 			}
 		}
 		else{
-			text[0] = "No hay empleados";
-			model.addElement(text[0]);
+			model.addElement("No hay empleados");
 		}
 		
 		renderPanel.setLayout(new BorderLayout());

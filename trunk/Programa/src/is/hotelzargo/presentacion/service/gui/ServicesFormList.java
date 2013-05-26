@@ -89,8 +89,7 @@ public class ServicesFormList extends JDialog {
 					}
 				}
 				else{
-					text[0] = "No hay servicios";
-					model.addElement(text[0]);
+					model.addElement("No hay servicios");
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
