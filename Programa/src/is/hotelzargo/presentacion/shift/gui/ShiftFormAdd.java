@@ -4,14 +4,11 @@ import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.Time;
-import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -46,8 +43,8 @@ public class ShiftFormAdd extends JDialog {
 		
 		/* Labels */
 		nameLabel       = new JLabel("Nombre");
-		example 		= new JLabel("Ejemplo: hh:mm   09:30");
-		example2 		= new JLabel("Ejemplo: hh:mm   11:30");
+		example 		= new JLabel("Ejemplo: hh:mm:ss   09:30:00");
+		example2 		= new JLabel("Ejemplo: hh:mm:ss   11:30:00");
 		checkInLabel    = new JLabel("Hora entrada");
 		checkOutLabel   = new JLabel("Hora salida");
 

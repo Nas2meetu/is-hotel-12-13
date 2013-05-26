@@ -17,10 +17,8 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
-		String checkIn = t.getCheckin()+":00";
-		String checkOut = t.getCheckout()+":00";
-		Time checkin = checkTime(checkIn);
-		Time checkout = checkTime(checkOut);
+		Time checkin = checkTime(t.getCheckin());
+		Time checkout = checkTime(t.getCheckout());
 		
 		if(checkin.getTime() > checkout.getTime()) 
 			throw new ShiftAppServicesException("La hora de entrada tiene que ser menor que la de salida");
