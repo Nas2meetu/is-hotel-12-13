@@ -123,7 +123,7 @@ public class BookFormFind extends JDialog {
 		this.getContentPane().removeAll();
 		if(rooms != null){
 			for(int i = 0; i < rooms.size(); i++){
-				model.addElement(rooms.get(i));
+				if(!model.contains(rooms.get(i))) model.addElement(rooms.get(i));
 			}
 		}else{
 			model.addElement("No hay habitaciones disponibles");
