@@ -121,9 +121,16 @@ public class BookDAOImp implements BookDAO {
 		int numPerson = ((BookTransfer) t).getNumPerson();
 		Vector<Integer> services = ((BookTransfer) t).getServices();
 		boolean busy = t.isConfirm();
+		int confirm;
+		if (busy){
+			confirm = 1;
+		}
+		else{
+			confirm = 0;
+		}
 		//UPDATE
 		String QueryString = "UPDATE Books SET idClient='"+idClient+"',checkIn='"+checkIn+"'," +
-				"checkOut='"+checkOut+"',deposit='"+deposit+"',numPerson='"+numPerson+"',confirm='"+busy+"' WHERE idBooks='"+idBook+"';";
+				"checkOut='"+checkOut+"',deposit='"+deposit+"',numPerson='"+numPerson+"',confirm='"+confirm+"' WHERE idBooks='"+idBook+"';";
 		
 		try{
 			
@@ -519,25 +526,45 @@ public class BookDAOImp implements BookDAO {
 		initDataBase();
 		Vector<Integer> rooms = new Vector<Integer>();
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
-		String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+checkIn+"' AND checkIn<='"+checkOut+"') OR (checkOut>='"+checkIn+"' AND checkOut<='"+checkOut+"');";		  
+		//String QueryString = "SELECT idBooks,checkIn,checkOut FROM Books WHERE (checkIn>='"+checkIn+"' AND checkIn<='"+checkOut+"') OR (checkOut>='"+checkIn+"' AND checkOut<='"+checkOut+"');";		  
 		  //ahora busco en la tabla las habitaciones con esas reservas, que son las que van a estar
 		  //ocupadas en ese periodo
-		
+		 String QueryString = "SELECT idBooks,checkIn,checkOut FROM Books;";
 		  try {
 			  //en rs tengo los IDs de reserva
 			rs = statement.executeQuery(QueryString);
 			Statement statRoom = connection.createStatement() ;
 			  while (rs.next()) {				  				  
 					int idBook = rs.getInt(1);
-						String QueryRooms = "SELECT room_number FROM Rooms WHERE id NOT IN (SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
+					  Date inBook = rs.getDate(2);
+					  Date outBook = rs.getDate(3);
+					  
+					  if ( (inBook.before(checkIn) && outBook.before(checkOut)) || (inBook.after(checkIn) && outBook.after(checkOut))  ){
+					  
+						//String QueryRooms = "SELECT room_number FROM Rooms WHERE id NOT IN (SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
+						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
 						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
 						while(rsRooms.next()){
 							int room = rsRooms.getInt(1);
 							rooms.add(room);
 						}
+						
+					  }
+					  else{
+						  //se mira que no pise alguna habitacion 
+						  //ya almacenada en una anterior reserva recorrida
+							String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
+							ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
+							while(rsRooms.next()){
+								int room = rsRooms.getInt(1);
+								if (rooms.contains(room)){
+									rooms.remove(room);
+								}
+							}
+ 
+					  }
 					
 			  }
-			  
 			  return rooms;
 			
 		  } catch (SQLException e) {
