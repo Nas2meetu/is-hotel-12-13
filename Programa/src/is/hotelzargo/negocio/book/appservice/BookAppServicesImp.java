@@ -93,14 +93,16 @@ public class BookAppServicesImp implements BookAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		BookDAO dao = fac.getBookDAO();			
 		
-		try {
-			
+		try {			
 			String in = t.getCheckIn();
 			String out = t.getCheckOut();
 			
 			Date din = stringToDate(in);
 			Date dout = stringToDate(out);
-			if(din.after(dout)) throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
+			if(din.after(dout)){
+				throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
+			}
+			else
 			//TODO comprobar a saco gente
 			if (dao.searchBook(t.getIdBook())){				
 				if (dao.existsServices(t.getServices())){

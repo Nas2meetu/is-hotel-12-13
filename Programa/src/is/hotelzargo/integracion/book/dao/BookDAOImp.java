@@ -365,7 +365,6 @@ public class BookDAOImp implements BookDAO {
 			  return books;
 			  
 		}catch(SQLException e){
-			e.printStackTrace();
 			throw new BookIntegrationException("Problema al listar reservas");
 		}finally{
 			closeConnectionDataBase();
@@ -385,7 +384,6 @@ public class BookDAOImp implements BookDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new BookIntegrationException("Problema al buscar reserva "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -408,7 +406,6 @@ public class BookDAOImp implements BookDAO {
 			statement.executeUpdate(QueryString);
 			
 		}catch(SQLException e){
-			e.printStackTrace();
 			throw new BookIntegrationException("Problema al confirmar reserva en Books "+id);
 		}finally{
 			closeConnectionDataBase();
@@ -459,38 +456,46 @@ public class BookDAOImp implements BookDAO {
 		}
 	}
 	
-	//TODO COMPROBAR devuelve true si todas las habitaciones del vector se encuentran desocupadas
+	//Devuelve true si todas las habitaciones del vector se encuentran desocupadas
 	//entre esas fechas,false en caso contrario
 	public boolean emptyRooms(Vector<Integer> rooms,Date in, Date out) throws BookIntegrationException{
 		
 		//se buscan reservas en ese intervalo de fechas(ocupadas)
 		initDataBase();
-
+		
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
 		//String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+in+"' AND checkIn<='"+out+"') OR (checkOut>='"+in+"' AND checkOut<='"+out+"');";
-		String QueryString = "SELECT idRoom FROM Rooms_books;";
+		//String QueryString = "SELECT idRoom FROM Rooms_books;";
+		//Obtengo las fechas de ocupacion de las reservas
+		String QueryString = "SELECT idBooks,checkIn,checkOut FROM Books;";
 		try {
 			rs = statement.executeQuery(QueryString);
 			//Statement statRoom = connection.createStatement() ;
+			Statement statementTwo = connection.createStatement();
 			//miro que las habitaciones del vector no pararezcan
-			  while (rs.next()) {				  				  
-					int room = rs.getInt(1);
-					
-					if (rooms.contains(room)){
-						return false;
-					}					
-					
-						/*
-						//cojo las habitaciones de esa reserva
-						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
-						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
-						while(rsRooms.next()){
-							int room = rsRooms.getInt(1);
-							if (rooms.contains(room)){
-								return false;
-							}
-						}*/
-					
+			  while (rs.next()) {	
+				  
+				  int idB = rs.getInt(1);
+				  Date inBook = rs.getDate(2);
+				  Date outBook = rs.getDate(3);
+				  
+				  //cojo las habitaciones de esa reserva
+				  String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idB+"';";
+				  ResultSet rsRooms = statementTwo.executeQuery(QueryRooms);
+				  while(rsRooms.next()){
+					  int room = rsRooms.getInt(1);
+					  //se comprueba que esa habitacion no este entre la fecha de entrada y salida
+					  //ya ocupada
+					  if (rooms.contains(room)){
+						  if ((inBook.after(in) && inBook.before(out) && !inBook.equals(in) && !inBook.equals(out))){
+							  if (outBook.after(in) && outBook.before(out) && !outBook.equals(in) && !outBook.equals(out)){
+								  return false;
+							  }
+						  }
+					  }
+					  
+				  }
+				  					
 			  }
 			  
 			  return true;
@@ -603,7 +608,6 @@ public class BookDAOImp implements BookDAO {
 			  return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new BookIntegrationException("Problema al buscar en tabla ClientIndividual");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -625,7 +629,6 @@ public class BookDAOImp implements BookDAO {
 			 return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new BookIntegrationException("Problema al buscar en tabla ClientCompany");				
 		  }finally{
 			  closeConnectionDataBase();
