@@ -108,7 +108,7 @@ public class ServicesFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				setText();
+				
 			}
 			
 			@Override

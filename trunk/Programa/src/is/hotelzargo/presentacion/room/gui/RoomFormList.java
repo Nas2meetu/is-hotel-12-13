@@ -111,7 +111,7 @@ public class RoomFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				setText();
+
 			}
 			
 			@Override

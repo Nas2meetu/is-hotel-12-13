@@ -120,7 +120,6 @@ public class ShiftFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				setText();
 				
 			}
 			
