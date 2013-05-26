@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -71,16 +72,22 @@ public class RoomFormAdd extends JDialog {
 		pricePanel.add(priceLabel);
 		pricePanel.add(priceText);
 		
+		JPanel priceInfoPanel = new JPanel();
+		priceInfoPanel.setLayout(new GridLayout(1, 2));
+		priceInfoPanel.add(Box.createVerticalGlue());
+		priceInfoPanel.add(new JLabel("Ejemplo: 50.00"));
+		
 		
 		JPanel acPanel = new JPanel();
 		acPanel.setLayout(new GridLayout(1, 2));
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 
-		this.setLayout(new GridLayout(4, 1, 5, 5));
+		this.setLayout(new GridLayout(5, 1, 5, 5));
 		this.add(numBedsPanel);
 		this.add(numRoomPanel);
 		this.add(pricePanel);
+		this.add(priceInfoPanel);
 		this.add(acPanel);
 
 		this.pack();
