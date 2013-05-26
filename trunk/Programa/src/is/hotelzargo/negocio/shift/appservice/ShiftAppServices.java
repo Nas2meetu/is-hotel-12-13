@@ -3,7 +3,6 @@ package is.hotelzargo.negocio.shift.appservice;
 import java.util.Vector;
 
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
-import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 public interface ShiftAppServices {

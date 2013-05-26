@@ -1,6 +1,5 @@
 package is.hotelzargo.negocio.facade;
 
-import java.sql.Date;
 import java.util.Vector;
 
 import is.hotelzargo.negocio.book.appservice.BookAppServices;
