@@ -73,6 +73,17 @@ public class BookFormList extends JDialog {
 		//listTextArea.setText("");
 	}
 	
+	private String getIntString(Vector<Integer> v){
+		if(v == null) return "";
+		if(v.isEmpty()) return "";
+		String result = "";
+		for(int i = 0; i < v.size(); i++){
+			result += v.get(i);
+		}
+		return result;
+		
+	}
+	
 	private void setText(){
 		@SuppressWarnings("unchecked")
 		Vector<BookTransfer> bookList = //new Vector<BookTransfer>(); 
@@ -91,7 +102,9 @@ public class BookFormList extends JDialog {
 								 "ID: "+((BookTransfer) t).getIdBook()+System.getProperty("line.separator")+
 								 "Cliente: "+((BookTransfer) t).getIdClient()+System.getProperty("line.separator")+
 								 "Fianza: "+((BookTransfer) t).getDeposit()+System.getProperty("line.separator")+
-								 "Numero de personas: "+((BookTransfer) t).getNumPerson();
+								 "Numero de personas: "+((BookTransfer) t).getNumPerson()+System.getProperty("line.separator")+
+								 "Habitaciones: "+getIntString(t.getIdRoom())+System.getProperty("line.separator")+
+								 "Servicios: "+getIntString(t.getServices());
 						model.addElement(text[i]);
 					}
 				}
