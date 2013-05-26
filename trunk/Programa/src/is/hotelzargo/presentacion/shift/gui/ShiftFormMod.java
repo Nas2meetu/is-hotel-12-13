@@ -47,7 +47,7 @@ public class ShiftFormMod extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		IDLabel         = new JLabel("ID Servicio");
+		IDLabel         = new JLabel("ID del turno");
 		nameLabel       = new JLabel("Nuevo nombre turno");
 		checkInLabel    = new JLabel("Nueva hora entrada");
 		checkOutLabel   = new JLabel("Nueva hora salida");
@@ -66,7 +66,7 @@ public class ShiftFormMod extends JDialog {
 		addListener();
 		
 		/* Paneles */
-	//	JPanel radioPanel = new JPanel(); TODO ¿que narices hace esto?
+		JPanel radioPanel = new JPanel();
 		
 		JPanel idPanel = new JPanel();
 		idPanel.setLayout(new GridLayout(1,2));
@@ -93,8 +93,8 @@ public class ShiftFormMod extends JDialog {
 		acPanel.add(acceptButton);
 		acPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(5, 1, 5, 5));
-	//	this.add(radioPanel); 
+		this.setLayout(new GridLayout(6, 1, 5, 5));
+		this.add(radioPanel); 
 		this.add(idPanel);
 		this.add(namePanel);
 		this.add(checkInPanel);
