@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 public class BookFormMod extends JDialog {
 
 	private JLabel bookIdLabel;
+	private JLabel clientLabel;
 	private JLabel roomsLabel;
 	private JLabel checkinLabel;
 	private JLabel checkoutLabel;
@@ -31,6 +32,7 @@ public class BookFormMod extends JDialog {
 	private JLabel servicesLabel;
 	
 	private JTextField bookIdText;
+	private JTextField clientText;
 	private JTextField roomsText;
 	private JTextField checkinText;
 	private JTextField checkoutText;
@@ -47,6 +49,7 @@ public class BookFormMod extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		bookIdLabel    = new JLabel("ID de la reserva (debe existir)");
+		clientLabel      	= new JLabel("ID Cliente");
 		roomsLabel     = new JLabel("Habitaciones");
 		checkinLabel   = new JLabel("Fecha de entrada");
 		checkoutLabel  = new JLabel("Fecha de salida");
@@ -54,6 +57,7 @@ public class BookFormMod extends JDialog {
 		servicesLabel  = new JLabel("Servicios");
 		
 		bookIdText = new JTextField(20);
+		clientText = new JTextField(20);
 		roomsText = new JTextField(20);
 		checkinText = new JTextField(20);
 		checkoutText = new JTextField(20);
@@ -74,6 +78,11 @@ public class BookFormMod extends JDialog {
 		roomsPanel.setLayout(new GridLayout(1,2));
 		roomsPanel.add(roomsLabel);
 		roomsPanel.add(roomsText);
+		
+		JPanel clientPanel = new JPanel();
+		clientPanel.setLayout(new GridLayout(1, 2));
+		clientPanel.add(clientLabel);
+		clientPanel.add(clientText);
 		
 		JPanel checkinPanel = new JPanel();
 		checkinPanel.setLayout(new GridLayout(1,2));
@@ -103,6 +112,7 @@ public class BookFormMod extends JDialog {
 		this.setLayout(new GridLayout(7, 1, 5, 5));
 		this.add(idPanel);
 		this.add(roomsPanel);
+		this.add(clientPanel);
 		this.add(checkinPanel);
 		this.add(checkoutPanel);
 		this.add(numpersonPanel);
@@ -146,6 +156,14 @@ public class BookFormMod extends JDialog {
 			return;
 		}
 		
+		int idClient;
+		try{
+			idClient = Integer.valueOf(clientText.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "El campo "+clientLabel.getText()+" debe ser un numero entero");
+			return;
+		}
+		
 		try{
 			services = parseString(servicesText.getText());
 		}catch(NumberFormatException e){
@@ -164,7 +182,7 @@ public class BookFormMod extends JDialog {
 		
 		BookTransfer t = new BookTransfer(id,
 										  rooms,
-										  -1,//id del cliente, no se modifica
+										  idClient,//id del cliente, no se modifica
 										  checkinText.getText(),
 										  checkoutText.getText(),
 										  -1,//deposito no se modifica
