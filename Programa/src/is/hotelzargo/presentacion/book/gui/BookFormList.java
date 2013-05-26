@@ -98,6 +98,11 @@ public class BookFormList extends JDialog {
 				if(!bookList.isEmpty()){
 					for(int i = 0; i < bookList.size(); i++){
 						BookTransfer t = bookList.elementAt(i);
+						
+						String confirm;
+						
+						if (t.isConfirm()){ confirm= "Si";}
+						else{confirm = "No";}
 					
 						text[i] ="Reserva"+System.getProperty("line.separator")+
 								 "ID: "+((BookTransfer) t).getIdBook()+System.getProperty("line.separator")+
@@ -105,7 +110,8 @@ public class BookFormList extends JDialog {
 								 "Fianza: "+((BookTransfer) t).getDeposit()+System.getProperty("line.separator")+
 								 "Numero de personas: "+((BookTransfer) t).getNumPerson()+System.getProperty("line.separator")+
 								 "Habitaciones: "+getIntString(t.getIdRoom())+System.getProperty("line.separator")+
-								 "Servicios: "+getIntString(t.getServices());
+								 "Servicios: "+getIntString(t.getServices())+System.getProperty("line.separator")+
+								 "Confirmado: "+confirm;
 						model.addElement(text[i]);
 					}
 				}
