@@ -4,15 +4,11 @@ import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
-import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
-import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.util.Vector;
 
 public class EmployeeDAOImp implements EmployeeDAO {
@@ -44,8 +40,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			statement.executeUpdate("INSERT INTO Employees (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
 					"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"', '"+pass+ "');" );					
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException e) {			
 			throw new EmployeeIntegrationException("Problema al crear empleado ");			
 		}finally{
 			closeConnectionDataBase();
@@ -72,8 +67,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 					statement.executeUpdate("INSERT INTO Employees (shiftID, pay, nameEmployee,surnameEmployee,dniEmployee,tlfEmployee,password) VALUES " +
 							"('"+shiftID+"', '"+pay+"','"+name+"','"+surname+"','"+dni+"','"+tlf+"',' "+null+ "');" );					
 					
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException e) {					
 					throw new EmployeeIntegrationException("Problema al crear empleado ");			
 				}finally{
 					closeConnectionDataBase();
@@ -93,7 +87,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			statement.executeUpdate(QueryString);			
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al eliminar empleado");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -133,7 +126,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al buscar empleado");				
 		  }	finally{
 			  closeConnectionDataBase();
@@ -142,7 +134,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		return null;
 	}
 	
-	private ShiftTransfer getShiftOfEmployee(int shiftID) throws EmployeeIntegrationException {
+	/*private ShiftTransfer getShiftOfEmployee(int shiftID) throws EmployeeIntegrationException {
 		
 		initDataBase();
 		
@@ -166,7 +158,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		  }
 		  
 		  return s;
-	}
+	}*/
 
 	@Override
 	public Vector<EmployeeTransfer> listEmployee()
@@ -206,7 +198,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			  return employees;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new EmployeeIntegrationException("Problema al referenciar listado empleados");				
 		  }	finally{
 			  closeConnectionDataBase();
@@ -243,9 +235,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	}
 	
 	@Override
-	public void updateEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException {
-		
-			
+	public void updateEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException {			
 			
 			int id = ((EmployeeTransfer) t).getId();
 			int shiftID =((EmployeeTransfer) t).getShift();
@@ -333,7 +323,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new EmployeeIntegrationException("Conexion rechazada");
         }
         
@@ -349,7 +338,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new EmployeeIntegrationException("Conexion rechazada");
 		}        
 		 
@@ -365,7 +353,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw new EmployeeIntegrationException("Error al desconectar BBDD");
 		}
 	}

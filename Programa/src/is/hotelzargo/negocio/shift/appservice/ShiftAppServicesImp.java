@@ -40,8 +40,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 			}else{
 				throw new ShiftAppServicesException("El turno ya existe");
 			}
-		} catch (ShiftIntegrationException e) {
-			e.printStackTrace();
+		} catch (ShiftIntegrationException e) {			
 			throw new ShiftAppServicesException(e.getMessage());
 		}
 	}
@@ -121,8 +120,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		try{
 			time = Time.valueOf(t);
 		}
-		catch (Exception e){
-			e.printStackTrace();
+		catch (Exception e){			
 			throw new ShiftAppServicesException("Formato de hora turno invalido");
 		}
 		

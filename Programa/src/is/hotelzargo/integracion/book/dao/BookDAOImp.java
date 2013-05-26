@@ -2,7 +2,6 @@ package is.hotelzargo.integracion.book.dao;
 
 import is.hotelzargo.integracion.exception.BookIntegrationException;
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -46,7 +45,6 @@ public class BookDAOImp implements BookDAO {
 					"('"+idClient+"', '"+checkIn+"', '"+checkOut+"', '"+deposit+"', '"+numPerson+"','"+busy+"');" );
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new BookIntegrationException("Problema al crear la reserva");			
 		}finally {
 			closeConnectionDataBase();
@@ -73,7 +71,6 @@ public class BookDAOImp implements BookDAO {
 			  }			
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new BookIntegrationException("Problema conseguir ultimo id de Books");
 		}finally{
 			closeConnectionDataBase();
@@ -99,7 +96,6 @@ public class BookDAOImp implements BookDAO {
 				statement.executeUpdate(QueryDelEnd);			
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
 				throw new BookIntegrationException("Problema al Books turno con ID "+id);				
 			}finally{
 				closeConnectionDataBase();
@@ -137,7 +133,7 @@ public class BookDAOImp implements BookDAO {
 			statement.executeUpdate(QueryString);
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al actualizar reserva en Books "+idBook);
 		}finally{
 			closeConnectionDataBase();
@@ -166,7 +162,7 @@ public class BookDAOImp implements BookDAO {
 			}
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al actualizar reserva en Rooms_books "+idBook);
 		}finally{
 			closeConnectionDataBase();
@@ -188,7 +184,7 @@ public class BookDAOImp implements BookDAO {
 			}
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al actualizar reserva en Services_books "+idBook);
 		}finally{
 			closeConnectionDataBase();
@@ -206,7 +202,7 @@ public class BookDAOImp implements BookDAO {
 				statement.executeUpdate(QueryDel);			
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				
 				throw new BookIntegrationException("Problema al Rooms_books turno con ID "+idBook);				
 			}finally{
 				closeConnectionDataBase();
@@ -223,7 +219,7 @@ public class BookDAOImp implements BookDAO {
 			statement.executeUpdate(QueryString);			
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al Services_books turno con ID "+idBook);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -265,7 +261,7 @@ public class BookDAOImp implements BookDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al referenciar reserva con ID "+id);				
 		  }/*finally{
 			  closeConnectionDataBase();
@@ -298,7 +294,7 @@ public class BookDAOImp implements BookDAO {
 			  return rooms;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
 		  }/*finally{
 			  closeConnectionDataBase();
@@ -308,7 +304,7 @@ public class BookDAOImp implements BookDAO {
 	//devuelve las habitaciones de una reserva concreta
 	private Vector<Integer> getServicesOfBook(int idBook) throws BookIntegrationException{	
 		//De abrir y cerrar la BD se encarga list
-		//initDataBase();
+
 		Vector<Integer> services = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Services_books WHERE idBook='"+idBook+"';";
 		  try {
@@ -324,16 +320,13 @@ public class BookDAOImp implements BookDAO {
 			  return services;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
-		  }/*finally{
-			  closeConnectionDataBase();
-		  }*/
+		  }
 	}
 	
 	//devuelve los servicios de cierta reserva
-	private ServiceTransfer getServicesByID(int id) throws BookIntegrationException{
-		//initDataBase();
+	/*private ServiceTransfer getServicesByID(int id) throws BookIntegrationException{
 		
 		String QueryString = "SELECT * FROM Services WHERE id='"+id+"';";
 		  try {
@@ -347,14 +340,12 @@ public class BookDAOImp implements BookDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al devolver servicios de la reserva con ID "+id);				
-		  }/*finally{
-			  closeConnectionDataBase();
-		  }*/
+		  }
 		
 		return null;
-	}
+	}*/
 
 	@Override
 	public Vector<BookTransfer> listBook() throws BookIntegrationException {		
@@ -442,7 +433,6 @@ public class BookDAOImp implements BookDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new BookIntegrationException("Conexion rechazada");
 		}        
 		 
@@ -458,7 +448,6 @@ public class BookDAOImp implements BookDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw new BookIntegrationException("Error al desconectar BBDD");
 		}
 	}
@@ -509,7 +498,7 @@ public class BookDAOImp implements BookDAO {
 			  return true;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al buscar habitaciones libres en cierta fecha");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -568,7 +557,7 @@ public class BookDAOImp implements BookDAO {
 			  return rooms;
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al buscar habitaciones libres en cierta fecha");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -688,7 +677,7 @@ public class BookDAOImp implements BookDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new BookIntegrationException("Problema al buscar habitación ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -722,8 +711,7 @@ public class BookDAOImp implements BookDAO {
 				  return true;
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new BookIntegrationException("Problema al buscar servicio ");				
 		  }finally{
 			  closeConnectionDataBase();

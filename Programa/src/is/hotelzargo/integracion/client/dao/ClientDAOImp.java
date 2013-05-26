@@ -44,9 +44,7 @@ public class ClientDAOImp implements ClientDAO {
 			//seteamos el ID obtenido
 			t.setID(nextID);
 			
-		} catch (SQLException e) {
-			e.getMessage();
-			e.printStackTrace();
+		} catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al crear cliente individual");			
 		}finally{
 			closeConnectionDataBase();
@@ -79,8 +77,7 @@ public class ClientDAOImp implements ClientDAO {
 					t.setID(nextID);
 					
 										
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException e) {					
 					throw new ClientIntegrationException("Problema al crear cliente company");
 				}finally{
 					closeConnectionDataBase();
@@ -102,7 +99,7 @@ public class ClientDAOImp implements ClientDAO {
 			  }			
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new ClientIntegrationException("Problema al conseguir id MAX en cliente individual");
 		}finally{
 			closeConnectionDataBase();
@@ -119,7 +116,7 @@ public class ClientDAOImp implements ClientDAO {
 				}			
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new ClientIntegrationException("Problema al conseguir id MAX en cliente company");
 		}finally{
 			closeConnectionDataBase();
@@ -151,16 +148,14 @@ public class ClientDAOImp implements ClientDAO {
 					  
 					statement.executeUpdate(QueryDeleteIn);			
 					
-				  } catch (SQLException e) {
-					e.printStackTrace();
+				  } catch (SQLException e) {					
 					throw new ClientIntegrationException("Problema al eliminar cliente individual con ID "+id);				
 				  }				  
 				  
 				  found = true;
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al seleccionar para eliminar cliente individual");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -182,8 +177,7 @@ public class ClientDAOImp implements ClientDAO {
 								  
 								statement.executeUpdate(QueryDeleteCompany);			
 								
-							  } catch (SQLException e) {
-								e.printStackTrace();
+							  } catch (SQLException e) {								
 								throw new ClientIntegrationException("Problema al eliminar cliente company con ID "+id);				
 							  }
 						  
@@ -192,8 +186,7 @@ public class ClientDAOImp implements ClientDAO {
 						  return;
 					  }
 					
-				  } catch (SQLException e) {
-					e.printStackTrace();
+				  } catch (SQLException e) {					
 					throw new ClientIntegrationException("Problema al seleccionar para eliminar cliente company");				
 				  }finally{
 						closeConnectionDataBase();
@@ -223,8 +216,7 @@ public class ClientDAOImp implements ClientDAO {
 			  
 			statement.executeUpdate(QueryString);
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al actualizar cliente "+dni);				
 		  }finally{
 				closeConnectionDataBase();
@@ -250,8 +242,7 @@ public class ClientDAOImp implements ClientDAO {
 			  
 			statement.executeUpdate(QueryString);
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al actualizar cliente compañía "+cif);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -299,8 +290,7 @@ public class ClientDAOImp implements ClientDAO {
 				  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al referenciar cliente individual con ID "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -319,7 +309,7 @@ public class ClientDAOImp implements ClientDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  
 					String company = rs.getString(2);
 					String cif = rs.getString(3);
@@ -333,8 +323,7 @@ public class ClientDAOImp implements ClientDAO {
 				  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al referenciar cliente company con ID "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -377,7 +366,6 @@ public class ClientDAOImp implements ClientDAO {
 			  return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ClientIntegrationException("Problema al buscar en tabla ClientIndividual");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -399,7 +387,6 @@ public class ClientDAOImp implements ClientDAO {
 			 return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ClientIntegrationException("Problema al buscar en tabla ClientCompany");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -424,7 +411,6 @@ public class ClientDAOImp implements ClientDAO {
 			  return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ClientIntegrationException("Problema al buscar en tabla ClientIndividual");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -448,7 +434,6 @@ public class ClientDAOImp implements ClientDAO {
 			 return false;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ClientIntegrationException("Problema al buscar en tabla ClientCompany");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -491,8 +476,7 @@ public class ClientDAOImp implements ClientDAO {
 				  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al listar clientes individuales");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -522,8 +506,7 @@ public class ClientDAOImp implements ClientDAO {
 				  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ClientIntegrationException("Problema al listar clientes company");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -538,7 +521,6 @@ public class ClientDAOImp implements ClientDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new ClientIntegrationException("Conexion rechazada Driver");
         } 
         
@@ -546,7 +528,6 @@ public class ClientDAOImp implements ClientDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ClientIntegrationException("Conexion rechazada RegisterDriver");
 		}
         
@@ -555,17 +536,12 @@ public class ClientDAOImp implements ClientDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ClientIntegrationException("Conexion rechazada Connection");
 		}        
 		 
         try {
         	statement = connection.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			//e.getMessage();
-			//System.out.println("connnnnnnnecttion");
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ClientIntegrationException("Conexion rechazada Statement");
 		}
 		
@@ -573,12 +549,8 @@ public class ClientDAOImp implements ClientDAO {
 	
 	private void closeConnectionDataBase() throws ClientIntegrationException {
 		try {
-			//No se deben cerrar statement y resulset porque siguen recibiendo flujo
-			//rs.close();
-			//statement.close();
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw new ClientIntegrationException("Error al desconectar BBDD");
 		}
 	}
@@ -597,7 +569,6 @@ public class ClientDAOImp implements ClientDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ClientIntegrationException("Problema al buscar reservas confirmadas");				
 		  }finally{
 			  closeConnectionDataBase();

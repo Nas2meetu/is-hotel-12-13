@@ -14,19 +14,7 @@ import is.hotelzargo.integracion.service.dao.ServicesDAOImp;
 import is.hotelzargo.integracion.shift.dao.ShiftDAO;
 import is.hotelzargo.integracion.shift.dao.ShiftDAOImp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.swing.JOptionPane;
-
 public class DAOFactoryImp extends DAOFactory {
-	
-    private static Connection connection = null;
-    private Statement s = null;
-    private ResultSet rs = null;	
 	
 
 	public DAOFactoryImp() {}
