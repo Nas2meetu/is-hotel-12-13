@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -54,6 +55,7 @@ public class BookFormDel extends JDialog {
 		
 		JPanel idInfoPanel = new JPanel();
 		idInfoPanel.setLayout(new GridLayout(1,2));
+		idInfoPanel.add(Box.createVerticalGlue());
 		idInfoPanel.add(new JLabel("Ejemplo: 321"));
 		
 		this.setLayout(new GridLayout(3,1));
