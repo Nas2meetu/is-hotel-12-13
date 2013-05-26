@@ -4,6 +4,7 @@ import is.hotelzargo.integracion.exception.EmployeeIntegrationException;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
 import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
+import is.hotelzargo.negocio.exception.EmployeeAppServicesException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
@@ -244,30 +245,37 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	@Override
 	public void updateEmployeeAdmin(EmployeeTransfer t) throws EmployeeIntegrationException {
 		
-		initDataBase();
-		
-		int id = ((EmployeeTransfer) t).getId();
-		int shiftID =((EmployeeTransfer) t).getShift();
-		float pay = ((EmployeeTransfer) t).getPay();
-		String name = ((EmployeeTransfer) t).getName();
-		String surname = ((EmployeeTransfer) t).getSurname();
-		String dni = ((EmployeeTransfer) t).getDNI();
-		String tlf = ((EmployeeTransfer) t).getPhone();
-		String pass = ((EmployeeTransferAdmin) t).getPassword();
-		
-
-		//UPDATE
-		String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
-				"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"',password='"+pass+"'  WHERE idEmployee='"+id+"';";
-		  try {
-			  
-			statement.executeUpdate(QueryString);
 			
-		  } catch (SQLException e) {
-			throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
-		  }finally{
-			  closeConnectionDataBase();
-		  }
+			
+			int id = ((EmployeeTransfer) t).getId();
+			int shiftID =((EmployeeTransfer) t).getShift();
+			float pay = ((EmployeeTransfer) t).getPay();
+			String name = ((EmployeeTransfer) t).getName();
+			String surname = ((EmployeeTransfer) t).getSurname();
+			String dni = ((EmployeeTransfer) t).getDNI();
+			String tlf = ((EmployeeTransfer) t).getPhone();
+			String pass = ((EmployeeTransferAdmin) t).getPassword();
+			
+			if (!checkDniWithEmployees(id, dni)){
+				
+				initDataBase();
+	
+				//UPDATE
+				String QueryString = "UPDATE Employees SET shiftID='"+shiftID+"'," +
+						"pay='"+pay+"',nameEmployee='"+name+"',surnameEmployee='"+surname+"',dniEmployee='"+dni+"',tlfEmployee='"+tlf+"',password='"+pass+"'  WHERE idEmployee='"+id+"';";
+				  try {
+					  
+					statement.executeUpdate(QueryString);
+					
+				  } catch (SQLException e) {
+					throw new EmployeeIntegrationException("Problema al actualizar empleado servicios ");				
+				  }finally{
+					  closeConnectionDataBase();
+				  }
+			}
+			else{
+				throw new EmployeeIntegrationException("El DNI del empleado a modificar ya se encuentra en el sistema");
+			}
 		
 	}
 
@@ -310,7 +318,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new EmployeeIntegrationException("Problema al buscar empleado");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -383,6 +390,31 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
 		return false;
 		
+	}
+
+	//Sirve para controlar que el usuario al modificar no pueda usar un dni
+	//usado por otro empleado
+	@Override
+	public boolean checkDniWithEmployees(int id, String dni) throws EmployeeIntegrationException {
+		
+		initDataBase();
+		//busco algun otro empleado que pudiera tener ese nuevo dni insertado
+		//si devuelve alguna fila, ese dni no será valido, ya que corresponde a otro empleado
+		String QueryString = "SELECT * FROM Employees WHERE idEmployee != '"+id+"' AND dniEmployee='"+dni+"';";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  if (rs.next()) {				  					
+					return true;				  
+			  }
+			
+		  } catch (SQLException e) {
+			throw new EmployeeIntegrationException("Problema al checkear dni de empleado");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+
+		return false;
 	}
 
 }

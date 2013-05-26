@@ -90,7 +90,7 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		ShiftDAO dao = fac.getShiftDAO();
 		
-		try {
+		try {			
 			if(dao.searchShift(t.getId())){
 				dao.updateShift(t);
 			}
