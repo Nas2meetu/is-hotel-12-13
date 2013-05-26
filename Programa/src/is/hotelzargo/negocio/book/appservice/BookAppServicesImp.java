@@ -82,6 +82,7 @@ public class BookAppServicesImp implements BookAppServices {
 		try {
 			return dao.listBook();
 		} catch (BookIntegrationException e) {
+			e.printStackTrace();
 			throw new BookAppServicesException(e.getMessage());
 		}
 	}
@@ -90,8 +91,7 @@ public class BookAppServicesImp implements BookAppServices {
 	public void modBook(BookTransfer t) throws BookAppServicesException {
 		
 		DAOFactory fac = DAOFactory.getInstance();
-		BookDAO dao = fac.getBookDAO();
-		
+		BookDAO dao = fac.getBookDAO();		
 		
 		
 		try {

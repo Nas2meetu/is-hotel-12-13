@@ -226,7 +226,8 @@ public class BookDAOImp implements BookDAO {
 	@Override
 	public BookTransfer getBook(int id) throws BookIntegrationException {
 		
-		initDataBase();
+		//De abrir y cerrar la BD se encarga list
+		//initDataBase();
 		
 		//obtenemos las habitaciones de la reserva
 		Vector<Integer> rooms = getRoomsOfBook(id);
@@ -258,9 +259,9 @@ public class BookDAOImp implements BookDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new BookIntegrationException("Problema al referenciar reserva con ID "+id);				
-		  }finally{
+		  }/*finally{
 			  closeConnectionDataBase();
-		  }
+		  }*/
 		
 		return null;
 	}
@@ -274,14 +275,14 @@ public class BookDAOImp implements BookDAO {
 	
 	//devuelve las habitaciones de una reserva concreta
 	private Vector<Integer> getRoomsOfBook(int idBook) throws BookIntegrationException{
-		
-		initDataBase();
+		//De abrir y cerrar la BD se encarga list
+		//initDataBase();
 		Vector<Integer> rooms = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Rooms_books WHERE idBook='"+idBook+"';";
 		  try {
-			rs = statement.executeQuery(QueryString);			
-			  while (rs.next()) {				  				  
-					int idRoom = rs.getInt(3);
+			  ResultSet rs3 = statement.executeQuery(QueryString);			
+			  while (rs3.next()) {				  				  
+					int idRoom = rs3.getInt(3);
 					rooms.add(idRoom);				  
 			  }
 			  
@@ -290,20 +291,21 @@ public class BookDAOImp implements BookDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
-		  }finally{
+		  }/*finally{
 			  closeConnectionDataBase();
-		  }
+		  }*/
 	}
 	
 	//devuelve las habitaciones de una reserva concreta
-	private Vector<Integer> getServicesOfBook(int idBook) throws BookIntegrationException{			
-		initDataBase();
+	private Vector<Integer> getServicesOfBook(int idBook) throws BookIntegrationException{	
+		//De abrir y cerrar la BD se encarga list
+		//initDataBase();
 		Vector<Integer> services = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Services_books WHERE idBook='"+idBook+"';";
 		  try {
-			rs = statement.executeQuery(QueryString);			
-			  while (rs.next()) {				  				  
-					int idService = rs.getInt(3);
+			  ResultSet rs2 = statement.executeQuery(QueryString);			
+			  while (rs2.next()) {				  				  
+					int idService = rs2.getInt(3);
 					//Ya no hace falta porque ahora guardo los IDs
 					//ServiceTransfer s = getServicesByID(idService);
 					services.add(idService);				  
@@ -314,14 +316,14 @@ public class BookDAOImp implements BookDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new BookIntegrationException("Problema al devolver habitaciones de la reserva con ID "+idBook);				
-		  }finally{
+		  }/*finally{
 			  closeConnectionDataBase();
-		  }
+		  }*/
 	}
 	
 	//devuelve los servicios de cierta reserva
 	private ServiceTransfer getServicesByID(int id) throws BookIntegrationException{
-		initDataBase();
+		//initDataBase();
 		
 		String QueryString = "SELECT * FROM Services WHERE id='"+id+"';";
 		  try {
@@ -337,9 +339,9 @@ public class BookDAOImp implements BookDAO {
 		  } catch (SQLException e) {
 			e.printStackTrace();
 			throw new BookIntegrationException("Problema al devolver servicios de la reserva con ID "+id);				
-		  }finally{
+		  }/*finally{
 			  closeConnectionDataBase();
-		  }
+		  }*/
 		
 		return null;
 	}
@@ -349,15 +351,18 @@ public class BookDAOImp implements BookDAO {
 		initDataBase();
 		
 		Vector<BookTransfer> books = new Vector<BookTransfer>();
-		String QueryString = "SELECT * FROM Books;";
+		String QueryString = "SELECT idBooks FROM Books;";
+		int cont=0;
 		try{			
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {				  
 					int id = rs.getInt(1);
-					BookTransfer book = getBook(id);
-					books.add(book);				  
+					System.out.println("ID listadooooo "+id);
+					cont++;
+					//BookTransfer book = getBook(id);
+					//books.add(book);				  
 			  }	
-			  
+			  System.out.println("cont "+cont);
 			  return books;
 			  
 		}catch(SQLException e){
@@ -463,13 +468,20 @@ public class BookDAOImp implements BookDAO {
 		initDataBase();
 
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
-		String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+in+"' AND checkIn<='"+out+"') OR (checkOut>='"+in+"' AND checkOut<='"+out+"');";
+		//String QueryString = "SELECT idBooks FROM Books WHERE (checkIn>='"+in+"' AND checkIn<='"+out+"') OR (checkOut>='"+in+"' AND checkOut<='"+out+"');";
+		String QueryString = "SELECT idRoom FROM Rooms_books;";
 		try {
 			rs = statement.executeQuery(QueryString);
-			Statement statRoom = connection.createStatement() ;
+			//Statement statRoom = connection.createStatement() ;
+			//miro que las habitaciones del vector no pararezcan
 			  while (rs.next()) {				  				  
-					int idBook = rs.getInt(1);
-						System.out.println("conflicto con reserva "+idBook);
+					int room = rs.getInt(1);
+					
+					if (rooms.contains(room)){
+						return false;
+					}					
+					
+						/*
 						//cojo las habitaciones de esa reserva
 						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
 						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
@@ -478,7 +490,7 @@ public class BookDAOImp implements BookDAO {
 							if (rooms.contains(room)){
 								return false;
 							}
-						}
+						}*/
 					
 			  }
 			  

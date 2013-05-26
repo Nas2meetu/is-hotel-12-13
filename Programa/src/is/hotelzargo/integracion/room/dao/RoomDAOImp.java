@@ -321,7 +321,6 @@ public class RoomDAOImp implements RoomDAO {
 			  while (rsTime.next()) {
 				  //si llega aqui, quiere decir que hay reservas usando esa habitacion,
 				  //por lo tanto no dejamos eliminarla
-				  System.out.println("CUMPLE NENE");
 				  return true;
 				  
 				  	/*
@@ -349,7 +348,6 @@ public class RoomDAOImp implements RoomDAO {
 			  closeConnectionDataBase();
 		  }
 		  
-		  System.out.println("NO TIO NO");
 		  return false;
 		
 	}
