@@ -54,13 +54,13 @@ public class BookFormAdd extends JDialog {
 		this.setLocationRelativeTo(owner);
 		
 		/* Labels */
-		roomsLabel    		= new JLabel("Habitaciones");
+		roomsLabel    		= new JLabel("ID Habitaciones");
 		clientLabel      	= new JLabel("ID Cliente");
 		checkInLabel     	= new JLabel("Fecha entrada");
 		checkOutLabel 		= new JLabel("Fecha salida");
 		depositLabel    	= new JLabel("Fianza");
 		numpersonLabel   	= new JLabel("Numero de personas");
-		servicesLabel    	= new JLabel("Servicios");
+		servicesLabel    	= new JLabel("ID Servicios");
 		
 		/* text */
 		roomsText = new JTextField(20);
