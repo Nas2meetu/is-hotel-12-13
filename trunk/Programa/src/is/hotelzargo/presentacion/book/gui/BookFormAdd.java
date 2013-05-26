@@ -32,10 +32,6 @@ public class BookFormAdd extends JDialog {
 	private JLabel numpersonLabel;
 	private JLabel servicesLabel;
 	
-	//TODO pensar como mete el usuario las habitaciones y servicios de una reserva
-	//solucion sucia entre comas 
-	//solucion mejor crear nuevas ventanitas con estas funcionalidades a añadir
-	
 	private JTextField roomsText;
 	private JTextField clientText;
 	private JTextField checkInText;

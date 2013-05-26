@@ -511,9 +511,12 @@ public class BookDAOImp implements BookDAO {
 	@Override
 	public Vector<Integer> findBook(Date checkIn, Date checkOut)
 			throws BookIntegrationException {
-		// TODO revision profunda
-		initDataBase();
+		
 		Vector<Integer> rooms = new Vector<Integer>();
+		//consigo todas las habitaciones, y quito del vector las que no cumplan fechas
+		getAllRooms(rooms);
+		initDataBase();
+		
 		//consigo los IDs de reserva que estan en ese intervalo de tiempo 
 		//String QueryString = "SELECT idBooks,checkIn,checkOut FROM Books WHERE (checkIn>='"+checkIn+"' AND checkIn<='"+checkOut+"') OR (checkOut>='"+checkIn+"' AND checkOut<='"+checkOut+"');";		  
 		  //ahora busco en la tabla las habitaciones con esas reservas, que son las que van a estar
@@ -530,13 +533,14 @@ public class BookDAOImp implements BookDAO {
 					  
 					  if ( (inBook.before(checkIn) && outBook.before(checkOut)) || (inBook.after(checkIn) && outBook.after(checkOut))  ){
 					  
+						  //Aqui cumple fechas, pero ya se añadieron arriba
 						//String QueryRooms = "SELECT room_number FROM Rooms WHERE id NOT IN (SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"');";
-						String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
+						/*String QueryRooms = "SELECT idRoom FROM Rooms_books WHERE idBook='"+idBook+"';";
 						ResultSet rsRooms = statRoom.executeQuery(QueryRooms);
 						while(rsRooms.next()){
 							int room = rsRooms.getInt(1);
 							rooms.add(room);
-						}
+						}*/
 						
 					  }
 					  else{
@@ -547,7 +551,14 @@ public class BookDAOImp implements BookDAO {
 							while(rsRooms.next()){
 								int room = rsRooms.getInt(1);
 								if (rooms.contains(room)){
-									rooms.remove(room);
+									//aqui se da el problema de que remove quita
+									//la posicion indicada por room, y no el object que 
+									//rooms.remove(room);
+									for (int i=0;i<rooms.size();i++){
+										if (rooms.get(i) == room){
+											rooms.remove(i);
+										}
+									}
 								}
 							}
  
@@ -556,14 +567,32 @@ public class BookDAOImp implements BookDAO {
 			  }
 			  return rooms;
 			
-		  } catch (SQLException e) {
-			
+		  } catch (SQLException e) {			
 			throw new BookIntegrationException("Problema al buscar habitaciones libres en cierta fecha");				
 		  }finally{
 			  closeConnectionDataBase();
 		  }
 		
 		
+	}
+	
+	private void getAllRooms(Vector<Integer> rooms) throws BookIntegrationException{
+		initDataBase();
+		String QueryString = "SELECT id FROM Rooms;";
+		  try {
+			rs = statement.executeQuery(QueryString);			
+			//solo me devolvera 1 fila
+			  while (rs.next()) {	
+				  int id = rs.getInt(1);
+					rooms.add(id);				  
+			  }
+			
+		  } catch (SQLException e) {
+			throw new BookIntegrationException("Problema al conseguir habitaciones");				
+		  }finally{
+			  closeConnectionDataBase();
+		  }
+
 	}
 	
 	private Date stringToDate(String s) throws BookIntegrationException{
