@@ -43,8 +43,8 @@ public class ShiftFormMod extends JDialog {
 		/* Labels */
 		IDLabel         = new JLabel("ID del turno");
 		nameLabel       = new JLabel("Nuevo nombre turno");
-		checkInLabel    = new JLabel("Nueva hora entrada");
-		checkOutLabel   = new JLabel("Nueva hora salida");
+		checkInLabel    = new JLabel("Nueva hora entrada Ejemplo: hh:mm:ss   09:30:00 ");
+		checkOutLabel   = new JLabel("Nueva hora salida Ejemplo: hh:mm:ss   11:30:00 ");
 		
 		/* text */
 		IDText = new JTextField(20);
