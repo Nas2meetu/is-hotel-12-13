@@ -25,6 +25,9 @@ public class ShiftAppServicesImp implements ShiftAppServices {
 		Time checkin = checkTime(checkIn);
 		Time checkout = checkTime(checkOut);
 		
+		if(t.getShift().length() < 1)
+			throw new ShiftAppServicesException("Introduce un nombre para el turno");
+		
 		if(checkin.getTime() > checkout.getTime()) 
 			throw new ShiftAppServicesException("La hora de entrada tiene que ser menor que la de salida");
 		

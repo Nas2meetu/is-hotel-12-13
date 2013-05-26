@@ -17,6 +17,9 @@ public class ServicesAppServicesImp implements ServicesAppServices {
 		DAOFactory fac = DAOFactory.getInstance();
 		ServicesDAO dao = fac.getServicesDAO();
 		
+		if(t.getServices().length() < 1)
+			throw new ServicesAppServicesException("Introduce un nombre para el turno");
+		
 		try {
 			if (!dao.searchShift(t.getServices())){
 				dao.createService(t);
