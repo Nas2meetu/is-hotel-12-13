@@ -27,7 +27,7 @@ public class BookAppServicesImp implements BookAppServices {
 			Date din = stringToDate(in);
 			Date dout = stringToDate(out);
 			if(din.after(dout)) throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
-			//TODO Testear testear testear
+
 			if (dao.existsServices(t.getServices())){
 				if (dao.existsRooms(t.getIdRoom())){
 					if (dao.emptyRooms(t.getIdRoom(),din,dout)){
@@ -103,7 +103,6 @@ public class BookAppServicesImp implements BookAppServices {
 				throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
 			}
 			else
-			//TODO comprobar a saco gente
 			if (dao.searchBook(t.getIdBook())){				
 				if (dao.existsServices(t.getServices())){
 					if (dao.existsRooms(t.getIdRoom())){

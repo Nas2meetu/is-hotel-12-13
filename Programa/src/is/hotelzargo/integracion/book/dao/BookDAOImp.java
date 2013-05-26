@@ -487,21 +487,13 @@ public class BookDAOImp implements BookDAO {
 					  //se comprueba que esa habitacion no este entre la fecha de entrada y salida
 					  //ya ocupada
 					  if (rooms.contains(room)){
-						  if ((inBook.after(in) && inBook.before(out))){
-							  if (outBook.after(in) && outBook.before(out)){
-								  return false;
-							  }
-						  }
-					  }
-					  
-					  //si alguna fecha coincide es falso tambien
-					  if (inBook.getDay() == in.getDay() || inBook.getDay() == out.getDay()){
-
-						  return false; 
-					  } 
-					  
-					  if (outBook.getDay() == in.getDay() || outBook.getDay() == out.getDay())
+						  if ((inBook.after(in) && inBook.before(out)))
 							  return false;
+						  
+						  if (outBook.after(in) && outBook.before(out))
+								  return false;
+						  
+					  }
 					  
 				  }
 				  					
