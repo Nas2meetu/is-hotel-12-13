@@ -2,7 +2,6 @@ package is.hotelzargo.presentacion.book.gui;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
-import is.hotelzargo.presentacion.maingui.MainFrameImp;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -22,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -38,7 +35,6 @@ public class BookFrameImp extends BookFrame {
 	private JButton exit;
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
 
 	private BookFormAdd addForm;
 	private BookFormDel delForm;

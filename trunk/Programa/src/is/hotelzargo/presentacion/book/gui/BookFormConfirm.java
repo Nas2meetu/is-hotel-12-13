@@ -82,6 +82,7 @@ public class BookFormConfirm extends JDialog {
 		}
 		
 		Controller.getInstance().event(Event.CONFIRM_BOOK,id,null);
+		exit();
 	}
 	
 	private void addListener(){

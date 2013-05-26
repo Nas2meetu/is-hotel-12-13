@@ -79,6 +79,7 @@ public class BookFormDel extends JDialog {
 			return;
 		}
 		Controller.getInstance().event(Event.DELETE_BOOK,id,null);
+		exit();
 	}
 	
 	private void addListener(){

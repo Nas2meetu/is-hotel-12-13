@@ -1,9 +1,6 @@
 package is.hotelzargo.presentacion.book.gui;
 
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 import is.hotelzargo.presentacion.maingui.RenderList;
@@ -12,24 +9,24 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.List;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class BookFormList extends JDialog {
 	
-	private JTextArea listTextArea;
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -38,7 +35,7 @@ public class BookFormList extends JDialog {
 	
 	private RenderList renderList;
 	
-	private int mode;// 0 mostrar, 1 añadir reserva, 2 modificar
+	private JList list;
 	
 	public BookFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -57,6 +54,8 @@ public class BookFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list = new JList();
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -69,45 +68,41 @@ public class BookFormList extends JDialog {
 		
 	}
 	
-	public void setShowMode(int mode){
-		this.mode = mode;
-	}
-	
 	private void exit(){
 		this.setVisible(false);
 		//listTextArea.setText("");
 	}
 	
-	private BookTransfer createT(){
-		return new BookTransfer(-1,null,123,null,null,100,2,null,true);
-	}
-	
 	private void setText(){
+		@SuppressWarnings("unchecked")
 		Vector<BookTransfer> bookList = //new Vector<BookTransfer>(); 
 				(Vector<BookTransfer>) Controller.getInstance().event(Event.LIST_BOOK,null,null);
 				
 				/*for(int j = 0; j < 10 ; j++){
 					bookList.add(createT());
 				}*/
-				
+		DefaultListModel model = new DefaultListModel();
 				String text[] = new String[bookList.size()];
-				if(bookList != null){
+				if(!bookList.isEmpty()){
 					for(int i = 0; i < bookList.size(); i++){
 						BookTransfer t = bookList.elementAt(i);
 					
-						text[i] =((BookTransfer) t).getIdBook()+System.getProperty("line.separator")+
-								 ((BookTransfer) t).getIdClient()+System.getProperty("line.separator")+
-								 ((BookTransfer) t).getDeposit()+System.getProperty("line.separator")+
-								 ((BookTransfer) t).getNumPerson();
+						text[i] ="Reserva"+System.getProperty("line.separator")+
+								 "ID: "+((BookTransfer) t).getIdBook()+System.getProperty("line.separator")+
+								 "Cliente: "+((BookTransfer) t).getIdClient()+System.getProperty("line.separator")+
+								 "Fianza: "+((BookTransfer) t).getDeposit()+System.getProperty("line.separator")+
+								 "Numero de personas: "+((BookTransfer) t).getNumPerson();
+						model.addElement(text[i]);
 					}
 				}
 				else{
 					text[0] = "No hay clientes";
+					model.addElement(text[0]);
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
 
-				JList list = new JList(text);
+				list.setModel(model);
 				list.setCellRenderer(renderList);
 				renderPanel.add(list, BorderLayout.CENTER);
 		        //renderPanel.add(list);
@@ -154,6 +149,29 @@ public class BookFormList extends JDialog {
 			
 			@Override
 			public void windowActivated(WindowEvent arg0) {
+				
+			}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				setText();
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
 				
 			}
 		});

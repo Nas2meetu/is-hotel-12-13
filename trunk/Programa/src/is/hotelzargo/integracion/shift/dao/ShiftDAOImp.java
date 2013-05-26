@@ -293,7 +293,7 @@ public class ShiftDAOImp implements ShiftDAO {
         
      // Establecemos la conexión con la base de datos.
         try {
-        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
+        	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "1234");
 		} catch (SQLException e) {
 			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ShiftIntegrationException("Conexion rechazada");

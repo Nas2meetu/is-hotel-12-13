@@ -7,7 +7,6 @@ import is.hotelzargo.presentacion.commandfactory.Command;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
-import java.sql.Date;
 import java.util.Vector;
 
 public class CommandActionFindBook implements Command {
