@@ -124,7 +124,7 @@ public class EmployeeFormList extends JDialog {
 			
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				setText();
+				
 			}
 			
 			@Override
