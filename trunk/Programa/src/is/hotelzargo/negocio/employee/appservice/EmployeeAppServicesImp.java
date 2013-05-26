@@ -110,7 +110,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeAdmin(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI())){
+				if (!dao.searchEmployeeByID(t.getId())){
 					if (dao.existsShift(t.getShift())){
 						dao.updateEmployeeAdmin(t);
 					}
@@ -131,7 +131,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 			checkDataEmployeeServices(t);
 			
 			try{
-				if (!dao.searchEmployee(t.getDNI())){
+				if (!dao.searchEmployeeByID(t.getId())){
 					if (dao.existsShift(t.getShift())){
 						dao.updateEmployeeServices(t);
 					}
