@@ -118,7 +118,7 @@ public class BookFormMod extends JDialog {
 		buttonPanel.add(acceptButton);
 		buttonPanel.add(cancelButton);
 		
-		this.setLayout(new GridLayout(7, 1, 5, 5));
+		this.setLayout(new GridLayout(9, 1, 5, 5));
 		this.add(idPanel);
 		this.add(roomsPanel);
 		this.add(clientPanel);
