@@ -237,16 +237,17 @@ public class BookDAOImp implements BookDAO {
 		
 		String QueryString = "SELECT * FROM Books WHERE idBooks='"+id+"';";
 		  try {
-			rs = statement.executeQuery(QueryString);			
+			  Statement statementTwo = connection.createStatement();
+			  ResultSet rsB = statementTwo.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  while (rsB.next()) {
 				  				  
-					int idClient = rs.getInt(2);
-					Date checkIn = rs.getDate(3);
-					Date checkOut = rs.getDate(4);
-					float deposit = rs.getFloat(5);
-					int numPerson = rs.getInt(6);
-					boolean busy = rs.getBoolean(7);
+					int idClient = rsB.getInt(2);
+					Date checkIn = rsB.getDate(3);
+					Date checkOut = rsB.getDate(4);
+					float deposit = rsB.getFloat(5);
+					int numPerson = rsB.getInt(6);
+					boolean busy = rsB.getBoolean(7);
 					
 					String in = dateToString(checkIn);
 					String out = dateToString(checkOut);
@@ -280,7 +281,8 @@ public class BookDAOImp implements BookDAO {
 		Vector<Integer> rooms = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Rooms_books WHERE idBook='"+idBook+"';";
 		  try {
-			  ResultSet rs3 = statement.executeQuery(QueryString);			
+			  Statement statementTwo = connection.createStatement();
+			  ResultSet rs3 = statementTwo.executeQuery(QueryString);			
 			  while (rs3.next()) {				  				  
 					int idRoom = rs3.getInt(3);
 					rooms.add(idRoom);				  
@@ -303,7 +305,8 @@ public class BookDAOImp implements BookDAO {
 		Vector<Integer> services = new Vector<Integer>();
 		String QueryString = "SELECT * FROM Services_books WHERE idBook='"+idBook+"';";
 		  try {
-			  ResultSet rs2 = statement.executeQuery(QueryString);			
+			  Statement statementTwo = connection.createStatement();
+			  ResultSet rs2 = statementTwo.executeQuery(QueryString);			
 			  while (rs2.next()) {				  				  
 					int idService = rs2.getInt(3);
 					//Ya no hace falta porque ahora guardo los IDs
@@ -352,17 +355,13 @@ public class BookDAOImp implements BookDAO {
 		
 		Vector<BookTransfer> books = new Vector<BookTransfer>();
 		String QueryString = "SELECT idBooks FROM Books;";
-		int cont=0;
 		try{			
 			rs = statement.executeQuery(QueryString);			
 			  while (rs.next()) {				  
 					int id = rs.getInt(1);
-					System.out.println("ID listadooooo "+id);
-					cont++;
-					//BookTransfer book = getBook(id);
-					//books.add(book);				  
+					BookTransfer book = getBook(id);
+					books.add(book);				  
 			  }	
-			  System.out.println("cont "+cont);
 			  return books;
 			  
 		}catch(SQLException e){
@@ -381,7 +380,7 @@ public class BookDAOImp implements BookDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
