@@ -43,8 +43,8 @@ public class ShiftFormAdd extends JDialog {
 		
 		/* Labels */
 		nameLabel       = new JLabel("Nombre");
-		example 		= new JLabel("Ejemplo: hh:mm:ss   09:30:00");
-		example2 		= new JLabel("Ejemplo: hh:mm:ss   11:30:00");
+		example 		= new JLabel("Ejemplo: hh:mm   09:30");
+		example2 		= new JLabel("Ejemplo: hh:mm   11:30");
 		checkInLabel    = new JLabel("Hora entrada");
 		checkOutLabel   = new JLabel("Hora salida");
 
