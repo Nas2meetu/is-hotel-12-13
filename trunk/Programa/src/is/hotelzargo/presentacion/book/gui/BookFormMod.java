@@ -194,12 +194,12 @@ public class BookFormMod extends JDialog {
 	}
 	
 	private void exit(){
-		bookIdText.setText("");
-		roomsText.setText("");
-		checkinText.setText("");
-		checkoutText.setText("");
-		numpersonText.setText("");
-		servicesText.setText("");
+		bookIdText.setText("19");
+		roomsText.setText("21");
+		checkinText.setText("25/09/12 12:12:12");
+		checkoutText.setText("28/09/12 12:12:12");
+		numpersonText.setText("2");
+		servicesText.setText("5");
 		this.setVisible(false);
 	}
 	
