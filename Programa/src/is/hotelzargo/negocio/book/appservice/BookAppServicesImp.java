@@ -101,7 +101,7 @@ public class BookAppServicesImp implements BookAppServices {
 			
 			Date din = stringToDate(in);
 			Date dout = stringToDate(out);
-			
+			if(din.after(dout)) throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
 			//TODO comprobar a saco gente
 			if (dao.searchBook(t.getIdBook())){				
 				if (dao.existsServices(t.getServices())){
@@ -164,6 +164,7 @@ public class BookAppServicesImp implements BookAppServices {
 
 		Date dateIn = stringToDate(checkIn);
 		Date dateOut = stringToDate(checkOut);
+		if(dateIn.after(dateOut)) throw new BookAppServicesException("La fecha de entrada no puede ser posterior a la de salida");
 		
 		try {
 			Vector<Integer> v = dao.findBook(dateIn,dateOut);
