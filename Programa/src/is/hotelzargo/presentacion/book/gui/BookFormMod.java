@@ -5,7 +5,6 @@ import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -173,6 +172,7 @@ public class BookFormMod extends JDialog {
 										  services,
 										  false);//confirmacion no se modifica
 		Controller.getInstance().event(Event.MOD_BOOK,t,null);
+		exit();
 	}
 	
 	private void exit(){

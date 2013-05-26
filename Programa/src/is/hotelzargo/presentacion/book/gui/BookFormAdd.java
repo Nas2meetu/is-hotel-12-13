@@ -1,11 +1,6 @@
 package is.hotelzargo.presentacion.book.gui;
 
 import is.hotelzargo.negocio.book.transfer.BookTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
-import is.hotelzargo.negocio.exception.BookAppServicesException;
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -14,10 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -28,13 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class BookFormAdd extends JDialog {
 	
-	private JLabel nameLabel;
 	private JLabel roomsLabel;
 	private JLabel clientLabel;
 	private JLabel checkInLabel;
@@ -270,7 +259,7 @@ public class BookFormAdd extends JDialog {
 										  false);
 		
 		Controller.getInstance().event(Event.ADD_BOOK,t,null);
-		this.setVisible(false);
+		exit();
 	}
 	
 	private void exit(){

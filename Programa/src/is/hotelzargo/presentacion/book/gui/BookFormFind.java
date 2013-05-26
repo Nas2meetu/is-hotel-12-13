@@ -2,7 +2,9 @@ package is.hotelzargo.presentacion.book.gui;
 
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
+import is.hotelzargo.presentacion.maingui.RenderList;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +13,16 @@ import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.Box;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class BookFormFind extends JDialog {
@@ -48,6 +54,25 @@ public class BookFormFind extends JDialog {
 		
 		addListener();
 		
+		resetForm();
+		
+		this.pack();
+	}
+	
+	private void exit(){
+		checkinText.setText("");
+		checkoutText.setText("");
+		this.getContentPane().removeAll();
+		resetForm();
+		this.pack();
+		this.invalidate();
+		this.validate();
+		this.repaint();
+		this.setVisible(false);
+	}
+	
+	private void resetForm(){
+		
 		JPanel panelIn = new JPanel();
 		panelIn.setLayout(new GridLayout(1,2));
 		panelIn.add(checkinLabel);
@@ -75,28 +100,56 @@ public class BookFormFind extends JDialog {
 		//checkinInfoPanel.add(new JLabel("Formato dd/mm/yy HH:mm:ss"));
 		checkoutInfoPanel.add(new JLabel("Ejemplo: 01/06/12 12:00:00"));
 		
-		this.setLayout(new GridLayout(5,1));
-		this.add(panelIn);
-		this.add(checkinInfoPanel);
-		this.add(panelOut);
-		this.add(checkoutInfoPanel);
-		this.add(panelButtons);
-		
-		this.pack();
-	}
-	
-	private void exit(){
-		this.setVisible(false);
-		checkinText.setText("");
-		checkoutText.setText("");
+		this.getContentPane().setLayout(new GridLayout(5,1));
+		this.getContentPane().add(panelIn);
+		this.getContentPane().add(checkinInfoPanel);
+		this.getContentPane().add(panelOut);
+		this.getContentPane().add(checkoutInfoPanel);
+		this.getContentPane().add(panelButtons);
 	}
 	
 	private void accept(){
 		Vector<String> dates = new Vector<String>();
 		dates.add(checkinText.getText());
 		dates.add(checkoutText.getText());
-		Controller.getInstance().event(Event.FIND_BOOK,dates,null);
-		//TODO recoger los datos y mostrar la lista de habitaciones
+		@SuppressWarnings("unchecked")
+		Vector<Integer> data = (Vector<Integer>) Controller.getInstance().event(Event.FIND_BOOK,dates,null);
+		showList(data);
+	}
+	
+	private void showList(Vector<Integer> rooms){
+		JList list = new JList();
+		DefaultListModel model = new DefaultListModel();
+		this.getContentPane().removeAll();
+		if(rooms != null){
+			for(int i = 0; i < rooms.size(); i++){
+				model.addElement(rooms.get(i));
+			}
+		}else{
+			model.addElement("No hay habitaciones disponibles");
+		}
+		JPanel renderPanel = new JPanel();
+		renderPanel.setLayout(new BorderLayout());
+
+		RenderList renderList = new RenderList();
+		
+		list.setModel(model);
+		list.setCellRenderer(renderList);
+		renderPanel.add(list, BorderLayout.CENTER);
+		
+		JScrollPane scrollPane = new JScrollPane(renderPanel,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		this.getContentPane().removeAll();
+		
+		this.getContentPane().add(scrollPane);
+		
+		this.setSize(500,300);
+		
+		this.invalidate();
+		this.validate();
+		this.repaint();
 	}
 	
 	private void addListener(){
