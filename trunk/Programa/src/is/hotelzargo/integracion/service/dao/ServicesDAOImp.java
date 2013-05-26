@@ -31,7 +31,6 @@ public class ServicesDAOImp implements ServicesDAO {
 					"('"+service+"');" );					
 			
 		} catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al crear servicio");			
 		}finally{
 			closeConnectionDataBase();
@@ -50,7 +49,6 @@ public class ServicesDAOImp implements ServicesDAO {
 			statement.executeUpdate(QueryString);			
 					
 		} catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al eliminar servicio con ID "+id);				
 		}finally{
 			closeConnectionDataBase();
@@ -68,17 +66,15 @@ public class ServicesDAOImp implements ServicesDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {
+			  if (rs.next()) {
 				  
-					String name = rs.getString(1);
-					
+					String name = rs.getString(1);					
 					ServiceTransfer s = new ServiceTransfer(id,name);					
 					return s;
 				  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ServicesIntegrationException("Problema al referenciar servicio con ID "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -112,7 +108,6 @@ public class ServicesDAOImp implements ServicesDAO {
 			  return services;
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al referenciar listado servicios");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -126,8 +121,7 @@ public class ServicesDAOImp implements ServicesDAO {
 		initDataBase();
 		
 		int id = ((ServiceTransfer) t).getId();
-		String name = ((ServiceTransfer) t).getServices();
-		
+		String name = ((ServiceTransfer) t).getServices();		
 
 		//UPDATE
 		String QueryString = "UPDATE Services SET services='"+name+"' WHERE idServices='"+id+"';";
@@ -136,7 +130,6 @@ public class ServicesDAOImp implements ServicesDAO {
 			statement.executeUpdate(QueryString);
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al actualizar servicio "+name);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -154,12 +147,11 @@ public class ServicesDAOImp implements ServicesDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al buscar servicio "+serviceName);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -177,12 +169,11 @@ public class ServicesDAOImp implements ServicesDAO {
 		  try {
 			rs = statement.executeQuery(QueryString);			
 			//solo me devolvera 1 fila
-			  while (rs.next()) {				  					
+			  if (rs.next()) {				  					
 					return true;				  
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new ServicesIntegrationException("Problema al buscar servicio "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -198,7 +189,6 @@ public class ServicesDAOImp implements ServicesDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new ServicesIntegrationException("Conexion rechazada");
         }
         
@@ -207,7 +197,6 @@ public class ServicesDAOImp implements ServicesDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ServicesIntegrationException("Conexion rechazada");
 		}
         
@@ -215,7 +204,6 @@ public class ServicesDAOImp implements ServicesDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ServicesIntegrationException("Conexion rechazada");
 		}        
 		 
@@ -231,7 +219,6 @@ public class ServicesDAOImp implements ServicesDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw new ServicesIntegrationException("Error al desconectar BBDD");
 		}
 	}

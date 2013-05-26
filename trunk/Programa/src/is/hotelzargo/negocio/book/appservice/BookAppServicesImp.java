@@ -81,8 +81,7 @@ public class BookAppServicesImp implements BookAppServices {
 		
 		try {
 			return dao.listBook();
-		} catch (BookIntegrationException e) {
-			e.printStackTrace();
+		} catch (BookIntegrationException e) {			
 			throw new BookAppServicesException(e.getMessage());
 		}
 	}

@@ -1,7 +1,6 @@
 package is.hotelzargo.integracion.shift.dao;
 
 import is.hotelzargo.integracion.exception.ShiftIntegrationException;
-import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 
 import java.sql.Connection;
@@ -10,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class ShiftDAOImp implements ShiftDAO {
@@ -40,8 +37,7 @@ public class ShiftDAOImp implements ShiftDAO {
 			statement.executeUpdate("INSERT INTO Shifts (nameShift, checkIn, checkOut) VALUES " +
 					"('"+nameShift+"','"+in+"', '"+out+ "');" );					
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException e) {			
 			throw new ShiftIntegrationException("Problema al crear turno "+nameShift);			
 		}finally{
 			closeConnectionDataBase();
@@ -72,8 +68,7 @@ public class ShiftDAOImp implements ShiftDAO {
 			  
 			statement.executeUpdate(QueryString);			
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new ShiftIntegrationException("Problema al eliminar turno con ID "+id);				
 		  }finally{
 			  closeConnectionDataBase();
@@ -270,7 +265,6 @@ public class ShiftDAOImp implements ShiftDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new ShiftIntegrationException("Conexion rechazada");
         }
         
@@ -279,7 +273,6 @@ public class ShiftDAOImp implements ShiftDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ShiftIntegrationException("Conexion rechazada");
 		}
         
@@ -287,7 +280,6 @@ public class ShiftDAOImp implements ShiftDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new ShiftIntegrationException("Conexion rechazada");
 		}        
 		 

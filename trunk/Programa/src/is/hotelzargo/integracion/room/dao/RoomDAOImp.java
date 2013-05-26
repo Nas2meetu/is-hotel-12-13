@@ -135,8 +135,7 @@ public class RoomDAOImp implements RoomDAO {
 			  
 			statement.executeUpdate(QueryString);
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new RoomIntegrationException("Problema al actualizar habitacion");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -235,7 +234,6 @@ public class RoomDAOImp implements RoomDAO {
 			  }
 			
 		  } catch (SQLException e) {
-			e.getMessage();
 			throw new RoomIntegrationException("Problema al checkear habitación ");				
 		  }finally{
 			  closeConnectionDataBase();
@@ -252,7 +250,6 @@ public class RoomDAOImp implements RoomDAO {
            Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e)
         {
-        	//JOptionPane.showMessageDialog(null, "Connection refused!");
         	throw new RoomIntegrationException("Conexion rechazada");
         }
         
@@ -261,7 +258,6 @@ public class RoomDAOImp implements RoomDAO {
         try {
 			DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
 		} catch (SQLException e1) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new RoomIntegrationException("Conexion rechazada");
 		}
         
@@ -269,7 +265,6 @@ public class RoomDAOImp implements RoomDAO {
         try {
         	connection = DriverManager.getConnection ("jdbc:mysql://localhost/test","pma", "password");
 		} catch (SQLException e) {
-			//JOptionPane.showMessageDialog(null, "Connection refused!");
 			throw new RoomIntegrationException("Conexion rechazada");
 		}        
 		 
@@ -285,32 +280,25 @@ public class RoomDAOImp implements RoomDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			//
 			throw new RoomIntegrationException("Error al desconectar BBDD");
 		}
 	}
+	
 	//sirve para ver si hay reservas pendientes con la habitacion idRoom,controla que no
 	//se elimine una habitacion con una reserva futura ya establecida
-	//TODO revisar funcionamiento
 	@Override
 	public boolean existsBooksWithRoom(int idRoom)
 			throws RoomIntegrationException {
 		
 		initDataBase();
 		Date date = null;
-		Statement statBook = null;
-		
-		try {
-			statBook = connection.createStatement();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		String QueryString = "SELECT idBook FROM Rooms_books WHERE idRoom='"+idRoom+"';";
 		String currentTime = "SELECT CURDATE();";
 		  try {
-			rs = statement.executeQuery(currentTime);			
+			rs = statement.executeQuery(currentTime);
+			//Statement statBook = connection.createStatement();
 
 			  if (rs.next()) {
 				  date = rs.getDate(1);
@@ -341,8 +329,7 @@ public class RoomDAOImp implements RoomDAO {
 				  					  
 			  }
 			
-		  } catch (SQLException e) {
-			e.printStackTrace();
+		  } catch (SQLException e) {			
 			throw new RoomIntegrationException("Problema al checkear habitación ");				
 		  }finally{
 			  closeConnectionDataBase();

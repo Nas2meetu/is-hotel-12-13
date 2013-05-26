@@ -36,8 +36,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 					throw new EmployeeAppServicesException("DNI empleado repetido");
 				}
 
-			} catch (EmployeeIntegrationException e) {
-				e.printStackTrace();
+			} catch (EmployeeIntegrationException e) {				
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 					
@@ -57,8 +56,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 				else{
 						throw new EmployeeAppServicesException("DNI empleado repetido");
 				} 
-			} catch (EmployeeIntegrationException e) {
-				e.printStackTrace();
+			} catch (EmployeeIntegrationException e) {				
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 		}
@@ -123,7 +121,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 				}
 						
 			} catch (EmployeeIntegrationException e) {
-				e.printStackTrace();
+				
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 					
@@ -145,8 +143,7 @@ public class EmployeeAppServicesImp implements EmployeeAppServices {
 					throw new EmployeeAppServicesException("El empleado a modificar no existe");
 				}
 
-			} catch (EmployeeIntegrationException e) {
-				e.printStackTrace();
+			} catch (EmployeeIntegrationException e) {				
 				throw new EmployeeAppServicesException(e.getMessage());
 			}
 		}
