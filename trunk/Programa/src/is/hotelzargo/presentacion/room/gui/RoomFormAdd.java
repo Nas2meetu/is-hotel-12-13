@@ -113,6 +113,7 @@ public class RoomFormAdd extends JDialog {
 		t = new RoomTransfer(-1, numBeds,numRoom,price);
 
 		Controller.getInstance().event(Event.ADD_ROOM, t, null);
+		exit();
 	}
 
 	private void exit() {

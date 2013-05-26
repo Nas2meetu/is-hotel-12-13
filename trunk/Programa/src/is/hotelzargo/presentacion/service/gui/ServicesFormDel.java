@@ -75,6 +75,7 @@ public class ServicesFormDel extends JDialog {
 		}
 		
 		Controller.getInstance().event(Event.DELETE_SERVICE,id,null);
+		exit();
 	}
 	
 	private void addListener(){

@@ -1,7 +1,5 @@
 package is.hotelzargo.presentacion.shift.command.appservices;
 
-import java.util.Vector;
-
 import is.hotelzargo.negocio.exception.ShiftAppServicesException;
 import is.hotelzargo.negocio.facade.Facade;
 import is.hotelzargo.negocio.factory.BusinessFactory;

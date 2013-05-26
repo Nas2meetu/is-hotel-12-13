@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
@@ -76,7 +78,7 @@ public class EmployeeFormList extends JDialog {
 		
 		DefaultListModel model = new DefaultListModel();
 		String text[] = new String[clientList.size()];
-		if(clientList.isEmpty()){
+		if(!clientList.isEmpty()){
 			for(int i = 0; i < clientList.size(); i++){
 				EmployeeTransfer t = clientList.elementAt(i);
 				if (t instanceof EmployeeTransferAdmin){
@@ -98,10 +100,12 @@ public class EmployeeFormList extends JDialog {
 							 "Turno: "+((EmployeeTransferServices) t).getShift()+System.getProperty("line.separator")+
 							 "Sueldo: "+((EmployeeTransferServices) t).getPay();
 				}
+				model.addElement(text[i]);
 			}
 		}
 		else{
 			text[0] = "No hay empleados";
+			model.addElement(text[0]);
 		}
 		
 		renderPanel.setLayout(new BorderLayout());
@@ -154,7 +158,30 @@ public class EmployeeFormList extends JDialog {
 				
 			}
 		});
+			
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				setText();
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
 				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				
+			}
+		});
+		
 		exitButton.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

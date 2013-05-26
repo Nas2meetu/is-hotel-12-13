@@ -1,9 +1,5 @@
 package is.hotelzargo.presentacion.service.gui;
 
-import is.hotelzargo.presentacion.client.gui.ClientFormAdd;
-import is.hotelzargo.presentacion.client.gui.ClientFormDel;
-import is.hotelzargo.presentacion.client.gui.ClientFormList;
-import is.hotelzargo.presentacion.client.gui.ClientFormMod;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
 
@@ -36,7 +32,6 @@ public class ServicesFrameImp extends ServicesFrame {
 	private JButton exit;
 	private ImageIcon hotelImage; // imagen hotel
 	private JLabel lbHotelIcon; // etiqueta con imagen hotel
-	private JPanel mainPanel;
 	
 	private ServicesFormAdd addForm;
 	private ServicesFormDel delForm;

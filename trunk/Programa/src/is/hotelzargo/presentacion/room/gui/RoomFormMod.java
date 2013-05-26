@@ -1,11 +1,5 @@
 package is.hotelzargo.presentacion.room.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
-import is.hotelzargo.negocio.employee.transfer.EmployeeTransfer;
-import is.hotelzargo.negocio.employee.transfer.EmployeeTransferAdmin;
-import is.hotelzargo.negocio.employee.transfer.EmployeeTransferServices;
 import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -22,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -142,6 +135,7 @@ public class RoomFormMod extends JDialog {
 		t = new RoomTransfer(id, numBeds,numRoom,price);
 
 		Controller.getInstance().event(Event.MOD_ROOM, t, null);
+		exit();
 	}
 	
 	private void addListener(){

@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
@@ -79,7 +81,7 @@ public class ClientFormList extends JDialog {
 				
 				DefaultListModel model = new DefaultListModel();
 				String text[] = new String[clientList.size()];
-				if(clientList.isEmpty()){
+				if(!clientList.isEmpty()){
 					for(int i = 0; i < clientList.size(); i++){
 						ClientTransfer t = clientList.elementAt(i);
 						if (t instanceof ClientTransferIndividual){
@@ -106,6 +108,7 @@ public class ClientFormList extends JDialog {
 				}
 				else{
 					text[0] = "No hay clientes";
+					model.addElement(text[0]);
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
@@ -159,6 +162,29 @@ public class ClientFormList extends JDialog {
 			
 			@Override
 			public void windowActivated(WindowEvent arg0) {
+				
+			}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				setText();
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
 				
 			}
 		});

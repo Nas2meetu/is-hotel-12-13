@@ -1,9 +1,5 @@
 package is.hotelzargo.presentacion.service.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
-import is.hotelzargo.negocio.room.transfer.RoomTransfer;
 import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -13,23 +9,24 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class ServicesFormList extends JDialog {
 	
-	private JTextArea listTextArea;
 	private JScrollPane scrollPane;
 	
 	private JPanel renderPanel;
@@ -37,6 +34,8 @@ public class ServicesFormList extends JDialog {
 	private JButton exitButton;
 	
 	private RenderList renderList;
+	
+	private JList list;
 	
 	public ServicesFormList(JFrame owner, boolean mod){
 		super(owner,mod);
@@ -55,6 +54,8 @@ public class ServicesFormList extends JDialog {
 		
 		exitButton = new JButton("Salir");
 		
+		list  = new JList();
+		
 		addListener();
 		
 		this.setLayout(new GridLayout(1, 1));
@@ -68,29 +69,33 @@ public class ServicesFormList extends JDialog {
 	}
 	
 	private void setText(){
+		@SuppressWarnings("unchecked")
 		Vector<ServiceTransfer> serviceList = //new Vector<ClientTransfer>(); 
 				(Vector<ServiceTransfer>) Controller.getInstance().event(Event.LIST_SERVICE,null,null);
 				/*
 				for(int j = 0; j < 10 ; j++){
 					clientList.add(createT());
 				}*/
-				
+		DefaultListModel model = new DefaultListModel();
 				String text[] = new String[serviceList.size()];
-				if(serviceList != null){
+				if(!serviceList.isEmpty()){
 					for(int i = 0; i < serviceList.size(); i++){
 						ServiceTransfer t = serviceList.elementAt(i);
 						
-						text[i] = t.getId()+System.getProperty("line.separator")+
-								  t.getServices();
+						text[i] = "Servicios"+System.getProperty("line.separator")+
+								  "ID: "+t.getId()+System.getProperty("line.separator")+
+								  "Nombre: "+t.getServices();
+						model.addElement(text[i]);
 					}
 				}
 				else{
 					text[0] = "No hay servicios";
+					model.addElement(text[0]);
 				}
 				
 				renderPanel.setLayout(new BorderLayout());
 				
-				JList list = new JList(text);
+				list.setModel(model);
 		        list.setCellRenderer(renderList);
 		        renderPanel.add(list, BorderLayout.CENTER);
 	}
@@ -134,6 +139,29 @@ public class ServicesFormList extends JDialog {
 			
 			@Override
 			public void windowActivated(WindowEvent arg0) {
+				
+			}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				setText();
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
 				
 			}
 		});

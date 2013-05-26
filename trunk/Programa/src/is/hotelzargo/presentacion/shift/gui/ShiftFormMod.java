@@ -1,9 +1,5 @@
 package is.hotelzargo.presentacion.shift.gui;
 
-import is.hotelzargo.negocio.client.transfer.ClientTransfer;
-import is.hotelzargo.negocio.client.transfer.ClientTransferCompany;
-import is.hotelzargo.negocio.client.transfer.ClientTransferIndividual;
-import is.hotelzargo.negocio.service.transfer.ServiceTransfer;
 import is.hotelzargo.negocio.shift.transfer.ShiftTransfer;
 import is.hotelzargo.presentacion.controller.Controller;
 import is.hotelzargo.presentacion.controller.Event;
@@ -13,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.Time;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -124,6 +118,7 @@ public class ShiftFormMod extends JDialog {
 		 ShiftTransfer t = new ShiftTransfer(id,nameText.getText(),checkInText.getText(),checkOutText.getText());
 		
 		Controller.getInstance().event(Event.MOD_SHIFT,t,null);
+		exit();
 	}
 	
 	private void addListener(){

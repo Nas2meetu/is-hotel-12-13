@@ -74,6 +74,7 @@ public class RoomFormDel extends JDialog {
 			return;
 		}
 		Controller.getInstance().event(Event.DELETE_ROOM,id,null);
+		exit();
 	}
 	
 	private void addListener(){

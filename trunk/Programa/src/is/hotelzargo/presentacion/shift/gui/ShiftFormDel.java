@@ -74,6 +74,7 @@ public class ShiftFormDel extends JDialog {
 			return;
 		}
 		Controller.getInstance().event(Event.DELETE_SHIFT,id,null);
+		exit();
 	}
 	
 	private void addListener(){
